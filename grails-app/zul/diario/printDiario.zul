@@ -1,0 +1,213 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">-->
+
+<window mode="popup" apply="grailsBindComposer"
+        viewModel="@id('vm') @init('printDiarioViewModel')">
+
+    <hbox align="center">
+        <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+    </hbox>
+
+    <grid width="750px">
+        <auxhead>
+            <auxheader style="font-size:14pt;text-align:center" label="Diário" colspan="1"/>
+            <auxheader style="font-size:14pt;text-align:right" label="Nº." colspan="1"/>
+            <auxheader style="font-size:14pt;text-align:" label="@load(vm.diario.numeroDoDiario)" colspan="1"/>
+
+        </auxhead>
+        <columns>
+            <column label="Data de Referência"/>
+            <column label="Data de Criação "/>
+            <column label="Data de atualização"/>
+
+        </columns>
+        <rows>
+            <row>
+                <label value="@load(vm.diario.dataDeReferencia)@converter('formatedDate', format='dd/MM/yy')"/>
+                <label value="@load(vm.diario.dateCreated)@converter('formatedDate', format='dd/MM/yy')"/>
+                <label value="@load(vm.diario.lastUpdated)@converter('formatedDate', format='dd/MM/yy')"/>
+            </row>
+
+        </rows>
+
+    </grid>
+    <grid width="750px" model="@bind(vm.parcelas)">
+
+        <auxhead>
+            <auxheader style="font-size:13pt;text-align:center" label="Recebimentos" colspan="12"/>
+        </auxhead>
+        <columns>
+            <column sort="auto(numeroDoRecibo)" width="80px" label="Recibo. Nº"/>
+            <column sort="auto(nome)" width="150px" label="Cliente"/>
+            <column sort="auto(utilizador)" width="100px" label="Gestor"/>
+            <column sort="auto(descricao)" width="120px" label="Descrição"/>
+            <!-- <column sort="auto(dateCreated)" width="80px" label="Gerado em:"/>-->
+                <column sort="auto(dataDePagamento)" width="50px" label="d. de P."/>
+                <column sort="auto(formaDePagamento)" width="90px" label="Forma de Pag."/>
+                <column sort="auto(valorPago)" width="100px" label="Valor Pago"/>
+                <column sort="auto(utilizador)" width="50px" label="Utilizador"/>
+
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@bind(each.numeroDoRecibo)"/>
+                    <label value="@bind(each.nomeDoCliente)"/>
+                    <label value="@bind(each.pagamento.credito.cliente.utilizador)"/>
+                    <label value="@bind(each.descricao)"/>
+                    <!-- <label value="@bind(each.dateCreated)@converter('formatedDate', format='hh:mm-dd/MM')"/>-->
+                    <label value="@bind(each.dataDePagamento)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.formaDePagamento)"/>
+
+                    <label value="@bind(each.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.utilizador.username)"/>
+                </row>
+            </template>
+            <foot>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer>Total:</footer>
+                <footer>
+                    <label style="font-size:12pt"
+                           value="@load(vm.totalParcelas)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+            </foot>
+        </grid>
+        <grid width="750px" model="@bind(vm.saidasAtivas)">
+            <auxhead>
+
+                <auxheader style="font-size:14pt;text-align:center" label="Recebimentos-Bancos" colspan="8"/>
+            </auxhead>
+            <columns>
+
+                <column sort="auto(dateCreated)" width="80px" label="date Created"/>
+                <column sort="auto(dataDePagamento)" width="80px" label="data de Pag."/>
+                <column sort="auto(descricao)" width="100px" label="Descrição"/>
+                <column sort="auto(origem)" width="145px" label="C. Origem"/>
+                <column sort="auto(destino)" width="145px" label="C. Destino"/>
+                <column sort="auto(valor)" width="105px" label="Valor"/>
+                <column sort="auto(utilizador)" width="90px" label="Utilizador"/>
+            </columns>
+            <template name="model">
+                <row>
+
+                    <label value="@bind(each.dateCreated)@converter('formatedDate', format='hh:mm-dd/MM')"/>
+                    <label value="@bind(each.dataDePagamento)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.descricao)"/>
+                    <label value="@bind(each.origem.designacaoDaConta)"/>
+                    <label value="@bind(each.destino.designacaoDaConta)"/>
+                    <label value="@bind(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.utilizador.username)"/>
+                </row>
+            </template>
+            <foot>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+
+                <footer>
+                    <label value="Total"/>
+                </footer>
+                <footer>
+                    <label style="font-size:12pt" value="@load(vm.totalSaidasAtivas)"/>
+                </footer>
+                <footer/>
+            </foot>
+        </grid>
+        <grid width="750px" model="@bind(vm.saidasPassivas)">
+            <auxhead>
+
+                <auxheader style="font-size:14pt;text-align:center" label="Saidas" colspan="8"/>
+            </auxhead>
+            <columns>
+
+                <column sort="auto(dateCreated)" width="80px" label="dateCreated"/>
+                <column sort="auto(dateCreated)" width="80px" label="data de Pag."/>
+                <column sort="auto(descricao)" width="105px" label="Descrição"/>
+                <column sort="auto(origem)" width="135px" label="C. Origem"/>
+                <column sort="auto(destino)" width="135px" label="C. Destino"/>
+                <column sort="auto(valor)" width="110px" label="Valor"/>
+                <column sort="auto(utilizador)" width="100px" label="Utilizador"/>
+            </columns>
+            <template name="model">
+                <row>
+
+                    <label value="@bind(each.dateCreated)@converter('formatedDate', format='hh:mm-dd/MM')"/>
+                    <label value="@bind(each.dataDePagamento)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.descricao)"/>
+                    <label value="@bind(each.origem.designacaoDaConta)"/>
+                    <label value="@bind(each.destino.designacaoDaConta)"/>
+                    <label value="@bind(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.utilizador.username)"/>
+                </row>
+            </template>
+            <foot>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+
+                <footer>
+                    <label value="Total"/>
+                </footer>
+                <footer>
+                    <label style="font-size:12pt" value="@load(vm.totalSaidasPassivas)"/>
+                </footer>
+                <footer/>
+            </foot>
+        </grid>
+        <grid width="750px">
+            <rows>
+                <row>
+                    <label style="font-size:12pt" value="Total Recebimentos"/>
+                    <label style="font-size:12pt"
+                           value="@load(vm.totalParcelas)@converter('formatedNumber', format='###,##0.00')"/>
+                </row>
+                <row>
+                    <label style="font-size:12pt" value="Total Saidas"/>
+                    <label style="font-size:12pt"
+                           value="@load(vm.totalSaidas)@converter('formatedNumber', format='###,##0.00')"/>
+                </row>
+                <row>
+                    <label style="font-size:12pt" value="Saldo em Caixa"/>
+                    <label style="font-size:12pt"
+                           value="@load(vm.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                </row>
+            </rows>
+        </grid>
+        <grid width="750px" style="margin-top:20px">
+            <auxhead>
+                <auxheader colspan="2" label="Assinaturas"/>
+            </auxhead>
+            <columns>
+                <column width="50%">
+                    <label value="Responsável da CAIXA"/>
+                </column>
+                <column width="50%">
+                    <label value="GERENTE"/>
+                </column>
+            </columns>
+            <rows>
+                <row>
+                    <textbox cols="2" width="100%"/>
+                    <textbox cols="2" width="100%"/>
+                </row>
+                <row>
+                    <textbox cols="2" width="100%"/>
+                    <textbox cols="2" width="100%"/>
+                </row>
+
+            </rows>
+        </grid>
+
+</window>
+
+        <!--
+        </zk>-->

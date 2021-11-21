@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="mz.maleyanga dev" uuid="b53b2970-7a12-477c-a5d5-fe7437d2f8ad">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/maleyangapro</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$PROJECT_DIR$/../lua/lib/postgresql-9.3-1102.jdbc41.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>

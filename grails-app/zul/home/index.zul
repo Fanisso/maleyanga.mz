@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window onClose="@command('closeWin')" closable="true" id="win_home" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('indexViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        Abrir links em novas abas
+        <button onClick="@command('change')" label="@load(vm.blank)"/>
+        <grid>
+            <columns sizable="true">
+                <column label="" sortAscending="&#36;{asc}" sortDescending="&#36;{dsc}" width="50%"/>
+                <column label="" width="50%"/>
+            </columns>
+            <rows>
+                <row>
+
+                </row>
+
+            </rows>
+        </grid>
+        <grid>
+
+            <rows>
+                <row>
+                    <cell style="background:#69f4af" colspan="2">
+                        <label width="100px" value="Total:"/>
+                        <label width="100px" value="@load(vm.clientesEmDivida.size())"/>
+                    </cell>
+
+                </row>
+                <row>
+                    <listbox style="@bind('style')"
+                             model="@load(vm.clientesEmDivida)" selectedItem="@bind(vm.cliente)"
+                             width="100%"
+                             height="" mold="paging" pageSize="10">
+                        <listhead>
+                            <listheader width="" sort="auto(nome)" label="Nome"/>
+                            <listheader width="30%" sort="auto(totalEmDivida)" label="Total Em Díovida"/>
+                            <listheader width="30%" label="Contacto"/>
+
+                        </listhead>
+                        <template name="model" var="item" status="s">
+
+                            <listitem onFulfill="@command(showDetails)" style="@bind('style'))">
+
+                                <listcell onClick="@command(showDetails)" style="border:none">
+                                    <label focus="true"
+                                           style="border:none"
+                                           width="100%"
+                                           value="@bind(item.nome)"/>
+                                </listcell>
+                                <listcell style="border:none">
+                                    <label width="100%"
+                                           value="@bind(item.totalEmDivida) @converter('formatedNumber', format='###,##0.00') "/>
+                                </listcell>
+                                <listcell style="border:none">
+                                    <label width="100%" value="@bind(item.telefone)  "/>
+                                </listcell>
+
+
+                            </listitem>
+                        </template>
+                        <!-- <listfoot>
+
+                             <listfooter align="right" label="Total "/>
+                             <listfooter align="right">
+                                &lt;!&ndash; <label style="font-size:15pt;font-weight:bold;border:none"
+                                        value="@load(vm.valor)@converter('formatedNumber', format='###,##0.00')"/>&ndash;&gt;
+                             </listfooter>
+                         </listfoot>-->
+                    </listbox>
+                    <listbox style="@bind('style')"
+                             model="@load(vm.cliente.creditos)"
+                             width="100%"
+                             height="" mold="paging" pageSize="10">
+                        <listhead>
+                            <listheader width="100px" sort="auto" label="Crédito Nº:."/>
+                            <listheader width="90px" sort="auto" label="Data"/>
+                            <listheader width="130px" sort="auto" label="Crédito"/>
+
+                            <listheader width="" sort="auto" label="Débito"/>
+
+                        </listhead>
+                        <template name="model" var="item" status="s">
+
+                            <listitem onFulfill="@command(showDetails)" style="@bind('style'))">
+
+                                <listcell onClick="@command(showDetails)" style="border:none">
+                                    <label value="@bind(item.numeroDoCredito)"/>
+
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(item.dateConcecao) @converter('formatedDate', format='dd/MM/yy')"/>
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(item.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                </listcell>
+
+                                <listcell>
+                                    <label value="@bind(item.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                                </listcell>
+
+                                <listcell/>
+
+
+                            </listitem>
+                        </template>
+                        <!-- <listfoot>
+
+                             <listfooter align="right" label="Total "/>
+                             <listfooter align="right">
+                                &lt;!&ndash; <label style="font-size:15pt;font-weight:bold;border:none"
+                                        value="@load(vm.valor)@converter('formatedNumber', format='###,##0.00')"/>&ndash;&gt;
+                             </listfooter>
+                         </listfoot>-->
+                    </listbox>
+
+                </row>
+                <row>
+
+                </row>
+            </rows>
+
+
+        </grid>
+
+    </window>
+
+</zk>

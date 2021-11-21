@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printExtratoDeCreditoViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+
+        <grid style="margin-top:20px" width="750px">
+            <columns>
+                <column width="200px"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:16pt" value="Extrato de crédito"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="2" style="text-align:left">
+                        <label style="font-size:14pt" value="Dados do Cliente"/>
+                    </cell>
+                    <cell colspan="1" style="text-align:left">
+                        <label value="Operador:  "/>
+                        <label value="@load(vm.creditoInstance.utilizador)"/>
+                    </cell>
+                </row>
+                <row>
+                    <label value="ID:"/>
+                    <label value="@load(vm.creditoInstance.cliente.id)"/>
+                    <cell colspan="1" style="text-align:left">
+                        <label value="Gestor:  "/>
+                        <label value="@load(vm.creditoInstance.cliente.utilizador.username)"/>
+                    </cell>
+                </row>
+
+                <row>
+                    <label value="Nome:"/>
+                    <cell colspan="2">
+                        <label value="@load(vm.creditoInstance.cliente.nome)"/>
+                    </cell>
+
+                </row>
+                <row>
+
+                    <cell colspan="2">
+                        <label value="@load(vm.creditoInstance.cliente.tipoDeIndentificacao)"/>
+
+                        <label value=" Nº "/>
+                        <label value="@load(vm.creditoInstance.cliente.numeroDeIndentificao)"/>
+                    </cell>
+                    <cell colspan="2">
+                        <label value="Telf.:"/>
+                        <label value="@load(vm.creditoInstance.cliente.telefone)"/>
+                    </cell>
+                </row>
+
+                <row>
+                    <cell colspan="4" style="text-align:center">
+                        <label style="font-size:14pt" value="Dados de crédito"/>
+                    </cell>
+
+                </row>
+                <row>
+
+                    <label value="Data da Concessão"/>
+                    <label value="@load(vm.creditoInstance.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy') "/>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="V. por prestação: "/>
+                        <label value="@load(vm.valorDaPrestacao)@converter('formatedNumber', format='###,##0.00') "/>
+                    </cell>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Juros: "/>
+                        <label value="@load(vm.creditoInstance.percentualDejuros)@converter('formatedNumber', format='#,##.##%') "/>
+                    </cell>
+
+                </row>
+                <row>
+
+                    <label value="Valor Creditado:"/>
+                    <label value="@load(vm.creditoInstance.valorCreditado)@converter('formatedNumber', format='MZN###,##0.00') "/>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Juros De Mora: "/>
+                        <label value="@load(vm.creditoInstance.percentualJurosDeDemora)@converter('formatedNumber', format='#,##.##%') "/>
+                    </cell>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Periodicidade: "/>
+                        <label value="@load(vm.creditoInstance.periodicidade)"/>
+                    </cell>
+                </row>
+                <row>
+                    <label value=" Crédito Nº:"/>
+                    <label value="@load(vm.creditoInstance.numeroDoCredito)"/>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Nº de Prestações: "/>
+                        <label value="@load(vm.numeroDePrestacoesEmDia) "/>
+                        <label value="/"/>
+
+                        <label value="@load(vm.numeroDePrestacoes) "/>
+                    </cell>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Forma de cálculo: "/>
+                        <label value="@load(vm.creditoInstance.formaDeCalculo) "/>
+                    </cell>
+
+                </row>
+                <row>
+
+
+                </row>
+
+            </rows>
+        </grid>
+
+        <div>
+            <listbox style="@bind('style')"
+                     model="@load(vm.extratoDeCreditos)" width="750px"
+                     height="">
+
+                <listhead sizable="true">
+
+                    <listheader width="55px" label="Data" align="left"/>
+                    <listheader width="192px" label="Descrição" align="left"/>
+
+                    <listheader width="90px" label="Debito" align="left"/>
+                    <listheader width="90px" label="Crédito" align="left"/>
+                    <!-- <listheader width="100px" label="Juros" align="left"/>-->
+
+                    <listheader width="90px" label="Valor e. Mora" align="left"/>
+                    <listheader width="90px" label="Juros De Mora" align="left"/>
+                    <listheader width="50px" label="Moras" align="left"/>
+                    <listheader width="91px" label="Saldo" align="left"/>
+                </listhead>
+                <template name="model" status="s">
+
+                    <listitem>
+
+
+                        <listcell label="@load(each.data)@converter('formatedDate', format='dd/MM/yy')"/>
+                        <listcell label="@load(each.descricao)"/>
+
+                        <listcell style="background:#95d5b2;color:black;font-weight:bold;border:none"
+                                  label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                        <listcell style="background:#caf0f8;color:black;font-weight:bold;border:none"
+                                  label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+
+
+                        <listcell style="background:#edba8b;color:black;font-weight:bold;border:none"
+                                  label="@load(each.valorEmMora)@converter('formatedNumber', format='###,##0.00')"/>
+                        <listcell style="background:#f2dac6;color:black;font-weight:bold;border:none"
+                                  label="@load(each.jurosDeMora)@converter('formatedNumber', format='###,##0.00')"/>
+                        <!--   <listcell style="background:#f2dac6;color:black;font-weight:bold;border:none"
+                                     label="@load(each.saldoMora)@converter('formatedNumber', format='###,##0.00')"/>-->
+                        <listcell style="background:#d2dac0;color:black;font-weight:bold;border:none"
+                                  label="@load(each.diasDeMora)"/>
+                        <listcell style="background:#ffcbf2;color:black;font-weight:bold;border:none"
+                                  label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                    </listitem>
+                </template>
+                <listfoot>
+                    <listfooter/>
+
+
+                    <listfooter style="text-align:right">
+                        <label style="font-weight:bold;font-size:11pt" value="Totais"/>
+                    </listfooter>
+
+                    <listfooter style="background:#95d5b2;color:black;font-weight:bold;text-align:left">
+                        <label style="font-weight:bold;font-size:11pt"
+                               value="@load(vm.totalDebito)  @converter('formatedNumber', format='###,##0.00') "/>
+                    </listfooter>
+
+                    <listfooter style="background:#caf0f8;color:black;font-weight:bold;text-align:left">
+                        <label style="font-weight:bold;font-size:11pt"
+                               value="@load(vm.totalCredito)  @converter('formatedNumber', format='###,##0.00') "/>
+                    </listfooter>
+                    <!--  <listfooter style="text-align:left">
+                          <label style="font-weight:bold;font-size:10pt"
+                                 value="@load(vm.totalJuros)  @converter('formatedNumber', format='###,##0.00') "/>
+                      </listfooter>-->
+
+                    <listfooter style="background:#edba8b;color:black;font-weight:bold;text-align:left">
+                        <label style="font-weight:bold;font-size:11pt"
+                               value="@load(vm.totalMoras)  @converter('formatedNumber', format='###,##0.00') "/>
+                    </listfooter>
+                    <listfooter style="background:#f2dac6;color:black;font-weight:bold;text-align:left">
+                        <label style="font-weight:bold;font-size:11pt"
+                               value="@load(vm.totalJurosDeMora)  @converter('formatedNumber', format='###,##0.00') "/>
+                    </listfooter>
+                    <listfooter>
+                        <label value="V. Em Mora"/>
+                    </listfooter>
+                    <listfooter style="background:#d2dac0;color:black;font-weight:bold;text-align:left">
+                        <label visible="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito>0)"
+                               style="font-weight:bold;font-size:11pt"
+                               value="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito)  @converter('formatedNumber', format='###,##0.00') "/>
+                    </listfooter>
+                </listfoot>
+            </listbox>
+
+
+
+        </div>
+    </window>
+
+</zk>

@@ -1,0 +1,3393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="mz.maleyanga dev" uuid="b53b2970-7a12-477c-a5d5-fe7437d2f8ad">
+    <database-info product="PostgreSQL" version="9.3.10" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.3 JDBC4.1 (build 1102)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.4">
+      <database id="1" name="maleyangadev"/>
+      <database id="2" name="maleyangapro"/>
+      <schema id="3" parent="1" name="public">
+        <object-id>2200</object-id>
+        <comment>standard public schema</comment>
+        <introspection-state-number>41018</introspection-state-number>
+        <introspection-timestamp>2017-11-13.10:52:49</introspection-timestamp>
+      </schema>
+      <schema id="4" parent="2" name="public">
+        <object-id>2200</object-id>
+        <comment>standard public schema</comment>
+        <introspection-state-number>44871</introspection-state-number>
+        <introspection-timestamp>2017-11-14.06:23:29.885</introspection-timestamp>
+      </schema>
+      <sequence id="5" parent="3" name="hibernate_sequence">
+        <object-id>116431</object-id>
+        <state-number>41018</state-number>
+      </sequence>
+      <table id="6" parent="3" name="action_logging_event">
+        <object-id>116202</object-id>
+        <state-number>40979</state-number>
+      </table>
+      <table id="7" parent="3" name="anexo">
+        <object-id>116210</object-id>
+        <state-number>41011</state-number>
+      </table>
+      <table id="8" parent="3" name="async_mail_attachment">
+        <object-id>116218</object-id>
+        <state-number>41004</state-number>
+      </table>
+      <table id="9" parent="3" name="async_mail_bcc">
+        <object-id>116226</object-id>
+        <state-number>40982</state-number>
+      </table>
+      <table id="10" parent="3" name="async_mail_cc">
+        <object-id>116229</object-id>
+        <state-number>40983</state-number>
+      </table>
+      <table id="11" parent="3" name="async_mail_header">
+        <object-id>116232</object-id>
+        <state-number>40984</state-number>
+      </table>
+      <table id="12" parent="3" name="async_mail_mess">
+        <object-id>116238</object-id>
+        <state-number>41004</state-number>
+      </table>
+      <table id="13" parent="3" name="async_mail_to">
+        <object-id>116246</object-id>
+        <state-number>40986</state-number>
+      </table>
+      <table id="14" parent="3" name="attachment">
+        <object-id>116249</object-id>
+        <state-number>41005</state-number>
+      </table>
+      <table id="15" parent="3" name="attachment_link">
+        <object-id>116257</object-id>
+        <state-number>41005</state-number>
+      </table>
+      <table id="16" parent="3" name="cliente">
+        <object-id>116262</object-id>
+        <state-number>41013</state-number>
+      </table>
+      <table id="17" parent="3" name="cliente_anexo">
+        <object-id>113483</object-id>
+        <state-number>39147</state-number>
+      </table>
+      <table id="18" parent="3" name="cliente_excel_importer">
+        <object-id>107105</object-id>
+        <state-number>33561</state-number>
+      </table>
+      <table id="19" parent="3" name="credito">
+        <object-id>116274</object-id>
+        <state-number>41009</state-number>
+      </table>
+      <table id="20" parent="3" name="credito_simulado">
+        <object-id>111433</object-id>
+        <state-number>36147</state-number>
+      </table>
+      <table id="21" parent="3" name="credito_taxa">
+        <object-id>114901</object-id>
+        <state-number>40218</state-number>
+      </table>
+      <table id="22" parent="3" name="demo">
+        <object-id>116279</object-id>
+        <state-number>40991</state-number>
+      </table>
+      <table id="23" parent="3" name="entidade">
+        <object-id>116284</object-id>
+        <state-number>41015</state-number>
+      </table>
+      <table id="24" parent="3" name="excel_importer">
+        <object-id>107095</object-id>
+        <state-number>33559</state-number>
+      </table>
+      <table id="25" parent="3" name="item">
+        <object-id>111438</object-id>
+        <state-number>36148</state-number>
+      </table>
+      <table id="26" parent="3" name="mysqlutf8innodbdialect">
+        <object-id>116298</object-id>
+        <state-number>40993</state-number>
+      </table>
+      <table id="27" parent="3" name="pag_parcial">
+        <object-id>110636</object-id>
+        <state-number>35001</state-number>
+      </table>
+      <table id="28" parent="3" name="pag_parcial_excel_importer">
+        <object-id>107100</object-id>
+        <state-number>33560</state-number>
+      </table>
+      <table id="29" parent="3" name="pagamento">
+        <object-id>116303</object-id>
+        <state-number>41010</state-number>
+      </table>
+      <table id="30" parent="3" name="parcela">
+        <object-id>116308</object-id>
+        <state-number>41012</state-number>
+      </table>
+      <table id="31" parent="3" name="parcela_anexo">
+        <object-id>116313</object-id>
+        <state-number>41012</state-number>
+      </table>
+      <table id="32" parent="3" name="pedido_de_credito">
+        <object-id>116316</object-id>
+        <state-number>41013</state-number>
+      </table>
+      <table id="33" parent="3" name="periodo">
+        <object-id>116324</object-id>
+        <state-number>41014</state-number>
+      </table>
+      <table id="34" parent="3" name="person">
+        <object-id>109967</object-id>
+        <state-number>34671</state-number>
+      </table>
+      <table id="35" parent="3" name="remissao">
+        <object-id>116197</object-id>
+        <state-number>40918</state-number>
+      </table>
+      <table id="36" parent="3" name="role">
+        <object-id>116329</object-id>
+        <state-number>41017</state-number>
+      </table>
+      <table id="37" parent="3" name="simulador">
+        <object-id>111839</object-id>
+        <state-number>38384</state-number>
+      </table>
+      <table id="38" parent="3" name="taxa">
+        <object-id>116336</object-id>
+        <state-number>41015</state-number>
+      </table>
+      <table id="39" parent="3" name="utilizador">
+        <object-id>116341</object-id>
+        <state-number>41016</state-number>
+      </table>
+      <table id="40" parent="3" name="utilizador_role">
+        <object-id>116351</object-id>
+        <state-number>41017</state-number>
+      </table>
+      <sequence id="41" parent="4" name="hibernate_sequence">
+        <object-id>119343</object-id>
+        <state-number>44470</state-number>
+      </sequence>
+      <table id="42" parent="4" name="action_logging_event">
+        <object-id>119007</object-id>
+        <state-number>44412</state-number>
+      </table>
+      <table id="43" parent="4" name="anexo">
+        <object-id>119015</object-id>
+        <state-number>44465</state-number>
+      </table>
+      <table id="44" parent="4" name="async_mail_attachment">
+        <object-id>119023</object-id>
+        <state-number>44445</state-number>
+      </table>
+      <table id="45" parent="4" name="async_mail_bcc">
+        <object-id>119031</object-id>
+        <state-number>44415</state-number>
+      </table>
+      <table id="46" parent="4" name="async_mail_cc">
+        <object-id>119034</object-id>
+        <state-number>44416</state-number>
+      </table>
+      <table id="47" parent="4" name="async_mail_header">
+        <object-id>119037</object-id>
+        <state-number>44417</state-number>
+      </table>
+      <table id="48" parent="4" name="async_mail_mess">
+        <object-id>119043</object-id>
+        <state-number>44445</state-number>
+      </table>
+      <table id="49" parent="4" name="async_mail_to">
+        <object-id>119051</object-id>
+        <state-number>44419</state-number>
+      </table>
+      <table id="50" parent="4" name="attachment">
+        <object-id>119054</object-id>
+        <state-number>44446</state-number>
+      </table>
+      <table id="51" parent="4" name="attachment_link">
+        <object-id>119062</object-id>
+        <state-number>44446</state-number>
+      </table>
+      <table id="52" parent="4" name="cliente">
+        <object-id>119067</object-id>
+        <state-number>44871</state-number>
+      </table>
+      <table id="53" parent="4" name="cliente_conjuge">
+        <object-id>119079</object-id>
+        <state-number>44454</state-number>
+      </table>
+      <table id="54" parent="4" name="cliente_conjuge_anexo">
+        <object-id>119095</object-id>
+        <state-number>44451</state-number>
+      </table>
+      <table id="55" parent="4" name="cliente_conjuge_credito">
+        <object-id>119098</object-id>
+        <state-number>44453</state-number>
+      </table>
+      <table id="56" parent="4" name="cliente_conjuge_pedido_de_credito">
+        <object-id>119101</object-id>
+        <state-number>44455</state-number>
+      </table>
+      <table id="57" parent="4" name="conjuge">
+        <object-id>119104</object-id>
+        <state-number>44456</state-number>
+      </table>
+      <table id="58" parent="4" name="credito">
+        <object-id>119116</object-id>
+        <state-number>44458</state-number>
+      </table>
+      <table id="59" parent="4" name="demo">
+        <object-id>119121</object-id>
+        <state-number>44429</state-number>
+      </table>
+      <table id="60" parent="4" name="entidade">
+        <object-id>119126</object-id>
+        <state-number>44467</state-number>
+      </table>
+      <table id="61" parent="4" name="estado">
+        <object-id>119140</object-id>
+        <state-number>44431</state-number>
+      </table>
+      <table id="62" parent="4" name="mysqlutf8innodbdialect">
+        <object-id>119147</object-id>
+        <state-number>44432</state-number>
+      </table>
+      <table id="63" parent="4" name="pagamento">
+        <object-id>119152</object-id>
+        <state-number>44464</state-number>
+      </table>
+      <table id="64" parent="4" name="parcela">
+        <object-id>119157</object-id>
+        <state-number>44461</state-number>
+      </table>
+      <table id="65" parent="4" name="parcela_anexo">
+        <object-id>119162</object-id>
+        <state-number>44461</state-number>
+      </table>
+      <table id="66" parent="4" name="pedido_de_credito">
+        <object-id>119165</object-id>
+        <state-number>44462</state-number>
+      </table>
+      <table id="67" parent="4" name="periodo">
+        <object-id>119173</object-id>
+        <state-number>44463</state-number>
+      </table>
+      <table id="68" parent="4" name="remissao">
+        <object-id>119178</object-id>
+        <state-number>44466</state-number>
+      </table>
+      <table id="69" parent="4" name="remissao_anexo">
+        <object-id>119183</object-id>
+        <state-number>44466</state-number>
+      </table>
+      <table id="70" parent="4" name="role">
+        <object-id>119186</object-id>
+        <state-number>44469</state-number>
+      </table>
+      <table id="71" parent="4" name="taxa">
+        <object-id>119193</object-id>
+        <state-number>44467</state-number>
+      </table>
+      <table id="72" parent="4" name="utilizador">
+        <object-id>119198</object-id>
+        <state-number>44468</state-number>
+      </table>
+      <table id="73" parent="4" name="utilizador_role">
+        <object-id>119208</object-id>
+        <state-number>44469</state-number>
+      </table>
+      <column id="74" parent="6" name="id">
+        <state-number>40979</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="75" parent="6" name="version">
+        <state-number>40979</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="76" parent="6" name="action_name">
+        <state-number>40979</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="77" parent="6" name="action_type">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="78" parent="6" name="ajax">
+        <state-number>40979</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="79" parent="6" name="controller_name">
+        <state-number>40979</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="80" parent="6" name="custom_action_name">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="81" parent="6" name="custom_log">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="82" parent="6" name="date">
+        <state-number>40979</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="83" parent="6" name="end_time">
+        <state-number>40979</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="84" parent="6" name="exception_message">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="85" parent="6" name="exception_stack_trace">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="86" parent="6" name="forwarduri">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="87" parent="6" name="params">
+        <state-number>40979</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="88" parent="6" name="remote_host">
+        <state-number>40979</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="89" parent="6" name="start_time">
+        <state-number>40979</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="90" parent="6" name="status">
+        <state-number>40979</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="91" parent="6" name="total_time">
+        <state-number>40979</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="92" parent="6" name="user_id">
+        <state-number>40979</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="93" parent="6" name="action_logging_event_pkey">
+        <object-id>116208</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="94" parent="6" name="action_logging_event_pkey">
+        <columns>id</columns>
+        <underlying-index>action_logging_event_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="95" parent="7" name="id">
+        <state-number>40980</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="96" parent="7" name="version">
+        <state-number>40980</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="97" parent="7" name="attachment">
+        <state-number>40980</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="98" parent="7" name="cliente_id">
+        <state-number>40980</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="99" parent="7" name="file_name">
+        <state-number>40980</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="100" parent="7" name="file_type">
+        <state-number>40980</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="101" parent="7" name="name">
+        <state-number>40980</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="102" parent="7" name="anexo_pkey">
+        <object-id>116216</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="103" parent="7" name="anexo_pkey">
+        <columns>id</columns>
+        <underlying-index>anexo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="104" parent="7" name="fk58a72cf2e220a4a">
+        <columns>cliente_id</columns>
+        <ref-key>~.cliente.cliente_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="105" parent="8" name="id">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="106" parent="8" name="attachment_name">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="107" parent="8" name="content">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="108" parent="8" name="inline">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="109" parent="8" name="message_id">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="110" parent="8" name="mime_type">
+        <state-number>40981</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="111" parent="8" name="attachments_idx">
+        <state-number>40981</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <index id="112" parent="8" name="async_mail_attachment_pkey">
+        <object-id>116224</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="113" parent="8" name="async_mail_attachment_pkey">
+        <columns>id</columns>
+        <underlying-index>async_mail_attachment_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="114" parent="8" name="fk1caca0e817082b9">
+        <columns>message_id</columns>
+        <ref-key>~.async_mail_mess.async_mail_mess_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="115" parent="9" name="message_id">
+        <state-number>40982</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="116" parent="9" name="bcc_string">
+        <state-number>40982</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="117" parent="9" name="bcc_idx">
+        <state-number>40982</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="118" parent="10" name="message_id">
+        <state-number>40983</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="119" parent="10" name="cc_string">
+        <state-number>40983</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="120" parent="10" name="cc_idx">
+        <state-number>40983</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="121" parent="11" name="message_id">
+        <state-number>40984</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="122" parent="11" name="header_name">
+        <state-number>40984</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="123" parent="11" name="header_value">
+        <state-number>40984</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="124" parent="12" name="id">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="125" parent="12" name="version">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="126" parent="12" name="attempt_interval">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="127" parent="12" name="attempts_count">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="128" parent="12" name="begin_date">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="129" parent="12" name="create_date">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="130" parent="12" name="end_date">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="131" parent="12" name="envelope_from">
+        <state-number>40985</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="132" parent="12" name="from_column">
+        <state-number>40985</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="133" parent="12" name="html">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="134" parent="12" name="last_attempt_date">
+        <state-number>40985</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="135" parent="12" name="mark_delete">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="136" parent="12" name="max_attempts_count">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="137" parent="12" name="priority">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="138" parent="12" name="reply_to">
+        <state-number>40985</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="139" parent="12" name="sent_date">
+        <state-number>40985</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="140" parent="12" name="status">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="141" parent="12" name="subject">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(988)</data-type>
+      </column>
+      <column id="142" parent="12" name="text">
+        <state-number>40985</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <index id="143" parent="12" name="async_mail_mess_pkey">
+        <object-id>116244</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="144" parent="12" name="async_mail_mess_pkey">
+        <columns>id</columns>
+        <underlying-index>async_mail_mess_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="145" parent="13" name="message_id">
+        <state-number>40986</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="146" parent="13" name="to_string">
+        <state-number>40986</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="147" parent="13" name="to_idx">
+        <state-number>40986</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="148" parent="14" name="id">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="149" parent="14" name="version">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="150" parent="14" name="content_type">
+        <state-number>40987</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="151" parent="14" name="date_created">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="152" parent="14" name="ext">
+        <state-number>40987</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="153" parent="14" name="input_name">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="154" parent="14" name="length">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="155" parent="14" name="lnk_id">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="156" parent="14" name="name">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="157" parent="14" name="poster_class">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="158" parent="14" name="poster_id">
+        <state-number>40987</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="159" parent="14" name="attachment_pkey">
+        <object-id>116255</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="160" parent="14" name="attachment_pkey">
+        <columns>id</columns>
+        <underlying-index>attachment_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="161" parent="14" name="fk8af75923be8d343c">
+        <columns>lnk_id</columns>
+        <ref-key>~.attachment_link.attachment_link_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="162" parent="15" name="id">
+        <state-number>40988</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="163" parent="15" name="version">
+        <state-number>40988</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="164" parent="15" name="reference_class">
+        <state-number>40988</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="165" parent="15" name="reference_id">
+        <state-number>40988</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="166" parent="15" name="attachment_link_pkey">
+        <object-id>116260</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="167" parent="15" name="attachment_link_pkey">
+        <columns>id</columns>
+        <underlying-index>attachment_link_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="168" parent="16" name="id">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="169" parent="16" name="version">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="170" parent="16" name="conjuge_id">
+        <state-number>40989</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="171" parent="16" name="data_de_expiracao">
+        <state-number>40989</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="172" parent="16" name="email">
+        <state-number>40989</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="173" parent="16" name="entidade_id">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="174" parent="16" name="nome">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="175" parent="16" name="nuit">
+        <state-number>40989</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="176" parent="16" name="numero_de_indentificao">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="177" parent="16" name="residencia">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="178" parent="16" name="telefone">
+        <state-number>40989</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="179" parent="16" name="tipo_de_indentificacao">
+        <state-number>40989</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(17)</data-type>
+      </column>
+      <index id="180" parent="16" name="cliente_pkey">
+        <object-id>116268</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="181" parent="16" name="cliente_nome_key">
+        <object-id>116270</object-id>
+        <columns>nome</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="182" parent="16" name="cliente_nuit_key">
+        <object-id>116272</object-id>
+        <columns>nuit</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="183" parent="16" name="cliente_pkey">
+        <columns>id</columns>
+        <underlying-index>cliente_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="184" parent="16" name="cliente_nome_key">
+        <columns>nome</columns>
+        <underlying-index>cliente_nome_key</underlying-index>
+      </key>
+      <key id="185" parent="16" name="cliente_nuit_key">
+        <columns>nuit</columns>
+        <underlying-index>cliente_nuit_key</underlying-index>
+      </key>
+      <foreign-key id="186" parent="16" name="fk334b85fa60f1ab9">
+        <columns>conjuge_id</columns>
+        <ref-key>cliente_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="187" parent="16" name="fk334b85fa2bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="188" parent="17" name="cliente_anexos_id">
+        <state-number>39120</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="189" parent="17" name="anexo_id">
+        <state-number>39120</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="190" parent="18" name="id">
+        <state-number>33561</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="191" parent="18" name="version">
+        <state-number>33561</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="192" parent="18" name="cliente_excel_importer_pkey">
+        <object-id>107108</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="193" parent="18" name="cliente_excel_importer_pkey">
+        <columns>id</columns>
+        <underlying-index>cliente_excel_importer_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="194" parent="19" name="id">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="195" parent="19" name="version">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="196" parent="19" name="cliente_id">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="197" parent="19" name="date_concecao">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="198" parent="19" name="date_created">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="199" parent="19" name="em_divida">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="200" parent="19" name="estado">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="201" parent="19" name="invalido">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="202" parent="19" name="numero_de_prestacoes">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="203" parent="19" name="percentual_dejuros">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(5,2)</data-type>
+      </column>
+      <column id="204" parent="19" name="percentual_juros_de_demora">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="205" parent="19" name="reter_capital">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="206" parent="19" name="taxas">
+        <state-number>40990</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="207" parent="19" name="valor_creditado">
+        <state-number>40990</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="208" parent="19" name="credito_pkey">
+        <object-id>116277</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="209" parent="19" name="credito_pkey">
+        <columns>id</columns>
+        <underlying-index>credito_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="210" parent="19" name="fk3d4fb4962e220a4a">
+        <columns>cliente_id</columns>
+        <ref-key>~.cliente.cliente_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="211" parent="20" name="id">
+        <state-number>36147</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="212" parent="20" name="version">
+        <state-number>36147</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="213" parent="20" name="credito_simulado_pkey">
+        <object-id>111436</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="214" parent="20" name="credito_simulado_pkey">
+        <columns>id</columns>
+        <underlying-index>credito_simulado_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="215" parent="21" name="credito_taxas_id">
+        <state-number>40198</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="216" parent="21" name="taxa_id">
+        <state-number>40198</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="217" parent="22" name="id">
+        <state-number>40991</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="218" parent="22" name="version">
+        <state-number>40991</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="219" parent="22" name="demo_pkey">
+        <object-id>116282</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="220" parent="22" name="demo_pkey">
+        <columns>id</columns>
+        <underlying-index>demo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="221" parent="23" name="id">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="222" parent="23" name="version">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="223" parent="23" name="descricao_da_formula_de_calculo">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(2000)</data-type>
+      </column>
+      <column id="224" parent="23" name="email">
+        <state-number>40992</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="225" parent="23" name="forma_de_calculo">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="226" parent="23" name="nome">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="227" parent="23" name="nuit">
+        <state-number>40992</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="228" parent="23" name="proprietario">
+        <state-number>40992</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="229" parent="23" name="residencia">
+        <state-number>40992</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="230" parent="23" name="telefone">
+        <state-number>40992</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="231" parent="23" name="entidade_pkey">
+        <object-id>116290</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="232" parent="23" name="entidade_forma_de_calculo_key">
+        <object-id>116292</object-id>
+        <columns>forma_de_calculo</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="233" parent="23" name="entidade_nome_key">
+        <object-id>116294</object-id>
+        <columns>nome</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="234" parent="23" name="entidade_nuit_key">
+        <object-id>116296</object-id>
+        <columns>nuit</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="235" parent="23" name="entidade_pkey">
+        <columns>id</columns>
+        <underlying-index>entidade_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="236" parent="23" name="entidade_forma_de_calculo_key">
+        <columns>forma_de_calculo</columns>
+        <underlying-index>entidade_forma_de_calculo_key</underlying-index>
+      </key>
+      <key id="237" parent="23" name="entidade_nome_key">
+        <columns>nome</columns>
+        <underlying-index>entidade_nome_key</underlying-index>
+      </key>
+      <key id="238" parent="23" name="entidade_nuit_key">
+        <columns>nuit</columns>
+        <underlying-index>entidade_nuit_key</underlying-index>
+      </key>
+      <column id="239" parent="24" name="id">
+        <state-number>33559</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="240" parent="24" name="version">
+        <state-number>33559</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="241" parent="24" name="excel_importer_pkey">
+        <object-id>107098</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="242" parent="24" name="excel_importer_pkey">
+        <columns>id</columns>
+        <underlying-index>excel_importer_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="243" parent="25" name="id">
+        <state-number>36148</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="244" parent="25" name="version">
+        <state-number>36148</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="245" parent="25" name="item_pkey">
+        <object-id>111441</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="246" parent="25" name="item_pkey">
+        <columns>id</columns>
+        <underlying-index>item_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="247" parent="26" name="id">
+        <state-number>40993</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="248" parent="26" name="version">
+        <state-number>40993</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="249" parent="26" name="mysqlutf8innodbdialect_pkey">
+        <object-id>116301</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="250" parent="26" name="mysqlutf8innodbdialect_pkey">
+        <columns>id</columns>
+        <underlying-index>mysqlutf8innodbdialect_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="251" parent="27" name="id">
+        <state-number>34994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="252" parent="27" name="version">
+        <state-number>34994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="253" parent="27" name="descricao">
+        <state-number>34994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="254" parent="27" name="pagamento_id">
+        <state-number>34994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="255" parent="27" name="valor_pago">
+        <state-number>34994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="256" parent="27" name="pag_parcial_pkey">
+        <object-id>110639</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="257" parent="27" name="pag_parcial_pkey">
+        <columns>id</columns>
+        <underlying-index>pag_parcial_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="258" parent="27" name="fkb8af70891fa893f6">
+        <columns>pagamento_id</columns>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="259" parent="28" name="id">
+        <state-number>33560</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="260" parent="28" name="version">
+        <state-number>33560</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="261" parent="28" name="pag_parcial_excel_importer_pkey">
+        <object-id>107103</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="262" parent="28" name="pag_parcial_excel_importer_pkey">
+        <columns>id</columns>
+        <underlying-index>pag_parcial_excel_importer_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="263" parent="29" name="id">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="264" parent="29" name="version">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="265" parent="29" name="credito_id">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="266" parent="29" name="data_de_pagamento">
+        <state-number>40994</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="267" parent="29" name="data_previsto_de_pagamento">
+        <state-number>40994</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="268" parent="29" name="date_created">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="269" parent="29" name="descricao">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="270" parent="29" name="dias_de_mora">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="271" parent="29" name="pago">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="272" parent="29" name="total_em_divida">
+        <state-number>40994</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="273" parent="29" name="valor_da_prestacao">
+        <state-number>40994</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="274" parent="29" name="valor_da_remissao">
+        <state-number>40994</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="275" parent="29" name="valor_de_juros_de_demora">
+        <state-number>40994</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="276" parent="29" name="valor_pago">
+        <state-number>40994</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="277" parent="29" name="pagamento_pkey">
+        <object-id>116306</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="278" parent="29" name="pagamento_pkey">
+        <columns>id</columns>
+        <underlying-index>pagamento_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="279" parent="29" name="fk2e9a1326407c0766">
+        <columns>credito_id</columns>
+        <ref-key>~.credito.credito_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="280" parent="30" name="id">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="281" parent="30" name="version">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="282" parent="30" name="data_de_pagamento">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="283" parent="30" name="descricao">
+        <state-number>40995</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="284" parent="30" name="pagamento_id">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="285" parent="30" name="remissao">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="286" parent="30" name="valor_parcial">
+        <state-number>40995</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="287" parent="30" name="parcela_pkey">
+        <object-id>116311</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="288" parent="30" name="parcela_pkey">
+        <columns>id</columns>
+        <underlying-index>parcela_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="289" parent="30" name="fkd0b501781fa893f6">
+        <columns>pagamento_id</columns>
+        <ref-key>~.pagamento.pagamento_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="290" parent="31" name="parcela_anexos_id">
+        <state-number>40996</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="291" parent="31" name="anexo_id">
+        <state-number>40996</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="292" parent="31" name="fkec2dd4866573e23">
+        <columns>parcela_anexos_id</columns>
+        <ref-key>~.parcela.parcela_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="293" parent="31" name="fkec2dd48fea74264">
+        <columns>anexo_id</columns>
+        <ref-key>~.anexo.anexo_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="294" parent="32" name="id">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="295" parent="32" name="version">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="296" parent="32" name="attachment">
+        <state-number>40997</state-number>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="297" parent="32" name="cliente_id">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="298" parent="32" name="creditado">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="299" parent="32" name="data_de_aprovacao">
+        <state-number>40997</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="300" parent="32" name="descricao_da_penhora">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="301" parent="32" name="estado">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(9)</data-type>
+      </column>
+      <column id="302" parent="32" name="file_name">
+        <state-number>40997</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="303" parent="32" name="file_type">
+        <state-number>40997</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="304" parent="32" name="motivo">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="305" parent="32" name="valor_da_penhora">
+        <state-number>40997</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="306" parent="32" name="valor_de_credito">
+        <state-number>40997</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="307" parent="32" name="pedido_de_credito_pkey">
+        <object-id>116322</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="308" parent="32" name="pedido_de_credito_pkey">
+        <columns>id</columns>
+        <underlying-index>pedido_de_credito_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="309" parent="32" name="fk7e2dc8122e220a4a">
+        <columns>cliente_id</columns>
+        <ref-key>~.cliente.cliente_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="310" parent="33" name="id">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="311" parent="33" name="version">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="312" parent="33" name="descricao">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="313" parent="33" name="entidade_id">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="314" parent="33" name="fim">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="315" parent="33" name="inicio">
+        <state-number>40998</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="316" parent="33" name="periodo_pkey">
+        <object-id>116327</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="317" parent="33" name="periodo_pkey">
+        <columns>id</columns>
+        <underlying-index>periodo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="318" parent="33" name="fkd78b42ce2bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="319" parent="34" name="id">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="320" parent="34" name="version">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="321" parent="34" name="date_of_birth">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="322" parent="34" name="first_name">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="323" parent="34" name="last_name">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="324" parent="34" name="number_of_children">
+        <state-number>34671</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <index id="325" parent="34" name="person_pkey">
+        <object-id>109973</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="326" parent="34" name="person_pkey">
+        <columns>id</columns>
+        <underlying-index>person_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="327" parent="35" name="id">
+        <state-number>40917</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="328" parent="35" name="version">
+        <state-number>40917</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="329" parent="35" name="valor_remisso">
+        <state-number>40918</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="330" parent="35" name="remissao_pkey">
+        <object-id>116200</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="331" parent="35" name="remissao_pkey">
+        <columns>id</columns>
+        <underlying-index>remissao_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="332" parent="36" name="id">
+        <state-number>40999</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="333" parent="36" name="version">
+        <state-number>40999</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="334" parent="36" name="authority">
+        <state-number>40999</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="335" parent="36" name="role_pkey">
+        <object-id>116332</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="336" parent="36" name="role_authority_key">
+        <object-id>116334</object-id>
+        <columns>authority</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="337" parent="36" name="role_pkey">
+        <columns>id</columns>
+        <underlying-index>role_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="338" parent="36" name="role_authority_key">
+        <columns>authority</columns>
+        <underlying-index>role_authority_key</underlying-index>
+      </key>
+      <column id="339" parent="37" name="id">
+        <state-number>38384</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="340" parent="37" name="version">
+        <state-number>38384</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="341" parent="37" name="simulador_pkey">
+        <object-id>111842</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="342" parent="37" name="simulador_pkey">
+        <columns>id</columns>
+        <underlying-index>simulador_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="343" parent="38" name="id">
+        <state-number>41000</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="344" parent="38" name="version">
+        <state-number>41000</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="345" parent="38" name="activo">
+        <state-number>41000</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="346" parent="38" name="entidade_id">
+        <state-number>41000</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="347" parent="38" name="nome">
+        <state-number>41000</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="348" parent="38" name="percentagem">
+        <state-number>41000</state-number>
+        <data-type>numeric(5,2)</data-type>
+      </column>
+      <column id="349" parent="38" name="valor">
+        <state-number>41000</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="350" parent="38" name="valor_maximo">
+        <state-number>41000</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="351" parent="38" name="valor_minimo">
+        <state-number>41000</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="352" parent="38" name="taxa_pkey">
+        <object-id>116339</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="353" parent="38" name="taxa_pkey">
+        <columns>id</columns>
+        <underlying-index>taxa_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="354" parent="38" name="fk3636162bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="355" parent="39" name="id">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="356" parent="39" name="version">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="357" parent="39" name="account_expired">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="358" parent="39" name="account_locked">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="359" parent="39" name="email">
+        <state-number>41001</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="360" parent="39" name="enabled">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="361" parent="39" name="password">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="362" parent="39" name="password_expired">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="363" parent="39" name="username">
+        <state-number>41001</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="364" parent="39" name="utilizador_pkey">
+        <object-id>116347</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="365" parent="39" name="utilizador_username_key">
+        <object-id>116349</object-id>
+        <columns>username</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="366" parent="39" name="utilizador_pkey">
+        <columns>id</columns>
+        <underlying-index>utilizador_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="367" parent="39" name="utilizador_username_key">
+        <columns>username</columns>
+        <underlying-index>utilizador_username_key</underlying-index>
+      </key>
+      <column id="368" parent="40" name="role_id">
+        <state-number>41002</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="369" parent="40" name="utilizador_id">
+        <state-number>41002</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="370" parent="40" name="utilizador_role_pkey">
+        <object-id>116354</object-id>
+        <columns>role_id
+utilizador_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="371" parent="40" name="utilizador_role_pkey">
+        <columns>role_id
+utilizador_id</columns>
+        <underlying-index>utilizador_role_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="372" parent="40" name="fk72f38c7c36d0bbec">
+        <columns>role_id</columns>
+        <ref-key>~.role.role_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="373" parent="40" name="fk72f38c7c277c5b8c">
+        <columns>utilizador_id</columns>
+        <ref-key>~.utilizador.utilizador_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="374" parent="42" name="id">
+        <state-number>44412</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="375" parent="42" name="version">
+        <state-number>44412</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="376" parent="42" name="action_name">
+        <state-number>44412</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="377" parent="42" name="action_type">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="378" parent="42" name="ajax">
+        <state-number>44412</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="379" parent="42" name="controller_name">
+        <state-number>44412</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="380" parent="42" name="custom_action_name">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="381" parent="42" name="custom_log">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="382" parent="42" name="date">
+        <state-number>44412</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="383" parent="42" name="end_time">
+        <state-number>44412</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="384" parent="42" name="exception_message">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="385" parent="42" name="exception_stack_trace">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000000)</data-type>
+      </column>
+      <column id="386" parent="42" name="forwarduri">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="387" parent="42" name="params">
+        <state-number>44412</state-number>
+        <data-type>varchar(5000)</data-type>
+      </column>
+      <column id="388" parent="42" name="remote_host">
+        <state-number>44412</state-number>
+        <data-type>varchar(250)</data-type>
+      </column>
+      <column id="389" parent="42" name="start_time">
+        <state-number>44412</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="390" parent="42" name="status">
+        <state-number>44412</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="391" parent="42" name="total_time">
+        <state-number>44412</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="392" parent="42" name="user_id">
+        <state-number>44412</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="393" parent="42" name="action_logging_event_pkey">
+        <object-id>119013</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="394" parent="42" name="action_logging_event_pkey">
+        <columns>id</columns>
+        <underlying-index>action_logging_event_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="395" parent="43" name="id">
+        <state-number>44413</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="396" parent="43" name="version">
+        <state-number>44413</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="397" parent="43" name="attachment">
+        <state-number>44413</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="398" parent="43" name="cliente_id">
+        <state-number>44413</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="399" parent="43" name="file_name">
+        <state-number>44413</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="400" parent="43" name="file_type">
+        <state-number>44413</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="401" parent="43" name="name">
+        <state-number>44413</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="402" parent="43" name="anexo_pkey">
+        <object-id>119021</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="403" parent="43" name="anexo_pkey">
+        <columns>id</columns>
+        <underlying-index>anexo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="404" parent="43" name="fk58a72cf2e220a4a">
+        <columns>cliente_id</columns>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="405" parent="44" name="id">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="406" parent="44" name="attachment_name">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="407" parent="44" name="content">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="408" parent="44" name="inline">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="409" parent="44" name="message_id">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="410" parent="44" name="mime_type">
+        <state-number>44414</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="411" parent="44" name="attachments_idx">
+        <state-number>44414</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <index id="412" parent="44" name="async_mail_attachment_pkey">
+        <object-id>119029</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="413" parent="44" name="async_mail_attachment_pkey">
+        <columns>id</columns>
+        <underlying-index>async_mail_attachment_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="414" parent="44" name="fk1caca0e817082b9">
+        <columns>message_id</columns>
+        <ref-key>~.async_mail_mess.async_mail_mess_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="415" parent="45" name="message_id">
+        <state-number>44415</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="416" parent="45" name="bcc_string">
+        <state-number>44415</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="417" parent="45" name="bcc_idx">
+        <state-number>44415</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="418" parent="46" name="message_id">
+        <state-number>44416</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="419" parent="46" name="cc_string">
+        <state-number>44416</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="420" parent="46" name="cc_idx">
+        <state-number>44416</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="421" parent="47" name="message_id">
+        <state-number>44417</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="422" parent="47" name="header_name">
+        <state-number>44417</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="423" parent="47" name="header_value">
+        <state-number>44417</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="424" parent="48" name="id">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="425" parent="48" name="version">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="426" parent="48" name="attempt_interval">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="427" parent="48" name="attempts_count">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="428" parent="48" name="begin_date">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="429" parent="48" name="create_date">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="430" parent="48" name="end_date">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="431" parent="48" name="envelope_from">
+        <state-number>44418</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="432" parent="48" name="from_column">
+        <state-number>44418</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="433" parent="48" name="html">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="434" parent="48" name="last_attempt_date">
+        <state-number>44418</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="435" parent="48" name="mark_delete">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="436" parent="48" name="max_attempts_count">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="437" parent="48" name="priority">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="438" parent="48" name="reply_to">
+        <state-number>44418</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="439" parent="48" name="sent_date">
+        <state-number>44418</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="440" parent="48" name="status">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="441" parent="48" name="subject">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(988)</data-type>
+      </column>
+      <column id="442" parent="48" name="text">
+        <state-number>44418</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <index id="443" parent="48" name="async_mail_mess_pkey">
+        <object-id>119049</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="444" parent="48" name="async_mail_mess_pkey">
+        <columns>id</columns>
+        <underlying-index>async_mail_mess_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="445" parent="49" name="message_id">
+        <state-number>44419</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="446" parent="49" name="to_string">
+        <state-number>44419</state-number>
+        <data-type>varchar(256)</data-type>
+      </column>
+      <column id="447" parent="49" name="to_idx">
+        <state-number>44419</state-number>
+        <data-type>integer</data-type>
+      </column>
+      <column id="448" parent="50" name="id">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="449" parent="50" name="version">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="450" parent="50" name="content_type">
+        <state-number>44420</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="451" parent="50" name="date_created">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="452" parent="50" name="ext">
+        <state-number>44420</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="453" parent="50" name="input_name">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="454" parent="50" name="length">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="455" parent="50" name="lnk_id">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="456" parent="50" name="name">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="457" parent="50" name="poster_class">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="458" parent="50" name="poster_id">
+        <state-number>44420</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="459" parent="50" name="attachment_pkey">
+        <object-id>119060</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="460" parent="50" name="attachment_pkey">
+        <columns>id</columns>
+        <underlying-index>attachment_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="461" parent="50" name="fk8af75923be8d343c">
+        <columns>lnk_id</columns>
+        <ref-key>~.attachment_link.attachment_link_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="462" parent="51" name="id">
+        <state-number>44421</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="463" parent="51" name="version">
+        <state-number>44421</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="464" parent="51" name="reference_class">
+        <state-number>44421</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="465" parent="51" name="reference_id">
+        <state-number>44421</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="466" parent="51" name="attachment_link_pkey">
+        <object-id>119065</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="467" parent="51" name="attachment_link_pkey">
+        <columns>id</columns>
+        <underlying-index>attachment_link_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="468" parent="52" name="id">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="469" parent="52" name="version">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="470" parent="52" name="conjuge_id">
+        <state-number>44422</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="471" parent="52" name="data_de_expiracao">
+        <state-number>44422</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="472" parent="52" name="email">
+        <state-number>44422</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="473" parent="52" name="entidade_id">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="474" parent="52" name="nome">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="475" parent="52" name="nuit">
+        <state-number>44422</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="476" parent="52" name="numero_de_indentificao">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="477" parent="52" name="residencia">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="478" parent="52" name="telefone">
+        <state-number>44422</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="479" parent="52" name="tipo_de_indentificacao">
+        <state-number>44422</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(17)</data-type>
+      </column>
+      <column id="480" parent="52" name="ativo">
+        <state-number>44871</state-number>
+        <data-type>boolean</data-type>
+      </column>
+      <index id="481" parent="52" name="cliente_pkey">
+        <object-id>119073</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="482" parent="52" name="cliente_nome_key">
+        <object-id>119075</object-id>
+        <columns>nome</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="483" parent="52" name="cliente_nuit_key">
+        <object-id>119077</object-id>
+        <columns>nuit</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="484" parent="52" name="cliente_pkey">
+        <columns>id</columns>
+        <underlying-index>cliente_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="485" parent="52" name="cliente_nome_key">
+        <columns>nome</columns>
+        <underlying-index>cliente_nome_key</underlying-index>
+      </key>
+      <key id="486" parent="52" name="cliente_nuit_key">
+        <columns>nuit</columns>
+        <underlying-index>cliente_nuit_key</underlying-index>
+      </key>
+      <foreign-key id="487" parent="52" name="fk334b85fa60f1ab9">
+        <columns>conjuge_id</columns>
+        <ref-key>cliente_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="488" parent="52" name="fk334b85fa2bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="489" parent="53" name="id">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="490" parent="53" name="version">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="491" parent="53" name="data_de_expiracao">
+        <state-number>44423</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="492" parent="53" name="email">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="493" parent="53" name="email_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="494" parent="53" name="entidade_id">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="495" parent="53" name="nome">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="496" parent="53" name="nome_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="497" parent="53" name="nuit">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="498" parent="53" name="nuit_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="499" parent="53" name="numero_de_indentificao">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="500" parent="53" name="numero_de_indentificao_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="501" parent="53" name="residencia">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="502" parent="53" name="residencia_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="503" parent="53" name="telefone">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="504" parent="53" name="telefone_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="505" parent="53" name="tipo_de_indentificacao">
+        <state-number>44423</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(17)</data-type>
+      </column>
+      <column id="506" parent="53" name="tipo_de_indentificacao_do_conjuge">
+        <state-number>44423</state-number>
+        <data-type>varchar(17)</data-type>
+      </column>
+      <index id="507" parent="53" name="cliente_conjuge_pkey">
+        <object-id>119085</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="508" parent="53" name="cliente_conjuge_nome_key">
+        <object-id>119087</object-id>
+        <columns>nome</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="509" parent="53" name="cliente_conjuge_nome_do_conjuge_key">
+        <object-id>119089</object-id>
+        <columns>nome_do_conjuge</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="510" parent="53" name="cliente_conjuge_nuit_key">
+        <object-id>119091</object-id>
+        <columns>nuit</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="511" parent="53" name="cliente_conjuge_nuit_do_conjuge_key">
+        <object-id>119093</object-id>
+        <columns>nuit_do_conjuge</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="512" parent="53" name="cliente_conjuge_pkey">
+        <columns>id</columns>
+        <underlying-index>cliente_conjuge_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="513" parent="53" name="cliente_conjuge_nome_key">
+        <columns>nome</columns>
+        <underlying-index>cliente_conjuge_nome_key</underlying-index>
+      </key>
+      <key id="514" parent="53" name="cliente_conjuge_nome_do_conjuge_key">
+        <columns>nome_do_conjuge</columns>
+        <underlying-index>cliente_conjuge_nome_do_conjuge_key</underlying-index>
+      </key>
+      <key id="515" parent="53" name="cliente_conjuge_nuit_key">
+        <columns>nuit</columns>
+        <underlying-index>cliente_conjuge_nuit_key</underlying-index>
+      </key>
+      <key id="516" parent="53" name="cliente_conjuge_nuit_do_conjuge_key">
+        <columns>nuit_do_conjuge</columns>
+        <underlying-index>cliente_conjuge_nuit_do_conjuge_key</underlying-index>
+      </key>
+      <foreign-key id="517" parent="53" name="fkd60d76a62bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="518" parent="54" name="cliente_conjuge_anexos_id">
+        <state-number>44424</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="519" parent="54" name="anexo_id">
+        <state-number>44424</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="520" parent="54" name="fk6c8e37f6ebb4511e">
+        <columns>cliente_conjuge_anexos_id</columns>
+        <ref-key>~.cliente_conjuge.cliente_conjuge_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="521" parent="54" name="fk6c8e37f6fea74264">
+        <columns>anexo_id</columns>
+        <ref-key>~.anexo.anexo_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="522" parent="55" name="cliente_conjuge_creditos_id">
+        <state-number>44425</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="523" parent="55" name="credito_id">
+        <state-number>44425</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="524" parent="55" name="fkf276cbfd639589a5">
+        <columns>cliente_conjuge_creditos_id</columns>
+        <ref-key>~.cliente_conjuge.cliente_conjuge_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="525" parent="55" name="fkf276cbfd407c0766">
+        <columns>credito_id</columns>
+        <ref-key>~.credito.credito_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="526" parent="56" name="cliente_conjuge_pedidos_de_credito_id">
+        <state-number>44426</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="527" parent="56" name="pedido_de_credito_id">
+        <state-number>44426</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="528" parent="56" name="fka2a80ab91341d219">
+        <columns>cliente_conjuge_pedidos_de_credito_id</columns>
+        <ref-key>~.cliente_conjuge.cliente_conjuge_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="529" parent="56" name="fka2a80ab9dade0b5e">
+        <columns>pedido_de_credito_id</columns>
+        <ref-key>~.pedido_de_credito.pedido_de_credito_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="530" parent="57" name="id">
+        <state-number>44427</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="531" parent="57" name="version">
+        <state-number>44427</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="532" parent="57" name="cliente_id">
+        <state-number>44427</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="533" parent="57" name="data_de_expiracao">
+        <state-number>44427</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="534" parent="57" name="email_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="535" parent="57" name="nome_do_conjuge">
+        <state-number>44427</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="536" parent="57" name="nuit_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="537" parent="57" name="numero_de_indentificao_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="538" parent="57" name="residencia_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="539" parent="57" name="telefone_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="540" parent="57" name="tipo_de_indentificacao_do_conjuge">
+        <state-number>44427</state-number>
+        <data-type>varchar(17)</data-type>
+      </column>
+      <index id="541" parent="57" name="conjuge_pkey">
+        <object-id>119110</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="542" parent="57" name="conjuge_nome_do_conjuge_key">
+        <object-id>119112</object-id>
+        <columns>nome_do_conjuge</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="543" parent="57" name="conjuge_nuit_do_conjuge_key">
+        <object-id>119114</object-id>
+        <columns>nuit_do_conjuge</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="544" parent="57" name="conjuge_pkey">
+        <columns>id</columns>
+        <underlying-index>conjuge_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="545" parent="57" name="conjuge_nome_do_conjuge_key">
+        <columns>nome_do_conjuge</columns>
+        <underlying-index>conjuge_nome_do_conjuge_key</underlying-index>
+      </key>
+      <key id="546" parent="57" name="conjuge_nuit_do_conjuge_key">
+        <columns>nuit_do_conjuge</columns>
+        <underlying-index>conjuge_nuit_do_conjuge_key</underlying-index>
+      </key>
+      <foreign-key id="547" parent="57" name="fk38b2e3eb2e220a4a">
+        <columns>cliente_id</columns>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="548" parent="58" name="id">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="549" parent="58" name="version">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="550" parent="58" name="cliente_id">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="551" parent="58" name="date_concecao">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="552" parent="58" name="date_created">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="553" parent="58" name="em_divida">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="554" parent="58" name="estado">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(8)</data-type>
+      </column>
+      <column id="555" parent="58" name="invalido">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="556" parent="58" name="numero_de_prestacoes">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="557" parent="58" name="percentual_dejuros">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(5,2)</data-type>
+      </column>
+      <column id="558" parent="58" name="percentual_juros_de_demora">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="559" parent="58" name="reter_capital">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="560" parent="58" name="taxas">
+        <state-number>44428</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="561" parent="58" name="valor_creditado">
+        <state-number>44428</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="562" parent="58" name="credito_pkey">
+        <object-id>119119</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="563" parent="58" name="credito_pkey">
+        <columns>id</columns>
+        <underlying-index>credito_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="564" parent="58" name="fk3d4fb4962e220a4a">
+        <columns>cliente_id</columns>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="565" parent="59" name="id">
+        <state-number>44429</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="566" parent="59" name="version">
+        <state-number>44429</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="567" parent="59" name="demo_pkey">
+        <object-id>119124</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="568" parent="59" name="demo_pkey">
+        <columns>id</columns>
+        <underlying-index>demo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="569" parent="60" name="id">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="570" parent="60" name="version">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="571" parent="60" name="descricao_da_formula_de_calculo">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(2000)</data-type>
+      </column>
+      <column id="572" parent="60" name="email">
+        <state-number>44430</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="573" parent="60" name="forma_de_calculo">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="574" parent="60" name="nome">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="575" parent="60" name="nuit">
+        <state-number>44430</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="576" parent="60" name="proprietario">
+        <state-number>44430</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="577" parent="60" name="residencia">
+        <state-number>44430</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="578" parent="60" name="telefone">
+        <state-number>44430</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="579" parent="60" name="entidade_pkey">
+        <object-id>119132</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="580" parent="60" name="entidade_forma_de_calculo_key">
+        <object-id>119134</object-id>
+        <columns>forma_de_calculo</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="581" parent="60" name="entidade_nome_key">
+        <object-id>119136</object-id>
+        <columns>nome</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="582" parent="60" name="entidade_nuit_key">
+        <object-id>119138</object-id>
+        <columns>nuit</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="583" parent="60" name="entidade_pkey">
+        <columns>id</columns>
+        <underlying-index>entidade_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="584" parent="60" name="entidade_forma_de_calculo_key">
+        <columns>forma_de_calculo</columns>
+        <underlying-index>entidade_forma_de_calculo_key</underlying-index>
+      </key>
+      <key id="585" parent="60" name="entidade_nome_key">
+        <columns>nome</columns>
+        <underlying-index>entidade_nome_key</underlying-index>
+      </key>
+      <key id="586" parent="60" name="entidade_nuit_key">
+        <columns>nuit</columns>
+        <underlying-index>entidade_nuit_key</underlying-index>
+      </key>
+      <column id="587" parent="61" name="id">
+        <state-number>44431</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="588" parent="61" name="version">
+        <state-number>44431</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="589" parent="61" name="nome_do_estado_civil">
+        <state-number>44431</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="590" parent="61" name="estado_pkey">
+        <object-id>119143</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="591" parent="61" name="estado_nome_do_estado_civil_key">
+        <object-id>119145</object-id>
+        <columns>nome_do_estado_civil</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="592" parent="61" name="estado_pkey">
+        <columns>id</columns>
+        <underlying-index>estado_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="593" parent="61" name="estado_nome_do_estado_civil_key">
+        <columns>nome_do_estado_civil</columns>
+        <underlying-index>estado_nome_do_estado_civil_key</underlying-index>
+      </key>
+      <column id="594" parent="62" name="id">
+        <state-number>44432</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="595" parent="62" name="version">
+        <state-number>44432</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="596" parent="62" name="mysqlutf8innodbdialect_pkey">
+        <object-id>119150</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="597" parent="62" name="mysqlutf8innodbdialect_pkey">
+        <columns>id</columns>
+        <underlying-index>mysqlutf8innodbdialect_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="598" parent="63" name="id">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="599" parent="63" name="version">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="600" parent="63" name="credito_id">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="601" parent="63" name="data_de_pagamento">
+        <state-number>44433</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="602" parent="63" name="data_previsto_de_pagamento">
+        <state-number>44433</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="603" parent="63" name="date_created">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="604" parent="63" name="descricao">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="605" parent="63" name="dias_de_mora">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="606" parent="63" name="pago">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="607" parent="63" name="total_em_divida">
+        <state-number>44433</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="608" parent="63" name="valor_da_prestacao">
+        <state-number>44433</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="609" parent="63" name="valor_da_remissao">
+        <state-number>44433</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="610" parent="63" name="valor_de_juros_de_demora">
+        <state-number>44433</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="611" parent="63" name="valor_pago">
+        <state-number>44433</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="612" parent="63" name="pagamento_pkey">
+        <object-id>119155</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="613" parent="63" name="pagamento_pkey">
+        <columns>id</columns>
+        <underlying-index>pagamento_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="614" parent="63" name="fk2e9a1326407c0766">
+        <columns>credito_id</columns>
+        <ref-key>~.credito.credito_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="615" parent="64" name="id">
+        <state-number>44434</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="616" parent="64" name="version">
+        <state-number>44434</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="617" parent="64" name="data_de_pagamento">
+        <state-number>44434</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="618" parent="64" name="descricao">
+        <state-number>44434</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="619" parent="64" name="pagamento_id">
+        <state-number>44434</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="620" parent="64" name="valor_parcial">
+        <state-number>44434</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="621" parent="64" name="parcela_pkey">
+        <object-id>119160</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="622" parent="64" name="parcela_pkey">
+        <columns>id</columns>
+        <underlying-index>parcela_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="623" parent="64" name="fkd0b501781fa893f6">
+        <columns>pagamento_id</columns>
+        <ref-key>~.pagamento.pagamento_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="624" parent="65" name="parcela_anexos_id">
+        <state-number>44435</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="625" parent="65" name="anexo_id">
+        <state-number>44435</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="626" parent="65" name="fkec2dd4866573e23">
+        <columns>parcela_anexos_id</columns>
+        <ref-key>~.parcela.parcela_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="627" parent="65" name="fkec2dd48fea74264">
+        <columns>anexo_id</columns>
+        <ref-key>~.anexo.anexo_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="628" parent="66" name="id">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="629" parent="66" name="version">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="630" parent="66" name="attachment">
+        <state-number>44436</state-number>
+        <data-type>bytea</data-type>
+      </column>
+      <column id="631" parent="66" name="cliente_id">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="632" parent="66" name="creditado">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="633" parent="66" name="data_de_aprovacao">
+        <state-number>44436</state-number>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="634" parent="66" name="descricao_da_penhora">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="635" parent="66" name="estado">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(9)</data-type>
+      </column>
+      <column id="636" parent="66" name="file_name">
+        <state-number>44436</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="637" parent="66" name="file_type">
+        <state-number>44436</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="638" parent="66" name="motivo">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="639" parent="66" name="valor_da_penhora">
+        <state-number>44436</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="640" parent="66" name="valor_de_credito">
+        <state-number>44436</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="641" parent="66" name="pedido_de_credito_pkey">
+        <object-id>119171</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="642" parent="66" name="pedido_de_credito_pkey">
+        <columns>id</columns>
+        <underlying-index>pedido_de_credito_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="643" parent="66" name="fk7e2dc8122e220a4a">
+        <columns>cliente_id</columns>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="644" parent="67" name="id">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="645" parent="67" name="version">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="646" parent="67" name="descricao">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="647" parent="67" name="entidade_id">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="648" parent="67" name="fim">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="649" parent="67" name="inicio">
+        <state-number>44437</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="650" parent="67" name="periodo_pkey">
+        <object-id>119176</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="651" parent="67" name="periodo_pkey">
+        <columns>id</columns>
+        <underlying-index>periodo_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="652" parent="67" name="fkd78b42ce2bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="653" parent="68" name="id">
+        <state-number>44438</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="654" parent="68" name="version">
+        <state-number>44438</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="655" parent="68" name="created_date">
+        <state-number>44438</state-number>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="656" parent="68" name="descricao">
+        <state-number>44438</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="657" parent="68" name="pagamento_id">
+        <state-number>44438</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="658" parent="68" name="percentual">
+        <state-number>44438</state-number>
+        <data-type>numeric(5,2)</data-type>
+      </column>
+      <column id="659" parent="68" name="valor_da_remissao">
+        <state-number>44438</state-number>
+        <mandatory>1</mandatory>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="660" parent="68" name="remissao_pkey">
+        <object-id>119181</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="661" parent="68" name="remissao_pkey">
+        <columns>id</columns>
+        <underlying-index>remissao_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="662" parent="68" name="fke1193e1d1fa893f6">
+        <columns>pagamento_id</columns>
+        <ref-key>~.pagamento.pagamento_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="663" parent="69" name="remissao_anexos_id">
+        <state-number>44439</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="664" parent="69" name="anexo_id">
+        <state-number>44439</state-number>
+        <data-type>bigint</data-type>
+      </column>
+      <foreign-key id="665" parent="69" name="fk526e4a2d5ca36b5">
+        <columns>remissao_anexos_id</columns>
+        <ref-key>~.remissao.remissao_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="666" parent="69" name="fk526e4a2dfea74264">
+        <columns>anexo_id</columns>
+        <ref-key>~.anexo.anexo_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="667" parent="70" name="id">
+        <state-number>44440</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="668" parent="70" name="version">
+        <state-number>44440</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="669" parent="70" name="authority">
+        <state-number>44440</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="670" parent="70" name="role_pkey">
+        <object-id>119189</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="671" parent="70" name="role_authority_key">
+        <object-id>119191</object-id>
+        <columns>authority</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="672" parent="70" name="role_pkey">
+        <columns>id</columns>
+        <underlying-index>role_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="673" parent="70" name="role_authority_key">
+        <columns>authority</columns>
+        <underlying-index>role_authority_key</underlying-index>
+      </key>
+      <column id="674" parent="71" name="id">
+        <state-number>44441</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="675" parent="71" name="version">
+        <state-number>44441</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="676" parent="71" name="activo">
+        <state-number>44441</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="677" parent="71" name="entidade_id">
+        <state-number>44441</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="678" parent="71" name="nome">
+        <state-number>44441</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="679" parent="71" name="percentagem">
+        <state-number>44441</state-number>
+        <data-type>numeric(5,2)</data-type>
+      </column>
+      <column id="680" parent="71" name="valor">
+        <state-number>44441</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="681" parent="71" name="valor_maximo">
+        <state-number>44441</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <column id="682" parent="71" name="valor_minimo">
+        <state-number>44441</state-number>
+        <data-type>numeric(19,2)</data-type>
+      </column>
+      <index id="683" parent="71" name="taxa_pkey">
+        <object-id>119196</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="684" parent="71" name="taxa_pkey">
+        <columns>id</columns>
+        <underlying-index>taxa_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="685" parent="71" name="fk3636162bbe9450">
+        <columns>entidade_id</columns>
+        <ref-key>~.entidade.entidade_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="686" parent="72" name="id">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="687" parent="72" name="version">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="688" parent="72" name="account_expired">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="689" parent="72" name="account_locked">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="690" parent="72" name="email">
+        <state-number>44442</state-number>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="691" parent="72" name="enabled">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="692" parent="72" name="password">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="693" parent="72" name="password_expired">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>boolean</data-type>
+      </column>
+      <column id="694" parent="72" name="username">
+        <state-number>44442</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="695" parent="72" name="utilizador_pkey">
+        <object-id>119204</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="696" parent="72" name="utilizador_username_key">
+        <object-id>119206</object-id>
+        <columns>username</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="697" parent="72" name="utilizador_pkey">
+        <columns>id</columns>
+        <underlying-index>utilizador_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <key id="698" parent="72" name="utilizador_username_key">
+        <columns>username</columns>
+        <underlying-index>utilizador_username_key</underlying-index>
+      </key>
+      <column id="699" parent="73" name="role_id">
+        <state-number>44443</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <column id="700" parent="73" name="utilizador_id">
+        <state-number>44443</state-number>
+        <mandatory>1</mandatory>
+        <data-type>bigint</data-type>
+      </column>
+      <index id="701" parent="73" name="utilizador_role_pkey">
+        <object-id>119211</object-id>
+        <columns>role_id
+utilizador_id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="702" parent="73" name="utilizador_role_pkey">
+        <columns>role_id
+utilizador_id</columns>
+        <underlying-index>utilizador_role_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="703" parent="73" name="fk72f38c7c36d0bbec">
+        <columns>role_id</columns>
+        <ref-key>~.role.role_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="704" parent="73" name="fk72f38c7c277c5b8c">
+        <columns>utilizador_id</columns>
+        <ref-key>~.utilizador.utilizador_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+    </database-model>
+  </data-source>
+</component>

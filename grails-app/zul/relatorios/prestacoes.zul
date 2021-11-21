@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window height="300px" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('prestacoesViewModel')">
+        <label id="info"/>
+        De:
+        <datebox format="dd/MM/yy" value="@bind(vm.dataInicial)"/>
+        À:
+        <datebox format="dd/MM/yy" value="@bind(vm.dataFinal)"/>
+        <checkbox checked="true" value="@bind(vm.exluirPagos)" onCheck="@command('excluir')"
+                  label="Exluir Prestações Pagas"/>
+        <checkbox checked="true" value="@bind(vm.exluirMoras)" onCheck="@command('excluirMoras')"
+                  label="Exluir Moras"/>
+
+        <div visible="@load(not empty vm.dataInicial)">
+            <div visible="@load(not empty vm.dataFinal)">
+                <include src="/relatorios/printPrestacoes.gsp"/>
+            </div>
+
+        </div>
+        <hbox height="800px">
+            <grid width="400px">
+                <columns>
+                    <column width="30%"/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Gestor(a)"/>
+
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.selectedGestor)"
+                                  model="@load(vm.gestores)"
+                                  hflex="3"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </row>
+
+                    <row>
+                        <cell colspan="2">
+                            <div visible="@load(not empty vm.dataInicial)">
+                                <div visible="@load(not empty vm.dataFinal)">
+                                    <div visible="@load(not empty vm.selectedGestor.id)">
+                                        <include src="/relatorios/printPrestacoesDoGestor.gsp"/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </cell>
+                    </row>
+                </rows>
+
+            </grid>
+            <grid width="650px">
+                <columns>
+                    <column width="40%"/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+                        <textbox width="200px" placeholder="nome do cliente ou Nº do Crédito"
+                                 style="background:#95B9C7;color:black"
+                                 value="@bind(vm.filterCliente)"
+                                 onChange="@command('doSearchCliente')"
+                                 instant="false"/>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedCliente)"
+                                 model="@load(vm.clientes)" width=""
+                                 height="" mold="paging" pageSize="2">
+                            <template name="model" status="s">
+                                <listitem onClick="@command('')">
+                                    <listcell label="@load(each.nome)"/>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </row>
+                    <row>
+                        <cell colspan="2">
+                            <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                                     model="@load(vm.creditos)" width=""
+                                     height="" mold="paging" pageSize="5">
+                                <listhead sizable="true">
+                                    <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº"
+                                                align="left"/>
+                                    <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado"
+                                                align="left"/>
+                                    <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                                align="left"/>
+                                    <listheader sort="auto(dateConcecao)" width="100px" label="Data de conceção"
+                                                align="left"/>
+
+                                    <listheader sort="auto(periodicidade)" width="80px" label="Periodicidade"
+                                                align="left"/>
+
+                                </listhead>
+                                <template name="model" status="s">
+
+                                    <listitem style="@bind('style')">
+                                        <listcell label="@load(each.numeroDoCredito)"/>
+                                        <listcell
+                                                label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                        <listcell label="@load(each.numeroDePrestacoes)"/>
+                                        <listcell
+                                                label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                        <listcell label="@load(each.periodicidade)"/>
+
+                                    </listitem>
+                                </template>
+
+                            </listbox>
+                        </cell>
+
+                    </row>
+                    <row>
+
+                        <div visible="@load(not empty vm.dataInicial)">
+                            <div visible="@load(not empty vm.dataFinal)">
+                                <div visible="@load(not empty vm.selectedCliente.id)">
+                                    <include src="/relatorios/printPrestacoesDoCliente.gsp"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div visible="@load(not empty vm.selectedCliente.id)">
+                            <include visible="@load(not empty vm.credito.id)"
+                                     src="/relatorios/printPrestacoesDoClienteDetalhado.gsp"/>
+                        </div>
+
+
+                    </row>
+                </rows>
+            </grid>
+        </hbox>
+
+    </window>
+
+</zk>

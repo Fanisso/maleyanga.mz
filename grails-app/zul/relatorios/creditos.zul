@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window width="" style="background:#00B3EE;color:black;font-weight:bold;border:non;font-size:14px;align:center"
+            title="Créditos!" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('creditosViewModel')">
+
+        <label value=""/>
+        <separator/>
+        <grid width="400px">
+            <columns>
+                <column width="20%"/>
+                <column width=""/>
+            </columns>
+            <auxhead>
+                <auxheader colspan="2" label="Filtragem de créditos em função da data de desembolso "/>
+            </auxhead>
+            <rows>
+                <row>
+                    De:
+                    <datebox format="dd/MM/yy" value="@bind(vm.dataInicial)"/>
+                </row>
+                <row>
+
+                    À:
+                    <datebox format="dd/MM/yy" value="@bind(vm.dataFinal)"/>
+
+                </row>
+            </rows>
+        </grid>
+
+        <div visible="@load(not empty vm.dataInicial)">
+            <div visible="@load(not empty vm.dataFinal)">
+                <include src="/relatorios/printCreditos.gsp"/>
+            </div>
+
+        </div>
+        <hbox>
+            <grid width="400px">
+
+                <columns>
+                    <column width="30%"/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+
+                        <label value="Gestor(a)"/>
+
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.selectedGestor)"
+                                  model="@load(vm.gestores)"
+                                  hflex="3"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+
+                    </row>
+                    <row>
+                        <cell colspan="2">
+                            <div visible="@load(not empty vm.dataInicial)">
+                                <div visible="@load(not empty vm.dataFinal)">
+                                    <div visible="@load(not empty vm.selectedGestor.id)">
+                                        <include src="/relatorios/printCreditosDoGestor.gsp"/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </cell>
+                    </row>
+                </rows>
+
+            </grid>
+            <button image="${z.resource(dir:'images', file:'show.png')}" onClick="@command('setEmMora')"
+                    label="Relatório global de Extratos de créditos em mora"/>
+            <div visible="false" id="dv_print">
+                <include src="/relatorios/printExtratos.gsp"/>
+            </div>
+
+        </hbox>
+
+        <label value="@load(vm.pendentes.size())"/>
+        <tabbox>
+            <tabs>
+
+                <tab style="" label=""/>
+                <tab onClick="@command('setAbertos')" style="background:#8eaded" label="C. Abertos"/>
+                <tab onClick="@command('setEmPagamento')" style="background:#1eaded" label="C. Em Pagamento"/>
+                <tab onClick="@command('setPendentes')" style="background:#f6ff00" label="C. Pendentes"/>
+                <tab onClick="@command('setFechados')" style="background:#00ff04" label="C. Fechados"/>
+                <tab onClick="@command('setInvalidos')" style="background:#ddddd7" label="C. Inválidos"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel/>
+                <tabpanel>
+
+
+                    <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                             model="@load(vm.abertos)" width=""
+                             height="" mold="paging" pageSize="10">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                        align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="F. de calculo" align="left"/>
+                            <listheader sort="auto(dateConcecao)" width="110px" label="Data de conceção" align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="100px" label="% de Juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="100px" label="% de J. de Mora"
+                                        align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="Periodicidade" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.id)"/>
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell
+                                        label="@load(each.formaDeCalculo)"/>
+                                <listcell
+                                        label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.percentualDejuros)"/>
+                                <listcell label="@load(each.percentualJurosDeDemora)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+                <tabpanel>
+                    <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                             model="@load(vm.emPagamento)" width=""
+                             height="" mold="paging" pageSize="10">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                        align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="F. de calculo" align="left"/>
+                            <listheader sort="auto(dateConcecao)" width="110px" label="Data de conceção" align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="100px" label="% de Juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="100px" label="% de J. de Mora"
+                                        align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="Periodicidade" align="left"/>
+
+                            <listheader sort="auto(utilizador)" width="100px" label="Emissor" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.id)"/>
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell
+                                        label="@load(each.formaDeCalculo)"/>
+                                <listcell
+                                        label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.percentualDejuros)"/>
+                                <listcell label="@load(each.percentualJurosDeDemora)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+                                <listcell label="@load(each.utilizador.username)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+                <tabpanel>
+                    <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                             model="@load(vm.pendentes)" width=""
+                             height="" mold="paging" pageSize="10">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                        align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="F. de calculo" align="left"/>
+                            <listheader sort="auto(dateConcecao)" width="110px" label="Data de conceção" align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="100px" label="% de Juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="100px" label="% de J. de Mora"
+                                        align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="Periodicidade" align="left"/>
+
+                            <listheader sort="auto(utilizador)" width="100px" label="Emissor" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.numeroDoCredito)"/>
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell
+                                        label="@load(each.formaDeCalculo)"/>
+                                <listcell
+                                        label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.percentualDejuros)"/>
+                                <listcell label="@load(each.percentualJurosDeDemora)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+                                <listcell label="@load(each.utilizador.username)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+                <tabpanel>
+
+                <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                             model="@load(vm.fechados)" width=""
+                             height="" mold="paging" pageSize="10">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                        align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="F. de calculo" align="left"/>
+                            <listheader sort="auto(dateConcecao)" width="110px" label="Data de conceção" align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="100px" label="% de Juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="100px" label="% de J. de Mora"
+                                        align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="Periodicidade" align="left"/>
+
+                            <listheader sort="auto(utilizador)" width="100px" label="Emissor" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.numeroDoCredito)"/>
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell
+                                        label="@load(each.formaDeCalculo)"/>
+                                <listcell
+                                        label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.percentualDejuros)"/>
+                                <listcell label="@load(each.percentualJurosDeDemora)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+                                <listcell label="@load(each.utilizador.username)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+                <tabpanel>
+
+                <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
+                             model="@load(vm.invalidos)" width=""
+                             height="" mold="paging" pageSize="10">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                                        align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="F. de calculo" align="left"/>
+                            <listheader sort="auto(dateConcecao)" width="110px" label="Data de conceção" align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="100px" label="% de Juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="100px" label="% de J. de Mora"
+                                        align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="Periodicidade" align="left"/>
+
+                            <listheader sort="auto(utilizador)" width="100px" label="Emissor" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.numeroDoCredito)"/>
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell
+                                        label="@load(each.formaDeCalculo)"/>
+                                <listcell
+                                        label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.percentualDejuros)"/>
+                                <listcell label="@load(each.percentualJurosDeDemora)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+                                <listcell label="@load(each.utilizador.username)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </window>
+
+</zk>

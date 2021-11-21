@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('fundoDeManeioViewModel')">
+
+        <label id="info"/>
+        <div>
+            <hbox>
+                <button visible="@load(!not empty vm.parcelaEntrada)"
+                        image="${z.resource(dir:'images', file:'add.png')}"
+                        style="color:black;background:#20c199" onClick="@command('addSaida')" label="Movimento"/>
+                CDFM.
+                <button style="background:#85c1e9"
+                        label="@load(vm.contaManeio.designacaoDaConta)"/>
+                SFDM.
+                <button style="background:#85c1e9"
+                        label="@load(vm.contaManeio.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                <hbox onClick="@command('printSaida')">
+                    <include visible="@load(not empty vm.dataInicial)" src="/parcela/printContaFDM.gsp"/>
+                    <datebox format="dd/MM/yy" value="@bind(vm.dataInicial)"/>
+                    <datebox format="dd/MM/yy" value="@bind(vm.dataFinal)"/>
+                </hbox>
+
+
+            </hbox>
+
+
+            <hbox>
+                <grid visible="@load(not empty vm.saida)" width="450px">
+                    <columns>
+                        <column width="150px"/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Valor"/>
+                            <decimalbox placeholder="Valor" constraint="no empty, no negative, no zero"
+                                        style="font-size:15pt;font-weight:bold;border:none"
+                                        onChange="@command('')" format="###,##0.00"
+                                        width="200px" value="@bind(vm.saida.valor)  "/>
+                        </row>
+                        <row>
+                            <label value="Data de Pag."/>
+                            <datebox format="dd/MM/yy" constraint="no empty" width="100%"
+                                     value="@bind(vm.saida.dataDePagamento)"/>
+                        </row>
+                        <row>
+                            <label value="Descrição"/>
+                            <textbox width="100%" value="@bind(vm.saida.descricao)"/>
+                        </row>
+                        <row>
+                            <label value="Forma De Pag."/>
+
+                            <combobox constraint="no empty" width="100%" onSelect="@command('')"
+                                      value="@bind(vm.saida.formaDePagamento)">
+                                <comboitem label="numerário"/>
+                                <comboitem label="deposito bancário"/>
+                                <comboitem label="transferencia bancária"/>
+                                <comboitem label="Paga Fácil"/>
+                                <comboitem label="POS"/>
+                                <comboitem label="Outra"/>
+                            </combobox>
+                        </row>
+                        <row>
+                            <label value="Conta Destino"/>
+                            <combobox id="cb_cd" onChanging="@command('showContas')"
+                                      selectedItem="@bind(vm.selectedConta)" model="@load(vm.contas)"
+                                      hflex="1"
+                                      mold="rounded" autodrop="true" autocomplete="true">
+                                <template name="model">
+                                    <comboitem onClick="@command('showContas')" label="@load(each )"
+                                               value="@load(each)"/>
+                                </template>
+                            </combobox>
+                        </row>
+                        <row>
+                            <cell colspan="2">
+                                <button id="bt_saida" image="${z.resource(dir:'images', file:'save.png')}"
+                                        onClick="@command('salvarSaida')"
+                                        label="Salvar " width="100px" height="30px"/>
+                                <button id="bt_" image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                        label="Fechar Editor" onClick="@command('fecharEditor')"/>
+                                <!-- <button visible="@load(not empty vm.saida.id)"
+                                         image="${z.resource(dir:'images', file:'print.png')}"
+                                         onClick="@command('printSaida')"
+                                         label="Extrato " width="100px" height="30px"/>-->
+
+                                <button visible="@bind(not empty vm.saida.id)"
+                                        image="${z.resource(dir:'images', file:'remover.png')}"
+                                        onClick="@command('alertDelete')"
+                                        onDoubleClick="@command('deleteSaida')" label="Invalidar"/>
+                            </cell>
+                        </row>
+
+                    </rows>
+                </grid>
+                <grid visible="@load(not empty vm.selectedSaida)" width="450px">
+                    <columns>
+                        <column width="150px"/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Valor"/>
+                            <decimalbox readonly="true" placeholder="Valor" constraint="no empty, no negative, no zero"
+                                        style="font-size:15pt;font-weight:bold;border:none"
+                                        onChange="@command('')" format="###,##0.00"
+                                        width="200px" value="@bind(vm.selectedSaida.valor)  "/>
+                        </row>
+                        <row>
+                            <label value="Data de Pag."/>
+                            <datebox format="dd/MM/yy" readonly="true" constraint="no empty" width="100%"
+                                     value="@load(vm.selectedSaida.dataDePagamento)"/>
+                        </row>
+                        <row>
+                            <label value="Descrição"/>
+                            <label width="100%" value="@load(vm.selectedSaida.descricao)"/>
+                        </row>
+                        <row>
+                            <label value="Forma De Pag."/>
+
+                            <label value="@load(vm.selectedSaida.formaDePagamento)"/>
+
+                        </row>
+                        <row>
+                            <label value="Conta Destino"/>
+                            <label value="@load(vm.selectedSaida.destino)"/>
+                        </row>
+                        <row>
+                            <cell colspan="2">
+
+                                <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                        label="Fechar Editor" onClick="@command('fecharEditor')"/>
+                                <!--<button visible="@load(not empty vm.selectedSaida.id)"
+                                        image="${z.resource(dir:'images', file:'print.png')}"
+                                        onClick="@command('printSaida')"
+                                        label="Imprimir " width="100px" height="30px"/>-->
+                                <button visible="@bind(not empty vm.selectedSaida.id)"
+                                        image="${z.resource(dir:'images', file:'remover.png')}"
+                                        onClick="@command('alertDelete')"
+                                        onDoubleClick="@command('deleteSaida')" label="Invalidar"/>
+                            </cell>
+                        </row>
+
+                    </rows>
+                </grid>
+                <listbox checkmark="true" style="@bind('style')"
+                         model="@load(vm.saidas)" width="610px" selectedItem="@bind(vm.selectedSaida)"
+                         height="" mold="paging" pageSize="5">
+                    <auxhead>
+                        <auxheader label="Saídas" colspan="3" rowspan="1"/>
+                    </auxhead>
+                    <listhead sizable="true">
+                        <listheader sort="auto(dateCreated)" width="100px" label="Data" align="left"/>
+                        <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                        <listheader sort="auto(valor)" width="100px" label="Valor" align="left"/>
+                    </listhead>
+                    <template name="model" status="s">
+
+                        <listitem>
+                            <listcell
+                                    label="@load(each.dataDePagamento)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                            <listcell label="@load(each.descricao)"/>
+                            <listcell
+                                    label="@load(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+
+                        </listitem>
+                    </template>
+
+                </listbox>
+
+            </hbox>
+        </div>
+
+    </window>
+
+</zk>

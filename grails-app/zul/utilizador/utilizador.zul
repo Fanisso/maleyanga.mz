@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('utilizadorViewModel')">
+
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <hbox>
+            <button image="${z.resource(dir:'images', file:'add.png')}"
+                    onClick="@command('addUtilizador')"/>
+            <label style="font-weight:bold" id="info"/>
+        </hbox>
+
+
+        <hbox>
+            <grid width="500px"
+                  style="margin-top:20px">
+                <columns>
+                    <column image="${z.resource(dir:'images', file:'cliente_25.png')}" label="Novo Utilizador"
+                            width="100px"/>
+                    <column label="@bind(vm.novoUtilizador.username)" width="60%"/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Nome"/>
+                        <textbox constraint="no empty" value="@bind(vm.novoUtilizador.username)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Senha"/>
+                        <textbox type="password" constraint="no empty" value="@bind(vm.novoUtilizador.password)"
+                                 width="100%"/>
+                    </row>
+
+
+                    <row>
+                        <label value="Residencia"/>
+                        <textbox value="@bind(vm.novoUtilizador.endereco)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="E-mail"/>
+                        <textbox
+                                constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                value="@bind(vm.novoUtilizador.email)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Nº. de Telefone"/>
+                        <textbox value="@bind(vm.novoUtilizador.telefone1)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Nº. de Telefone"/>
+                        <textbox value="@bind(vm.novoUtilizador.telefone2)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="enabled"/>
+                        <button onClick="@command('setEnabled')" label="@bind(vm.novoUtilizador.enabled)"/>
+                    </row>
+                    <row>
+                        <label value="account Expired"/>
+                        <button label="@bind(vm.novoUtilizador.accountExpired)"
+                                onClick="@command('setAccountExpired')"/>
+                    </row>
+                    <row>
+                        <label value="account Locked"/>
+                        <button label="@bind(vm.novoUtilizador.accountLocked)" onClick="@command('setAccountLocked')"/>
+
+
+                    </row>
+                    <row>
+
+                        <label value="Password Expired"/>
+                        <button onClick="@command('setPasswordExpired')"
+                                label="@load(vm.novoUtilizador.passwordExpired)"/>
+                    </row>
+
+                    <row>
+                        <cell colspan="2" style="text-align:center">
+                            <hlayout>
+                                <div>
+                                    <button image="${z.resource(dir:'images', file:'save.png')}"
+                                            label="Salvar" onClick="@command('salvarUtilizador')"/>
+                                    <button image="${z.resource(dir:'images', file:'update.png')}"
+                                            label="Actualizar" onClick="@command('updateUtilizador')"/>
+                                    <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                            label="Fechar" onClick="@command('fecharEditor')"/>
+
+                                </div>
+
+                            </hlayout>
+                        </cell>
+                    </row>
+
+
+                </rows>
+
+            </grid>
+
+            <vbox>
+                <separator/>
+                <textbox width="200px" placeholder="Nome" instant="false"
+                         style="background:#95B9C7;color:black" value="@bind(vm.filter)"
+                         onChange="@command('doSearch')"/>
+                <listbox checkmark="true" style="@bind('style')"
+                         selectedItem="@bind(vm.novoUtilizador)"
+                         model="@load(vm.utilizadores)" width=""
+                         height="" mold="paging" pageSize="12">
+                    <listhead sizable="true">
+
+                        <listheader sort="auto(username)" width="" label="Username" align="left"/>
+                        <!-- <listheader sort="auto(email)" width="150px" label="e. Mail"
+                                     align="left"/>
+                         <listheader sort="auto(Telefone1)" width="100px"
+                                     label="Phone Nº"
+                                     align="left"/>
+                         <listheader sort="auto(Telefone2)" width="200px" label="Phone Nº"
+                                     align="left"/>
+                         <listheader sort="auto(endereco)" width="100px" label="Adress" align="left"/>-->
+                        <listheader sort="auto(enabled)" width="100px" label="enabled" align="left"/>
+                        <listheader sort="auto(accountExpired)" width="100px" label="account Expired" align="left"/>
+                        <listheader sort="auto(accountLocked)" width="100px" label="account Locked" align="left"/>
+                        <listheader sort="auto(passwordExpired)" width="100px" label="password Expired" align="left"/>
+
+
+                    </listhead>
+                    <template name="model" status="s">
+
+                        <listitem
+                                style="@bind('style')">
+
+                            <listcell label="@load(each.username)"/>
+                            <!-- <listcell label="@load(each.email)"/>
+                             <listcell label="@load(each.telefone1)"/>
+                             <listcell label="@load(each.telefone2)"/>
+                             <listcell label="@load(each.endereco)"/>-->
+                            <listcell label="@load(each.enabled)"/>
+                            <listcell label="@load(each.accountExpired)"/>
+                            <listcell label="@load(each.accountLocked)"/>
+                            <listcell label="@load(each.passwordExpired)"/>
+
+                        </listitem>
+                    </template>
+
+                </listbox>
+            </vbox>
+        </hbox>
+
+
+    </window>
+
+</zk>

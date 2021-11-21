@@ -1,0 +1,11 @@
+*.exe
+*.bin
+*.jar
+*.war
+*.mp3
+*.mp4
+/out/
+/target/
+
+/test/
+

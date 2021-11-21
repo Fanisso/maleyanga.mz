@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('simuladorViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <label id="info"/>
+        <hbox>
+            <grid width="450px">
+                <columns>
+                    <column width=""/>
+                    <column width=""/>
+
+                </columns>
+                <rows>
+                    <row id="rw_def">
+                        <label value="Def. De crédito"/>
+                        <combobox constraint="no empty" id="cb_def" onSelect="@command('showDetails')"
+                                  selectedItem="@bind(vm.selectedDefinicaoDeCredito)" model="@load(vm.definicoes)"
+                                  hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')" label="@load(each.descricao )"
+                                           value="@load(each.descricao)"/>
+                            </template>
+                        </combobox>
+
+                    </row>
+                    <row>
+                        <label value="Forma de cálculo"/>
+                        <combobox constraint="no empty" width="" onSelect="@command('showDetails')"
+                                  value="@bind(vm.selecedFormaDeCalculo)">
+                            <comboitem label="pmt"/>
+                            <comboitem label="taxafixa"/>
+
+                        </combobox>
+                    </row>
+
+                    <row>
+                        <label value="% De juros"/>
+                        <decimalbox constraint="no negative" onChange="@command('showDetails')"
+                                    value="@bind(vm.selectedDefinicaoDeCredito.percentualDejuros)"/>
+                    </row>
+
+                    <row>
+                        <label value="Valor Creditado"/>
+                        <decimalbox width="100%" onChange="@command('showDetails')"
+                                    constraint="no negative, no zero, no empty" style="font-size:14pt"
+                                    format="###,##0.00" value="@bind(vm.credito.valorCreditado)"/>
+                    </row>
+                    <row>
+                        <label value="Número de Prestações"/>
+                        <intbox style="font-size:14pt" constraint="no negative, no zero, no empty"
+                                onChange="@command('showDetails')" value="@bind(vm.numeroDePrestacoes)"/>
+                    </row>
+                    <row>
+                        <label value="Data Previsto para desembolso" onClick="@command('showDetails   ')"/>
+                        <datebox format="dd/MM/yy" value="@bind(vm.dataPrevista)"/>
+                    </row>
+                </rows>
+            </grid>
+            <grid width="240px">
+                <columns>
+                    <column width="150px"/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Juros(%)"/>
+                        <label value="@bind(vm.juros)"/>
+                    </row>
+                    <row>
+                        <label value="Juros de Mora(%)"/>
+                        <label value="@bind(vm.jurosDeMora)"/>
+                    </row>
+                    <row>
+                        <label value="Forma de calculo"/>
+                        <label value="@bind(vm.selectedDefinicaoDeCredito.formaDeCalculo)"/>
+                    </row>
+                    <row>
+                        <label value="Nº max. de prestaões"/>
+                        <label value="@bind(vm.selectedDefinicaoDeCredito.numeroDePrestacoes)"/>
+                    </row>
+                    <row>
+                        <label value="Rec. de moras"/>
+                        <label value="@bind(vm.selectedDefinicaoDeCredito.recorenciaDeMoras)"/>
+                    </row>
+                </rows>
+            </grid>
+        </hbox>
+
+        <grid model="@bind(vm.prestacoes)">
+            <columns>
+                <column width="55px">
+                    <label value="Parcelas"/>
+                </column>
+                <column width="80px">
+                    <label value="DPDP"/>
+                </column>
+                <column>
+                    <label value="Saldo Devedor"/>
+                </column>
+                <column>
+                    <label value="Prestações"/>
+                </column>
+                <column>
+                    <label value="Amortização"/>
+                </column>
+                <column>
+                    <label value="Juros"/>
+                </column>
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@load(forEachStatus.index+1)"/>
+                    <label value="@load(each.dataPrevistoDePagamento) @converter('formatedDate', format='dd/MM/yyyy') "/>
+                    <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
+
+                </row>
+
+            </template>
+            <foot>
+                <footer></footer>
+                <footer>Totais</footer>
+                <footer>
+                    <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+            </foot>
+        </grid>
+
+        <button image="${z.resource(dir:'images', file:'print.png')}" label="Imprimir"
+                onClick="@command('print')"/>
+        <button image="${z.resource(dir:'images', file:'cancelar.png')}" label="Reset"
+                onClick="@command('clean')"/>
+    </window>
+
+</zk>

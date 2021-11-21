@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printSimuladorViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+        <hbox>
+            <grid style="margin-top:20px" width="400px">
+                <columns>
+                    <column width="150px"/>
+                    <column width=""/>
+
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Periodicidade"/>
+                        <label value="@load(vm.credito.periodicidade)"/>
+
+                    </row>
+
+                    <row>
+                        <label value="Valor Creditado"/>
+
+                        <label style="font-size:14pt"
+                               value="@load(vm.credito.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                        MZN
+                    </row>
+                    <row>
+                        <label value="Número de Prestações"/>
+                        <label value="@bind(vm.credito.numeroDePrestacoes)"/>
+                    </row>
+
+                </rows>
+            </grid>
+            <grid style="margin-top:20px" height="112px" width="280px">
+                <columns>
+                    <column width="150px"/>
+                    <column width=""/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Juros(%)"/>
+                        <label value="@bind(vm.juros)"/>
+                    </row>
+                    <row>
+                        <label value="Juros de Mora(%)"/>
+                        <label value="@bind(vm.jurosDeMora)"/>
+                    </row>
+                    <row>
+                        <label value="Forma de cálculo"/>
+                        <label value="@bind(vm.taxaFixa)"/>
+                    </row>
+
+
+                </rows>
+            </grid>
+        </hbox>
+
+        <grid width="684px" model="@bind(vm.prestacoes)">
+            <columns>
+                <column width="55px">
+                    <label value="Parcelas"/>
+                </column>
+                <column width="150px">
+                    <label value="Saldo Devedor"/>
+                </column>
+                <column width="150px">
+                    <label value="Prestações"/>
+                </column>
+                <column width="150px">
+                    <label value="Amortização"/>
+                </column>
+                <column width="150px">
+                    <label value="Juros"/>
+                </column>
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@load(forEachStatus.index+1)"/>
+                    <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
+
+                </row>
+
+            </template>
+            <foot>
+                <footer></footer>
+                <footer>Totais</footer>
+                <footer>
+                    <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+            </foot>
+        </grid>
+
+
+    </window>
+
+</zk>

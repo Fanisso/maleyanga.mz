@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printParcelasViewModel')">
+        <grid width="1100px" model="@bind(vm.parcelas)">
+            <auxhead>
+                <auxheader style="font-size:14pt;text-align:center" label="Diário" colspan="3"/>
+                <auxheader style="font-size:14pt;text-align:center" label="@load(vm.diario.numeroDoDiario)"
+                           colspan="2"/>
+                <auxheader style="font-size:12pt;text-align:right" label="Last Update" colspan="2"/>
+                <auxheader style="font-size:12pt;text-align:center"
+                           label="@load(vm.diario.lastUpdated)@converter('formatedDate', format='dd/MM/yyyy')"
+                           colspan="2"/>
+            </auxhead>
+            <auxhead>
+                <auxheader style="font-size:13pt;text-align:center" label="Recebimentos" colspan="12"/>
+            </auxhead>
+            <columns>
+                <column sort="auto(id)" width="90px" label="Parcela ID"/>
+                <column sort="auto(nome)" width="150px" label="Cliente"/>
+
+                <column sort="auto(dateCreated)" width="100px" label="date Created"/>
+                <column sort="auto(dataDePagamento)" width="90px" label="Data de Pag."/>
+                <column sort="auto(descricao)" width="100px" label="descrição"/>
+                <column sort="auto(formaDePagamento)" width="100px" label="Forma de Pag."/>
+                <column sort="auto(numeroDoRecibo)" width="100px" label="Nº"/>
+                <column sort="auto(valorParcial)" width="100px" label="Valor Pago"/>
+                <column sort="auto(utilizador.username)" width="150px" label="utilizador"/>
+
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@bind(each.pagamento.id)"/>
+                    <label value="@bind(each.pagamento.credito.cliente.nome)"/>
+
+                    <label value="@bind(each.dateCreated)@converter('formatedDate', format='hh:mm-dd/MM/yy')"/>
+                    <label value="@bind(each.dataDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <label value="@bind(each.descricao)"/>
+                    <label value="@bind(each.formaDePagamento)"/>
+                    <label value="@bind(each.numeroDoRecibo)"/>
+                    <label value="@bind(each.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.utilizador.username)"/>
+                </row>
+            </template>
+            <foot>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer>Total:</footer>
+                <footer>
+                    <label style="font-size:12pt"
+                           value="@load(vm.totalParcelas)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+
+</zk>

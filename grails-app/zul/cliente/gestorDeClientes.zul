@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="win_cliente" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('gestorDeClientesViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <label style="color:blue;font-size:14pt" value="" id="info"/>
+
+        <tabbox maximalHeight="true" onSelect="@command('cleanInfo')" width="">
+            <tabs id="tabs0">
+                <tab id="tab_novo_cliente" image="${z.resource(dir:'images', file:'add.png')}"
+                     label="Novos Clientes"/>
+                <tab id="tab_clientes" image="${z.resource(dir:'images', file:'clientes_25.png')}"
+                     label="Editar Clientes"/>
+                <tab id="tab_assinant" image="${z.resource(dir:'images', file:'clientes_25.png')}"
+                     label="Assinates"/>
+
+            </tabs>
+            <tabpanels id="pnls0">
+                <tabpanel><!--Incio Clientes-->
+                    <div>
+                        <include src="/cliente/novoCliente.zul"/>
+                    </div>
+                </tabpanel> <!-- Novos clientes-->
+                <tabpanel><!--Incio Clientes-->
+                    <tabbox>
+                        <tabs>
+                            <tab id="sub_tab_cliente" image="${z.resource(dir:'images', file:'clientes_25.png')}"
+                                 label="Clientes"/>
+
+
+                            <tab id="tab_assinantes_do_cliente" visible="@load(not empty vm.editCliente.assinantes)"
+                                 image="${z.resource(dir:'images', file:'clientes_25.png')}"
+                                 label=""/>
+
+
+
+                        </tabs>
+                        <tabpanels>
+                            <tabpanel>
+
+                                Filtragem :
+                                <textbox width="300px" placeholder="nome do cliente, datas nuit, email, telefone "
+                                         style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
+                                         onChange="@command('doSearchCliente')"
+                                         instant="false"/>
+                                <hbox visible="@load(not empty vm.editCliente.id)" id="hb_new_cliente">
+
+                                </hbox>
+                                <hbox visible="false" id="hb_edit_cliente">
+                                    <grid id="gd_edit" width="500px"
+                                          style="margin-top:20px">
+                                        <columns>
+                                            <column image="${z.resource(dir:'images', file:'cliente_25.png')}" label=""
+                                                    width="100px"/>
+                                            <column label="@bind(vm.editCliente.nome)" width="60%"/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <label value="Nome Completo"/>
+                                                <textbox constraint="no empty" value="@bind(vm.editCliente.nome)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Género"/>
+                                                <combobox width="" constraint="no empty" onChange="@command('')"
+                                                          selectedItem="@bind(vm.editCliente.genero)"
+                                                          model="@load(vm.generos)" hflex="1"
+                                                          mold="rounded" autodrop="true" autocomplete="true">
+                                                    <template name="model">
+                                                        <comboitem onClick="@command('')"
+                                                                   label="@load(each)" value="@load(each)"/>
+                                                    </template>
+                                                </combobox>
+                                            </row>
+                                            <row>
+                                                <label value="Estado Civil"/>
+                                                <combobox width="" constraint="no empty" onChange="@command('')"
+                                                          selectedItem="@bind(vm.editCliente.estadoCivil)"
+                                                          model="@load(vm.estadosCivil)" hflex="1"
+                                                          mold="rounded" autodrop="true" autocomplete="true">
+                                                    <template name="model">
+                                                        <comboitem onClick="@command('')"
+                                                                   label="@load(each)" value="@load(each)"/>
+                                                    </template>
+                                                </combobox>
+                                            </row>
+                                            <row>
+                                                <label value="Data de Nascimento"/>
+                                                <datebox format="dd/MM/yy"
+                                                         value="@bind(vm.editCliente.dataDeNascimento)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Nacionalidade"/>
+                                                <textbox value="@bind(vm.editCliente.nacionalidade)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="NUIT"/>
+                                                <textbox value="@bind(vm.editCliente.nuit)" width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Tipo De Doc. de indentificação"/>
+                                                <combobox width="" constraint="no empty" onChange="@command('')"
+                                                          selectedItem="@bind(vm.editCliente.tipoDeIndentificacao)"
+                                                          model="@load(vm.tiposDeInde)" hflex="1"
+                                                          mold="rounded" autodrop="true" autocomplete="true">
+                                                    <template name="model">
+                                                        <comboitem onClick="@command('')"
+                                                                   label="@load(each)" value="@load(each)"/>
+                                                    </template>
+                                                </combobox>
+                                            </row>
+                                            <!--numeroDeIndentificao-->
+                                            <row>
+                                                <label value="Nº. de Indentificação"/>
+                                                <textbox value="@bind(vm.editCliente.numeroDeIndentificao)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Data de Expiração"/>
+                                                <datebox format="dd/MM/yy" value="@bind(vm.editCliente.dataDeExpiracao)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Data de Emissão"/>
+                                                <datebox format="dd/MM/yy" value="@bind(vm.editCliente.dataDeEmissao)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Arquivo"/>
+                                                <textbox value="@bind(vm.editCliente.nomeDoArquivoDeIndentificao)"
+                                                         width="100%"/>
+                                            </row>
+
+
+                                        </rows>
+
+                                    </grid>
+                                    <grid id="gd_edit_ext" width="500px" style="margin-top:20px"
+                                    >
+                                        <columns>
+                                            <column width="100px"/>
+                                            <column width="60%"/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <label value="Residencia"/>
+                                                <textbox value="@bind(vm.editCliente.residencia)" width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Profissão"/>
+                                                <textbox value="@bind(vm.editCliente.profissao)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Local de Trabalho / Negócio"/>
+                                                <textbox value="@bind(vm.editCliente.localDeTrabalho)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="E-mail"/>
+                                                <textbox
+                                                        constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                                        value="@bind(vm.editCliente.email)" width="100%"/>
+                                            </row>
+
+                                            <row>
+                                                <label value="Nº. de Telefone"/>
+                                                <textbox maxlength="9" value="@bind(vm.editCliente.telefone)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Nº. de Telefone"/>
+                                                <textbox maxlength="9" value="@bind(vm.editCliente.telefone1)"
+                                                         width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Nº. de Telefone"/>
+                                                <textbox maxlength="9" value="@bind(vm.editCliente.telefone2)"
+                                                         width="100%"/>
+                                            </row>
+                                            <!-- <row>
+                                                 <label value="Contas Integradoras"/>
+                                                 <combobox width="" constraint="no empty" onChange="@command('')"
+                                                           selectedItem="@bind(vm.sContaIntegradora)"
+                                                           model="@load(vm.integradoras)"
+                                                           hflex="1"
+                                                           mold="rounded" autodrop="true" autocomplete="true">
+                                                     <template name="model">
+                                                         <comboitem onClick="@command('')"
+                                                                    label="@load(each)" value="@load(each)"/>
+                                                     </template>
+                                                 </combobox>
+
+                                             </row>-->
+                                            <row>
+                                                <label value="Ativo ?"/>
+                                                <button onClick="@command('changeAtiv')"
+                                                        label="@bind(vm.editCliente.ativo)"
+                                                        width="100%"/>
+                                            </row>
+                                            <row>
+                                                <label value="Conta"/>
+                                                <label value="@load(vm.contaCliente)"/>
+                                            </row>
+                                            <row>
+                                                <label value="Gestor"/>
+                                                <label value="@bind(vm.editCliente.utilizador)"/>
+                                            </row>
+                                            <row>
+
+                                                <label value="Gestor(a)"/>
+
+                                                <combobox width="" constraint="no empty" onChange="@command('')"
+                                                          selectedItem="@bind(vm.selectedGestor)"
+                                                          model="@load(vm.gestores)"
+                                                          hflex="3"
+                                                          mold="rounded" autodrop="true" autocomplete="true">
+                                                    <template name="model">
+                                                        <comboitem onClick="@command('')"
+                                                                   label="@load(each)" value="@load(each)"/>
+                                                    </template>
+                                                </combobox>
+
+                                            </row>
+                                            <row>
+                                                <cell colspan="2" style="text-align:center">
+                                                    <hlayout>
+                                                        <div>
+                                                            <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                                    onClick="@command('updateCliente')"
+                                                                    label="Actualizar"/>
+                                                            <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                                    onClick="@command('showAlerta')"
+                                                                    onDoubleClick="@command('deleteCliente')"
+                                                                    label="Eliminar"/>
+                                                            <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                                    label="Fechar" onClick="@command('fecharEditor')"/>
+
+                                                        </div>
+                                                        <div visible="@bind(not empty vm.selectedCliente.id)">
+                                                            <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                                    onClick="@command('showAlerta')"
+                                                                    onDoubleClick="@command('deleteCliente')"
+                                                                    label="Eliminar"/>
+
+                                                            <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                                    onClick="@command('updateCliente')"
+                                                                    label="Actualizar"/>
+                                                        </div>
+
+                                                    </hlayout>
+                                                </cell>
+                                            </row>
+
+                                        </rows>
+                                    </grid>
+                                </hbox>
+
+                                <listbox checkmark="true" style="@bind('style')"
+                                         selectedItem="@bind(vm.editCliente)"
+                                         model="@load(vm.todosClientes)" width=""
+                                         height="" mold="paging" pageSize="12">
+                                    <listhead sizable="true">
+                                        <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                                        <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                        <listheader sort="auto(nuit)" width="100px" label="NUIT" align="left"/>
+                                        <listheader sort="auto(tipoDeIndentificacao)" width="100px" label="T. De Indet."
+                                                    align="left"/>
+                                        <listheader sort="auto(numeroDeIndentificao)" width="100px"
+                                                    label="Nº. de Indet."
+                                                    align="left"/>
+                                        <listheader sort="auto(residencia)" width="200px" label="Residencia"
+                                                    align="left"/>
+                                        <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+                                        <listheader sort="auto(telefone1)" width="100px" label="Tel." align="left"/>
+                                        <listheader sort="auto(utilizador.username)" width="100px" label="Gestor"
+                                                    align="left"/>
+
+
+                                    </listhead>
+                                    <template name="model" status="s">
+
+                                        <listitem onClick="@command('showClientes', index=each.id)"
+                                                  style="@bind('style')">
+                                            <listcell label="@load(each.id)"/>
+                                            <listcell label="@load(each.nome)"/>
+                                            <listcell label="@load(each.nuit)"/>
+                                            <listcell label="@load(each.tipoDeIndentificacao)"/>
+                                            <listcell label="@load(each.numeroDeIndentificao)"/>
+                                            <listcell label="@load(each.residencia)"/>
+                                            <listcell label="@load(each.telefone)"/>
+                                            <listcell label="@load(each.telefone1)"/>
+                                            <listcell label="@load(each.utilizador.username)"/>
+
+                                        </listitem>
+                                    </template>
+
+                                </listbox>
+
+
+                            </tabpanel> <!--sub tab clientes-->
+
+                            <tabpanel>
+
+
+                                <listbox checkmark="true"
+                                         selectedItem="@bind(vm.sAssinante)"
+                                         model="@load(vm.editCliente.assinantes)" width=""
+                                         height="" mold="paging" pageSize="15">
+                                    <listhead sizable="true">
+                                        <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                                        <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                        <listheader sort="auto(nuit)" width="200px" label="NUIT" align="left"/>
+                                        <listheader sort="auto(tipoDeIndentificacao)" width="100px" label="T. De Indet."
+                                                    align="left"/>
+                                        <listheader sort="auto(numeroDeIndentificao)" width="100px"
+                                                    label="Nº. de Indet."
+                                                    align="left"/>
+                                        <listheader sort="auto(residencia)" width="200px" label="Residencia"
+                                                    align="left"/>
+                                        <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+                                        <listheader sort="auto(telefone1)" width="100px" label="Tel." align="left"/>
+                                        <listheader sort="auto(telefone2)" width="100px" label="Tel." align="left"/>
+
+
+                                    </listhead>
+                                    <template name="model" status="s">
+
+                                        <listitem onClick="@command('showClientes', index=each.id)"
+                                                  style="@bind('style')">
+                                            <listcell label="@load(each.id)"/>
+                                            <listcell label="@load(each.nomeDoAssinante)"/>
+                                            <listcell label="@load(each.nuitDoAssinante)"/>
+                                            <listcell label="@load(each.tipoDeIndentificacaoDoAssinante)"/>
+                                            <listcell label="@load(each.numeroDeIndentificaoDoAssinante)"/>
+                                            <listcell label="@load(each.residenciaDoAssinante)"/>
+                                            <listcell label="@load(each.telefone)"/>
+                                            <listcell label="@load(each.telefone1)"/>
+                                            <listcell label="@load(each.telefone2)"/>
+
+                                        </listitem>
+                                    </template>
+
+                                </listbox>
+                            </tabpanel><!--Assinates do cliente-->
+
+
+                        </tabpanels>
+                    </tabbox>
+
+
+                </tabpanel> <!-- Clientes-->
+                <tabpanel>
+                    <button image="${z.resource(dir:'images', file:'add.png')}"
+                            onClick="@command('addAssinate')"
+                            label="Novo Assinante"/>
+                    Filtragem:
+                    <textbox width="300px" placeholder="nome do assinante, datas nuit, email, telefone "
+                             style="background:#95B9C7;color:black" value="@bind(vm.filterAssinante)"
+                             onChange="@command('doSearchAssinantes')"
+                             instant="false"/>
+                    <hbox>
+
+                        <grid visible="@load(not empty vm.sAssinante)" id="gd_banc" width="500px"
+                              style="margin-top:20px">
+                            <columns>
+                                <column image="${z.resource(dir:'images', file:'cliente_25.png')}" label=""
+                                        width="100px"/>
+                                <column label="@bind(vm.sAssinante.nomeDoAssinante)" width="60%"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Nome Completo"/>
+                                    <textbox constraint="no empty"
+                                             value="@bind(vm.sAssinante.nomeDoAssinante)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Estado Civil"/>
+                                    <combobox width="" constraint="no empty" onChange="@command('')"
+                                              selectedItem="@bind(vm.sAssinante.estadoCivilDoAssinante)"
+                                              model="@load(vm.estadosCivil)" hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('')"
+                                                       label="@load(each)" value="@load(each)"/>
+                                        </template>
+                                    </combobox>
+                                </row>
+                                <row>
+                                    <label value="NUIT"/>
+                                    <textbox value="@bind(vm.sAssinante.nuitDoAssinante)" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Tipo De Doc. de indentificação"/>
+                                    <combobox width="" constraint="no empty" onChange="@command('')"
+                                              selectedItem="@bind(vm.sAssinante.tipoDeIndentificacaoDoAssinante)"
+                                              model="@load(vm.tiposDeInde)" hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('')"
+                                                       label="@load(each)" value="@load(each)"/>
+                                        </template>
+                                    </combobox>
+                                </row>
+                                <!--numeroDeIndentificao-->
+                                <row>
+                                    <label value="Nº. de Indentificação"/>
+                                    <textbox value="@bind(vm.sAssinante.numeroDeIndentificaoDoAssinante)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Data de Emissão"/>
+                                    <datebox format="dd/MM/yy"
+                                             value="@bind(vm.sAssinante.dataDeExpiracaoDoAssinante)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Residencia"/>
+                                    <textbox value="@bind(vm.sAssinante.residenciaDoAssinante)"
+                                             width="100%"/>
+                                </row>
+
+
+                            </rows>
+
+                        </grid>
+                        <grid width="500px" style="margin-top:20px"
+                              visible="@load(not empty vm.sAssinante)">
+                            <columns>
+                                <column width="100px"/>
+                                <column width="60%"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Local de Trabalho/ Negócio"/>
+                                    <textbox value="@bind(vm.sAssinante.localDeTrabalhoDoAssinante)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="E-mail"/>
+                                    <textbox
+                                            constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                            value="@bind(vm.sAssinante.emailDoAssinante)" width="100%"/>
+                                </row>
+
+                                <row>
+                                    <label value="Nº. de Telefone"/>
+                                    <textbox value="@bind(vm.sAssinante.telefone)" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Nº. de Telefone"/>
+                                    <textbox value="@bind(vm.sAssinante.telefone1)" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Nº. de Telefone"/>
+                                    <textbox value="@bind(vm.sAssinante.telefone2)" width="100%"/>
+                                </row>
+
+
+                                <row>
+                                    <label value="Cliente"/>
+                                    <combobox width="" constraint="no empty" onChange="@command('')"
+                                              selectedItem="@bind(vm.selectedCliente)"
+                                              model="@load(vm.clientesDosassinantes)"
+                                              hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('')"
+                                                       label="@load(each)" value="@load(each)"/>
+                                        </template>
+                                    </combobox>
+
+                                </row>
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+                                            <div>
+                                                <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                        label="Salvar"
+                                                        onClick="@command('salvarAssinante')"/>
+                                                <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                        label="Fechar" onClick="@command('fecharEditor')"/>
+
+                                            </div>
+                                            <div visible="@bind(not empty vm.sAssinante.id)">
+                                                <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                        onClick="@command('showAlerta')"
+                                                        onDoubleClick="@command('deleteAssinante')"
+                                                        label="Eliminar"/>
+
+                                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                        onClick="@command('updateAssinante')"
+                                                        label="Actualizar"/>
+                                            </div>
+
+                                        </hlayout>
+                                    </cell>
+                                </row>
+
+                            </rows>
+                        </grid>
+                    </hbox>
+
+                    <listbox checkmark="true"
+                             selectedItem="@bind(vm.sAssinante)"
+                             model="@load(vm.allAssinantes)" width=""
+                             height="" mold="paging" pageSize="15">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                            <listheader sort="auto(nuit)" width="200px" label="NUIT" align="left"/>
+                            <listheader sort="auto(tipoDeIndentificacao)" width="100px" label="T. De Indet."
+                                        align="left"/>
+                            <listheader sort="auto(numeroDeIndentificao)" width="100px"
+                                        label="Nº. de Indet."
+                                        align="left"/>
+                            <listheader sort="auto(residencia)" width="200px" label="Residencia"
+                                        align="left"/>
+                            <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+                            <listheader sort="auto(telefone1)" width="100px" label="Tel." align="left"/>
+                            <listheader sort="auto(telefone2)" width="100px" label="Tel." align="left"/>
+
+
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('showClientes', index=each.id)"
+                                      style="@bind('style')">
+                                <listcell label="@load(each.id)"/>
+                                <listcell label="@load(each.nomeDoAssinante)"/>
+                                <listcell label="@load(each.nuitDoAssinante)"/>
+                                <listcell label="@load(each.tipoDeIndentificacaoDoAssinante)"/>
+                                <listcell label="@load(each.numeroDeIndentificaoDoAssinante)"/>
+                                <listcell label="@load(each.residenciaDoAssinante)"/>
+                                <listcell label="@load(each.telefone)"/>
+                                <listcell label="@load(each.telefone1)"/>
+                                <listcell label="@load(each.telefone2)"/>
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel><!--Assinates-->
+
+
+                <tabpanel>
+
+                </tabpanel> <!--Creditos do cliente-->
+                <tabpanel>
+
+                </tabpanel> <!-- Pedidos de Credito do cliente-->
+
+
+                <tabpanel>
+                </tabpanel> <!--bancos-->
+                <tabpanel height="1000px">
+                </tabpanel> <!--plano de contas-->
+                <tabpanel>
+                </tabpanel> <!--relatorios-->
+            </tabpanels>
+        </tabbox>
+
+    </window>
+
+</zk>

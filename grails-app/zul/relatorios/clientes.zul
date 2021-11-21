@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window height="800px" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('clientesViewModel')">
+
+        <label style="color:blue;font-size:14pt" value="" id="info"/>
+        <label style="font-weight:bold;font-size:pt14" value="Total Clientes:"/>
+        <label style="font-weight:bold;font-size:pt14;color:red" value="@load(vm.totalClientes)"/>
+
+        <tabbox>
+            <tabs>
+                <tab label="Gestores"/>
+                <tab id="tb_clientes" label="@load(vm.lb_tb_clientes)"/>
+                <tab id="" label="Todos Clientes"/>
+
+            </tabs>
+            <tabpanels>
+                <tabpanel>
+                    <hbox>
+                        <div visible="@bind(not empty vm.selectedGestor)">
+                            <include visible="@load(not empty vm.ano)" src="/relatorios/printRelDeClienteDoGestor.gsp"/>
+                        </div>
+                        <datebox constraint="no empty" id="db" placeholder="yyyy" format="yyyy" value="@bind(vm.ano)"/>
+                        <checkbox onClick="@command('setA')" checked="@load(vm.abertos)" label="Cdts. Abertos"/>
+                        <checkbox onClick="@command('setE')" checked="@load(vm.emPagamento)"
+                                  label="Cdts. Em Pagamento"/>
+                        <checkbox onClick="@command('setP')" checked="@load(vm.pendentes)" label="Cdts. Pendentes"/>
+                        <checkbox onClick="@command('setF')" checked="@load(vm.fechados)" label="Cdts. Fechados"/>
+                        <checkbox onClick="@command('setI')" checked="@load(vm.invalidos)" label="Cdts. Inválidos"/>
+
+                    </hbox>
+                    <hbox>
+                        <listbox checkmark="true" style="@bind('style')"
+
+                                 model="@load(vm.gestors)" width="400px"
+                                 selectedItem="@bind(vm.gestor)"
+                                 height="" mold="paging" pageSize="10">
+
+                            <listhead sizable="true">
+                                <listheader sort="auto(nome)" width="150px" label="Nome do Gestor" align="left"/>
+
+                                <listheader sort="auto(ativos)" width="80px" label="Cl. Activos" align="left"/>
+                                <listheader sort="auto(inativos)" width="80px" label="Cl. Inativos" align="left"/>
+                                <listheader sort="auto(total)" width="80px" label="Total Cls." align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem>
+                                    <listcell label="@load(each.nome)"/>
+                                    <listcell label="@load(each.ativos)"/>
+                                    <listcell label="@load(each.inativos)"/>
+                                    <listcell label="@load(each.total)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedCliente)"
+                                 model="@load(vm.semGestores)" width=""
+                                 height="" mold="paging" pageSize="10">
+                            <auxhead>
+                                <auxheader colspan="1" label="@load(vm.semGestores.size())"/>
+                                <auxheader colspan="2" label="Clientes Sem Gestor"/>
+                            </auxhead>
+
+                            <listhead sizable="true">
+                                <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                                <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('')">
+                                    <listcell label="@load(each.id)"/>
+                                    <listcell label="@load(each.nome)"/>
+                                    <listcell label="@load(each.telefone)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+
+                </tabpanel> <!--Gestores-->
+                <tabpanel>
+                    <hbox>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedCliente)"
+                                 model="@load(vm.ativos)" width=""
+                                 height="" mold="paging" pageSize="10">
+                            <auxhead>
+                                <auxheader colspan="1" label="@load(vm.ativos.size())"/>
+                                <auxheader colspan="2" label="Clientes Activos"/>
+                            </auxhead>
+
+                            <listhead sizable="true">
+                                <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                                <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('')">
+                                    <listcell label="@load(each.id)"/>
+                                    <listcell label="@load(each.nome)"/>
+                                    <listcell label="@load(each.telefone)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedCliente)"
+                                 model="@load(vm.inativos)" width=""
+                                 height="" mold="paging" pageSize="10">
+                            <auxhead>
+                                <auxheader colspan="1" label="@load(vm.inativos.size())"/>
+                                <auxheader colspan="2" label="Clientes Inativos"/>
+                            </auxhead>
+
+                            <listhead sizable="true">
+                                <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                                <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('')">
+                                    <listcell label="@load(each.id)"/>
+                                    <listcell label="@load(each.nome)"/>
+                                    <listcell label="@load(each.telefone)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+                </tabpanel> <!--clientes-->
+                <tabpanel>
+                    <listbox checkmark="true" style="@bind('style')"
+                             selectedItem="@bind(vm.selectedCliente)"
+                             model="@load(vm.todosClientes)" width=""
+                             height="" mold="paging" pageSize="12">
+                        <listhead sizable="true">
+                            <listheader sort="auto(id)" width="80px" label="ID" align="left"/>
+                            <listheader sort="auto(nome)" width="200px" label="Nome" align="left"/>
+                            <listheader sort="auto(nuit)" width="100px" label="NUIT" align="left"/>
+                            <listheader sort="auto(tipoDeIndentificacao)" width="100px" label="T. De Indet."
+                                        align="left"/>
+                            <listheader sort="auto(numeroDeIndentificao)" width="100px"
+                                        label="Nº. de Indet."
+                                        align="left"/>
+                            <listheader sort="auto(residencia)" width="" label="Residencia"
+                                        align="left"/>
+                            <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+
+
+
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('', index=each.id)"
+                                      style="@bind('style')">
+                                <listcell label="@load(each.id)"/>
+                                <listcell label="@load(each.nome)"/>
+                                <listcell label="@load(each.nuit)"/>
+                                <listcell label="@load(each.tipoDeIndentificacao)"/>
+                                <listcell label="@load(each.numeroDeIndentificao)"/>
+                                <listcell label="@load(each.residencia)"/>
+                                <listcell label="@load(each.telefone)"/>
+
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel> <!--clientes-->
+            </tabpanels>
+        </tabbox>
+
+
+    </window>
+
+</zk>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="win_novo_cliente" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('novoClienteViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <button onClick="@command('addNovoCliente')" image="${z.resource(dir:'images', file:'add.png')}"
+                label="Novos Clientes"/>
+        <vbox>
+            <label style="font-weight:bold" id="info"/>
+        </vbox>
+
+
+        <hbox>
+            <grid width="500px"
+                  style="margin-top:20px" visible="@bind(not empty vm.novoCliente)">
+                <columns>
+                    <column image="${z.resource(dir:'images', file:'cliente_25.png')}" label="Novo Cliente"
+                            width="100px"/>
+                    <column label="@bind(vm.novoCliente.nome)" width="60%"/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Nome Completo"/>
+                        <textbox constraint="no empty" value="@bind(vm.novoCliente.nome)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Género"/>
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.novoCliente.genero)"
+                                  model="@load(vm.generos)" hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </row>
+                    <row>
+                        <label value="Estado Civil"/>
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.novoCliente.estadoCivil)"
+                                  model="@load(vm.estadosCivil)" hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </row>
+
+                    <row>
+                        <label value="NUIT"/>
+                        <textbox value="@bind(vm.novoCliente.nuit)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Data de Nascimento"/>
+                        <datebox format="dd/MM/yy" constraint="no empty" value="@bind(vm.novoCliente.dataDeNascimento)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Tipo De Doc. de indentificação"/>
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.novoCliente.tipoDeIndentificacao)"
+                                  model="@load(vm.tiposDeInde)" hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+                    </row>
+                    <!--numeroDeIndentificao-->
+                    <row>
+                        <label value="Nº. de Indentificação"/>
+                        <textbox value="@bind(vm.novoCliente.numeroDeIndentificao)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Data de Emissão"/>
+                        <datebox format="dd/MM/yy" value="@bind(vm.novoCliente.dataDeEmissao)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Válidade"/>
+                        <datebox format="dd/MM/yy" value="@bind(vm.novoCliente.dataDeExpiracao)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Arquivo"/>
+                        <textbox value="@bind(vm.novoCliente.nomeDoArquivoDeIndentificao)"
+                                 width="100%"/>
+                    </row>
+
+
+
+                </rows>
+
+            </grid>
+            <grid width="500px" style="margin-top:20px"
+                  visible="@load(not empty vm.novoCliente)">
+                <columns>
+                    <column width="100px"/>
+                    <column width="60%"/>
+                </columns>
+                <rows>
+                    <row>
+                        <label value="Residencia"/>
+                        <textbox value="@bind(vm.novoCliente.residencia)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Nacionalidade"/>
+                        <textbox value="@bind(vm.novoCliente.nacionalidade)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Profissão"/>
+                        <textbox value="@bind(vm.novoCliente.profissao)"
+                                 width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Local de Trabalho/ Negócio"/>
+                        <textbox value="@bind(vm.novoCliente.localDeTrabalho)"
+                                 width="100%"/>
+                    </row>
+
+
+                    <row>
+                        <label value="Nº. de Telefone"/>
+                        <textbox maxlength="9" value="@bind(vm.novoCliente.telefone)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Nº. de Telefone"/>
+                        <textbox maxlength="9" value="@bind(vm.novoCliente.telefone1)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Nº. de Telefone"/>
+                        <textbox maxlength="9" value="@bind(vm.novoCliente.telefone2)" width="100%"/>
+                    </row>
+                    <row>
+                        <label value="Contas Integradoras"/>
+                        <label value="@load(vm.sContaIntegradora)"/>
+
+                    </row>
+
+                    <row>
+                        <label value="Gestor(a)"/>
+                        <combobox width="" constraint="no empty" onChange="@command('')"
+                                  selectedItem="@bind(vm.selectedGestor)"
+                                  model="@load(vm.gestores)"
+                                  hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('')"
+                                           label="@load(each)" value="@load(each)"/>
+                            </template>
+                        </combobox>
+
+                    </row>
+                    <row>
+                        <label value="E-mail"/>
+                        <textbox
+                                constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                value="@bind(vm.novoCliente.email)" width="100%"/>
+                    </row>
+                    <row>
+                        <cell colspan="2" style="text-align:center">
+                            <hlayout>
+                                <div>
+                                    <button image="${z.resource(dir:'images', file:'save.png')}"
+                                            label="Salvar" onClick="@command('salvarCliente')"/>
+                                    <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                            label="Fechar" onClick="@command('fecharEditor')"/>
+
+                                </div>
+                                <!-- <div visible="@bind(not empty vm.selectedCliente.id)">
+                                     <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                             onClick="@command('showAlerta')"
+                                             onDoubleClick="@command('deleteCliente')"
+                                             label="Eliminar"/>
+
+
+                                 </div>-->
+
+                            </hlayout>
+                        </cell>
+                    </row>
+
+                </rows>
+            </grid>
+
+        </hbox>
+        <separator/>
+        <vbox>
+            <listbox onSelect="@command('setNovoCliente')" checkmark="true" style="@bind('style')"
+                     selectedItem="@load(vm.novoCliente)"
+                     model="@load(vm.clientes)" width=""
+                     height="" mold="paging" pageSize="12">
+                <listhead sizable="true">
+
+                    <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                    <listheader sort="auto(nuit)" width="100px" label="NUIT" align="left"/>
+                    <listheader sort="auto(tipoDeIndentificacao)" width="150px" label="T. De Indet."
+                                align="left"/>
+                    <listheader sort="auto(numeroDeIndentificao)" width="100px"
+                                label="Nº. de Indet."
+                                align="left"/>
+                    <listheader sort="auto(residencia)" width="200px" label="Residencia"
+                                align="left"/>
+                    <listheader sort="auto(telefone)" width="100px" label="Tel." align="left"/>
+                    <listheader sort="auto(telefone1)" width="100px" label="Tel." align="left"/>
+                    <listheader sort="auto(telefone2)" width="100px" label="Tel." align="left"/>
+                    <listheader sort="auto(utilizador.username)" width="100px" label="Gestor"
+                                align="left"/>
+
+
+                </listhead>
+                <template name="model" status="s">
+
+                    <listitem
+                            style="@bind('style')">
+
+                        <listcell label="@load(each.nome)"/>
+                        <listcell label="@load(each.nuit)"/>
+                        <listcell label="@load(each.tipoDeIndentificacao)"/>
+                        <listcell label="@load(each.numeroDeIndentificao)"/>
+                        <listcell label="@load(each.residencia)"/>
+                        <listcell label="@load(each.telefone)"/>
+                        <listcell label="@load(each.telefone1)"/>
+                        <listcell label="@load(each.telefone2)"/>
+                        <listcell label="@load(each.utilizador.username)"/>
+
+                    </listitem>
+                </template>
+
+            </listbox>
+        </vbox>
+    </window>
+
+</zk>

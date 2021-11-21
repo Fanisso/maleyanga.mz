@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('extratosDeCreditosViewModel')">
+
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+        <label style="font-weight:bold;font-size:14pt" value="Extrato de créditos em mora"/>
+        <listbox style="@bind('style')"
+                 model="@load(vm.extratosDeCreditos)" width="1025px"
+                 height="">
+
+            <listhead sizable="true">
+                <listheader sort="auto(gestor)" width="90px" label="Gestor" align="left"/>
+                <listheader sort="auto(nome)" width="200px" label="Nome" align="left"/>
+                <listheader sort="auto(contacto)" width="70px" label="Contacto" align="left"/>
+                <listheader sort="auto(dateConcecao)" width="55px" label="D. De C.D.Cr." align="left"/>
+                <listheader sort="auto(periodicidade)" width="60px" label="Periodic." align="left"/>
+                <listheader sort="auto(numeroDoCredito)" width="50px" label="Nº. do C." align="left"/>
+                <listheader sort="auto(numeroDePrestacoesEmDia)" width="50px" label="Nº Prest." align="left"/>
+                <listheader sort="auto(valorCreditado)" width="90px" label="V. Alocado" align="left"/>
+                <listheader sort="auto(totalCredito)" width="90px" label="T. Pago" align="left"/>
+                <listheader sort="auto(totalJurosDeMora)" width="90px" label="Juros de M." align="left"/>
+                <listheader sort="auto(valorEmMora)" width="85px" label="V. Em Mora" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="90px" label="V. Em Dívida" align="left"/>
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem>
+
+                    <listcell label="@load(each.gestor)"/>
+                    <listcell label="@load(each.nome)"/>
+                    <listcell label="@load(each.contacto)"/>
+                    <listcell label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell style="background:#d2dac0;color:black;font-weight:bold;border:none"
+                              label="@load(each.numeroDoCredito)"/>
+                    <listcell style="background:#d2dac0;color:black;font-weight:bold;border:none"
+                              label="@load(each.numeroDePrestacoesEmDia)"/>
+                    <listcell style="background:#95d5b2;color:black;font-weight:bold;border:none"
+                              label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell style="background:#edba8b;color:black;font-weight:bold;border:none"
+                              label="@load(each.totalCredito)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell style="background:#caf0f8;color:black;font-weight:bold;border:none"
+                              label="@load(each.totalJurosDeMora)@converter('formatedNumber', format='###,##0.00')"/>
+
+                    <listcell style="background:#f2dac6;color:black;font-weight:bold;border:none"
+                              label="@load(each.valorEmMora)@converter('formatedNumber', format='###,##0.00')"/>
+
+                    <listcell style="background:#ffcbf2;color:black;font-weight:bold;border:none"
+                              label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold;font-size:11pt" value="Totais"/>
+                </listfooter>
+                <listfooter style="background:#caf0f8;color:black;font-weight:bold;text-align:left">
+                    <label style="font-weight:bold;font-size:11pt"
+                           value="@load(vm.totalDesembolsado)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter style="background:#edba8b;color:black;font-weight:bold;text-align:left">
+                    <label style="font-weight:bold;font-size:11pt"
+                           value="@load(vm.totalPago)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+                <listfooter style="background:#caf0f8;color:black;font-weight:bold;text-align:left">
+                    <label style="font-weight:bold;font-size:11pt"
+                           value="@load(vm.total_juros_de_mora)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter style="background:#f2dac6;color:black;font-weight:bold;text-align:left">
+                    <label style="font-weight:bold;font-size:11pt"
+                           value="@load(vm.valor_em_mora)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter style="background:#ffcbf2;color:black;font-weight:bold;text-align:left">
+                    <label style="font-weight:bold;font-size:11pt"
+                           value="@load(vm.valor_em_ivida)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+
+            </listfoot>
+        </listbox>
+
+    </window>
+
+</zk>

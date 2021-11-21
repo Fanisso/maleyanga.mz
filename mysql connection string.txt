@@ -1,0 +1,1 @@
+Driver={MySQL ODBC 5.1 Driver};Server=127.0.0.1;charset=UTF8;Database=smsserver;User=root; Password=akin2010;Option=3;

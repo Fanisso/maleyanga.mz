@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('utilizadorCrudViewModel')">
+
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <label value="@load(vm.info)"/>
+        <tabbox>
+            <tabs>
+                <tab id="tb_abertos" label="Perfis Dos Utilizadores"/>
+                <tab label="Grupo de Perfis"/>
+                <tab label="Novo Utilizador"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel>
+
+                    <hbox>
+                        <grid width="400px" style="margin-top:20px"
+                              visible="@bind(not empty vm.selectedUtilizador)">
+                            <columns>
+                                <column label="" width="50x"/>
+                                <column label="" width=""/>
+
+                            </columns>
+                            <rows id="rows">
+                                <row>
+                                    <label value="Nome"/>
+                                    <textbox constraint="no empty" value="@bind(vm.selectedUtilizador.username)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Senha"/>
+                                    <textbox type="password" constraint="no empty"
+                                             value="@bind(vm.selectedUtilizador.password)"
+                                             validationMessages="@validator('codigoValidator')" width="100%"/>
+                                </row>
+
+                                <row>
+                                    <label value="Email"/>
+                                    <textbox constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                             value="@bind(vm.selectedUtilizador.email)" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Telefone.1"/>
+                                    <textbox value="@bind(vm.selectedUtilizador.telefone1)"
+                                             validationMessages="@validator('codigoValidator')" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Telefone.2"/>
+                                    <textbox value="@bind(vm.selectedUtilizador.telefone2)"
+                                             validationMessages="@validator('codigoValidator')" width="100%"/>
+                                </row>
+
+                                <row>
+                                    <label value="Group Roles:"/>
+                                    <listbox id="list" model="@bind(vm.roles)" width="">
+                                        <listhead>
+                                            <listheader sort="auto"/>
+                                        </listhead>
+                                    </listbox>
+                                </row>
+
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+
+                                            <div visible="@load(vm.btsalvar)">
+
+
+                                            </div>
+                                            <div visible="@load(!vm.btsalvar)">
+                                                <button style="color:white;background:#0000A0"
+                                                        onClick="@command('updateUtilizador')" label="Actualizar"/>
+                                                <button onClick="@command('confirmar')"
+                                                        onDoubleClick="@command('deleteUtilizador')" label="Eliminar"/>
+                                            </div>
+                                            <button label="Cancelar" onClick="@command('fecharEditor')"/>
+
+                                        </hlayout>
+                                    </cell>
+                                </row>
+                            </rows>
+
+                        </grid>
+                        <vbox>
+                            Filtragem:
+                            <textbox width="250px" style="background:#95B9C7;color:black" value="@bind(vm.filter)"
+                                     onChange="@command('doSearch')" instant="false"/>
+
+                            <div width="400px">
+                                <listbox style="@bind('style')" selectedItem="@bind(vm.selectedUtilizador)"
+                                         model="@load(vm.utilizadores)" width="100%"
+                                         height="" mold="paging" pageSize="5">
+                                    <listhead sizable="true">
+                                        <!--<listheader width="50px"   align="left">&lt;!&ndash;<checkbox id="ckall" onClick="@command('')"  />&ndash;&gt;</listheader>-->
+
+                                        <listheader width="99px" label="ID" align="left"/>
+                                        <listheader sort="auto" width="290px" label="Username" align="left"/>
+
+                                    </listhead>
+                                    <template name="model" status="s">
+
+                                        <listitem style="@bind('style')">
+                                            <listcell label="@bind(s.index)"/>
+
+                                            <listcell onClick="@command('showItem')" label="@load(each.username)"/>
+
+
+                                        </listitem>
+                                    </template>
+
+                                </listbox>
+                            </div>
+
+                        </vbox>
+                        <div visible="@load(vm.editView)">
+                            <label value="Selecte Role Group:"/>
+                            <combobox model="@load(vm.roleGroups)" hflex="1" onChange="@command('')"
+                                      selectedItem="@bind(vm.selectedRoleGroup)"
+                                      mold="rounded" autodrop="true" autocomplete="true">
+                                <template name="model">
+                                    <comboitem
+                                            label="@load(each.name)"/>
+                                </template>
+                            </combobox>
+                            <button visible="@bind(not empty vm.selectedRoleGroup)"
+                                    image="${z.resource(dir:'images', file:'update.png')}"
+                                    style="color:white;background:#0000A0" onClick="@command('linkUtilizadorRoleGroup')"
+                                    label="Add Utizador to Role Group "/>
+                            <button visible="@bind(not empty vm.selectedRoleGroup)"
+                                    image="${z.resource(dir:'images', file:'update.png')}"
+                                    style="color:white;background:#FA5858"
+                                    onClick="@command('removeUtilizadorRoleGroup')"
+                                    label="Remove Utizador to Role Group "/>
+                        </div>
+                    </hbox>
+
+                </tabpanel>
+                <tabpanel>
+                    <include src="/roleGroup/roleGroup.zul"/>
+                </tabpanel>
+                <tabpanel>
+                    <include src="/utilizador/utilizador.zul"/>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+
+
+    </window>
+
+</zk>

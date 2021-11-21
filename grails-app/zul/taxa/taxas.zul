@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('taxasViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+        <label id="info"/>
+        <tabbox maximalHeight="true" onSelect="@command('cleanInfo')" width="">
+            <tabs id="tabs0">
+                <tab image="${z.resource(dir:'images', file:'taxas_25.png')}" label="Taxas"/>
+
+            </tabs>
+            <tabpanels id="pnls0">
+                <tabpanel height="800px">
+                    <button
+                            image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addTaxa')"
+                            label="Nova Taxa"/>
+                    <hbox>
+                        <grid visible="@load(not empty vm.taxa)" width="450px">
+                            <columns>
+                                <column width="150px"/>
+                                <column/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Desrição"/>
+                                    <textbox onChange="@command('checkName')" width="100%" constraint="no empty"
+                                             value="@bind(vm.taxa.nome)"/>
+                                </row>
+                                <row>
+                                    <label value="Valor"/>
+                                    <decimalbox placeholder="Valor" constraint="no negative"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.taxa.valor)  "/>
+                                </row>
+                                <row>
+                                    <label value="Valor mínimo"/>
+                                    <decimalbox placeholder="Valor mínimo" constraint="no negative, no zero"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.taxa.valorMinimo)  "/>
+                                </row>
+                                <row>
+                                    <label value="Valor Máximo"/>
+                                    <decimalbox placeholder="Valor máximo" constraint=" no negative, no zero"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.taxa.valorMaximo)  "/>
+                                </row>
+
+                                <row>
+                                    <label value="% Da Taxa sobre valor creditado"/>
+                                    <decimalbox onBlur="@command('checkNumber')" constraint="no negative"
+                                                value="@bind(vm.taxa.percentagem)"/>
+                                </row>
+                                <row>
+                                    <label value="Recorência"/>
+                                    <textbox onBlur="@command('clean')" onFocus="@command('showAjuda')"
+                                             placeholder="101001011" value="@bind(vm.taxa.recorencia)"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <label id="ajuda"/>
+
+                                    </cell>
+                                </row>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('changeAtivo')"
+                                            label="Activo"/>
+                                    <label value="@bind(vm.taxa.activo)"/>
+                                </row>
+
+
+                                <row>
+                                    <cell colspan="2">
+                                        <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                onClick="@command('salvarTaxa')"
+                                                label="Salvar " width="100px" height="30px"/>
+                                        <button id="bt_" image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                label="Fechar Editor" onClick="@command('fecharEditor')"/>
+                                        <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                onClick="@command('updateTaxa')"
+                                                label="Update" id="bt_update"/>
+                                        <button visible="@bind(not empty vm.taxa)"
+                                                image="${z.resource(dir:'images', file:'remover.png')}"
+                                                onClick="@command('showDelMessage')"
+                                                onDoubleClick="@command('deleteTaxa')" label="Eliminar"/>
+                                    </cell>
+                                </row>
+
+                            </rows>
+                        </grid>
+                        <listbox onSelect="@command('')" checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.taxa)" model="@load(vm.taxas)" width="620px"
+                                 height="" mold="paging" pageSize="20">
+                            <listhead sizable="false">
+                                <listheader sort="auto(nome)" width="120px" label="Descrição" align="left"/>
+                                <listheader sort="auto(valor)" width="100px" label="Valor" align="left"/>
+                                <listheader sort="auto(percentagem)" width="50px" label="%" align="left"/>
+                                <listheader sort="auto(valorMinimo)" width="70px" label="V. Mínimo" align="left"/>
+                                <listheader sort="auto(valorMaximo)" width="70px" label="V.Máximo" align="left"/>
+                                <listheader sort="auto(recorencia)" width="70px" label="Recorência" align="left"/>
+                                <listheader sort="auto(activo)" width="45px" label="Activo" align="left"/>
+                                <listheader sort="auto(utilizador)" width="90px" label="Utilizador" align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                    <listcell label="@load(each.nome)"/>
+                                    <listcell
+                                            label="@load(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.percentagem)@converter('formatedNumber', format='##0.00')"/>
+                                    <listcell
+                                            label="@load(each.valorMinimo)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.valorMaximo)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell label="@load(each.recorencia)"/>
+                                    <listcell label="@load(each.activo)"/>
+                                    <listcell label="@load(each.utilizador.username)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </window>
+
+</zk>

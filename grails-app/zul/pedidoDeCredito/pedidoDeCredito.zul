@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('pedidoDeCreditoViewModel')">
+
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+
+        <!--
+            Cliente cliente
+    String motivo
+    BigDecimal valorDeCredito
+    String estado
+    Date dataDeAprovacao
+    boolean creditado = false
+    Utilizador utilizador
+    Credito credito
+    BigDecimal totalPenhoras
+        -->
+        <label style="font-size:14pt" id="info"/>
+        <tabbox>
+            <tabs>
+                <tab id="tab_gestor" image="${z.resource(dir:'images', file:'pedido_25.png')}"
+                     label="Pedidos de Credito"/>
+            </tabs>
+            <tabpanels height="800px">
+                <tabpanel>
+
+                <button image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addPDC')"
+                            label="Add  Pedido de Crédito"/>
+                    <button visible="@load(not empty vm.sPDC.id)" image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c1e9" onClick="@command('addCredito')"
+                            label="Add Credito"/>
+                    <grid visible="@load(not empty vm.sPDC)" width=""
+                          style="margin-top:20px">
+                        <columns>
+                            <column image="${z.resource(dir:'images', file:'pedido_25.png')}" label="Cliente"
+                                    width="200px"/>
+                            <column label="Cliente" width="300px"/>
+                            <column label="Valor Pedido" width="200px"/>
+                            <column label="Motivos" width=""/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <textbox width="200px" placeholder="nome do cliente"
+                                         style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
+                                         onChange="@command('doSearchCliente')"
+                                         instant="true"/>
+                                <listbox checkmark="true" style="@bind('style')"
+                                         selectedItem="@bind(vm.sPDC.cliente)"
+                                         model="@load(vm.clientes)" width=""
+                                         height="" mold="paging" pageSize="1">
+                                    <template name="model" status="s">
+                                        <listitem onClick="@command('')">
+                                            <listcell label="@load(each.nome)"/>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                                <!-- <combobox width="" constraint="no empty" onChange="@command('')"
+                                           selectedItem="@bind(vm.sPDC.cliente)"
+                                           model="@load(vm.clientes)" hflex="1"
+                                           mold="rounded" autodrop="true" autocomplete="true">
+                                     <template name="model">
+                                         <comboitem onClick="@command('')"
+                                                    label="@load(each)" value="@load(each)"/>
+                                     </template>
+                                 </combobox>-->
+
+                                <decimalbox placeholder="Valor"
+                                            style="font-size:15pt;font-weight:bold;border:none"
+                                            format="###,##0.00"
+                                            width="100%" value="@bind(vm.sPDC.valorDeCredito)  "/>
+                                <textbox constraint="no empty" value="@bind(vm.sPDC.motivo)"
+                                         width="100%"/>
+                            </row>
+                            <row id="rw_def">
+
+                                <label value="Def. De crédito"/>
+                                <combobox constraint="no empty" id="cb_def" onSelect="@command('')"
+                                          selectedItem="@bind(vm.sPDC.definicaoDeCredito)" model="@load(vm.definicoes)"
+                                          hflex="1"
+                                          mold="rounded" autodrop="true" autocomplete="true">
+                                    <template name="model">
+                                        <comboitem onClick="@command('')" label="@load(each.descricao )"
+                                                   value="@load(each.descricao)"/>
+                                    </template>
+                                </combobox>
+                                <intbox placeholder="Nº de Prestações" value="@bind(vm.sPDC.nDePrestacoes)"/>
+                            </row>
+
+
+                        </rows>
+
+                    </grid>
+                    <listbox visible="@load(!not empty vm.sPDC.id)" multiple="true" style="@bind('style')"
+                             model="@load(vm.penhoras)"
+                             width="100%"
+                             height="" mold="paging" pageSize="10">
+                        <listhead>
+                            <listheader width="" sort="auto" label="Descrição da Penhora"/>
+                            <listheader width="30%" sort="auto" label="Valor"/>
+                            <listheader width="40px" sort="auto" label="++"/>
+
+                        </listhead>
+                        <template name="model" var="item" status="s">
+
+                            <listitem style="@bind('style'))">
+
+                                <listcell style="border:none">
+                                    <textbox focus="true" constraint="no empty" onBlur="@command('')"
+                                             style="border:none"
+                                             width="100%"
+                                             value="@bind(item.descricao)"/>
+                                </listcell>
+                                <listcell style="border:none">
+                                    <decimalbox onChange="@command('somar')" placeholder="Valor"
+
+                                                format="###,##0.00"
+                                                width="100%" value="@bind(item.valor)  "/>
+
+                                </listcell>
+                                <listcell>
+                                    <button label="++" onClick="@command('addPenhora')"/>
+                                </listcell>
+
+                            </listitem>
+                        </template>
+                        <listfoot>
+
+                            <listfooter align="right" label="Total "/>
+                            <listfooter align="right">
+                                <label style="font-size:15pt;font-weight:bold;border:none"
+                                       value="@load(vm.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                            </listfooter>
+                        </listfoot>
+                    </listbox>
+                    <grid visible="@load(not empty vm.sPDC.id)" width="" model="@bind(vm.sPDC.penhoras)">
+                        <auxhead>
+                            <auxheader style="font-size:14pt;text-align:center" label="Penhoras" colspan="2"/>
+                        </auxhead>
+                        <columns>
+                            <column sort="auto(descricao)" width="" label="Descrição"/>
+                            <column sort="auto(valor)" width="150px" label="Valor"/>
+                        </columns>
+                        <template name="model">
+                            <row>
+                                <label value="@bind(each.descricao)"/>
+                                <label value="@bind(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                            </row>
+
+                        </template>
+                        <foot>
+
+                            <footer style="font-size:14pt;text-align:right">
+                                <label value="Total"/>
+                            </footer>
+                            <footer>
+                                <label value="@load(vm.sPDC.valorDaPenhora)@converter('formatedNumber', format='###,##0.00')"/>
+                            </footer>
+
+                        </foot>
+                    </grid>
+
+                    <grid>
+                        <rows>
+                            <row visible="@load(!not empty vm.sPDC.id)">
+                                <cell colspan="2">
+                                    <hbox>
+                                        <button id="bt_salvar" image="${z.resource(dir:'images', file:'save.png')}"
+                                                label="Salvar" onClick="@command('salvarPDC')"/>
+                                        <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                onClick="@command('limpar')" onDoubleClick="@command('')"
+                                                label="Limpar"/>
+                                    </hbox>
+                                </cell>
+                            </row>
+                            <row visible="@load(not empty vm.sPDC.id)">
+                                <cell colspan="2">
+                                    <button image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('aprovarPedido')"
+                                            label="@bind(vm.sPDC.creditado)"/>
+                                    <button image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('updatePedido')"
+                                            label="Actualizar"/>
+                                </cell>
+                            </row>
+                        </rows>
+                    </grid>
+                    Filtragem:
+                    <textbox width="20%" placeholder="Procure pelo nome; data=dd/MM/yyyy ; estado"
+                             style="background:#95B9C7;color:black" value="@bind(vm.filter)"
+                             onChange="@command('doSearch')"
+                             instant="false"/>
+                    <listbox checkmark="true" style="@bind('style')"
+                             selectedItem="@bind(vm.sPDC)"
+                             model="@load(vm.pedidos)"
+                             height="" mold="paging" pageSize="20">
+                        <listhead sizable="true">
+                            <listheader sort="auto(gestor)" width="150px" label="Gestor" align="left"/>
+                            <listheader sort="auto(cliente)" width="150px" label="Cliente" align="left"/>
+                            <listheader sort="auto(motivo)" width="" label="Motivos" align="left"/>
+                            <listheader sort="auto(valorDeCredito)" width="100px" label="Valor Pedido" align="left"/>
+                            <listheader sort="auto(valorDaPenhora)" width="100px" label="V. Dos Bens Ps." align="left"/>
+                            <listheader sort="auto(estado)" width="70px" label="Estado" align="left"/>
+                            <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
+
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('showPenhoras', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.cliente.utilizador)"/>
+                                <listcell label="@load(each.cliente)"/>
+                                <listcell label="@load(each.motivo)"/>
+                                <listcell
+                                        label="@load(each.valorDeCredito)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell
+                                        label="@load(each.valorDaPenhora)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.estado)"/>
+                                <listcell
+                                        label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+            </tabpanels><!--CRUD Pedido de credito-->
+        </tabbox>
+
+    </window>
+
+</zk>

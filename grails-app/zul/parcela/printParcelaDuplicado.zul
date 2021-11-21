@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window height="510px" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printParcelaDuplicadoViewModel')">
+
+        <vbox>
+            <div>
+                <hbox align="center">
+                    <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+                </hbox>
+                <grid width="700px">
+                    <columns>
+                        <column width="200px"/>
+                        <column width=""/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <cell colspan="3" style="text-align:center">
+                                <label style="font-size:16pt" value="Recibo"/>
+                            </cell>
+                            <cell align="left">
+                                <label style="font-size:12pt" value="Nº."/>
+                                <label style="font-size:12pt" value="@load(vm.parcelaInstance.numeroDoRecibo)"/>
+                            </cell>
+                        </row>
+                        <row>
+
+                            <cell colspan="4" align="right">
+                                <label style="font-size:12pt" value="Hora-Data: "/>
+                                <label style="font-size:12pt"
+                                       value="@load(vm.parcelaInstance.dataDePagamento)@converter('formatedDate', format='hh:mm-dd/MM/yy')"/>
+                            </cell>
+
+                        </row>
+                        <row>
+
+
+                        </row>
+                        <row>
+                            <cell align="right" colspan="4">
+                                <label style="font-size:12pt" value="Operador: "/>
+                                <label style="font-size:12pt" value="@load(vm.parcelaInstance.utilizador.username)"/>
+
+                            </cell>
+                        </row>
+                        <row>
+                            <label style="font-size:12pt" value="Recebemos de: "/>
+                            <cell colspan="3">
+                                <label style="font-size:12pt" value="@load(vm.creditoInstance.cliente)"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell>
+                                <label style="font-size:12pt" value="Portador de "/>
+                                <label style="font-size:12pt"
+                                       value="@load(vm.creditoInstance.cliente.tipoDeIndentificacao)"/>
+                                <label style="font-size:12pt" value=" Nº: "/>
+                            </cell>
+                            <cell colspan="1">
+                                <label style="font-size:12pt"
+                                       value="@load(vm.creditoInstance.cliente.numeroDeIndentificao)"/>
+                            </cell>
+                            <cell align="right" colspan="2">
+                                <label value="Forma de Pag.:"/>
+                                <label value="@load(vm.parcelaInstance.formaDePagamento)"/>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="4">
+                                <label style="font-size:12pt;font-weight:bold" value="O valor de:"/>
+                                <label style="font-size:12pt;font-weight:bold"
+                                       value="@load(vm.total) @converter('formatedNumber', format='MZN###,##0.00')"/>
+                                <label style="font-size:12pt;font-weight:bold" value="("/>
+                                <label style="font-size:12pt;font-weight:bold" value="@load(vm.valorPorExtenso)"/>
+                                <label style="font-size:12pt;font-weight:bold" value=")."/>
+                            </cell>
+                        </row>
+
+                        <row>
+                            <label style="font-size:12pt" value="Ref. ao pag. de credito Nº."/>
+                            <label style="font-size:12pt" value="@load(vm.creditoInstance.numeroDoCredito)"/>
+                        </row>
+                        <row>
+                            <cell colspan="4">
+                                <grid width="1100px" model="@bind(vm.parcelas)">
+
+                                    <columns>
+                                        <column sort="auto(id)" width="195px" label="Parcela(s)"/>
+                                        <column sort="auto(id)" width="100px" label="Valor"/>
+                                        <column sort="auto(id)" width="" label="Descrição"/>
+
+
+                                    </columns>
+                                    <template name="model">
+                                        <row>
+                                            <label value="@bind(each.pagamento.descricao)"/>
+
+                                            <label value="@bind(each.valorParcial)@converter('formatedNumber', format='###,##0.00')"/>
+                                            <label value="@bind(each.descricao)"/>
+
+                                        </row>
+                                    </template>
+
+                                </grid>
+                            </cell>
+                        </row>
+
+                    </rows>
+
+                </grid>
+                <vbox>
+                    <hbox>
+                        <label value="Assinaturas:"/>
+                    </hbox>
+                    <hbox>
+                        <label value=""/>
+                    </hbox>
+
+                    <hbox>
+                        <label value="CAIXA:_________________________________________"/>
+                        <label value="CLIENTE:____________________________________________"/>
+                    </hbox>
+
+
+                </vbox>
+
+            </div>
+
+        </vbox>
+
+    </window>
+
+</zk>

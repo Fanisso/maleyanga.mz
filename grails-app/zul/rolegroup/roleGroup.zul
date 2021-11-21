@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('roleGroupViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+        <label id="info"/>
+        <separator bar="true"/>
+
+        <borderlayout sclass="complex-layout" height="810px">
+
+            <!-- Sidebar -->
+            <west width="350px" border="0" flex="true"
+                  margins="0,5,0,0">
+                <vlayout spacing="0">
+                    <panel width="100%" border="normal"
+                           title="Navigation">
+                        <panelchildren style="padding:5px;">
+                            <vbox>
+                                <button visible="@bind(!vm.viewRole)" image="${z.resource(dir:'images', file:'add.png')}"
+                                        style="color:white;background:#93073E" onClick="@command('addRole')" label="Create New Group Role"/>
+                                <label id="lblMessage" value="@bind(vm.message)"/>
+                                <hbox>
+                                    <grid width="400px" style="margin-top:20px" visible="@bind(vm.viewRole)">
+                                        <columns>
+                                            <column image="${z.resource(dir:'images', file:'role.png')}" label="" width="100x"/>
+                                            <column label="ADD Group Role" width="300px"/>
+
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <label value="Nome"/>
+                                                <textbox constraint="no empty" value="@bind(vm.selectedRoleGroup)" width="100%"/>
+                                            </row>
+
+
+                                            <row>
+                                                <cell colspan="2" style="text-align:center">
+                                                    <hlayout>
+
+                                                        <div visible="@load(vm.btsalvar)">
+
+                                                            <button image="${z.resource(dir:'images', file:'save.png')}" label="Salvar"
+                                                                    style="color:white;background:blue" onClick="@command('salvarRoleGroup')"/>
+                                                        </div>
+                                                        <div visible="@load(!vm.btsalvar)">
+                                                            <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                                    style="color:white;background:#0000A0" onClick="@command('updateRoleGroup')"
+                                                                    label="Actualizar"/>
+                                                            <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                                    style="color:white;background:#800000" onClick="@command('confirmar')" onDoubleClick="@command('deleteRoleGroup')"
+                                                                    label="Eliminar"/>
+                                                        </div>
+                                                        <button image="${z.resource(dir:'images', file:'cancelar.png')}" label="Cancelar"
+                                                                onClick="@command('fecharEditor')"/>
+
+                                                    </hlayout>
+                                                </cell>
+                                            </row>
+                                        </rows>
+
+                                    </grid>
+                                    <vbox>
+
+                                        <div width="400px">
+                                            <listbox style="@bind('style')" selectedItem="@bind(vm.selectedRoleGroup)"
+                                                     model="@load(vm.roleGroups)" width="100%"
+                                                     height="" mold="paging" pageSize="10">
+                                                <listhead sizable="true">
+
+                                                    <listheader width="99px" label="ID" align="left"/>
+                                                    <listheader sort="auto" width="290px" label="Role Group" align="left"/>
+
+                                                </listhead>
+                                                <template name="model" status="s">
+
+                                                    <listitem style="@bind('style')">
+                                                        <listcell label="@bind(s.index)"/>
+
+                                                        <listcell onClick="@command('showRoleGroup')" label="@load(each.name)"/>
+
+
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+                                        </div>
+
+                                    </vbox>
+
+                                </hbox>
+                            </vbox>
+                        </panelchildren>
+                    </panel>
+
+
+                </vlayout>
+            </west>
+
+            <!-- Content -->
+            <center>
+                <borderlayout sclass="inner-border">
+                   <!-- <north border="0" height="4%" margins="2,3,0,0">
+                        <label value="" style="font-size:20px;" />
+                    </north>-->
+                    <center border="0" margins="0,3,3,3">
+                        <panel title="Roles" border="normal"
+                               height="100%">
+                            <panelchildren>
+                                <vbox>
+                                    Filtragem:
+                                    <textbox width="300px" style="background:#95B9C7;color:black"
+                                             value="@bind(vm.filter)"
+                                             onChange="@command('doSearch')" instant="false"/>
+                                    <listbox style="@bind('style')" selectedItem="@bind(vm.selectedRole)" model="@load(vm.roles)"
+                                             width="600px"
+                                             height="" mold="paging" pageSize="10">
+                                        <listhead sizable="true">
+                                            <listheader width="90px" label="Index" align="left"/>
+                                            <listheader width="" label="Role : authority , Double Click Selected Role" align="left"/>
+
+                                        </listhead>
+                                        <template name="model" status="s">
+                                            <listitem style="@bind('style')">
+                                                <listcell label="@bind(s.index)"/>
+                                                <listcell onDoubleClick="@command('addSelectedtItem')" label="@load(each.authority)"/>
+                                            </listitem>
+                                        </template>
+
+                                    </listbox>
+                                </vbox>
+                            </panelchildren>
+                        </panel>
+                    </center>
+                    <east border="0" width="50%" margins="0,0,3,3">
+                        <panel title="Group Roles" border="normal"
+                               height="100%" hflex="1">
+                            <panelchildren>
+                                <hbox>
+
+                                    <vbox>
+                                        <label value="Selecte Role Group:" />
+                                        <combobox model="@load(vm.roleGroups)" hflex="1"
+                                                  onChange="@command('addSelectedtItemGroup')"
+                                                  selectedItem="@bind(vm.cbSelectedRg)"
+                                                  mold="rounded" autodrop="true" autocomplete="true">
+                                            <template name="model">
+                                                <comboitem onClick="@command('addSelectedtItemGroup')"
+                                                           label="@load(each.name)" value="@load(each.id)"/>
+                                            </template>
+                                        </combobox>
+                                        <button visible="@bind(not empty vm.cbSelectedRg)"
+                                                image="${z.resource(dir:'images', file:'add.png')}"
+                                                style="color:white;background:#93073E" onClick="@command('groupRoles')"
+                                                label="Add Roles to Role Group"/>
+                                        <button visible="@bind(not empty vm.cbSelectedRg)"
+                                                image="${z.resource(dir:'images', file:'remover.png')}"
+                                                onDoubleClick="@command('deleteRole')"
+                                                label="Remove Role to Role Group"/>
+                                        <listbox style="@bind('style')" selectedItem="@bind(vm.selectedRoleRemove)"
+                                                 model="@load(vm.selectedRoles)"
+                                                 width=""
+                                                 height="" mold="paging" pageSize="10">
+                                            <listhead sizable="true">
+                                                <listheader width="90px" label="Index" align="left"/>
+                                                <listheader width="" label="Role : authority" align="left"/>
+
+                                            </listhead>
+                                            <template name="model" status="s">
+                                                <listitem style="@bind('style')">
+                                                    <listcell label="@bind(s.index)"/>
+                                                    <listcell onDoubleClick="@command('removeSelectedtItem')" label="@load(each.authority)"/>
+                                                </listitem>
+                                            </template>
+
+                                        </listbox>
+
+
+
+                                    </vbox>
+                                </hbox>
+
+                            </panelchildren>
+                        </panel>
+                    </east>
+
+                </borderlayout>
+            </center>
+
+        </borderlayout>
+    </window>
+
+</zk>

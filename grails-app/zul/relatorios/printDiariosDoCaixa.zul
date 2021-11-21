@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printDiariosDoCaixaViewModel')">
+        <style>
+            .z-textbox{ border-style : normal; background: #95B9C7}
+        </style>
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+
+        <grid width="740px">
+            <auxhead>
+                <auxheader style="font-size:14pt;text-align:center" label="Relatório dos Diários do(a) " colspan="10"/>
+                <auxheader style="font-size:14pt;text-align:center" label="@load(vm.selectedCaixa.username)"
+                           colspan="4"/>
+            </auxhead>
+            <columns>
+                <column label="De:"/>
+                <column width="100px" label="@load(vm.dataInicial)@converter('formatedDate', format='dd/MM/yy')"/>
+                <column label="A:"/>
+                <column width="100px" label="@load(vm.dataFinal)@converter('formatedDate', format='dd/MM/yy')"/>
+            </columns>
+
+        </grid>
+
+
+        <grid width="740px" model="@bind(vm.diaris)">
+
+            <!--   <auxhead>
+                   <auxheader style="font-size:13pt;text-align:center" label="Recebimentos" colspan="12"/>
+               </auxhead>-->
+            <columns sizable="true">
+                <column sort="auto(numeroDoDiario)" width="60px" label="Diário. Nº"/>
+                <column sort="auto(dataDeReferencia)" width="50px" label="D. de ref."/>
+                <column sort="auto(dateCreated)" width="50px" label="d. Created"/>
+                <column sort="auto(lastUpdated)" width="50px" label="l. Updated"/>
+                <column sort="auto(descricao)" width="200px" label="Descrição"/>
+                <column sort="auto(numeroDoRecibo)" width="60px" label="Rec. Nº."/>
+                <column sort="auto(valorPago)" width="90px" label="V. Entradas"/>
+                <column sort="auto(valorPago)" width="90px" label="V. Saidas A."/>
+                <column sort="auto(valorPago)" width="90px" label="V. Saidas P."/>
+
+
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@bind(each.numeroDoDiario)"/>
+                    <label value="@bind(each.dataDeReferencia)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.dateCreated)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.lastUpdated)@converter('formatedDate', format='dd/MM')"/>
+                    <label value="@bind(each.descricao)"/>
+                    <label value="@bind(each.parcela.numeroDoRecibo)"/>
+                    <label value="@bind(each.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.saidaAtiva.valor)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.saidaPassiva.valor)@converter('formatedNumber', format='###,##0.00')"/>
+
+
+                </row>
+            </template>
+            <foot>
+                <footer/>
+
+
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer>Totais:</footer>
+                <footer>
+                    <label style="font-size:10pt"
+                           value="@load(vm.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:10pt"
+                           value="@load(vm.totalAtivos)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:10pt"
+                           value="@load(vm.totalPassivos)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+            </foot>
+        </grid>
+
+
+    </window>
+
+</zk>

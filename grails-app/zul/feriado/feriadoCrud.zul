@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('feriadoCrudViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+
+        <label id="lblMessage" value="@bind(vm.message)"/>
+        <hbox>
+            <listbox onCtrlKey="@command(addItem)" multiple="false" style="@bind('style')"
+                     selectedItem="@bind(vm.selectedFeriado)" model="@load(vm.feriados)"
+                     height="" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader width="5%" sort="auto" label="Item"/>
+                    <listheader width="200px" sort="auto" label="Designação"/>
+                    <listheader width="100px" label="Data"/>
+                </listhead>
+                <template name="model" var="item" status="s">
+
+                    <listitem style="@bind('style'))">
+                        <listcell onClick="@command('showItem')" label="@bind(s.index)"/>
+                        <listcell onClick="@command('showItem')" style="border:none">
+                            <textbox readonly="true" onBlur="@command('')" style="border:none" width="100%"
+                                     value="@bind(item.designacao)"/>
+                        </listcell>
+                        <listcell onClick="@command('showItem')" style="border:none">
+                            <label style="border:none" width="100%"
+                                   value="@bind(item.data)@converter('formatedDate', format='dd-MM-yyyy') "/>
+                        </listcell>
+                    </listitem>
+                </template>
+
+            </listbox>
+            <grid>
+                <rows>
+                    <row>
+                        <label value="Designação"/>
+                        <textbox onChange="@command('showButtons')" width="100%" value="@bind(vm.selectedFeriado.designacao)"/>
+                    </row>
+                    <row>
+                        <label value="Data"/>
+                        <datebox format="dd/MM/yy" onChange="@command('showButtons')" width="100%"
+                                 value="@bind(vm.selectedFeriado.data)"/>
+                    </row>
+                    <row>
+                        <cell colspan="2">
+                            <hbox>
+                                <button onClick="@command('salvarFeriado')" visible="false" id="bt_salvar"/>
+                                <button onClick="@command('eliminarFeriado')" visible="false" id="bt_eliminar"/>
+                                <button onClick="@command('reset')" visible="false" id="bt_reset"/>
+                            </hbox>
+                        </cell>
+
+                    </row>
+                </rows>
+            </grid>
+        </hbox>
+
+    </window>
+
+</zk>

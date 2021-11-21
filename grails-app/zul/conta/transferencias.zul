@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('transferenciasViewModel')">
+        <label id="info"/>
+        <hbox>
+            <vbox>
+
+                <!--lisbox origens-->
+                <listbox multiple="true" style="@bind('style')" model="@load(vm.transferencias)"
+                         width="100%"
+                         height="" mold="paging" pageSize="10">
+                    <listhead>
+                        <!--<listheader width="50px"   align="left">&lt;!&ndash;<checkbox id="ckall" onClick="@command('')"  />&ndash;&gt;</listheader>-->
+
+
+                        <listheader width="5%" sort="auto" label="ID"/>
+                        <listheader width="15%" sort="auto" label="C. Credora"/>
+                        <listheader width="60%" label="Valor"/>
+                        <listheader width="10%" label="C. Devedora"/>
+                    </listhead>
+                    <template name="model" var="item" status="s">
+
+                        <listitem style="@bind('style'))">
+                            <listcell label="@bind(s.index)"/>
+                            <listcell style="border:none">
+                                <textbox onBlur="@command('')" style="border:none" width="100%"
+                                         value="@bind(item.origem)"/>
+                            </listcell>
+                            <listcell style="border:none">
+                                <decimalbox placeholder="Valor"
+                                            style="font-size:15pt;font-weight:bold;border:none"
+                                            onChange="@command('verificarCondicoes')" format="###,##0.00"
+                                            width="200px" value="@bind(item.valor)  "/>
+                                <textbox placeholder="Descrição" width="100%"
+                                         value="@bind(item.descricao)"/>
+                            </listcell>
+                            <listcell style="border:none">
+                                <textbox onBlur="@command('')" style="border:none" width="100%"
+                                         value="@bind(item.destino)"/>
+                            </listcell>
+                        </listitem>
+                    </template>
+
+                </listbox>
+                <hbox>
+                    <button id="bt_salvar_trs" image="${z.resource(dir:'images', file:'save.png')}"
+                            label="Salvar" onClick="@command('salvarTrans')"/>
+                    <button image="${z.resource(dir:'images', file:'remover.png')}"
+                            onClick="@command('limpar')" onDoubleClick="@command('deleteBanco')"
+                            label="Limpar"/>
+                </hbox>
+
+                <hbox>
+                    <grid width="600px">
+                        <columns>
+                            <column width="200px"/>
+                            <column/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Conta Origem"/>
+                                <combobox onChange="@command('')" constraint="no empty"
+                                          onSelect="@command('')"
+                                          selectedItem="@bind(vm.selectedContaOrigem)"
+                                          model="@load(vm.contaorigens)" hflex="1"
+                                          mold="rounded" autodrop="false" autocomplete="true">
+                                    <template name="model">
+                                        <comboitem style="font-weight:bold;font-size:11pt"
+                                                   onClick="@command('')"
+                                                   label="@load(each.designacaoDaConta)"
+                                                   value="@load(each.id)"/>
+                                    </template>
+                                </combobox>
+                            </row>
+                            <row>
+                                <label value="Conta Destino"/>
+                                <combobox onChange="@command('')" constraint="no empty"
+                                          onSelect="@command('addDestino')"
+                                          selectedItem="@bind(vm.selectedContaDestino)"
+                                          model="@load(vm.contadestinos)" hflex="1"
+                                          mold="rounded" autodrop="false" autocomplete="true">
+                                    <template name="model">
+                                        <comboitem style="font-weight:bold;font-size:11pt"
+                                                   onClick="@command('')"
+                                                   label="@load(each.designacaoDaConta)"
+                                                   value="@load(each.id)"/>
+                                    </template>
+                                </combobox>
+                            </row>
+                        </rows>
+                    </grid>
+
+                </hbox>
+                <hbox>
+                    <vbox>
+                        <grid>
+                            <columns>
+                                <column label="Saldo C. Credora"/>
+                                <column value=""/>
+                                <column label="Saldo da C. Devedora"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="@bind(vm.selectedContaOrigem.designacaoDaConta)"/>
+                                    <label value=""/>
+                                    <label value="@bind(vm.selectedContaDestino.designacaoDaConta)"/>
+                                </row>
+                                <row>
+                                    <label value="@bind(vm.selectedContaOrigem.saldo)@converter('formatedNumber', format='###,##0.00') "/>
+                                    <label value=""/>
+                                    <label value="@bind(vm.selectedContaDestino.saldo)@converter('formatedNumber', format='###,##0.00') "/>
+                                </row>
+                            </rows>
+                        </grid>
+                        <grid model="@bind(vm.trans)">
+                            <columns>
+                                <column label="Saldo Resultante da C. Credora "/>
+                                <column value="Valor a transferir"/>
+                                <column label="Saldo Resultante da Conta Devedora"/>
+                            </columns>
+                            <template name="model">
+                                <row>
+                                    <label value="@bind(each.origem.saldo)@converter('formatedNumber', format='###,##0.00') "/>
+                                    <label value="@bind(each.valor) @converter('formatedNumber', format='###,##0.00')"/>
+                                    <label value="@bind(each.destino.saldo)@converter('formatedNumber', format='###,##0.00') "/>
+                                </row>
+
+
+                            </template>
+
+                        </grid>
+                    </vbox>
+                </hbox>
+                <hbox>
+                    <!-- <listbox id="lb_origem" checkmark="true" selectedItem="@bind(vm.selectedContaOrigem)"
+                              model="@load(vm.contaorigens)" width="500px"
+                              height="" mold="paging" pageSize="5">
+                         <listhead sizable="true">
+                             <listheader style="" sort="auto(codigo)" width="100px" label="Origens"
+                                         align="left"/>
+                             <listheader sort="auto(designacaoDaConta)" width="Descrição" label=""
+                                         align="left"/>
+                             <listheader sort="auto(credito)" width="" label="Crédito" align="left"/>
+                             <listheader sort="auto(debito)" width="" label="Débito" align="left"/>
+                             <listheader sort="auto(saldo)" width="" label="Saldo" align="left"/>
+                         </listhead>
+                         <template name="model" status="s">
+                             <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                 <listcell label="@load(each.codigo)"/>
+                                 <listcell label="@load(each.designacaoDaConta)"/>
+                                 <listcell
+                                         label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                 <listcell
+                                         label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                 <listcell
+                                         label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+
+                             </listitem>
+                         </template>
+                     </listbox>
+                     <listbox id="lb_destino" checkmark="true" selectedItem="@bind(vm.selectedContaDestino)"
+                              model="@load(vm.contadestinos)" width="500px"
+                              height="" mold="paging" pageSize="5">
+                         <listhead sizable="true">
+                             <listheader style="" sort="auto(codigo)" width="100px" label="Destinos"
+                                         align="left"/>
+                             <listheader sort="auto(designacaoDaConta)" width="" label="Descrição"
+                                         align="left"/>
+                             <listheader sort="auto(credito)" width="" label="Crédito" align="left"/>
+                             <listheader sort="auto(debito)" width="" label="Débito" align="left"/>
+                             <listheader sort="auto(saldo)" width="" label="Saldo" align="left"/>
+                         </listhead>
+                         <template name="model" status="s">
+                             <listitem onClick="@command('addDestino', index=each.id)"
+                                       style="@bind('style')">
+                                 <listcell label="@load(each.codigo)"/>
+                                 <listcell label="@load(each.designacaoDaConta)"/>
+                                 <listcell
+                                         label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                 <listcell
+                                         label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                 <listcell
+                                         label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                             </listitem>
+                         </template>
+                     </listbox>-->
+                </hbox>
+
+            </vbox>
+
+
+        </hbox>
+
+    </window>
+
+</zk>

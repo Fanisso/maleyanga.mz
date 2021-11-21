@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printRelDeClientesDoGestorViewModel')">
+
+        <style>
+            .z-textbox{ border-style : normal; background: #95B9C7}
+        </style>
+
+
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+
+        <grid width="1040px">
+            <columns>
+                <column label="Clientes do(a) Gestor(a):"/>
+                <column label="@load(vm.gestor.username)"/>
+            </columns>
+
+        </grid>
+        <listbox visible="@load(vm.aber)" checkmark="true" style="@bind('style')"
+                 model="@load(vm.abertos)" width="1040px"
+                 height="">
+            <auxhead>
+                <auxheader colspan="11" label="Créditos Abertos"/>
+            </auxhead>
+            <listhead sizable="true">
+                <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº" align="left"/>
+                <listheader width="180px" label="Nome" align="left"/>
+
+                <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                            align="left"/>
+                <listheader sort="auto(formaDeCalculo)" width="80px" label="F. de calculo" align="left"/>
+                <listheader sort="auto(dateConcecao)" width="100px" label="Data de conceção" align="left"/>
+                <listheader sort="auto(percentualDejuros)" width="80px" label="% de Juros" align="left"/>
+                <listheader sort="auto(percentualJurosDeDemora)" width="80px" label="% de J. de Mora"
+                            align="left"/>
+                <listheader sort="auto(periodicidade)" width="80px" label="Periodicidade" align="left"/>
+                <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="80px" label="Dívida" align="left"/>
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                    <listcell label="@load(each.numeroDoCredito)"/>
+                    <listcell label="@load(each.cliente.nome)"/>
+
+                    <listcell label="@load(each.numeroDePrestacoes)"/>
+                    <listcell
+                            label="@load(each.formaDeCalculo)"/>
+                    <listcell
+                            label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                    <listcell label="@load(each.percentualDejuros)"/>
+                    <listcell label="@load(each.percentualJurosDeDemora)"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell label="@load(each.utilizador.username)"/>
+                    <listcell
+                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.valorEmDivida)"/>
+
+
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Totais"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalAcreditadoAbertos)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalEmDividaAbertos)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+            </listfoot>
+
+        </listbox>
+        <listbox visible="@load(vm.emPa)" checkmark="true" style="@bind('style')"
+                 model="@load(vm.emPagamento)" width="1040px"
+                 height="">
+            <auxhead>
+                <auxheader colspan="11" label="Créditos Em Pagamento"/>
+            </auxhead>
+            <listhead sizable="true">
+                <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº" align="left"/>
+                <listheader width="160px" label="Nome" align="left"/>
+                <listheader sort="auto(formaDeCalculo)" width="70px" label="F. de cal." align="left"/>
+                <listheader sort="auto(numeroDePrestacoes)" width="70px" label="Nº. de Prest." align="left"/>
+                <listheader sort="auto(dateConcecao)" width="70px" label="Data de Conc." align="left"/>
+                <listheader sort="auto(percentualDejuros)" width="80px" label="% de Juros" align="left"/>
+                <listheader sort="auto(percentualJurosDeDemora)" width="80px" label="% de J. de Mora"
+                            align="left"/>
+                <listheader sort="auto(period.)" width="70px" label="Periodicidade" align="left"/>
+                <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="80px" label="Dívida" align="left"/>
+                <listheader sort="auto(totalPago)" width="80px" label="T. Pago" align="left"/>
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                    <listcell label="@load(each.numeroDoCredito)"/>
+                    <listcell label="@load(each.cliente.nome)"/>
+                    <listcell label="@load(each.formaDeCalculo)"/>
+                    <listcell label="@load(each.numeroDePrestacoes)"/>
+                    <listcell label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <listcell label="@load(each.percentualDejuros)"/>
+                    <listcell label="@load(each.percentualJurosDeDemora)"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell label="@load(each.utilizador.username)"/>
+                    <listcell
+                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+
+
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Rendimento Absuluto"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoEmPagamento+vm.totalEmDividaEmPagamento)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Totais"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalAcreditadoEmPagamento)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalEmDividaEmPagamento)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoEmPagamento)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+            </listfoot>
+
+        </listbox>
+        <listbox visible="@load(vm.pend)" checkmark="true" style="@bind('style')"
+                 model="@load(vm.pendentes)" width="1040px"
+                 height="">
+            <auxhead>
+                <auxheader colspan="11" label="Créditos Pendentes"/>
+            </auxhead>
+            <listhead sizable="true">
+                <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº" align="left"/>
+                <listheader width="160px" label="Nome" align="left"/>
+                <listheader sort="auto(formaDeCalculo)" width="75px" label="F. de calculo" align="left"/>
+                <listheader sort="auto(numeroDePrestacoes)" width="60px" label="Nº. de Prst."
+                            align="left"/>
+
+                <listheader sort="auto(dateConcecao)" width="75px" label="Data de Desemb." align="left"/>
+                <listheader sort="auto(percentualDejuros)" width="70px" label="% de Juros" align="left"/>
+                <listheader sort="auto(percentualJurosDeDemora)" width="80px" label="% de J. de Mora"
+                            align="left"/>
+                <listheader sort="auto(periodicidade)" width="80px" label="Periodicidade" align="left"/>
+                <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="80px" label="Dívida" align="left"/>
+                <listheader sort="auto(totalPago)" width="80px" label="T. Pago" align="left"/>
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                    <listcell label="@load(each.numeroDoCredito)"/>
+                    <listcell label="@load(each.cliente.nome)"/>
+                    <listcell label="@load(each.formaDeCalculo)"/>
+                    <listcell label="@load(each.numeroDePrestacoes)"/>
+                    <listcell label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <listcell label="@load(each.percentualDejuros)"/>
+                    <listcell label="@load(each.percentualJurosDeDemora)"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell label="@load(each.utilizador.username)"/>
+                    <listcell
+                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+
+
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Rendimento Absuluto"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoPendentes+vm.totalEmDividaPendentes)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Totais"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalAcreditadoPendentes)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalEmDividaPendentes)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoPendentes)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+            </listfoot>
+        </listbox>
+        <listbox visible="@load(vm.fec)" checkmark="true" style="@bind('style')"
+                 model="@load(vm.fechados)" width="1040px"
+                 height="">
+            <auxhead>
+                <auxheader colspan="11" label="Créditos Fechados"/>
+            </auxhead>
+            <listhead sizable="true">
+                <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº" align="left"/>
+                <listheader width="170px" label="Nome" align="left"/>
+                <listheader sort="auto(numeroDePrestacoes)" width="75px" label="Nº. de Prest."
+                            align="left"/>
+                <listheader sort="auto(formaDeCalculo)" width="80px" label="F. de calculo" align="left"/>
+                <listheader sort="auto(dateConcecao)" width="100px" label="Data de conceção" align="left"/>
+                <listheader sort="auto(percentualDejuros)" width="80px" label="% de Juros" align="left"/>
+                <listheader sort="auto(percentualJurosDeDemora)" width="80px" label="% de J. de Mora"
+                            align="left"/>
+                <listheader sort="auto(periodicidade)" width="80px" label="Periodicidade" align="left"/>
+                <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                <listheader sort="auto(totalPago)" width="100px" label="Total Pago" align="left"/>
+
+
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                    <listcell label="@load(each.numeroDoCredito)"/>
+                    <listcell label="@load(each.cliente.nome)"/>
+
+                    <listcell label="@load(each.numeroDePrestacoes)"/>
+                    <listcell
+                            label="@load(each.formaDeCalculo)"/>
+                    <listcell
+                            label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                    <listcell label="@load(each.percentualDejuros)"/>
+                    <listcell label="@load(each.percentualJurosDeDemora)"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell label="@load(each.utilizador.username)"/>
+                    <listcell
+                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell
+                            label="@load(each.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+
+                </listitem>
+            </template>
+
+            <listfoot>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Rendimento Absuluto"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoFechados-vm.totalAcreditadoFechados)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Totais"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalAcreditadoFechados)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalPagoFechados)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+
+
+            </listfoot>
+
+        </listbox>
+        <listbox visible="@load(vm.inval)" checkmark="true" style="@bind('style')"
+                 model="@load(vm.invalidos)" width="1040px"
+                 height="">
+            <auxhead>
+                <auxheader colspan="11" label="Créditos Inválidos"/>
+            </auxhead>
+            <listhead sizable="true">
+                <listheader sortDescending="@load(id)" width="90px" label="Crédito Nº" align="left"/>
+                <listheader width="260px" label="Nome" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="100px" label="Valor Creditado" align="left"/>
+                <listheader sort="auto(numeroDePrestacoes)" width="80px" label="Nº. de Prest."
+                            align="left"/>
+                <listheader sort="auto(formaDeCalculo)" width="80px" label="F. de calculo" align="left"/>
+                <listheader sort="auto(dateConcecao)" width="100px" label="Data de conceção" align="left"/>
+                <listheader sort="auto(percentualDejuros)" width="80px" label="% de Juros" align="left"/>
+                <listheader sort="auto(percentualJurosDeDemora)" width="80px" label="% de J. de Mora"
+                            align="left"/>
+                <listheader sort="auto(periodicidade)" width="80px" label="Periodicidade" align="left"/>
+                <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                    <listcell label="@load(each.numeroDoCredito)"/>
+                    <listcell label="@load(each.cliente.nome)"/>
+                    <listcell
+                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.numeroDePrestacoes)"/>
+                    <listcell
+                            label="@load(each.formaDeCalculo)"/>
+                    <listcell
+                            label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                    <listcell label="@load(each.percentualDejuros)"/>
+                    <listcell label="@load(each.percentualJurosDeDemora)"/>
+                    <listcell label="@load(each.periodicidade)"/>
+                    <listcell label="@load(each.utilizador.username)"/>
+
+
+                </listitem>
+            </template>
+
+        </listbox>
+
+
+    </window>
+
+</zk>

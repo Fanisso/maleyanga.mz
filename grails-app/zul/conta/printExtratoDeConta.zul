@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printExtratoDeContaViewModel')">
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+
+        <grid style="margin-top:20px" width="700px">
+            <columns>
+                <column width="200px"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:16pt" value="Extrato de conta"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="2" style="text-align:left">
+                        <label style="font-size:14pt" value="Dados da Conta"/>
+                    </cell>
+                    <cell colspan="1" style="text-align:left">
+                        <label value="Codigo:  "/>
+                        <label value="@load(vm.conta.codigo)"/>
+                    </cell>
+                </row>
+
+                <row>
+                    <label value="designação Da Conta:"/>
+                    <label value="@load(vm.conta.designacaoDaConta)"/>
+                </row>
+                <row>
+                    <label value="numeroDaConta:"/>
+                    <label value="@load(vm.conta.numeroDaConta)"/>
+                </row>
+                <row>
+                    <label value="finalidade:"/>
+                    <label value="@load(vm.conta.finalidade)"/>
+                </row>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:14pt" value="Outros dados"/>
+                    </cell>
+
+                </row>
+                <row>
+
+                    <label value="Utilizador"/>
+                    <label value="@load(vm.conta.utilizador.username)"/>
+                    <cell colspan="1">
+                        <label style="text-align:right" value="Cliente: "/>
+                        <label value="@load(vm.conta.cliente) "/>
+                    </cell>
+                </row>
+                <row>
+
+                    <label value="Ativo:"/>
+                    <label value="@load(vm.conta.ativo)"/>
+
+                </row>
+
+
+            </rows>
+        </grid>
+
+        <listbox style="@bind('style')"
+                 model="@load(vm.extratoDeContas)" width="700px"
+                 height="">
+
+            <listhead sizable="true">
+                <listheader width="60px" label="Data" align="left"/>
+                <listheader width="248px" label="Descrição" align="left"/>
+                <listheader width="130px" label="Debito" align="left"/>
+                <listheader width="130px" label="Crédito" align="left"/>
+                <listheader width="130px" label="Saldo" align="left"/>
+            </listhead>
+            <auxhead>
+                <auxheader/>
+                <auxheader/>
+                <auxheader/>
+                <auxheader>
+                    <label value="Saldo Anterior: "/>
+                </auxheader>
+                <auxheader>
+                    <label value="@load(vm.saldoAnterior)@converter('formatedNumber', format='###,##0.00') "/>
+                </auxheader>
+            </auxhead>
+            <template name="model" status="s">
+                <listitem>
+                    <listcell label="@load(each.data)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <listcell label="@load(each.descricao)"/>
+                    <listcell label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                </listitem>
+            </template>
+           <!-- <listfoot>
+                <listfooter width="80px"/>
+
+                <listfooter width="300px" style="text-align:right">
+                    <label style="font-weight:bold" value="Totais"/>
+                </listfooter>
+
+                <listfooter width="140px" style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalDebitos)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+                <listfooter width="140px" style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalCreditos)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+                <listfooter width="140px" style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalDebitos-vm.totalCreditos)  @converter('formatedNumber', format='###,##0.00') "/>
+                </listfooter>
+
+            </listfoot>-->
+        </listbox>
+
+    </window>
+
+</zk>

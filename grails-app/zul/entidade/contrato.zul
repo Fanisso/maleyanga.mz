@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('contratoViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-label{ border-style : none; background: #FFF;font-syze:12pt}
+
+
+        </style>
+
+
+        <grid width="750px" id="gd_show">
+            <rows>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:16pt" value="CONTRATO DE EMPRÉSTIMO"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell colspan="3" style="text-align:left">
+                        <label value="Entre:"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <label value=" PRIMEIRO: "/>
+                        <label value="@bind(vm.credito.cliente.entidade.nome) "/>
+                        <label value=", inscrito no Banco de Moçambique sob o número "/>
+                        <label style="" value="1086/DRL/20070029/106.16/18 "/>
+                    </cell>
+                </row>
+
+            </rows>
+
+        </grid>
+    </window>
+
+</zk>

@@ -1,0 +1,42 @@
+package mz.maleyanga
+
+//import org.grails.plugins.excelimport.AbstractExcelImporter
+
+
+/**
+ * Created by Claudino on 12/11/2015.
+ */
+//class ClienteExcelImporter extends AbstractExcelImporter
+class ClienteExcelImporter  {
+   ExcelImportService excelImportService
+    static Map CONFIG_CLIENTE_COLUMN_MAP = [
+            sheet:'Sheet1',
+            startRow: 2,
+            columnMap:  [
+                    'B':'nome',
+                    'C':'nuit',
+                    'D':'tipoDeIndentificacao',
+                    'E':' numeroDeIndentificao',
+                    'F':'residencia',
+                    'G':'email',
+                    'H':'telefone',
+            ]
+    ]
+
+    //can also configure injection in resources.groovy
+
+
+    public ClienteExcelImporter(fileName) {
+        super(fileName)
+    }
+
+    List<Map> getClientes() {
+        List clienteList = excelImportService.columns(workbook, CONFIG_CLIENTE_COLUMN_MAP)
+    }
+
+
+    Map getOneMoreClienteParams() {
+        Map bookParams = excelImportService.cells(workbook, CONFIG_CLIENTE_COLUMN_MAP )
+    }
+
+}

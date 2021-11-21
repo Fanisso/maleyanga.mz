@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('contasViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+        <label style="" id="info"/>
+
+
+        <tabbox maximalHeight="true" onSelect="@command('cleanInfo')" width="">
+            <tabs id="tabs0">
+                <tab image="${z.resource(dir:'images', file:'contas_25.png')}" label="Contas De Movimento"/>
+                <tab image="${z.resource(dir:'images', file:'contas_25.png')}" label="Contas Integradoras"/>
+                <tab image="${z.resource(dir:'images', file:'classes_25.png')}" label="Classes das Contas"/>
+                <tab image="${z.resource(dir:'images', file:'transferencia_25.png')}" label="Transferências"/>
+                <tab image="${z.resource(dir:'images', file:'banco_25.png')}" label="Bancos"/>
+                <tab image="${z.resource(dir:'images', file:'pdc_25.png')}" label="Plano De Contas"/>
+                <tab image="${z.resource(dir:'images', file:'print.png')}" label="Relatórios de contas"/>
+            </tabs>
+            <tabpanels id="pnls0">
+                <tabpanel>
+                    <tabbox>
+                        <tabs>
+                            <tab image="${z.resource(dir:'images', file:'contas_25.png')}" label="Contas De Movimento"/>
+                            <tab image="${z.resource(dir:'images', file:'contas_25.png')}" label="Contas De Serviços"/>
+                        </tabs>
+                        <tabpanels>
+                            <tabpanel>
+                                <button image="${z.resource(dir:'images', file:'add.png')}"
+                                        onClick="@command('addConta')"
+                                        label="Conta De Movimento"/>
+                                <hbox>
+                                    <tabbox visible="@load(not empty vm.novaConta)" width="500px">
+                                        <tabs>
+                                            <tab label="Dados da Conta"/>
+                                            <tab label="Detalhes"/>
+                                        </tabs>
+                                        <tabpanels>
+                                            <tabpanel>
+                                                <grid width="500px" style="margin-top:20px"
+                                                      visible="@bind(not empty vm.novaConta)">
+                                                    <columns>
+                                                        <column image="${z.resource(dir:'images', file:'conta_25.png')}"
+                                                                label=""
+                                                                width="100px"/>
+                                                        <column label="@bind(vm.novaConta.designacaoDaConta)" width=""/>
+                                                    </columns>
+                                                    <rows>
+
+                                                        <row>
+                                                            <label value="C. Integradoras"/>
+                                                            <combobox selectedItem="@bind(vm.selectedCI)"
+                                                                      model="@load(vm.cintegradoras)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+
+                                                                <comboitem label="@load(each.designacaoDaConta)"
+                                                                           value="@load(each.id)"/>
+
+                                                            </combobox>
+                                                        </row>
+
+                                                        <row>
+                                                            <label value="Descrição"/>
+                                                            <textbox constraint="no empty"
+                                                                     value="@bind(vm.novaConta.designacaoDaConta)"
+                                                                     width="100%"/>
+                                                        </row>
+
+                                                        <row>
+
+
+                                                            <label value="Codigo:"/>
+                                                            <cell colspan="1">
+                                                                <textbox onChange="@command('checkMe')"
+                                                                         constraint="no empty"
+                                                                         placeholder="Só números"
+                                                                         value="@bind(vm.novaConta.codigo)"
+                                                                         width="100px"/>
+                                                            </cell>
+                                                        </row>
+
+
+                                                        <row>
+                                                            <label value="Utilizador"/>
+                                                            <combobox onChange="@command('')"
+                                                                      selectedItem="@bind(vm.selectedUtilizador)"
+                                                                      model="@load(vm.utilizadores)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+                                                                <template name="model">
+                                                                    <comboitem onClick="@command('')"
+                                                                               label="@load(each.username)"
+                                                                               value="@load(each.id)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </row>
+
+                                                        <row>
+                                                            <cell colspan="2" style="text-align:center">
+                                                                <hlayout>
+                                                                    <div>
+                                                                        <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                                                label="Salvar"
+                                                                                onClick="@command('salvarConta')"/>
+                                                                    </div>
+                                                                    <div visible="@bind(not empty vm.novaConta)">
+
+                                                                        <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                                                onClick="@command('showAlerta')"
+                                                                                onDoubleClick="@command('deleteConta')"
+                                                                                label="Eliminar"/>
+                                                                    </div>
+
+                                                                </hlayout>
+                                                            </cell>
+                                                        </row>
+                                                    </rows>
+
+                                                </grid>
+
+                                            </tabpanel>
+                                            <tabpanel>
+                                                <grid width="500px" style="margin-top:20px"
+                                                      visible="@bind(not empty vm.novaConta)">
+                                                    <columns sizable="true">
+                                                        <column image="${z.resource(dir:'images', file:'conta_25.png')}"
+                                                                label=""
+                                                                width="100px"/>
+                                                        <column label="@bind(vm.selectedConta.designacaoDaConta)"
+                                                                width=""/>
+                                                    </columns>
+                                                    <rows>
+                                                        <row>
+                                                            <label value="Banco"/>
+                                                            <combobox onChange="@command('')"
+                                                                      selectedItem="@bind(vm.selectedBanco)"
+                                                                      model="@load(vm.bancos)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+                                                                <template name="model">
+                                                                    <comboitem onClick="@command('')"
+                                                                               label="@load(each.nomeDoBanco)"
+                                                                               value="@load(each.id)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Número"/>
+                                                            <textbox constraint="no empty"
+                                                                     value="@bind(vm.selectedConta.numeroDaConta)"
+                                                                     width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="NIB"/>
+                                                            <textbox value="@bind(vm.selectedConta.nib)" width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="IBAN"/>
+                                                            <textbox value="@bind(vm.selectedConta.iban)" width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Swiftcode"/>
+                                                            <textbox value="@bind(vm.selectedConta.swiftCode)"
+                                                                     width="100%"/>
+                                                        </row>
+
+                                                    </rows>
+                                                </grid>
+                                            </tabpanel>
+                                        </tabpanels>
+
+                                    </tabbox>
+
+                                    <listbox id="lb_contas" style="margin-top:30px" checkmark="true"
+                                             selectedItem="@bind(vm.novaConta)" model="@load(vm.contas)" width="700px"
+                                             height="" mold="paging" pageSize="10">
+                                        <listhead sizable="true">
+                                            <listheader style="" sort="auto(codigo)" width="100px" label="Classe"
+                                                        align="left"/>
+                                            <listheader sort="auto(designacaoDaConta)" width="" label="Descrição"
+                                                        align="left"/>
+                                            <listheader sort="auto(credito)" width="100px" label="Crédito"
+                                                        align="left"/>
+                                            <listheader sort="auto(debito)" width="100px" label="Débito" align="left"/>
+                                            <listheader sort="auto(saldo)" width="100px" label="Saldo" align="left"/>
+                                            <listheader sort="auto(ativo)" width="100px" label="Ativo ?" align="left"/>
+
+
+                                        </listhead>
+                                        <template name="model" status="s">
+
+                                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+
+                                                <listcell label="@load(each.codigo)"/>
+                                                <listcell label="@load(each.designacaoDaConta)"/>
+
+
+                                                <listcell
+                                                        label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell
+                                                        label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell
+                                                        label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell label="@load(each.ativo)"/>
+                                            </listitem>
+                                        </template>
+
+                                    </listbox>
+                                </hbox>
+                            </tabpanel>
+                            <tabpanel>
+                                <button image="${z.resource(dir:'images', file:'add.png')}"
+                                        onClick="@command('addContaServico')"
+                                        label="Conta De Serviços"/>
+                                <hbox>
+                                    <tabbox visible="@load(not empty vm.novaContaServico)" width="500px">
+                                        <tabs>
+                                            <tab label="Dados da Conta"/>
+                                            <tab label="Detalhes"/>
+                                        </tabs>
+                                        <tabpanels>
+                                            <tabpanel>
+                                                <grid width="500px" style="margin-top:20px"
+                                                      visible="@bind(not empty vm.novaContaServico)">
+                                                    <columns>
+                                                        <column image="${z.resource(dir:'images', file:'conta_25.png')}"
+                                                                label=""
+                                                                width="100px"/>
+                                                        <column label="@bind(vm.novaContaServico.designacaoDaConta)"
+                                                                width=""/>
+                                                    </columns>
+                                                    <rows>
+
+                                                        <row>
+                                                            <label value="C. Integradoras"/>
+                                                            <combobox selectedItem="@bind(vm.selectedCI)"
+                                                                      model="@load(vm.integradoras)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+
+                                                                <comboitem label="@load(each.designacaoDaConta)"
+                                                                           value="@load(each.id)"/>
+
+                                                            </combobox>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Finalidade"/>
+
+                                                            <combobox constraint="no empty" width="100%"
+                                                                      onSelect="@command('')"
+                                                                      value="@bind(vm.novaContaServico.finalidade)">
+                                                                <comboitem label="conta_capital"/>
+                                                                <comboitem label="conta_caixa"/>
+                                                                <comboitem label="fundo_de_maneio"/>
+
+                                                            </combobox>
+
+                                                        </row>
+                                                        <row>
+                                                            <label value="Descrição"/>
+                                                            <textbox constraint="no empty"
+                                                                     value="@bind(vm.novaContaServico.designacaoDaConta)"
+                                                                     width="100%"/>
+                                                        </row>
+
+                                                        <row>
+
+
+                                                            <label value="Codigo:"/>
+                                                            <cell colspan="1">
+                                                                <textbox onChange="@command('checkM')"
+                                                                         constraint="no empty"
+                                                                         placeholder="Só números"
+                                                                         value="@bind(vm.novaContaServico.codigo)"
+                                                                         width="100px"/>
+                                                            </cell>
+                                                        </row>
+
+
+                                                        <row>
+                                                            <label value="Utilizador"/>
+                                                            <combobox onChange="@command('')"
+                                                                      selectedItem="@bind(vm.selectedUtilizador)"
+                                                                      model="@load(vm.utilizadores)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+                                                                <template name="model">
+                                                                    <comboitem onClick="@command('')"
+                                                                               label="@load(each.username)"
+                                                                               value="@load(each.id)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </row>
+
+                                                        <row>
+                                                            <cell colspan="2" style="text-align:center">
+                                                                <hlayout>
+                                                                    <div>
+                                                                        <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                                                label="Salvar"
+                                                                                onClick="@command('salvarContaServico')"/>
+                                                                    </div>
+                                                                    <div visible="@bind(not empty vm.novaContaServico)">
+
+                                                                        <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                                                onClick="@command('showAlerta')"
+                                                                                onDoubleClick="@command('deleteContaServico')"
+                                                                                label="Eliminar"/>
+                                                                    </div>
+
+                                                                </hlayout>
+                                                            </cell>
+                                                        </row>
+                                                    </rows>
+
+                                                </grid>
+
+                                            </tabpanel>
+                                            <tabpanel>
+                                                <grid width="500px" style="margin-top:20px"
+                                                      visible="@bind(not empty vm.novaContaServico)">
+                                                    <columns>
+                                                        <column image="${z.resource(dir:'images', file:'conta_25.png')}"
+                                                                label=""
+                                                                width="100px"/>
+                                                        <column label="@bind(vm.novaContaServico.designacaoDaConta)"
+                                                                width=""/>
+                                                    </columns>
+                                                    <rows>
+                                                        <row>
+                                                            <label value="Banco"/>
+                                                            <combobox onChange="@command('')"
+                                                                      selectedItem="@bind(vm.selectedBanco)"
+                                                                      model="@load(vm.bancos)" hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+                                                                <template name="model">
+                                                                    <comboitem onClick="@command('')"
+                                                                               label="@load(each.nomeDoBanco)"
+                                                                               value="@load(each.id)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Número"/>
+                                                            <textbox constraint="no empty"
+                                                                     value="@bind(vm.novaContaServico.numeroDaConta)"
+                                                                     width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="NIB"/>
+                                                            <textbox value="@bind(vm.novaContaServico.nib)"
+                                                                     width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="IBAN"/>
+                                                            <textbox value="@bind(vm.novaContaServico.iban)"
+                                                                     width="100%"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Swiftcode"/>
+                                                            <textbox value="@bind(vm.novaContaServico.swiftCode)"
+                                                                     width="100%"/>
+                                                        </row>
+
+                                                    </rows>
+                                                </grid>
+                                            </tabpanel>
+                                        </tabpanels>
+
+                                    </tabbox>
+                                    <listbox id="lb_conta" style="margin-top:30px" checkmark="true"
+                                             selectedItem="@bind(vm.novaContaServico)" model="@load(vm.cservicos)"
+                                             width="800px"
+                                             height="" mold="paging" pageSize="10">
+                                        <listhead sizable="true">
+                                            <listheader style="" sort="auto(codigo)" width="90px" label="Codigo"
+                                                        align="left"/>
+                                            <listheader style="" sort="auto(utilizador)" width="100px"
+                                                        label="Utilizador"
+                                                        align="left"/>
+                                            <listheader sort="auto(designacaoDaConta)" width="" label="Descrição"
+                                                        align="left"/>
+                                            <listheader sort="auto(credito)" width="100px" label="Crédito"
+                                                        align="left"/>
+                                            <listheader sort="auto(debito)" width="100px" label="Débito" align="left"/>
+                                            <listheader sort="auto(saldo)" width="100px" label="Saldo" align="left"/>
+                                            <listheader sort="auto(ativo)" width="100px" label="Ativo ?" align="left"/>
+
+
+                                        </listhead>
+                                        <template name="model" status="s">
+
+                                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+
+                                                <listcell label="@load(each.codigo)"/>
+                                                <listcell label="@load(each.utilizador)"/>
+                                                <listcell label="@load(each.designacaoDaConta)"/>
+
+
+                                                <listcell
+                                                        label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell
+                                                        label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell
+                                                        label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                                                <listcell label="@load(each.ativo)"/>
+                                            </listitem>
+                                        </template>
+
+                                    </listbox>
+                                </hbox>
+                            </tabpanel>
+                        </tabpanels>
+                    </tabbox>
+
+                </tabpanel>   <!--contas movimento-->
+                <tabpanel>
+                    <button image="${z.resource(dir:'images', file:'add.png')}"
+                            onClick="@command('addContaIntegradora')" label="C. Integradora"/>
+                    <hbox>
+                        <grid visible="@load(not empty vm.selectedContaIntegradora)" id="gd_contas_integradoras"
+                              width="500px" style="margin-top:10px">
+                            <columns>
+                                <column image="${z.resource(dir:'images', file:'conta_25.png')}" label=""
+                                        width="100px"/>
+                                <column label="@bind(vm.selectedContaIntegradora.codigo)" width=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Classe"/>
+                                    <combobox id="cb_classes" constraint="no empty" onChange="@command('getCis')"
+                                              selectedItem="@bind(vm.selectedContaClasse)"
+                                              model="@load(vm.classesDeContas)" hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('geCis')"
+                                                       label="@load(each.designacaoDaConta)" value="@load(each.id)"/>
+                                        </template>
+                                    </combobox>
+                                </row>
+                                <row>
+                                    <label value="C. Integradoras"/>
+                                    <combobox id="cb_cis" selectedItem="@bind(vm.selectedCI)" model="@load(vm.cis)"
+                                              hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+
+                                        <comboitem onClick="@command('chooseSelectedCI', index=each.id)"
+                                                   label="@load(each.designacaoDaConta)" value="@load(each.id)"/>
+
+                                    </combobox>
+                                </row>
+
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox constraint="no empty"
+                                             value="@bind(vm.selectedContaIntegradora.designacaoDaConta)" width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Codigo:"/>
+                                    <cell colspan="1">
+                                        <textbox onChange="@command('checkContent')" constraint="no empty"
+                                                 placeholder="Só números"
+                                                 value="@bind(vm.selectedContaIntegradora.codigo)" width="100px"/>
+                                    </cell>
+                                </row>
+
+
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+                                            <div>
+                                                <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                        label="Salvar" onClick="@command('salvarContaIntegradora')"/>
+                                            </div>
+                                            <div visible="@bind(not empty vm.selectedContaIntegradora)">
+                                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                        onClick="@command('updateContaIntegradora')"
+                                                        label="Actualizar"/>
+                                                <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                        onClick="@command('showAlerta')"
+                                                        onDoubleClick="@command('deleteContaIntegradora')"
+                                                        label="Eliminar"/>
+                                            </div>
+
+                                        </hlayout>
+                                    </cell>
+                                </row>
+                            </rows>
+
+                        </grid>
+                        <listbox id="lb_ci" style="margin-top:10px" checkmark="true"
+                                 selectedItem="@bind(vm.selectedContaIntegradora)" model="@load(vm.contasIntegradoras)"
+                                 width="500px"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader style="" sort="auto(codigo)" width="80px" label="Classe" align="left"/>
+                                <listheader sort="auto(designacaoDaConta)" width="" label="Descrição"
+                                            align="left"/>
+
+                                <listheader sort="auto(credito)" width="100px" label="Crédito" align="left"/>
+                                <listheader sort="auto(debito)" width="90px" label="Débito" align="left"/>
+                                <listheader sort="auto(saldo)" width="90px" label="Saldo" align="left"/>
+                                <listheader sort="auto(ativo)" width="50px" label="Ativo?" align="left"/>
+
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+
+                                    <listcell label="@load(each.codigo)"/>
+                                    <listcell label="@load(each.designacaoDaConta)"/>
+
+
+                                    <listcell
+                                            label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell label="@load(each.ativo)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+
+                </tabpanel> <!--contas integradoras-->
+
+                <tabpanel>
+                    <button image="${z.resource(dir:'images', file:'add.png')}" onClick="@command('addClasse')"
+                            label="Classe"/>
+                    <hbox>
+
+                        <grid id="gd_classe" width="500px" style="margin-top:10px"
+                              visible="@bind(not empty vm.selectedClasse)">
+                            <columns>
+                                <column image="${z.resource(dir:'images', file:'conta_25.png')}" label=""
+                                        width="100px"/>
+                                <column label="@bind(vm.selectedClasse.designacaoDaConta)" width=""/>
+                            </columns>
+                            <rows id="rows">
+
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox constraint="no empty" value="@bind(vm.selectedClasse.designacaoDaConta)"
+                                             width="100%"/>
+                                </row>
+
+                                <row>
+
+                                    <label value="Codigo:"/>
+                                    <cell colspan="1">
+
+                                        <intbox constraint="no empty, no negative"
+                                                value="@bind(vm.selectedClasse.codigo)" width="100px"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <label value="É UM ATIVO?"/>
+                                    <button onClick="@command('changeMe')" label="@bind(vm.selectedClasse.ativo)"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+                                            <div>
+                                                <button id="bt_salvar_classe"
+                                                        image="${z.resource(dir:'images', file:'save.png')}"
+                                                        label="Salvar" onClick="@command('salvarClasse')"/>
+                                            </div>
+                                            <div visible="@bind(not empty vm.selectedClasse)">
+                                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                        onClick="@command('updateClasse')" label="Actualizar"/>
+                                                <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                        onClick="@command('showAlerta')"
+                                                        onDoubleClick="@command('deleteClasse')" label="Eliminar"/>
+                                            </div>
+
+                                        </hlayout>
+                                    </cell>
+                                </row>
+                            </rows>
+
+                        </grid>
+
+                        <listbox id="lb_classes" style="margin-top:10px" checkmark="true"
+                                 selectedItem="@bind(vm.selectedClasse)" model="@load(vm.classes)" width="600px"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader style="" sort="auto(codigo)" width="80px" label="Classe" align="left"/>
+                                <listheader sort="auto(designacaoDaConta)" width="" label="Descrição"
+                                            align="left"/>
+
+                                <listheader sort="auto(credito)" width="90px" label="Crédito" align="left"/>
+                                <listheader sort="auto(debito)" width="90px" label="Débito" align="left"/>
+                                <listheader sort="auto(saldo)" width="100px" label="Saldo" align="left"/>
+                                <listheader sort="auto(saldo)" width="100px" label="Ativo?" align="left"/>
+
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+
+                                    <listcell label="@load(each.codigo)"/>
+                                    <listcell label="@load(each.designacaoDaConta)"/>
+
+
+                                    <listcell
+                                            label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell label="@load(each.ativo)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+
+                </tabpanel> <!--classe de contas-->
+                <tabpanel>
+                    <include src="/conta/transferencias.zul"/>
+
+                </tabpanel> <!--transferencias-->
+                <tabpanel>
+                    <div>
+                        <button image="${z.resource(dir:'images', file:'add.png')}" onClick="@command('addBanco')"
+                                label="Banco"/>
+                        <grid visible="@load(not empty vm.selectedBanco)" id="gd_banco" width="600px"
+                              style="margin-top:20px">
+                            <columns>
+                                <column image="${z.resource(dir:'images', file:'banco_25.png')}" label=""
+                                        width="80px"/>
+                                <column label="@bind(vm.selectedBanco.nomeDoBanco)" width=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Designação"/>
+                                    <textbox constraint="no empty" value="@bind(vm.selectedBanco.nomeDoBanco)"
+                                             width="100%"/>
+                                </row>
+                                <row>
+                                    <label value="Agência"/>
+                                    <textbox value="@bind(vm.selectedBanco.agencia)" width="100%"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+                                            <div>
+                                                <button id="bt_salvar_banco"
+                                                        image="${z.resource(dir:'images', file:'save.png')}"
+                                                        label="Salvar" onClick="@command('salvarBanco')"/>
+                                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                        onClick="@command('updateBanco')" label="Actualizar"/>
+                                            </div>
+                                            <div visible="@bind(not empty vm.selectedBanco)">
+                                                <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                        id="bt_delete_banco" onClick="@command('showAlerta')"
+                                                        onDoubleClick="@command('deleteBanco')" label="Eliminar"/>
+                                            </div>
+                                            <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                    label="Fechar Editor" onClick="@command('fecharEditor')"/>
+                                        </hlayout>
+                                    </cell>
+                                </row>
+                            </rows>
+
+                        </grid>
+                    </div>
+
+                    <div>
+                        <listbox id="lb_bancos" checkmark="true" selectedItem="@bind(vm.selectedBanco)"
+                                 model="@load(vm.bancos)" width="600px"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader style="" sort="auto(nomeDoBanco)" width="200px" label="Nome" align="left"/>
+                                <listheader sort="auto(agencia)" width="" label="agencia" align="left"/>
+                            </listhead>
+                            <template name="model" status="s">
+                                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                                    <listcell label="@load(each.nomeDoBanco)"/>
+                                    <listcell label="@load(each.agencia)"/>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </div>
+                </tabpanel> <!--bancos-->
+                <tabpanel height="800px">
+
+                    <button id="bt_add_pdc" image="${z.resource(dir:'images', file:'add.png')}"
+                            onClick="@command('addPDC')" label="Plano de Contas"/>
+                    <hbox>
+                        <grid id="gd_pdc" visible="@load(not empty vm.selectedPlanoDeContas)" width="600px"
+                              style="margin-top:10px">
+                            <columns>
+                                <column width="200px" label="Plano De Contas"/>
+                                <column label="@load(vm.selectedPlanoDeContas.descricao)"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Designação"/>
+                                    <textbox width="100%" value="@bind(vm.selectedPlanoDeContas.descricao)"/>
+                                </row>
+
+                                <row>
+                                    <label value="Ativo"/>
+                                    <button onClick="@command('changeAtivo')"
+                                            label="@bind(vm.selectedPlanoDeContas.ativo)"/>
+                                </row>
+                                <row>
+                                    <label value="Fechado"/>
+                                    <button onClick="@command('changeFechado')"
+                                            label="@bind(vm.selectedPlanoDeContas.fechado)"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2" style="text-align:center">
+                                        <hlayout>
+                                            <div>
+                                                <button id="bt_salvar_pdc"
+                                                        image="${z.resource(dir:'images', file:'save.png')}"
+                                                        label="Salvar" onClick="@command('salvarPDC')"/>
+                                            </div>
+                                            <div visible="@bind(not empty vm.selectedPlanoDeContas)">
+                                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                                        onClick="@command('updatePDC')" label="Actualizar"/>
+                                                <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                                        onClick="@command('showAlerta')"
+                                                        onDoubleClick="@command('deletePDC')" label="Eliminar"/>
+                                            </div>
+
+                                        </hlayout>
+                                    </cell>
+                                </row>
+
+                            </rows>
+                        </grid>
+
+                        <listbox style="margin-top:10px" id="lb_pdc" checkmark="true"
+                                 selectedItem="@bind(vm.selectedPlanoDeContas)" model="@load(vm.pdcs)" width="600px"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader style="" sort="auto(descricao)" width="" label="Descricao"
+                                            align="left"/>
+                                <listheader sort="auto(ativo)" width="50px" label="Ativo" align="left"/>
+                                <listheader sort="auto(fechado)" width="100px" label="Fechado" align="left"/>
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+
+                                    <listcell label="@load(each.descricao)"/>
+
+                                    <listcell label="@load(each.ativo)"/>
+                                    <listcell label="@load(each.fechado)"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+
+
+                </tabpanel> <!--plano de contas-->
+                <tabpanel>
+                    <hbox width="">
+                        <datebox format="dd/MM/yy" value="@bind(vm.dataInicial)"/>
+                        <datebox format="dd/MM/yy" value="@bind(vm.dataFinal)"/>
+                        <label value="Contas De Movimento "/>
+                        <combobox onSelect="@command('showExtrato')" width="" constraint="no empty"
+                                  onChange="@command('')"
+                                  selectedItem="@bind(vm.rconta)" model="@load(vm.rcontas)" hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('showExtrato')"
+                                           label="@load(each.designacaoDaConta)" value="@load(each.id)"/>
+                            </template>
+                        </combobox>
+                        <label width="200px" value="Contas Dos Clientes "/>
+                        <combobox onSelect="@command('showExtrato')" width=""
+                                  onChange="@command('')"
+                                  selectedItem="@bind(vm.selectedCliente)" model="@load(vm.clientes)" hflex="1"
+                                  mold="rounded" autodrop="true" autocomplete="true">
+                            <template name="model">
+                                <comboitem onClick="@command('showExtrato')"
+                                           label="@load(each.nome)" value="@load(each.id)"/>
+                            </template>
+                        </combobox>
+                        <!-- <button image="${z.resource(dir:'images', file:'print.png')}" onClick="@command('printExtrato')"
+                                 label="Imprimir extrato"/>-->
+                        <div visible="@bind(not empty vm.rconta.id)">
+                            <include src="/conta/printExtrato.gsp"/>
+                        </div>
+
+                    </hbox>
+                    <label value="@load(vm.rconta)"/>
+                    <listbox style="@bind('style')"
+                             model="@load(vm.extratoDeContas)" width="850px"
+                             mold="paging" pageSize="15" height="">
+
+                        <listhead sizable="true">
+
+                            <listheader width="80px" label="Data" align="left"/>
+                            <listheader width="" label="Descrição" align="left"/>
+                            <listheader width="100px" label="Debito" align="left"/>
+                            <listheader width="100px" label="Crédito" align="left"/>
+
+                            <listheader width="100px" label="Saldo" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem>
+
+
+                                <listcell label="@load(each.data)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.descricao)"/>
+                                <listcell label="@load(each.debito)@converter('formatedNumber', format='###,##0.00')"/>
+                                <listcell label="@load(each.credito)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                <listcell label="@load(each.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel> <!--relatorios-->
+            </tabpanels>
+        </tabbox>
+
+
+    </window>
+
+</zk>

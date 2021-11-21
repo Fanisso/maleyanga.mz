@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('defCreditoViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+        </style>
+        <label style="color:red" id="info"/>
+        <tabbox>
+            <tabs>
+                <tab label="Editor De Def. de crédito"/>
+                <tab label="Outras def. de crédito"/>
+                <tab/>
+            </tabs>
+            <tabpanels>
+                <tabpanel>
+                    <hbox>
+                        <div>
+                            <button image="${z.resource(dir:'images', file:'add.png')}" onClick="@command('addDef')"
+                                    label="Add Definição"/>
+                            <button id="bt_fechar"
+                                    image="${z.resource(dir:'images', file:'show.png')}"
+                                    label="Editor" onClick="@command('fecharEditor')"/>
+                            <div id="dv_editor" visible="false">
+                                <hbox>
+                                    <grid width="600px">
+                                        <columns>
+                                            <column width="200px"/>
+                                            <column/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <label value="Descrição"/>
+                                                <textbox constraint="no empty" width="100%"
+                                                         value="@bind(vm.definicaoDeCredito.descricao)"/>
+                                            </row>
+                                            <row>
+                                                <cell colspan="2">
+                                                    <label value="Periodicidade"/>
+                                                    <combobox constraint="no empty" width=""
+                                                              value="@bind(vm.selecedPeriodicidade)">
+                                                        <comboitem label="mensal"/>
+                                                        <comboitem label="quinzenal"/>
+                                                        <comboitem label="semanal"/>
+                                                        <comboitem label="doisdias"/>
+                                                        <comboitem label="diario"/>
+                                                        <comboitem label="variavel"/>
+
+                                                    </combobox>
+                                                    <intbox placeholder="Nº de dias" visible="@bind(vm.variavel)"
+                                                            value="@bind(vm.definicaoDeCredito.periodoVariavel)"/>
+                                                </cell>
+                                            </row>
+                                            <row>
+                                                <label value="Máximo Número de Prestações"/>
+                                                <intbox constraint="no negative, no zero, no empty" width=""
+                                                        value="@bind(vm.definicaoDeCredito.numeroDePrestacoes)"/>
+                                            </row>
+                                            <row>
+                                                <label value="Forma de cálculo"/>
+                                                <combobox constraint="no empty" width="" onSelect="@command('')"
+                                                          value="@bind(vm.selecedFormaDeCalculo)">
+                                                    <comboitem label="pmt"/>
+                                                    <comboitem label="taxafixa"/>
+
+                                                </combobox>
+                                            </row>
+                                            <row>
+                                                <label value="recorência De Moras"/>
+                                                <intbox constraint="no empty, no negative"
+                                                        value="@bind(vm.definicaoDeCredito.recorenciaDeMoras)"/>
+                                            </row>
+                                            <row>
+                                                <label value="% De juros"/>
+                                                <decimalbox constraint="no negative"
+                                                            value="@bind(vm.definicaoDeCredito.percentualDejuros)"/>
+                                            </row>
+                                            <row>
+                                                <label value="% De juros De Mora"/>
+                                                <decimalbox constraint="no negative"
+                                                            value="@bind(vm.definicaoDeCredito.percentualJurosDeDemora)"/>
+                                            </row>
+                                            <row>
+                                                <label value="Ativo"/>
+                                                <button onClick="@command('changeAtivo')"
+                                                        label="@bind(vm.definicaoDeCredito.ativo)"/>
+                                            </row>
+
+                                        </rows>
+
+                                    </grid>
+                                    <grid>
+                                        <rows>
+                                            <row>
+                                                <label value="Excluir Sábados"/>
+                                                <button onClick="@command('excluirSabados')"
+                                                        label="@bind(vm.definicaoDeCredito.excluirSabados)"/>
+                                                <label value="Excluir pagamentos nos Sábados"/>
+                                                <button onClick="@command('excluirPagNosSabados')"
+                                                        label="@bind(vm.definicaoDeCredito.excluirDiaDePagNoSabado)"/>
+                                            </row>
+                                            <row>
+                                                <label value="Excluir Domingos"/>
+                                                <button onClick="@command('excluirDomingos')"
+                                                        label="@bind(vm.definicaoDeCredito.excluirDomingos)"/>
+                                                <label value="Excluir pagamentos nos Domingos"/>
+                                                <button onClick="@command('excluirPagNosDomingos')"
+                                                        label="@bind(vm.definicaoDeCredito.excluirDiaDePagNoDomingo)"/>
+                                            </row>
+
+                                            <row>
+                                                <cell colspan="4">
+                                                    <listbox model="@load(vm.taxas)" id="box"
+                                                             selectedItem="@bind(vm.definicaoDeCredito.taxa)"
+                                                             checkmark="true">
+                                                        <listhead>
+                                                            <listheader label="Descrição"/>
+                                                            <listheader label="%"/>
+                                                            <listheader label="Recorência"/>
+                                                        </listhead>
+                                                        <template name="model" status="s">
+                                                            <listitem>
+                                                                <listcell label="@load(each.nome)"/>
+                                                                <listcell label="@load(each.percentagem)"/>
+                                                                <listcell label="@load(each.recorencia)"/>
+                                                            </listitem>
+                                                        </template>
+
+
+                                                    </listbox>
+                                                </cell>
+                                            </row>
+                                        </rows>
+                                    </grid>
+
+                                </hbox>
+
+                            </div>
+                            <hbox id="hb_editor">
+                                <button image="${z.resource(dir:'images', file:'save.png')}" label="Salvar"
+                                        onClick="@command('saveDefCredito')"/>
+
+                                <button image="${z.resource(dir:'images', file:'update.png')}"
+                                        onClick="@command('salvarSettings')"
+                                        label="Update" id="bt_salvar"/>
+                                <button visible="@bind(not empty vm.definicaoDeCredito)"
+                                        image="${z.resource(dir:'images', file:'remover.png')}"
+                                        onClick="@command('showDelMessage')"
+                                        onDoubleClick="@command('deleteDefCredito')" label="Eliminar"/>
+
+
+                            </hbox>
+
+                        </div>
+
+                    </hbox>
+
+                    <listbox checkmark="true" style="@bind('style')"
+                             selectedItem="@bind(vm.selectedDefinicaoDeCredito)" model="@load(vm.definicoes)" width=""
+                             height="" mold="paging" pageSize="20">
+                        <listhead sizable="false">
+                            <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                            <listheader sort="auto(numeroDePrestacoes)" width="70px" label="Nº de Prest." align="left"/>
+                            <listheader sort="auto(periodicidade)" width="100px" label="periodicidade" align="left"/>
+                            <listheader sort="auto(formaDeCalculo)" width="100px" label="formaDeCalculo" align="left"/>
+                            <listheader sort="auto(recorenciaDeMoras)" width="130px" label="Recorência De Moras"
+                                        align="left"/>
+                            <listheader sort="auto(percentualDejuros)" width="60px" label="% De juros" align="left"/>
+                            <listheader sort="auto(percentualJurosDeDemora)" width="50px" label="% Juros De mora"
+                                        align="left"/>
+                            <listheader width="100px" label="Ativo" align="left"/>
+                            <listheader width="150px" label="Taxa" align="left"/>
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem>
+                                <listcell label="@load(each.descricao)"/>
+                                <listcell label="@load(each.numeroDePrestacoes)"/>
+                                <listcell label="@load(each.periodicidade)"/>
+                                <listcell label="@load(each.formaDeCalculo)"/>
+                                <listcell label="@load(each.recorenciaDeMoras)"/>
+                                <listcell
+                                        label="@load(each.percentualDejuros)@converter('formatedNumber', format='##0.00')"/>
+                                <listcell
+                                        label="@load(each.percentualJurosDeDemora)@converter('formatedNumber', format='##0.00')"/>
+                                <listcell label="@load(each.ativo)"/>
+                                <listcell label="@load(each.taxa.nome)"/>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel><!--editor de def. de crédito-->
+                <tabpanel>
+
+                    <hbox>
+                        <grid width="500px">
+                            <columns>
+                                <column width="80%"/>
+                                <column/>
+                            </columns>
+                            <rows>
+
+                                <row>
+                                    % de Juros das Amortizações
+
+                                    <combobox onChange="@command('setSettings')" constraint="no empty" width="100%"
+                                              onSelect="@command('')"
+                                              value="@bind(vm.settings.pdjda)">
+                                        <comboitem style="background:#AAD1DF" label="pdj"/>
+                                        <comboitem style="background:#DFD9B7" label="pdjdm"/>
+
+                                    </combobox>
+
+                                </row>
+                                <row style="background:#AAD1DF">
+                                    pdj -> Percentual de Juros
+
+                                    <label value="@load(vm.settings.pdjda)"/>
+
+                                </row>
+                                <row style="background:#DFD9B7">
+                                    pdjdm -> Percentual de Juros de Mora
+                                    <label value="@load(vm.settings.pdjda)"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <textbox rows="2" placeholder="Dados da conta para o pagamentos" width="100%"
+                                                 value="@bind(vm.setting.conta1)"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <textbox rows="2" placeholder="Dados da conta para o pagamentos" width="100%"
+                                                 value="@bind(vm.setting.conta2)"/>
+                                    </cell>
+
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <textbox rows="2" placeholder="Dados da conta para o pagamentos" width="100%"
+                                                 value="@bind(vm.setting.conta3)"/>
+                                    </cell>
+
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <textbox rows="2" placeholder="Roda pé do plano de pagamento" width="100%"
+                                                 value="@bind(vm.setting.rodaPePlanoDePagamento)"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <textbox placeholder="NB: do Plano de pagamento" width="100%"
+                                                 value="@bind(vm.setting.nbPlanoDePagamento)"/>
+                                    </cell>
+                                </row>
+                                <row>
+                                    <label value="Visualizar a grid das Prestações"/>
+                                    <button onClick="@command('changeViewGdPrestacoes')"
+                                            label="@load(vm.setting.gd_prestacoes)"/>
+                                </row>
+                                <row>
+                                    <button width="10%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('updateDados')"
+                                            label="update"/>
+                                </row>
+                            </rows>
+                        </grid>
+                        <grid width="500px">
+                            <columns>
+                                <column width="80%"/>
+                                <column/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('calcularMorasAutomatico')"
+                                            label="Capitalização automatica"/>
+                                    <label value="@bind(vm.calcularAutomatico)"/>
+                                </row>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('desembolsarComDividas')"
+                                            label="Permitir Desembolso a clientes com dívidas"/>
+                                    <label value="@bind(vm.permitirDesembolsoComDivida)"/>
+                                </row>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('ordenarPagamentos')"
+                                            label="Pagamentos ordenados"/>
+                                    <label value="@bind(vm.pagamentosEmOrdem)"/>
+                                </row>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('taxarManualmente')"
+                                            label="Taxar Manualmente"/>
+                                    <label value="@bind(vm.taxaManua)"/>
+                                </row>
+                                <row>
+                                    <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
+                                            onClick="@command('ignorarPagDentroDoPrazo')"
+                                            label="Ignorar Pag. dentro do prazo no cálculo das moras"/>
+                                    <label value="@bind(vm.setting.ignorarValorPagoNoPrazo)"/>
+                                </row>
+                                <row>
+
+                                </row>
+                                <row>
+
+                                </row>
+                                <row>
+
+                                </row>
+                                <row>
+
+
+                                </row>
+
+                            </rows>
+                        </grid>
+
+                    </hbox>
+
+
+                </tabpanel><!--outras def. de crédito-->
+            </tabpanels>
+        </tabbox>
+
+
+
+    </window>
+
+</zk>

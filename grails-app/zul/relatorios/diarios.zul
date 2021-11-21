@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window height="300px" title="Diários!" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('diariosViewModel')">
+
+        De:
+        <datebox format="dd/MM/yy" value="@bind(vm.dataInicial)"/>
+        À:
+        <datebox format="dd/MM/yy" value="@bind(vm.dataFinal)"/>
+        <grid width="400px">
+            <columns>
+                <column width="30%"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <label value="Caixas"/>
+
+                    <combobox width="" constraint="no empty" onChange="@command('')"
+                              selectedItem="@bind(vm.selectedCaixa)"
+                              model="@load(vm.caixas)"
+                              hflex="3"
+                              mold="rounded" autodrop="true" autocomplete="true">
+                        <template name="model">
+                            <comboitem onClick="@command('')"
+                                       label="@load(each)" value="@load(each)"/>
+                        </template>
+                    </combobox>
+                </row>
+
+                <row>
+                    <cell colspan="2">
+                        <div visible="@load(not empty vm.dataInicial)">
+                            <div visible="@load(not empty vm.dataFinal)">
+                                <div visible="@load(not empty vm.selectedCaixa.id)">
+                                    <include src="/relatorios/printDDC.gsp"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </cell>
+                </row>
+            </rows>
+
+        </grid>
+
+    </window>
+
+</zk>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printExtratoDosCreditosViewModel')">
+
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+
+        <grid width="1010px" model="@bind(vm.creditos)">
+            <auxhead>
+                <auxheader style="font-size:14pt;text-align:center" label="Relatório dos Créditos" colspan="8"/>
+
+            </auxhead>
+            <auxhead>
+                <auxheader style="font-size:12pt;text-align:right" label="Total de Créditos"
+                           colspan="3"/>
+                <auxheader style="font-size:12pt;text-align:left" label="@load(vm.creditos.size())"
+                           colspan="1"/>
+
+                <auxheader style="font-size:12pt;text-align:right" label="Período"
+                           colspan="2"/>
+
+                <auxheader style="font-size:12pt;text-align:center"
+                           label="@load(vm.dataInicial)@converter('formatedDate', format='dd/MM/yy')"
+                           colspan="1"/>
+                <auxheader style="font-size:12pt;text-align:left"
+                           label="@load(vm.dataFinal)@converter('formatedDate', format='dd/MM/yy')"
+                           colspan="4"/>
+            </auxhead>
+            <auxhead>
+                <auxheader style="font-size:13pt;text-align:center" label="Créditos" colspan="8"/>
+            </auxhead>
+            <columns sizable="true">
+                <column sort="auto(utilizador)" width="80px" label="Gestor"/>
+                <column width="180px" label="Cliente"/>
+                <column width="75px" label="C. Nº."/>
+                <column sort="auto(periodicidade)" width="70px" label="Rec."/>
+                <column sort="auto(dateConcecao)" width="60px" label="Data de Concessão"/>
+                <column sort="auto(valorCreditado)" width="90px" label="V. Creditado"/>
+                <column sort="auto(valorDeJuros)" width="90px" label="V. de Juros"/>
+                <column sort="auto(totalEPago)" width="90px" label="T. Pago"/>
+                <column width="85px" label="Moras"/>
+                <column sort="auto(totalEmDivida)" width="90px" label="Dívida S. Moras"/>
+                <column sort="auto(totalEmDivida)" width="90px" label="T. Em Dívida"/>
+
+            </columns>
+            <template name="model">
+                <row>
+                    <label value="@bind(each.cliente.utilizador.username)"/>
+                    <label value="@bind(each.cliente.nome)"/>
+                    <label value="@bind(each.numeroDoCredito)"/>
+                    <label value="@bind(each.periodicidade)"/>
+                    <label value="@bind(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+                    <label value="@bind(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeJuros)@converter('formatedNumber', format='###,##0.00')"/>
+
+                    <label value="@bind(each.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.totalMoras)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.totalDaDividaSemMoras)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+
+
+                </row>
+            </template>
+            <foot>
+
+                <footer/>
+                <footer/>
+                <footer/>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold" value="Totais"/>
+                </footer>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalValorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalJuros)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalPago)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalDivida-(vm.totalDividaSemMoras))@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalDividaSemMoras)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+                <footer>
+                    <label style="font-size:11pt;font-weight:bold"
+                           value="@load(vm.totalDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                </footer>
+
+
+            </foot>
+        </grid>
+    </window>
+
+</zk>

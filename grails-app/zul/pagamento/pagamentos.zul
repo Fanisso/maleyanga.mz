@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window height="800px" apply="grailsBindComposer"
+            viewModel="@id('vm') @init('pagamentosViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+            .z-checkbox{ border-style : none; background: #FFF;font-style:calibri}
+
+        </style>
+        <label style="color:red;font-size:16px" value="Abra o diario antes de lançar os pagamentos! "
+               visible="@load(!not empty vm.diario)"/>
+        <label id="info"/>
+        <vbox>
+            <hbox>
+                Diário Nº.
+                <button onClientInfo="@command('info')" id="bt_diario" onDoubleClick="@command('mudarDiario')"
+                        style="background:#86F72E;font-size:26px"
+                        label="@load(vm.diario.numeroDoDiario)"/>
+                CC.
+                <button onClick="@command('')" style="background:#85c1e9"
+                        label="@load(vm.contaCaixa.designacaoDaConta)"/>
+                SCC.
+                <button style="background:#85c1e9"
+                        label="@load(vm.contaCaixa.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+
+                <!--<button image="${z.resource(dir:'images', file:'print.png')}"
+                        onClick="@command('printPrestacoesDoDia')"
+                        label="Prestações do dia"/>-->
+                <grid width="300px">
+                    <columns>
+                        <column width="170px"/>
+                        <column width="60px"/>
+                        <column width="40px"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <include visible="@load(not empty vm.dia)" src="/parcela/buttonPrintPrestacoesDoDia.gsp"/>
+                            <label value="@bind(vm.dia)@converter('formatedDate', format='dd/MM/yy')"/>
+                            <datebox format="dd/MM/yy" width="25px" onOK="@command('setDia')" value="@bind(vm.dia)"/>
+                        </row>
+                    </rows>
+                </grid>
+
+
+            </hbox>
+
+
+        </vbox>
+        <tabbox maximalHeight="true" onSelect="@command('cleanInfo')" width="">
+            <tabs id="tabs0">
+                <tab image="${z.resource(dir:'images', file:'caixa_25.png')}" label="Pagamento das Prestações"/>
+
+                <tab image="${z.resource(dir:'images', file:'entradas_25.png')}" onClick="@command('addEntrada')"
+                     label="Recebimentos"/>
+                <tab image="${z.resource(dir:'images', file:'saidas_25.png')}" onClick="@command('addSaida')"
+                     label="Saidas Em Caixa"/>
+                <tab image="${z.resource(dir:'images', file:'maneio.png')}" onClick="@command('addSaida')"
+                     label="Fundo De Maneio"/>
+                <tab image="${z.resource(dir:'images', file:'recibos_25.png')}" label="Recibos"/>
+                <tab image="${z.resource(dir:'images', file:'remissao_25.png')}" label="Remissões"/>
+            </tabs>
+            <tabpanels id="pnls0">
+                <tabpanel height="800px">
+                    <div visible="@load(not empty vm.diario)">
+
+                        <hbox>
+                            <vbox>
+
+                                <hbox visible="@load(!not empty vm.selectedPagamento.id)">
+
+
+                                </hbox>
+
+                                <div id="dv_filtragem">
+                                    <grid width="1045px">
+                                        <columns>
+                                            <column width="200px"/>
+                                            <column width="350px"/>
+                                            <column width="120px"/>
+                                            <column width="140px"/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <textbox width="200px" placeholder="nome do cliente ou Nº do Crédito"
+                                                         style="background:#95B9C7;color:black"
+                                                         value="@bind(vm.filterCliente)"
+                                                         onChange="@command('doSearchCliente')"
+                                                         instant="false"/>
+                                                <listbox checkmark="true" style="@bind('style')"
+                                                         selectedItem="@bind(vm.selectedCliente)"
+                                                         model="@load(vm.clientes)" width=""
+                                                         height="" mold="paging" pageSize="2">
+
+
+                                                    <template name="model" status="s">
+
+                                                        <listitem onClick="@command('showCreditos')">
+
+                                                            <listcell label="@load(each.nome)"/>
+
+                                                        </listitem>
+                                                    </template>
+
+                                                </listbox>
+
+                                                <cell>
+                                                    T. Créditos
+                                                    <checkbox width=""
+                                                              image="${z.resource(dir:'images', file:'show.png')}"
+                                                              value="@bind(vm.allCreditos)"
+                                                              onCheck="@command('setAllC')"
+                                                              label=""/>
+                                                </cell>
+                                                <cell>
+                                                    T. Prestações
+                                                    <checkbox image="${z.resource(dir:'images', file:'show.png')}"
+                                                              value="@bind(vm.allPagamentos)"
+                                                              onCheck="@command('setAll')"
+                                                              label=""/>
+                                                </cell>
+
+                                                <cell>
+
+
+                                                    <label visible="@load(not empty vm.selectedPagamento.numeroDePagamento)"
+                                                           value="Crédito ID:"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.numeroDePagamento)"
+                                                           style="background:#20c1e9"
+                                                           value="@load(vm.selectedPagamento.credito.id)"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.numeroDePagamento)"
+                                                           value="Pag. ID:"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.numeroDePagamento)"
+                                                           style="background:#20c1e9"
+                                                           value="@load(vm.selectedPagamento.id)"/>
+
+                                                    <label visible="@load(not empty vm.selectedPagamento.id)"
+                                                           value="C. Cl:"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.id)" id=""
+                                                           style="background:#20c1e9"
+                                                           value="@load(vm.contaCliente.designacaoDaConta)"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.id)"
+                                                           value="S.C.Cl:"/>
+                                                    <label visible="@load(not empty vm.selectedPagamento.id)" id=""
+                                                           style="background:#20c1e9"
+                                                           value="@load(vm.contaCliente.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                                                </cell>
+
+                                            </row>
+                                        </rows>
+                                    </grid>
+
+                                    <hbox width="600px">
+                                        <div width="595px">
+                                            <listbox id="lb_credito" checkmark="true" style="@bind('style')"
+                                                     selectedItem="@bind(vm.selectedCredito)"
+                                                     model="@load(vm.creditos)" width=""
+                                                     height="" mold="paging" pageSize="2">
+                                                <auxhead>
+                                                    <auxheader colspan="1" label="Cliente:"/>
+                                                    <auxheader colspan="5" label="@load(vm.selectedCliente.nome)"/>
+                                                </auxhead>
+                                                <listhead sizable="true">
+                                                    <listheader sort="auto(id)" width="" label="Crédito Nº"
+                                                                align="left"/>
+                                                    <listheader sort="auto(valorEmDivida)" width="80px"
+                                                                label="T. em dívida" align="left"/>
+
+                                                    <listheader sort="auto(valorCreditado)" width="100px"
+                                                                label="Valor Creditado" align="left"/>
+                                                    <listheader sort="auto(numeroDePrestacoes)" width="50px"
+                                                                label="Nº. das P."
+                                                                align="left"/>
+
+                                                    <listheader sort="auto(dateConcecao)" width="60px"
+                                                                label="D. conceção"
+                                                                align="left"/>
+
+                                                    <listheader sort="auto(periodicidade)" width="100px"
+                                                                label="Periodicidade" align="left"/>
+
+
+                                                </listhead>
+                                                <template name="model" status="s">
+
+                                                    <listitem style="@bind('style')">
+                                                        <listcell label="@load(each.numeroDoCredito)"/>
+                                                        <listcell
+                                                                label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                                        <listcell
+                                                                label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                                        <listcell label="@load(each.numeroDePrestacoes)"/>
+
+                                                        <listcell
+                                                                label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+
+                                                        <listcell label="@load(each.periodicidade)"/>
+
+
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+                                        </div>
+
+                                        <div visible="@load(not empty vm.contaCaixa)">
+                                            <hbox visible="@load(!vm.selectedPagamento.pago)">
+                                                <grid visible="@load(not empty vm.selectedPagamento.id)" width="450px">
+                                                    <columns>
+                                                        <column align="right" width="150px" style="font-weight:bold"
+                                                                label="Pagamento da "/>
+                                                        <column>
+                                                            <label style="font-weight:bold"
+                                                                   value="@load(vm.selectedPagamento.descricao)"/>
+                                                        </column>
+                                                    </columns>
+
+                                                    <rows>
+
+                                                        <row>
+
+                                                            <label value="Valor"/>
+                                                            <decimalbox placeholder="Valor"
+                                                                        constraint="no empty, no negative, no zero"
+                                                                        style="font-size:15pt;font-weight:bold;border:none"
+                                                                        onChange="@command('calcularMoras')"
+                                                                        format="###,##0.00"
+                                                                        width="200px"
+                                                                        value="@bind(vm.parcela.valorPago)  "/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Data de Pag."/>
+                                                            <datebox format="dd/MM/yy" onOK="@command('calcularMoras')"
+                                                                     onChange="@command('calcularMoras')"
+                                                                     constraint="no empty" width="100%"
+                                                                     value="@bind(vm.parcela.dataDePagamento)"/>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Descrição"/>
+
+                                                            <combobox constraint="no empty" width="100%"
+                                                                      onSelect="@command('')"
+                                                                      value="@bind(vm.parcela.descricao)">
+                                                                <comboitem label="Amortização da dívida"/>
+                                                                <comboitem label="Liquidação da dívida"/>
+                                                                <comboitem label="Juros de mora"/>
+                                                                <comboitem label="Venda de bens penhorados"/>
+
+                                                            </combobox>
+                                                        </row>
+                                                        <row>
+                                                            <label value="Forma De Pa."/>
+
+                                                            <combobox constraint="no empty" width="100%"
+                                                                      onSelect="@command('checkSelectedItem')"
+                                                                      value="@bind(vm.parcela.formaDePagamento)">
+                                                                <comboitem label="numerário"/>
+                                                                <comboitem label="deposito bancário"/>
+                                                                <comboitem label="transferencia bancária"/>
+                                                                <comboitem label="Paga Fácil"/>
+                                                                <comboitem label="POS"/>
+                                                                <comboitem label="Outra"/>
+                                                            </combobox>
+                                                        </row>
+                                                        <row visible="false" id="rw_destino">
+                                                            <label value="Conta Destino"/>
+                                                            <combobox constraint="no empty" id=""
+                                                                      onSelect="@command('')"
+                                                                      selectedItem="@bind(vm.selectedConta)"
+                                                                      model="@load(vm.contas)"
+                                                                      hflex="1"
+                                                                      mold="rounded" autodrop="true"
+                                                                      autocomplete="true">
+                                                                <template name="model">
+                                                                    <comboitem onClick="@command('')"
+                                                                               label="@load(each )"
+                                                                               value="@load(each)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </row>
+                                                        <row>
+                                                            <cell colspan="2">
+                                                                <hbox>
+                                                                    <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                                            onClick="@command('salvarParcela')"
+                                                                            id="bt_salvar"
+                                                                            label="Salvar " width="100px"
+                                                                            height="30px"/>
+                                                                    <button id="bt_fechar"
+                                                                            image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                                            label="Fechar Editor"
+                                                                            onClick="@command('fecharEditor')"/>
+                                                                    <!--<button visible="@load(not empty vm.parcela.id)"
+                                                                            image="${z.resource(dir:'images', file:'print.png')}"
+                                                                            onClick="@command('printRecibo')" id="bt_print"
+                                                                            label="Imprimir " width="100px" height="30px"/>-->
+                                                                    <div visible="@load(not empty vm.parcela.id)">
+                                                                        <include src="/parcela/printParcel.gsp"/>
+                                                                    </div>
+                                                                </hbox>
+                                                            </cell>
+                                                        </row>
+
+                                                    </rows>
+                                                </grid>
+                                            </hbox>
+                                        </div>
+
+                                    </hbox>
+                                    <hbox>
+                                        <div visible="@load(not empty vm.pagamentos)" width="595px">
+                                            <listbox checkmark="true" style="@bind('style')"
+                                                     selectedItem="@bind(vm.selectedPagamento)"
+                                                     model="@load(vm.pagamentos)" width=""
+                                                     height="" mold="paging" pageSize="4">
+                                                <listhead sizable="true">
+
+                                                    <listheader sort="auto(descricao)" width="112px" label="Prestação"
+                                                                align="left"/>
+                                                    <listheader sort="auto(valorDaPrestacao)" width="90px"
+                                                                label="V. Da Prest."
+                                                                align="left"/>
+                                                    <listheader sort="auto(valorPago)" width="90px" label="V. Pago"
+                                                                align="left"/>
+                                                    <listheader sort="auto(totalEmDivida)" width="90px"
+                                                                label="T. Em Dívida" align="left"/>
+                                                    <listheader sort="auto(valorDeJurosDeDemora)" width="90px"
+                                                                label="V. Juros de Mora"
+                                                                align="left"/>
+                                                    <listheader sort="auto(diasDeMora)" width="40px" label="Mora"
+                                                                align="left"/>
+                                                    <listheader sort="auto(dataPrevistoDePagamento)" width="75px"
+                                                                label="Data Prev. De Pag."
+                                                                align="left"/>
+
+
+                                                </listhead>
+                                                <template name="model" status="s">
+
+                                                    <listitem
+                                                            onClick="@command('showSelectedPagamento', index=each.id)">
+                                                        <listcell label="@load(each.descricao)"/>
+                                                        <listcell
+                                                                label="@load(each.valorDaPrestacao)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                                        <listcell label="@bind(each.valorPago)"/>
+                                                        <listcell
+                                                                label="@bind(each.totalEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                                                        <listcell
+                                                                label="@bind(each.valorDeJurosDeDemora) @converter('formatedNumber', format='###,##0.00')"/>
+
+                                                        <listcell label="@bind(each.diasDeMora)"/>
+                                                        <listcell
+                                                                label="@bind(each.dataPrevistoDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+                                        </div>
+                                        <div visible="@load(not empty vm.selectedPagamento.parcelas)">
+                                            <listbox id="lb_pagamentos" checkmark="true"
+                                                     selectedItem="@bind(vm.sParcela)"
+                                                     model="@load(vm.selectedPagamento.parcelas)" width="450px"
+                                                     height="" mold="paging" pageSize="5">
+                                                <auxhead style="background:#ffc300">
+                                                    <auxheader style="background:#F4F4F4" align="left"
+                                                               label="Pagamentos Parceiais" colspan="10" rowspan="1"/>
+                                                </auxhead>
+                                                <listhead sizable="true">
+                                                    <listheader sort="auto(id)" width="100px" label="ID" align="left"/>
+                                                    <listheader sort="auto(id)" width="70px" label="Diário"
+                                                                align="left"/>
+                                                    <listheader sort="auto(numeroDoRecibo)" width="90px"
+                                                                label="Recibo Nº."
+                                                                align="left"/>
+                                                    <listheader sort="auto(dataDePagamento)" width="90px"
+                                                                label="Data de Pag."
+                                                                align="left"/>
+                                                    <listheader sort="auto(dateCreated)" width="90px"
+                                                                label="Data a criação."
+                                                                align="left"/>
+                                                    <listheader sort="auto(valorParcial)" width="80px"
+                                                                label="V. Parcial"
+                                                                align="left"/>
+                                                    <listheader sort="auto(valorPago)" width="80px" label="V. Pago"
+                                                                align="left"/>
+                                                    <listheader sort="auto(formaDePagamento)" width="100px"
+                                                                label="Forma de Pag."
+                                                                align="left"/>
+                                                    <listheader sort="auto(Descricao)" width="185px" label="Descrição"
+                                                                align="left"/>
+                                                </listhead>
+                                                <template name="model" status="s">
+
+                                                    <listitem
+                                                            onClick="@command('showSelectedPagamento', index=each.id)">
+                                                        <listcell label="@load(each.id)"/>
+                                                        <listcell label="@load(each.diario.numeroDoDiario)"/>
+                                                        <listcell label="@load(each.numeroDoRecibo)"/>
+                                                        <listcell
+                                                                label="@load(each.dataDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
+                                                        <listcell
+                                                                label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yy')"/>
+                                                        <listcell
+                                                                label="@load(each.valorParcial)@converter('formatedNumber', format='###,##0.00')"/>
+                                                        <listcell
+                                                                label="@load(each.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+                                                        <listcell label="@load(each.formaDePagamento)"/>
+                                                        <listcell label="@load(each.descricao)"/>
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+
+                                            <div visible="@load(vm.sParcela.valorPago>0.0)">
+                                                <include src="/parcela/printParcel.gsp"/>
+                                            </div>
+
+                                        </div>
+
+                                    </hbox>
+
+                                    <!-- <textbox width="300px" placeholder="cliente, Pagamentos Efetivados ->true"
+                                              style="background:#95B9C7;color:black"
+                                              value="@bind(vm.filter)"
+                                              onChange="@command('doSearch')" instant="true"/>-->
+
+
+                                    <label value="@load(vm.pagamento_id)"/>
+                                </div>
+                            </vbox>
+                        </hbox>
+                        <div>
+
+
+                            <!-- <grid visible="@load(not empty vm.selectedPagamento.id)" width="">
+                                 <columns>
+                                     <column>
+                                         <label value="Valor Da Prestação"/>
+                                     </column>
+                                     <column>
+                                         <label value="Total em dívida"/>
+                                     </column>
+                                     <column>
+                                         <label value="Nº.Moras"/>
+                                     </column>
+                                     <column>
+                                         <label value="Data. Prev. de Pag."/>
+                                     </column>
+                                     <column>
+                                         <label value="Pago?"/>
+                                     </column>
+                                     <column>
+                                         <label value="V.de juros"/>
+                                     </column>
+                                     <column>
+                                         <label value="V.de j. de Moras"/>
+                                     </column>
+                                     <column>
+                                         <label value="V. Pago de juros"/>
+                                     </column>
+                                     <column>
+                                         <label value="V. Remisso"/>
+                                     </column>
+                                     <column>
+                                         <label value="V. P. de amortização"/>
+                                     </column>
+                                     <column>
+                                         <label value="Total Pago"/>
+                                     </column>
+
+                                 </columns>
+                                 <rows>
+                                     <row style="background:#20c1e9;color:black;font-weight:bold">
+                                         <label style="color:blue;font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorDaPrestacao)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="color:red;font-weight:bold"
+                                                value="@load(vm.selectedPagamento.totalEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="font-weight:bold" value="@load(vm.selectedPagamento.diasDeMora)"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.dataPrevistoDePagamento)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                         <label style="font-weight:bold" value="@load(vm.selectedPagamento.pago)"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorDeJuros)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorDeJurosDeDemora)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorPagoJuros)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorDaRemissao)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorPagoAmortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                                         <label style="color:green;font-weight:bold"
+                                                value="@load(vm.selectedPagamento.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                     </row>
+                                 </rows>
+                             </grid>-->
+
+
+
+                        </div>
+
+                    </div>
+                </tabpanel>
+                <tabpanel>
+                    <button visible="@load(!not empty vm.saida)"
+                            image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addEntrada')"
+                            label="Nova Entrada"/>
+                    <hbox visible="@load(not empty vm.parcelaEntrada)">
+                        <grid width="450px">
+                            <columns>
+                                <column width="150px"/>
+                                <column/>
+                            </columns>
+                            <rows>
+
+                                <row>
+                                    <label value="Valor"/>
+                                    <decimalbox placeholder="Valor" constraint="no empty, no negative, no zero"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.parcelaEntrada.valorPago)  "/>
+                                </row>
+                                <row>
+                                    <label value="Data de Pag."/>
+                                    <datebox
+                                            constraint="no empty" width="100%"
+                                            value="@bind(vm.parcelaEntrada.dataDePagamento)"/>
+                                </row>
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox width="100%" value="@bind(vm.parcelaEntrada.descricao)"/>
+                                </row>
+                                <row>
+                                    <label value="Nome"/>
+                                    <textbox constraint="no empty" width="100%"
+                                             value="@bind(vm.parcelaEntrada.nomeDoCliente)"/>
+                                </row>
+                                <row>
+                                    <label value="Forma De Pag."/>
+
+                                    <combobox constraint="no empty" width="100%"
+                                              value="@bind(vm.parcelaEntrada.formaDePagamento)">
+                                        <comboitem label="numerário"/>
+                                        <comboitem label="deposito bancário"/>
+                                        <comboitem label="transferencia bancária"/>
+                                        <comboitem label="Paga Fácil"/>
+                                        <comboitem label="POS"/>
+                                        <comboitem label="Outra"/>
+                                    </combobox>
+                                </row>
+                                <row id="rw_co">
+                                    <label value="Conta Origem"/>
+                                    <combobox constraint="no empty" onSelect="@command('')"
+                                              selectedItem="@bind(vm.selectedConta)" model="@load(vm.contas)"
+                                              hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('')" label="@load(each )" value="@load(each)"/>
+                                        </template>
+                                    </combobox>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                onClick="@command('salvarEntrada')"
+                                                label="Salvar " width="100px" height="30px"/>
+                                        <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                label="Fechar Editor" onClick="@command('fecharEditor')"/>
+
+                                    </cell>
+                                </row>
+
+                            </rows>
+                        </grid>
+                        <vbox>
+                            <listbox visible="@load(not empty vm.parcelaEntrada)" checkmark="true"
+                                     style="@bind('style')"
+                                     selectedItem="@bind(vm.entrada)"
+                                     model="@load(vm.entradas)" width="610px"
+                                     height="" mold="paging" pageSize="5">
+                                <auxhead>
+
+                                    <auxheader label="Recebimentos no caixa" colspan="3" rowspan="1"/>
+                                    <auxheader label="@load(vm.entrada.nomeDoCliente)" colspan="3" rowspan="1"/>
+                                </auxhead>
+                                <listhead sizable="true">
+                                    <listheader sort="auto(nomeDoCliente)" width="" label="Nome" align="left"/>
+                                    <listheader sort="auto(numeroDoRecibo)" width="70px" label="Recibo Nº."
+                                                align="left"/>
+                                    <listheader sort="auto(dataDePagamento)" width="80px" label="Data de Pag."
+                                                align="left"/>
+                                    <listheader sort="auto(valorParcial)" width="80px" label="V. Pago" align="left"/>
+                                    <listheader sort="auto(formaDePagamento)" width="100px" label="Forma de Pag."
+                                                align="left"/>
+                                    <listheader width="100px" label="Descrição" align="left"/>
+
+                                </listhead>
+                                <template name="model" status="s">
+
+                                    <listitem>
+                                        <listcell label="@load(each.nomeDoCliente) "/>
+                                        <listcell label="@load(each.numeroDoRecibo)"/>
+                                        <listcell
+                                                label="@load(each.dataDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
+                                        <listcell
+                                                label="@load(each.valorPago)@converter('formatedNumber', format='###,##0.00')"/>
+                                        <listcell label="@load(each.formaDePagamento)"/>
+                                        <listcell label="@load(each.descricao)"/>
+
+                                    </listitem>
+                                </template>
+
+                            </listbox>
+
+                            <hbox visible="@load(not empty vm.entrada.id)">
+                                <button visible="@load(not empty vm.selectedPagamento.id)" id="bt_update_entrada"
+                                        image="${z.resource(dir:'images', file:'update.png')}"
+                                        onClick="@command('updateEntrada')"
+                                        label=""/>
+
+                                <div>
+                                    <include src="/parcela/printEntrad.gsp"/>
+                                </div>
+                            </hbox>
+                        </vbox>
+                    </hbox>
+
+                </tabpanel>
+                <tabpanel>
+                    <button visible="@load(!not empty vm.parcelaEntrada)"
+                            image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addSaida')" label="Nova Saida"/>
+                    <button id="bt_fechar_caixa"
+                            image="${z.resource(dir:'images', file:'cancelar.png')}"
+                            label="Fechar Caixa" onClick="@command('fecharCaixa')"/>
+                    <hbox visible="@load(not empty vm.saida)">
+                        <grid visible="@load(not empty vm.saida)" width="450px">
+                            <columns>
+                                <column width="150px"/>
+                                <column/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Valor"/>
+                                    <decimalbox placeholder="Valor" constraint="no empty, no negative, no zero"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.saida.valor)  "/>
+                                </row>
+                                <row>
+                                    <label value="Data de Pag."/>
+                                    <datebox format="dd/MM/yy" constraint="no empty" width="100%"
+                                             value="@bind(vm.saida.dataDePagamento)"/>
+                                </row>
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox width="100%" value="@bind(vm.saida.descricao)"/>
+                                </row>
+                                <row>
+                                    <label value="Forma De Pag."/>
+
+                                    <combobox constraint="no empty" width="100%" onSelect="@command('')"
+                                              value="@bind(vm.saida.formaDePagamento)">
+                                        <comboitem label="numerário"/>
+                                        <comboitem label="deposito bancário"/>
+                                        <comboitem label="transferencia bancária"/>
+                                        <comboitem label="Paga Fácil"/>
+                                        <comboitem label="POS"/>
+                                        <comboitem label="Outra"/>
+                                    </combobox>
+                                </row>
+                                <row>
+                                    <label value="Conta Destino"/>
+                                    <combobox constraint="no empty" id="cb_def" onSelect="@command('')"
+                                              selectedItem="@bind(vm.selectedConta)" model="@load(vm.contas)"
+                                              hflex="1"
+                                              mold="rounded" autodrop="true" autocomplete="true">
+                                        <template name="model">
+                                            <comboitem onClick="@command('')" label="@load(each )" value="@load(each)"/>
+                                        </template>
+                                    </combobox>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <button id="bt_saida" image="${z.resource(dir:'images', file:'save.png')}"
+                                                onClick="@command('salvarSaida')"
+                                                label="Salvar " width="100px" height="30px"/>
+                                        <button id="bt_" image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                label="Fechar Editor" onClick="@command('fecharEditor')"/>
+                                        <button visible="@load(not empty vm.saida.id)"
+                                                image="${z.resource(dir:'images', file:'print.png')}"
+                                                onClick="@command('printSaida')"
+                                                label="Imprimir " width="100px" height="30px"/>
+                                    </cell>
+                                </row>
+
+                            </rows>
+                        </grid>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 model="@load(vm.saidas)" width="610px"
+                                 height="" mold="paging" pageSize="5">
+                            <auxhead>
+                                <auxheader label="Saidas em caixa" colspan="3" rowspan="1"/>
+                            </auxhead>
+                            <listhead sizable="true">
+                                <listheader sort="auto(dateCreated)" width="100px" label="Data" align="left"/>
+                                <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                                <listheader sort="auto(valor)" width="100px" label="Valor" align="left"/>
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem>
+                                    <listcell
+                                            label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                    <listcell label="@load(each.descricao)"/>
+                                    <listcell
+                                            label="@load(each.valor)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                        <button visible="@bind(not empty vm.saida.id)"
+                                image="${z.resource(dir:'images', file:'remover.png')}"
+                                onClick="@command('alertDelete')"
+                                onDoubleClick="@command('delete')" label="Invalidar"/>
+                    </hbox>
+                </tabpanel>
+                <tabpanel>
+                    <include src="/parcela/fundoDeManeio.zul"/>
+                </tabpanel>
+                <tabpanel>
+                    <include src="/parcela/recibos.zul"/>
+                </tabpanel>
+                <tabpanel>
+                    <hbox>
+                        <textbox width="200px" placeholder="nome do cliente ou Nº do Crédito"
+                                 style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
+                                 onChange="@command('doSearchCliente')"
+                                 instant="false"/>
+                        <listbox checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedClientee)"
+                                 model="@load(vm.clientess)" width="300px"
+                                 height="" mold="paging" pageSize="2">
+
+
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('showCreditos')">
+
+                                    <listcell label="@load(each.nome)"/>
+
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                        <!-- <button image="${z.resource(dir:'images', file:'add.png')}"
+                                 style="color:black;background:#20c199" onClick="@command('addRemissao')"
+                                 label="Nova Remissão"/>-->
+                        <!--<combobox placeholder="Clientess" width="200px" constraint="no empty"
+                                  onSelect="@command('showCreditos')"
+                                  selectedItem="@bind(vm.selectedClientee)"
+                                  model="@load(vm.clientess)" hflex="1"
+                                  mold="rounded" autodrop="false" autocomplete="true">
+                            <template name="model" var="item">
+                                <comboitem style="font-weight:bold;font-size:11pt"
+                                           onClick="@command('showCreditos')"
+                                           label="@load(item.nome)" value="@load(item.id)"/>
+                            </template>
+                        </combobox>-->
+                    </hbox>
+
+                    <hbox>
+                        <listbox id="lb_creditos" checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedCreditoo)"
+                                 model="@load(vm.creditoss)" width="400px"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader sort="auto(id)" width="90px" label="CRÉDITO Nº" align="left"/>
+                                <listheader sort="auto(id)" width="90px" label="Cliente" align="left"/>
+                                <listheader sort="auto(valorCreditado)" width="100px"
+                                            label="Valor Creditado" align="left"/>
+                                <listheader sort="auto(numeroDePrestacoes)" width="50px" label="Nº. das P."
+                                            align="left"/>
+
+                                <listheader sort="auto(dateConcecao)" width="" label="D. conceção"
+                                            align="left"/>
+                                <listheader sort="auto(periodicidade)" width="80px"
+                                            label="Periodicidade" align="left"/>
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem style="@bind('style')">
+                                    <listcell label="@load(each.numeroDoCredito)"/>
+
+                                    <listcell
+                                            label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell label="@load(each.numeroDePrestacoes)"/>
+
+                                    <listcell
+                                            label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
+
+                                    <listcell label="@load(each.periodicidade)"/>
+
+
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                        <listbox id="lb_pag" checkmark="true"
+                                 style="@bind('style')" selectedItem="@bind(vm.selectedPagamentoo)"
+                                 model="@load(vm.pagamentoss)" width=""
+                                 height="" mold="paging" pageSize="3">
+                            <auxhead>
+                                <auxheader style="font-size:14pt;text-align:center" label="Prestações" colspan="9"/>
+                            </auxhead>
+                            <listhead sizable="true">
+                                <listheader sort="auto(id)" width="80px" label="Nº" align="left"/>
+
+                                <listheader sort="auto(descricao)" width="100px" label="Descrição" align="left"/>
+                                <listheader sort="auto(valorDaPrestacao)" width="100px" label="V. Da Prestação"
+                                            align="left"/>
+                                <listheader sort="auto(valorPago)" width="100px" label="V. Pago" align="left"/>
+                                <listheader sort="auto(totalEmDivida)" width="100px" label="T. Em Dívida" align="left"/>
+                                <listheader sort="auto(valorDeJurosDeDemora)" width="100px" label="V. Juros de Mora"
+                                            align="left"/>
+                                <listheader sort="auto(diasDeMora)" width="50px" label="Moras" align="left"/>
+                                <listheader sort="auto(dataPrevistoDePagamento)" width="100px"
+                                            label="Data Prev. De Pag."
+                                            align="left"/>
+
+
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onClick="@command('showSelectedPag')">
+                                    <listcell label="@load(each.numeroDePagamento)"/>
+
+                                    <listcell label="@load(each.descricao)"/>
+                                    <listcell
+                                            label="@load(each.valorDaPrestacao)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                    <listcell label="@bind(each.valorPago)"/>
+                                    <listcell
+                                            label="@bind(each.totalEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                                    <listcell
+                                            label="@bind(each.valorDeJurosDeDemora) @converter('formatedNumber', format='###,##0.00')"/>
+
+                                    <listcell label="@bind(each.diasDeMora)"/>
+                                    <listcell
+                                            label="@bind(each.dataPrevistoDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+                    </hbox>
+                    <hbox>
+                        <div visible="@load(!not empty vm.selectedRemissao)">
+                            <grid visible="@load(not empty vm.selectedPagamentoo.id)" width="450px">
+                                <columns>
+                                    <column width="100px"/>
+                                    <column/>
+                                </columns>
+                                <rows visible="@load(not empty vm.remissao)">
+                                    <row>
+                                        <label value="Beneficiário(a):"/>
+                                        <label style="color:blue;font-size:13pt;font-weight:bold;border:none"
+                                               value="@load(vm.selectedPagamentoo.credito.cliente.nome)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Credito"/>
+                                        <label value="@load(vm.selectedPagamentoo.credito.numeroDoCredito)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Prestação Nº"/>
+                                        <label value="@load(vm.selectedPagamentoo.numeroDePagamento)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Descrição"/>
+                                        <label value="@load(vm.selectedPagamentoo.descricao)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Valor em dívida"/>
+                                        <decimalbox format="###,##0.00"
+                                                    style="color:red;font-size:15pt;font-weight:bold;border:none"
+                                                    readonly="true" value="@load(vm.selectedPagamentoo.totalEmDivida)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Juros de Mora"/>
+                                        <decimalbox format="###,##0.00"
+                                                    style="color:red;font-size:15pt;font-weight:bold;border:none"
+                                                    readonly="true"
+                                                    value="@load(vm.selectedPagamentoo.valorDeJurosDeDemora)"/>
+                                    </row>
+
+
+                                </rows>
+                            </grid>
+                        </div>
+                        <vbox>
+                            <div visible="@load(!not empty vm.selectedRemissao)">
+                                <grid visible="@load(not empty vm.selectedPagamentoo.id)" width="450px">
+                                    <columns>
+                                        <column width="150px"/>
+                                        <column/>
+                                    </columns>
+                                    <rows visible="@load(not empty vm.remissao)">
+
+
+                                        <row>
+                                            <label value="Valor"/>
+                                            <decimalbox placeholder="Valor" constraint="no empty, no negative, no zero"
+                                                        style="font-size:15pt;font-weight:bold;border:none"
+                                                        onChange="@command('')" format="###,##0.00"
+                                                        width="200px" value="@bind(vm.remissao.valorDaRemissao)  "/>
+                                        </row>
+
+                                        <row>
+                                            <label value="Motivos"/>
+
+                                            <textbox constraint="no empty" width="100%" cols="4"
+                                                     value="@bind(vm.remissao.descricao)"/>
+                                        </row>
+
+                                        <!-- <row>
+                                             <label value="Conta Origem"/>
+                                             <combobox constraint="no empty" id="" onSelect="@command('')"
+                                                       selectedItem="@bind(vm.selectedConta)" model="@load(vm.contas)"
+                                                       hflex="1"
+                                                       mold="rounded" autodrop="true" autocomplete="true">
+                                                 <template name="model">
+                                                     <comboitem onClick="@command('')" label="@load(each )"
+                                                                value="@load(each)"/>
+                                                 </template>
+                                             </combobox>
+                                         </row>-->
+                                        <row>
+                                            <cell colspan="2">
+                                                <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                        onClick="@command('salvarRemissao')"
+                                                        label="Salvar " width="100px" height="30px"/>
+                                                <button image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                        label="Fechar Editor"
+                                                        onClick="@command('fecharEditorRemissao')"/>
+                                                <!--<button visible="@load(not empty vm.remissao.id)"
+                                                        image="${z.resource(dir:'images', file:'print.png')}"
+                                                        onClick="@command('printRemissão')"
+                                                        label="Imprimir " width="100px" height="30px"/>-->
+                                            </cell>
+                                        </row>
+
+                                    </rows>
+                                </grid>
+                            </div>
+                            <grid visible="@load(not empty vm.selectedRemissao.id)" width="450px">
+                                <columns>
+                                    <column width="150px"/>
+                                    <column/>
+                                </columns>
+                                <rows visible="@load(not empty vm.selectedRemissao.id)">
+                                    <row>
+                                        <label value="Beneficiário(a)"/>
+                                        <label value="@load(vm.selectedRemissao.pagamento.credito.cliente.nome)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Crédito Nº"/>
+                                        <label value="@load(vm.selectedRemissao.pagamento.credito.numeroDoCredito)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Prestação Nº"/>
+                                        <label value="@load(vm.selectedRemissao.pagamento.numeroDePagamento)"/>
+                                    </row>
+                                    <row>
+                                        <label value="Valor"/>
+                                        <decimalbox readonly="true" placeholder="Valor"
+                                                    constraint="no empty, no negative, no zero"
+                                                    style="font-size:15pt;font-weight:bold;border:none"
+                                                    onChange="@command('')" format="###,##0.00"
+                                                    width="200px" value="@bind(vm.selectedRemissao.valorDaRemissao)  "/>
+                                    </row>
+
+                                    <row>
+                                        <label value="Motivos"/>
+
+                                        <textbox readonly="true" constraint="no empty" width="100%" cols="4"
+                                                 value="@bind(vm.selectedRemissao.descricao)"/>
+                                    </row>
+
+                                    <row>
+                                        <label value="Conta Origem"/>
+                                        <label value="@load(vm.selectedRemissao.contaOrigem)"/>
+
+                                    </row>
+                                    <row>
+                                        <cell colspan="2">
+                                            <button visible="@bind(not empty vm.selectedRemissao.id)"
+                                                    image="${z.resource(dir:'images', file:'remover.png')}"
+                                                    onClick="@command('alertDelete')"
+                                                    onDoubleClick="@command('deleteRemissao')" label="Invalidar"/>
+                                        </cell>
+                                    </row>
+
+                                </rows>
+                            </grid>
+
+                        </vbox>
+
+                    </hbox>
+
+                    <vbox>
+
+                        <listbox id="lb_remissoes" checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedRemissao)"
+                                 model="@load(vm.remissoes)" width=""
+                                 height="" mold="paging" pageSize="10">
+                            <auxhead>
+                                <auxheader style="font-size:14pt;text-align:center" label="Remissões" colspan="7"/>
+                            </auxhead>
+                            <listhead sizable="true">
+                                <listheader sort="auto(createdDate)" width="90px" label="Data" align="left"/>
+                                <listheader sort="auto(diario)" width="80px" label="Diário" align="left"/>
+                                <listheader sort="auto(contaOrigem)" width="150px" label="Conta Origem" align="left"/>
+                                <listheader sort="auto(utilizador)" width="100px" label="Emissor" align="left"/>
+                                <listheader sort="auto(cliente)" width="200px" label="Cliente" align="left"/>
+                                <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                                <listheader sort="auto(valorDaRemissao)" width="150px" label="Valor" align="left"/>
+                            </listhead>
+                            <template name="model" status="s">
+                                <listitem>
+                                    <listcell
+                                            label="@bind(each.createdDate)@converter('formatedDate', format='dd/MM/yy')"/>
+                                    <listcell label="@load(each.diario.numeroDoDiario)"/>
+                                    <listcell label="@load(each.contaOrigem.designacaoDaConta)"/>
+                                    <listcell label="@load(each.utilizador.username)"/>
+                                    <listcell label="@load(each.pagamento.credito.cliente.nome)"/>
+                                    <listcell label="@load(each.descricao)"/>
+                                    <listcell
+                                            label="@load(each.valorDaRemissao)@converter('formatedNumber', format='###,##0.00')"/>
+                                </listitem>
+                            </template>
+
+                        </listbox>
+
+                    </vbox>
+
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+
+    </window>
+
+</zk>

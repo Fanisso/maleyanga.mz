@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('pagamentosEfetivadosViewModel')">
+        <style>
+            body { background-color: #eaeaea; }
+            .z-textbox{ border-style : none; background: #FFF}
+            .z-intbox{ border-style : none; background: #FFF}
+            .z-doublebox{ border-style : none; background: #FFF}
+            .z-listcell{ border-style : none; background: #FFF}
+
+        </style>
+
+        <label id="info"/>
+        <div>
+            ID :
+            <intbox width="10%" style="background:#95B9C7;color:black" value="@bind(vm.id)"
+                    onChange="@command('findItem')" instant="false"/>
+            Filtragem:
+            <textbox width="20%" placeholder="Procure pelo nome; data=dd/MM/yyyy "
+                     style="background:#95B9C7;color:black" value="@bind(vm.filter)" onChange="@command('doSearch')"
+                     instant="false"/>
+
+
+        </div>
+        <hbox>
+            <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.selectedPagamento)"
+                     model="@load(vm.pagamentos)" width=""
+                     height="" mold="paging" pageSize="20">
+                <listhead sizable="true">
+                    <listheader sort="auto(descricao)" width="" label="Cliente" align="left"/>
+                    <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                    <listheader sort="auto(valorDaPrestacao)" width="100px" label="V. Da Prestação" align="left"/>
+                    <listheader sort="auto(valorPago)" width="" label="V. Pago" align="left"/>
+                    <listheader sort="auto(totalEmDivida)" width="" label="T. Em Dívida" align="left"/>
+                    <listheader sort="auto(valorDeJurosDeDemora)" width="" label="V. Juros de Mora" align="left"/>
+                    <listheader sort="auto(diasDeMora)" width="100px" label="Dias de Mora" align="left"/>
+                    <listheader sort="auto(dataPrevistoDePagamento)" width="100px" label="Data Prev. De Pag."
+                                align="left"/>
+
+
+                </listhead>
+                <template name="model" status="s">
+
+                    <listitem onClick="@command('showSelectedPagamento', index=each.id)" style="@bind('style')">
+                        <listcell label="@load(each.credito.cliente.nome)"/>
+                        <listcell label="@load(each.descricao)"/>
+                        <listcell
+                                label="@load(each.valorDaPrestacao)@converter('formatedNumber', format='###,##0.00')"/>
+
+                        <listcell label="@load(each.valorPago)"/>
+                        <listcell label="@load(each.totalEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
+                        <listcell
+                                label="@load(each.valorDeJurosDeDemora) @converter('formatedNumber', format='###,##0.00')"/>
+
+                        <listcell label="@load(each.diasDeMora)"/>
+                        <listcell
+                                label="@load(each.dataPrevistoDePagamento)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                    </listitem>
+                </template>
+
+            </listbox>
+        </hbox>
+
+    </window>
+
+</zk>
