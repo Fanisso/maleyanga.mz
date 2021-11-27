@@ -89,7 +89,10 @@ SessionStorageService sessionStorageService
             valor_em_mora += extratosDeCredito.valorEmMora
             valor_em_ivida +=extratosDeCredito.valorEmDivida
             totalDesembolsado+=creditoInstance.valorCreditado
-            extratosDeCreditos.add(extratosDeCredito)
+            if(extratosDeCredito.valorEmDivida<0){
+                extratosDeCreditos.add(extratosDeCredito)
+            }
+
         }
 
         return extratosDeCreditos

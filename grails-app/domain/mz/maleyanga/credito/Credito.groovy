@@ -73,7 +73,7 @@ class Credito implements Serializable {
             return 0.0
         } else {
             for (Pagamento p in pagamentos) {
-                valorEmDivida += p.totalEmDivida
+                valorEmDivida += p.valorDaPrestacao + p.valorDeJurosDeDemora + p.totalPago + p.valorDaRemissao
             }
         }
         return valorEmDivida
@@ -105,13 +105,7 @@ class Credito implements Serializable {
     }
 
     boolean getEmDivida() {
-
-        for (Pagamento p in pagamentos) {
-            if (!p.pago) {
-                return true
-            }
-        }
-        return false
+        return valorEmDivida < 0
     }
     static hasMany = [pagamentos: Pagamento, anexos: Anexo]
 
@@ -123,6 +117,7 @@ class Credito implements Serializable {
     }
 
     static constraints = {
+        valorDeJuros nullable: true
         totalMoras nullable: true
         recorenciaDeMoras nullable: true
         totalDaDividaSemMoras nullable: true

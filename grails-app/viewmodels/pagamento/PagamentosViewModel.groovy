@@ -248,7 +248,6 @@ class PagamentosViewModel {
             }else
             creditos = creditoService.findAllByClienteAndEmDivida(selectedCliente)
         }
-
         return creditos
     }
 

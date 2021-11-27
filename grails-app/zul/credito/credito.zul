@@ -407,7 +407,6 @@
                         </template>
                         <listfoot>
                             <listfooter/>
-                            <listfooter/>
                             <listfooter style="text-align:right">
                                 <label style="font-weight:bold" value="Totais"/>
                             </listfooter>

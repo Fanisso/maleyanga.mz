@@ -339,10 +339,10 @@ class CreditoViewModel {
 
                 v_prestacao+=p.valorDaPrestacao
                 v_divida+=p.totalEmDivida
-                v_mora+=p.valorDeAmortizacao
+                v_mora+=p.valorDeJurosDeDemora
                 v_pago+=p.valorPago
                 v_juro+=p.valorDeJuros
-                v_amo+=p.valorDeAmortizacao
+                v_amo+=p.valorDaRemissao
             }
     }
 
@@ -845,9 +845,10 @@ class CreditoViewModel {
             return
         }
         if(!settings.permitirDesembolsoComDivida){
-            for(Credito credito1 in selectedCliente.creditos){
+            def credidos = Credito.findAllByCliente(selectedCliente)
+            for(Credito credito1 in credidos){
                 if(credito1.emDivida){
-                    info.value = "Este cliente tem o crédito ID "+credito1.id+" em dívida!"
+                    info.value = "Este cliente tem o crédito Nº. "+credito1.numeroDoCredito+" em dívida!"
                     info.style = "color:red"
                     return
                 }
@@ -909,6 +910,14 @@ class CreditoViewModel {
                 info.value = "Dia não permitido!"
                 info.style = red
                 return
+            }
+            if (!settings.permitirDesembolsoComDivida){
+                if(selectedCliente.emDivida){
+                    info.value = "Este cliente tem dívida!"
+                    info.style = red
+                    return
+                }
+
             }
             if (!selectedCliente.ativo){
                 info.value ="Este cliente esta impedido de ter novos crédito!"
