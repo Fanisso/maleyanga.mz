@@ -68,13 +68,13 @@ class Cliente implements Serializable {
          fileName nullable: true, display: false
          fileType nullable: true, display:false*/
 
-        nome nullable: false, blank: false
+        nome nullable: false, blank: false, unique: true
         nuit nullable: true
         dataDeExpiracao nullable: true
         numeroDeIndentificao nullable: false
         residencia nullable: false
         email nullable: true
-        telefone nullable: true, maxSize: 9
+        telefone nullable: true, maxSize: 9, unique: true
         telefone1 nullable: true, maxSize: 9
         telefone2 nullable: true, maxSize: 9
         tipoDeIndentificacao inList: ["BI", "Passaporte", "Carta de conducao", "Outro"]

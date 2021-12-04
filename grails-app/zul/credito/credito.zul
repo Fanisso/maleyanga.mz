@@ -84,8 +84,8 @@
         </grid>
 
         <div visible="@load(not empty vm.contaCapital.id)">
-            <div visible="@load(!vm.selectedCliente.emDivida)">
-                <hbox visible="false" id="hb_editor">
+
+        <hbox visible="false" id="hb_editor">
 
                     <grid id="gd_new_credito" width="450px">
                         <columns>
@@ -242,7 +242,7 @@
                     </grid>
                 </hbox>
             </div>
-        </div>
+
 
         <hbox>
 

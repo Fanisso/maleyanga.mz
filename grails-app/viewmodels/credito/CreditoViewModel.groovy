@@ -454,8 +454,15 @@ class CreditoViewModel {
             credito = new Credito()
             credito.dateConcecao = new Date()
         }
+        if(!settings.permitirDesembolsoComDivida){
+            if(selectedCliente){
+                if(selectedCliente.emDivida){
+                    hb_editor.visible=false
+                    bt_fechar.label="Não é permitido desembolso de clientes com dívidas!"
+                }
 
-
+            }
+        }
     }
     @Command
     def showCredito(){
@@ -659,7 +666,7 @@ class CreditoViewModel {
         sessionStorageService.cliente = selectedCliente
         clientes.clear()
         clientes.add(selectedCliente)
-
+        fecharEditor()
     }
     @NotifyChange(['creditos',"credito"])
     @Init init() {

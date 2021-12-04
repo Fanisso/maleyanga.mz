@@ -151,7 +151,6 @@ class NovoClienteViewModel {
         info.value = ""
          try {
                 novoCliente.utilizador = Utilizador.findById(selectedGestor.id)
-
               if(getsContaIntegradora()==null){
                   info.value = "Por favar de criar uma conta integradora com a descrição 'CLIENTES'!"
                   info.style = "color:red"
@@ -162,6 +161,7 @@ class NovoClienteViewModel {
                 info.style = "color:red"
                 return
             }
+
             if(Cliente.findByNome(novoCliente.nome)){
                 info.value = "Já existe um cliente com este nome!"
                 info.style = "color:red"
