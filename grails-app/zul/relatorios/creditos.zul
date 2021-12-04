@@ -79,7 +79,8 @@
 
             </grid>
             <button image="${z.resource(dir:'images', file:'show.png')}" onClick="@command('setEmMora')"
-                    label="Relatório global de Extratos de créditos em mora"/>
+                    label="@load(vm.relatorio)"/>
+            <!--Relatório dos extratos de créditos-->
             <div visible="false" id="dv_print">
                 <include src="/relatorios/printExtratos.gsp"/>
             </div>

@@ -24,7 +24,7 @@ class Parcela implements Serializable {
     Date dataDePagamento
     Utilizador utilizador
     Cliente cliente
-    String nomeDoCliente
+    String nomeDoCliente = ""
     Anexo anexo
     String formaDePagamento
     Date dateCreated

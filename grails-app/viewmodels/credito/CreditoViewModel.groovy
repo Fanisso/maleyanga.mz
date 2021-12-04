@@ -54,6 +54,7 @@ class CreditoViewModel {
     ListModelList<Credito> fechados
     ListModelList<Credito> invalidos
     ListModelList<Pagamento> pagamentos
+    String cliente_style
     Pagamento sPagamento
     Conta contaCapital
     Conta contaCliente
@@ -94,7 +95,16 @@ class CreditoViewModel {
     private boolean db_data = false
     private  String creditosDe = "Créditos"
 
+    String getCliente_style() {
+        cliente_style="background:#69F4AF;font-weight:bold;font-size:11pt"
+        if(selectedCliente){
+            if(selectedCliente.emDivida){
+                cliente_style="background:red;font-weight:bold;font-size:11pt"
+            }
 
+        }
+        return cliente_style
+    }
 
     boolean getAllCreditos() {
         return allCreditos
@@ -360,7 +370,7 @@ class CreditoViewModel {
     @Command
     void doSearchCredito(){
         info.value=""
-        if(!filterCredito.empty){
+        if(!filterCredito?.empty){
             credito = Credito?.findByNumeroDoCredito(filterCredito)
         }
         if(credito?.invalido){
@@ -577,7 +587,7 @@ class CreditoViewModel {
     @Command
     @NotifyChange(["contaCliente","contaCapital"])
     def showDefinicoesDeCredito(){
-         if(definicoes.empty){
+         if(definicoes?.empty){
             Executions.sendRedirect("/settings/defCredito/")
         }
 
@@ -642,7 +652,7 @@ class CreditoViewModel {
         return selectedCliente
     }
 
-    @NotifyChange(["creditosDe","pedidos","selectedCliente","contaCliente","clientes","creditos"])
+    @NotifyChange(["creditosDe","pedidos","selectedCliente","contaCliente","clientes","creditos","cliente_style"])
     void setSelectedCliente(Cliente selectedCliente) {
         info.value = ""
         this.selectedCliente = selectedCliente
@@ -748,7 +758,7 @@ class CreditoViewModel {
     def showDetails(){
         geTContaCapital()
         getClientes()
-        if(definicoes.empty){
+        if(definicoes?.empty){
             Executions.sendRedirect("/settings/defCredito/")
         }
         gd_parcelas.visible=true
@@ -788,7 +798,7 @@ class CreditoViewModel {
             def reco_taxa = DefinicaoDeCredito.findById(selectedDefinicaoDeCredito.id).taxa.recorencia.toCharArray() as List
             def recorencia_taxa = new ArrayList<>()
             System.println(reco_taxa)
-            if(creditos.empty){
+            if(creditos?.empty){
                 return reco_taxa[0] != "0"
 
             }else {
@@ -845,14 +855,12 @@ class CreditoViewModel {
             return
         }
         if(!settings.permitirDesembolsoComDivida){
-            def credidos = Credito.findAllByCliente(selectedCliente)
-            for(Credito credito1 in credidos){
-                if(credito1.emDivida){
-                    info.value = "Este cliente tem o crédito Nº. "+credito1.numeroDoCredito+" em dívida!"
+              if(selectedCliente.emDivida){
+                    info.value = "Este cliente tem dívida!"
                     info.style = "color:red"
-                    return
+                  return
                 }
-            }
+
         }
         if(credito.valorCreditado<=0){
             info.value = "O valor do crédito é inválido"
@@ -861,12 +869,15 @@ class CreditoViewModel {
 
         }
         try {
-            Credito credit = Credito.all.last()
+            if(!Credito.all.empty){
+                Credito credit = Credito?.all?.last()
                 if(credit.cliente.id==selectedCliente.id){
                     info.value = "Este cliente já foi desembolsado!"
                     info.style = "color:red"
                     return
                 }
+            }
+
 
 
             credito.cliente=selectedCliente

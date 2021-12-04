@@ -37,6 +37,11 @@ class CreditosViewModel {
     boolean tb_abertos = false
     boolean tb_moras = false
     @Wire Div dv_print
+    String relatorio = "Relatório dos extratos de créditos"
+
+    String getRelatorio() {
+        return relatorio
+    }
 
     ListModelList getMoras() {
         if(moras==null){

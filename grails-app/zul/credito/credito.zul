@@ -38,7 +38,7 @@
 
 
         </hbox>
-        <grid style="background:#69F4AF;font-weight:bold;font-size:11pt" width="695px">
+        <grid style="@load(vm.cliente_style)" width="695px">
             <columns>
                 <column width="200px"/>
                 <column width="355px"/>
@@ -84,161 +84,164 @@
         </grid>
 
         <div visible="@load(not empty vm.contaCapital.id)">
-            <hbox visible="false" id="hb_editor">
+            <div visible="@load(!vm.selectedCliente.emDivida)">
+                <hbox visible="false" id="hb_editor">
 
-                <grid id="gd_new_credito" width="450px">
-                    <columns>
-                        <column label="Saldo da Conta Cliente:" width=""/>
-                        <column label="@load(vm.contaCliente.saldo)@converter('formatedNumber', format='###,##0.00')"
-                                width=""/>
+                    <grid id="gd_new_credito" width="450px">
+                        <columns>
+                            <column label="Saldo da Conta Cliente:" width=""/>
+                            <column label="@load(vm.contaCliente.saldo)@converter('formatedNumber', format='###,##0.00')"
+                                    width=""/>
 
-                    </columns>
-                    <rows>
+                        </columns>
+                        <rows>
 
-                        <row visible="@load(vm.settings.taxaManual)">
-                            <label value="Aplicar Taxa"/>
-                            <checkbox label="@load(vm.taxaManual)" value="@bind(vm.taxaManual)"
-                                      onClick="@command('aplicarTaxaManual')"/>
-                        </row>
+                            <row visible="@load(vm.settings.taxaManual)">
+                                <label value="Aplicar Taxa"/>
+                                <checkbox label="@load(vm.taxaManual)" value="@bind(vm.taxaManual)"
+                                          onClick="@command('aplicarTaxaManual')"/>
+                            </row>
 
-                        <row id="rw_def">
-                            <label value="Def. De crédito"/>
-                            <combobox constraint="no empty" id="cb_def" onSelect="@command('showDetails')"
-                                      selectedItem="@bind(vm.selectedDefinicaoDeCredito)" model="@load(vm.definicoes)"
-                                      hflex="1"
-                                      mold="rounded" autodrop="true" autocomplete="true">
-                                <template name="model">
-                                    <comboitem onClick="@command('addCredito')" label="@load(each.descricao )"
-                                               value="@load(each.descricao)"/>
-                                </template>
-                            </combobox>
+                            <row id="rw_def">
+                                <label value="Def. De crédito"/>
+                                <combobox constraint="no empty" id="cb_def" onSelect="@command('showDetails')"
+                                          selectedItem="@bind(vm.selectedDefinicaoDeCredito)"
+                                          model="@load(vm.definicoes)"
+                                          hflex="1"
+                                          mold="rounded" autodrop="true" autocomplete="true">
+                                    <template name="model">
+                                        <comboitem onClick="@command('addCredito')" label="@load(each.descricao )"
+                                                   value="@load(each.descricao)"/>
+                                    </template>
+                                </combobox>
 
-                        </row>
-                        <row>
-                            <label value="Valor Creditado"/>
-                            <decimalbox width="100%" onChange="@command('showDetails')"
-                                        constraint="no negative, no zero, no empty" style="font-size:14pt"
-                                        format="###,##0.00" value="@bind(vm.credito.valorCreditado)"/>
-                        </row>
-                        <row>
-                            <label value="Número de Prestações"/>
-                            <intbox style="font-size:14pt" constraint="no negative, no zero, no empty"
-                                    onChange="@command('showDetails')" value="@bind(vm.numeroDePrestacoes)"/>
-                        </row>
-                        <row>
-                            <cell colspan="2">
-                                <label value="Data de concessão"/>
-                                <button label="Editar" onClick="@command('showDataBox')"/>
-                                <datebox visible="@load(vm.db_data)" format="dd/MM/yy" constraint="no empty"
-                                         value="@bind(vm.credito.dateConcecao)"
-                                         width="100px"/>
-                                <label value="@load(vm.credito.dateConcecao) @converter('formatedDate', format='dd/MM/yy')"/>
-                            </cell>
+                            </row>
+                            <row>
+                                <label value="Valor Creditado"/>
+                                <decimalbox width="100%" onChange="@command('showDetails')"
+                                            constraint="no negative, no zero, no empty" style="font-size:14pt"
+                                            format="###,##0.00" value="@bind(vm.credito.valorCreditado)"/>
+                            </row>
+                            <row>
+                                <label value="Número de Prestações"/>
+                                <intbox style="font-size:14pt" constraint="no negative, no zero, no empty"
+                                        onChange="@command('showDetails')" value="@bind(vm.numeroDePrestacoes)"/>
+                            </row>
+                            <row>
+                                <cell colspan="2">
+                                    <label value="Data de concessão"/>
+                                    <button label="Editar" onClick="@command('showDataBox')"/>
+                                    <datebox visible="@load(vm.db_data)" format="dd/MM/yy" constraint="no empty"
+                                             value="@bind(vm.credito.dateConcecao)"
+                                             width="100px"/>
+                                    <label value="@load(vm.credito.dateConcecao) @converter('formatedDate', format='dd/MM/yy')"/>
+                                </cell>
 
-                        </row>
-                        <row>
-                            <div visible="@load(not empty vm.contaCapital.id)">
-                                <button visible="@load(!not empty vm.credito.id)"
-                                        image="${z.resource(dir:'images', file:'save.png')}"
-                                        onClick="@command('salvarCredito')" id="bt_salvar"
-                                        label="Salvar " width="100px" height="30px"/>
-                            </div>
-                        </row>
-                    </rows>
-                </grid>
-                <grid width="240px">
-                    <columns>
-                        <column width="150px"/>
-                        <column/>
-                    </columns>
-                    <rows>
-                        <row>
-                            <label value="Juros(%)"/>
-                            <decimalbox onChange="@command('showDetails')"
-                                        value="@bind(vm.selectedDefinicaoDeCredito.percentualDejuros)"/>
-                        </row>
-                        <row>
-                            <label value="Juros de Mora(%)"/>
-                            <decimalbox onChange="@command('showDetails')"
-                                        value="@bind(vm.selectedDefinicaoDeCredito.percentualJurosDeDemora)"/>
-                        </row>
+                            </row>
+                            <row>
+                                <div visible="@load(not empty vm.contaCapital.id)">
+                                    <button visible="@load(!not empty vm.credito.id)"
+                                            image="${z.resource(dir:'images', file:'save.png')}"
+                                            onClick="@command('salvarCredito')" id="bt_salvar"
+                                            label="Salvar " width="100px" height="30px"/>
+                                </div>
+                            </row>
+                        </rows>
+                    </grid>
+                    <grid width="240px">
+                        <columns>
+                            <column width="150px"/>
+                            <column/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Juros(%)"/>
+                                <decimalbox onChange="@command('showDetails')"
+                                            value="@bind(vm.selectedDefinicaoDeCredito.percentualDejuros)"/>
+                            </row>
+                            <row>
+                                <label value="Juros de Mora(%)"/>
+                                <decimalbox onChange="@command('showDetails')"
+                                            value="@bind(vm.selectedDefinicaoDeCredito.percentualJurosDeDemora)"/>
+                            </row>
 
-                        <row>
-                            <label value="Nº max. de prestaões"/>
-                            <intbox onChange="@command('showDetails')"
-                                    value="@bind(vm.selectedDefinicaoDeCredito.numeroDePrestacoes)"/>
-                        </row>
-                        <row>
-                            <label value="Forma de calculo"/>
-                            <label value="@bind(vm.selectedDefinicaoDeCredito.formaDeCalculo)"/>
-                        </row>
-                        <row>
-                            <label value="Excluir Sábado"/>
-                            <label value="@bind(vm.selectedDefinicaoDeCredito.excluirSabados)"/>
-                        </row>
-                        <row>
-                            <label value="Excluir Domingos"/>
-                            <label value="@bind(vm.selectedDefinicaoDeCredito.excluirDomingos)"/>
-                        </row>
-                        <row>
-                            <label value="Rec. de Moras"/>
-                            <label value="@bind(vm.selectedDefinicaoDeCredito.recorenciaDeMoras)"/>
-                        </row>
-                        <row visible="@load(!vm.settings.taxaManual)">
-                            <label value="Aplicar Taxa"/>
-                            <label value="@bind(vm.taxa)"/>
-                        </row>
-                        <row visible="@load(not empty vm.selectedDefinicaoDeCredito.periodoVariavel)">
-                            <label value="Periodicidade"/>
-                            <label value="@bind(vm.selectedDefinicaoDeCredito.periodoVariavel)"/>
-                        </row>
-                    </rows>
-                </grid>
-                <grid height="260px" id="gd_parcelas" visible="@load(not empty vm.prestacoes)"
-                      model="@bind(vm.prestacoes)">
-                    <columns>
-                        <column width="55px">
-                            <label value="Parcelas"/>
-                        </column>
-                        <column>
-                            <label value="Saldo Devedor"/>
-                        </column>
-                        <column>
-                            <label value="Prestações"/>
-                        </column>
-                        <column>
-                            <label value="Amortização"/>
-                        </column>
-                        <column>
-                            <label value="Juros"/>
-                        </column>
-                    </columns>
-                    <template name="model">
-                        <row>
-                            <label value="@load(forEachStatus.index+1)"/>
-                            <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
-                            <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
-                            <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
-                            <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
+                            <row>
+                                <label value="Nº max. de prestaões"/>
+                                <intbox onChange="@command('showDetails')"
+                                        value="@bind(vm.selectedDefinicaoDeCredito.numeroDePrestacoes)"/>
+                            </row>
+                            <row>
+                                <label value="Forma de calculo"/>
+                                <label value="@bind(vm.selectedDefinicaoDeCredito.formaDeCalculo)"/>
+                            </row>
+                            <row>
+                                <label value="Excluir Sábado"/>
+                                <label value="@bind(vm.selectedDefinicaoDeCredito.excluirSabados)"/>
+                            </row>
+                            <row>
+                                <label value="Excluir Domingos"/>
+                                <label value="@bind(vm.selectedDefinicaoDeCredito.excluirDomingos)"/>
+                            </row>
+                            <row>
+                                <label value="Rec. de Moras"/>
+                                <label value="@bind(vm.selectedDefinicaoDeCredito.recorenciaDeMoras)"/>
+                            </row>
+                            <row visible="@load(!vm.settings.taxaManual)">
+                                <label value="Aplicar Taxa"/>
+                                <label value="@bind(vm.taxa)"/>
+                            </row>
+                            <row visible="@load(not empty vm.selectedDefinicaoDeCredito.periodoVariavel)">
+                                <label value="Periodicidade"/>
+                                <label value="@bind(vm.selectedDefinicaoDeCredito.periodoVariavel)"/>
+                            </row>
+                        </rows>
+                    </grid>
+                    <grid height="260px" id="gd_parcelas" visible="@load(not empty vm.prestacoes)"
+                          model="@bind(vm.prestacoes)">
+                        <columns>
+                            <column width="55px">
+                                <label value="Parcelas"/>
+                            </column>
+                            <column>
+                                <label value="Saldo Devedor"/>
+                            </column>
+                            <column>
+                                <label value="Prestações"/>
+                            </column>
+                            <column>
+                                <label value="Amortização"/>
+                            </column>
+                            <column>
+                                <label value="Juros"/>
+                            </column>
+                        </columns>
+                        <template name="model">
+                            <row>
+                                <label value="@load(forEachStatus.index+1)"/>
+                                <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
+                                <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
+                                <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
+                                <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
 
-                        </row>
+                            </row>
 
-                    </template>
-                    <foot>
-                        <footer></footer>
-                        <footer>Totais</footer>
-                        <footer>
-                            <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
-                        </footer>
-                        <footer>
-                            <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
-                        </footer>
-                        <footer>
-                            <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>
-                        </footer>
-                    </foot>
-                </grid>
-            </hbox>
+                        </template>
+                        <foot>
+                            <footer></footer>
+                            <footer>Totais</footer>
+                            <footer>
+                                <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
+                            </footer>
+                            <footer>
+                                <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                            </footer>
+                            <footer>
+                                <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>
+                            </footer>
+                        </foot>
+                    </grid>
+                </hbox>
+            </div>
         </div>
 
         <hbox>
