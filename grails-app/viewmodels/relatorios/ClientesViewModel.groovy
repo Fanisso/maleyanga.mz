@@ -36,6 +36,7 @@ class ClientesViewModel {
     boolean pendentes = false
     boolean fechados = false
     boolean invalidos = false
+    boolean vencidos = false
     Date ano
     RelatoriosService relatoriosService
 
@@ -63,6 +64,10 @@ class ClientesViewModel {
 
     boolean getEmPagamento() {
         return emPagamento
+    }
+
+    boolean getVencidos() {
+        return vencidos
     }
 
     @Command
@@ -103,6 +108,13 @@ class ClientesViewModel {
     void setI() {
         invalidos=!invalidos
         relatoriosService.invalidos =invalidos
+    }
+
+    @Command
+    @NotifyChange(["vencidos"])
+    void setV() {
+        vencidos=!vencidos
+        relatoriosService.vencidos =vencidos
     }
 
     String getLb_tb_creditos() {

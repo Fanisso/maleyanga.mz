@@ -876,14 +876,14 @@ class CreditoViewModel {
 
         }
         try {
-            if(!Credito.all.empty){
+           /* if(!Credito.all.empty){
                 Credito credit = Credito?.all?.last()
                 if(credit.cliente.id==selectedCliente.id){
                     info.value = "Este cliente já foi desembolsado!"
                     info.style = "color:red"
                     return
                 }
-            }
+            }*/
 
 
 

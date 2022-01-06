@@ -1,6 +1,5 @@
 package credito
 
-import mz.maleyanga.CreditoService
 import mz.maleyanga.SessionStorageService
 import mz.maleyanga.SettingsService
 import mz.maleyanga.credito.Credito

@@ -41,14 +41,28 @@ class Cliente implements Serializable {
     BigDecimal totalEmDivida = 0.0
 
     Boolean getEmDivida() {
-        return totalEmDivida < 0
+        if (creditos == null) {
+            return false
+        }
+        if (creditos.empty) {
+            return false
+        }
+        if (totalEmDivida < 0) {
+            return true
+        }
+        return false
     }
 
     BigDecimal getTotalEmDivida() {
         totalEmDivida = 0
-        for (Credito credito in creditos) {
-            totalEmDivida += credito.valorEmDivida
+        if (creditos != null) {
+            if (!creditos.empty) {
+                for (Credito credito in creditos) {
+                    totalEmDivida += credito.valorEmDivida
+                }
+            }
         }
+
         return totalEmDivida
     }
 

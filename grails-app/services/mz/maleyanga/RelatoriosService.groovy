@@ -13,6 +13,7 @@ class RelatoriosService {
     boolean pendentes
     boolean fechados
     boolean invalidos
+    boolean vencidos
     Date ano
 
 

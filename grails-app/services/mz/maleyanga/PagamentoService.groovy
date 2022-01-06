@@ -1,6 +1,6 @@
 package mz.maleyanga
 
-import mz.maleyanga.conta.Conta
+
 import mz.maleyanga.credito.Credito
 import mz.maleyanga.documento.Nota
 import mz.maleyanga.feriado.Feriado
@@ -8,8 +8,7 @@ import mz.maleyanga.pagamento.Pagamento
 import mz.maleyanga.pagamento.Parcela
 import mz.maleyanga.pagamento.Remissao
 import mz.maleyanga.settings.DefinicaoDeCredito
-import mz.maleyanga.transferencia.Transferencia
-import org.springframework.security.access.method.P
+
 import org.springframework.transaction.annotation.Transactional
 import org.zkoss.zul.ListModelList
 
@@ -77,9 +76,7 @@ class PagamentoService {
             def num = creditoInstance.numeroDePrestacoes
             pagamento.recorenciaDeMoras = definicaoDeCredito.recorenciaDeMoras
             pagamento.setCredito(creditoInstance)
-
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK)
-
             if (dayOfWeek == 7) {
                 if (definicaoDeCredito.excluirSabados) {
                     pagamento.descricao += "Sabado!"
@@ -87,7 +84,6 @@ class PagamentoService {
                     c.add(Calendar.DAY_OF_MONTH, 1)
                 }
             }
-
             int dayOfWee = c.get(Calendar.DAY_OF_WEEK)
             if (dayOfWee == 1) {
                 if (definicaoDeCredito.excluirDomingos) {
@@ -104,10 +100,36 @@ class PagamentoService {
                 Feriado feriado = i.next()
                 if (Objects.equals(c.getTime().format("dd/MM/yyyy"), feriado.data.format("dd/MM/yyyy"))) {
                     c.add(Calendar.DAY_OF_MONTH, 1)
+                    int sabado = c.get(Calendar.DAY_OF_WEEK)
+                    if (definicaoDeCredito.excluirDiaDePagNoSabado && sabado == 7) {
+                        c.add(Calendar.DAY_OF_MONTH, 1)
+                    }
+                    int domingo = c.get(Calendar.DAY_OF_WEEK)
+                    if (definicaoDeCredito.excluirDiaDePagNoSabado && domingo == 1) {
+                        c.add(Calendar.DAY_OF_MONTH, 1)
+                    }
 
                 }
             }
+            int dayOf = c.get(Calendar.DAY_OF_WEEK)
+            if (dayOf == 7) {
+                if (definicaoDeCredito.excluirSabados) {
+                    pagamento.descricao += "Sabado!"
+                    System.println('sabado' + c.getTime())
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
+            }
+            int dayO = c.get(Calendar.DAY_OF_WEEK)
+            if (dayO == 1) {
+                if (definicaoDeCredito.excluirDomingos) {
+                    pagamento.descricao += "Domingo"
+                    dias = dias + 1
+                    System.println('domingo' + c.getTime())
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
 
+
+            }
 
             pagamento.setDataPrevistoDePagamento(c.getTime())
             System.println(c.getTime())

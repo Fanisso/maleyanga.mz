@@ -32,6 +32,7 @@
                         <checkbox onClick="@command('setP')" checked="@load(vm.pendentes)" label="Cdts. Pendentes"/>
                         <checkbox onClick="@command('setF')" checked="@load(vm.fechados)" label="Cdts. Fechados"/>
                         <checkbox onClick="@command('setI')" checked="@load(vm.invalidos)" label="Cdts. Inválidos"/>
+                        <checkbox onClick="@command('setV')" checked="@load(vm.invalidos)" label="Cdts. Vencidos"/>
 
                     </hbox>
                     <hbox>
