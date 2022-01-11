@@ -45,17 +45,10 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="não permissão da visualização do editor de credito para clientes em divida quando nas definições não permetido desembolso com dividas">
-      <change afterPath="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga/ExecutarCalculoDePagamentosVencidosJob.groovy" afterDir="false" />
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="adição de programacao de jobs para actualizar as moras diariamente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/RelatoriosService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/RelatoriosService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/PlanoDePagamentoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/PlanoDePagamentoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ClientesViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ClientesViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1395,14 +1388,8 @@
       <workItem from="1639549744857" duration="593000" />
       <workItem from="1639562746235" duration="2946000" />
       <workItem from="1639752638087" duration="1233000" />
-      <workItem from="1641456758933" duration="2696000" />
-    </task>
-    <task id="LOCAL-00092" summary="alteração do extrato feito com sucesso.&#10;add mais atributos no extrato das prestações">
-      <created>1613987714835</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1613987714835</updated>
+      <workItem from="1641456758933" duration="3397000" />
+      <workItem from="1641861428629" duration="977000" />
     </task>
     <task id="LOCAL-00093" summary="actualizacao do extrato de CreditoController">
       <created>1614049415878</created>
@@ -1740,7 +1727,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638636750249</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="adição de programacao de jobs para actualizar as moras diariamente">
+      <created>1641464182584</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1641464182584</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1820,7 +1814,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="novas funcionalidades" />
     <MESSAGE value="ainda estou a tentar resolver a questão de numeros por extenso no contrato" />
     <MESSAGE value="testes e arrnajos feitos com sucesso" />
     <MESSAGE value="versão da matola" />
@@ -1845,7 +1838,8 @@
     <MESSAGE value="eliminação da possibilidade do se desembolsar 2 vezes seguidas a mesma pessoa. conclusao com sucesso!" />
     <MESSAGE value="acertos de valores no menu caixa e no estrato de credito" />
     <MESSAGE value="não permissão da visualização do editor de credito para clientes em divida quando nas definições não permetido desembolso com dividas" />
-    <option name="LAST_COMMIT_MESSAGE" value="não permissão da visualização do editor de credito para clientes em divida quando nas definições não permetido desembolso com dividas" />
+    <MESSAGE value="adição de programacao de jobs para actualizar as moras diariamente" />
+    <option name="LAST_COMMIT_MESSAGE" value="adição de programacao de jobs para actualizar as moras diariamente" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1866,26 +1860,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1634829442627" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1639753917512">
+    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1641861624000">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1639753917512" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1639753917512">
+    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
+    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1641861624000">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1639753917512" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1639753917512">
+    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
+    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1641861624000">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1639753917512" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1639753917512">
+    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
+    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1641861624000">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1639753917512" />
+    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
     <state x="477" y="66" key="RollbackChangesDialog" timestamp="1639494625947">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1894,11 +1888,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1637526945848" />
-    <state width="498" height="497" key="SwitcherDM" timestamp="1639752693438">
+    <state width="498" height="497" key="SwitcherDM" timestamp="1641862105746">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="497" key="SwitcherDM/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633838996" />
-    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1639752693438" />
+    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1641862105746" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1637531841676">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1919,11 +1913,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1639493190231" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1641456854254">
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1641862140646">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638632162398" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1641456854254" />
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1641862140646" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

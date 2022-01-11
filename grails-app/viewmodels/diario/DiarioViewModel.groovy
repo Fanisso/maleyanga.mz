@@ -34,7 +34,7 @@ class DiarioViewModel {
     SessionStorageService sessionStorageService
     UtilizadorService utilizadorService
     String filter
-    private Date dataDeReferencia  = new Date()     // data a que o diario se refere
+    private Date dataDeReferencia     // data a que o diario se refere
     ParcelaService parcelaService
     SpringSecurityService springSecurityService
     String selectedUtilizador
@@ -85,9 +85,9 @@ class DiarioViewModel {
     }
     @NotifyChange("dataDeReferencia")
     Date getDataDeReferencia() {
-        if(selectedDiario?.dataDeReferencia!=null){
+       /* if(selectedDiario?.dataDeReferencia!=null){
             dataDeReferencia = selectedDiario.dataDeReferencia
-        }
+        }*/
         return dataDeReferencia
     }
 
