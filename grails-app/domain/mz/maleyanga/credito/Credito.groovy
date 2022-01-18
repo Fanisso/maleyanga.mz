@@ -69,7 +69,10 @@ class Credito implements Serializable {
 
     BigDecimal getValorEmDivida() {
         valorEmDivida = 0.0
+
         if (pagamentos?.empty) {
+            return 0.0
+        } else if (pagamentos == null) {
             return 0.0
         } else {
             for (Pagamento p in pagamentos) {
@@ -144,7 +147,7 @@ class Credito implements Serializable {
     }
 
     String toString() {
-        return "${"id::" + id + ".valor::" + valorCreditado}"
+        return "${"id::" + id + "Nº:" + numeroDoCredito + ".valor::" + valorCreditado}"
     }
 
     BigDecimal getValorDeJuros() {

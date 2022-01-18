@@ -12,7 +12,6 @@
             .z-textbox{ border-style : normal; background: #95B9C7}
         </style>
 
-
         <hbox align="center">
             <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
         </hbox>

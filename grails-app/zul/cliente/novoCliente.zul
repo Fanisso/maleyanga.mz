@@ -33,7 +33,8 @@
                 <rows>
                     <row>
                         <label value="Nome Completo"/>
-                        <textbox constraint="no empty" value="@bind(vm.novoCliente.nome)"
+                        <textbox instant="true" onChanging="@command('searchCliente')" constraint="no empty"
+                                 value="@bind(vm.novoCliente.nome)"
                                  width="100%"/>
                     </row>
                     <row>

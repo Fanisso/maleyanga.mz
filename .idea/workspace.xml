@@ -45,10 +45,24 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="adição de programacao de jobs para actualizar as moras diariamente">
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="a data de referencai no dia foi retificado para estar de acordo com a data actual">
+      <change afterPath="$PROJECT_DIR$/grails-app/utils/mz/maleyanga/ClienteDetalhado.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintClientesViewModel.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/views/relatorios/printClientes.gsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/views/relatorios/printTodosClientes.gsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printClientes.zul" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/relatorio/RelatoriosController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/relatorio/RelatoriosController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/cliente/novoCliente.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/cliente/novoCliente.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printRelDeClientesDoGestor.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printRelDeClientesDoGestor.zul" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +131,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="grails.last.selected.app.url" value="file://$PROJECT_DIR$" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/grails-app/views/relatorios" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -128,17 +142,17 @@
     <property name="settings.editor.selected.configurable" value="vcs.Mercurial" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="Z:\mz.maleyanga\grails-app\conf\maleyanga" />
-      <recent name="Z:\mz.maleyanga\grails-app\zul\relatorios" />
-      <recent name="Z:\mz.maleyanga\grails-app\viewmodels\relatorios" />
-      <recent name="D:\workspace\mz.maleyanga\grails-app\views\feriado" />
-      <recent name="D:\workspace\mz.maleyanga\grails-app\conf" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="mz.maleyanga" />
       <recent name="mz.maleyanga.pagamento" />
       <recent name="mz.maleyanga.pagamento.mz.maleyanga" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\mz.maleyanga\grails-app\views\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\jobs\mz\maleyanga" />
+      <recent name="Z:\mz.maleyanga\lib" />
+      <recent name="Z:\mz.maleyanga\grails-app\views\_menu" />
+      <recent name="Z:\mz.maleyanga\grails-app\views\credito" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mz.maleyanga" />
@@ -147,12 +161,12 @@
       <recent name="mz.maleyanga.cliente" />
       <recent name="mz.maleyanga.pagamento" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="Z:\mz.maleyanga\grails-app\jobs\mz\maleyanga" />
-      <recent name="Z:\mz.maleyanga\grails-app\views\relatorios" />
-      <recent name="Z:\mz.maleyanga\lib" />
-      <recent name="Z:\mz.maleyanga\grails-app\views\_menu" />
-      <recent name="Z:\mz.maleyanga\grails-app\views\credito" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\mz.maleyanga\grails-app\zul\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\viewmodels\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\conf\maleyanga" />
+      <recent name="D:\workspace\mz.maleyanga\grails-app\views\feriado" />
+      <recent name="D:\workspace\mz.maleyanga\grails-app\conf" />
     </key>
   </component>
   <component name="RunManager" selected="Grails.Grails:mz.maleyanga">
@@ -1389,14 +1403,10 @@
       <workItem from="1639562746235" duration="2946000" />
       <workItem from="1639752638087" duration="1233000" />
       <workItem from="1641456758933" duration="3397000" />
-      <workItem from="1641861428629" duration="977000" />
-    </task>
-    <task id="LOCAL-00093" summary="actualizacao do extrato de CreditoController">
-      <created>1614049415878</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1614049415878</updated>
+      <workItem from="1641861428629" duration="7400000" />
+      <workItem from="1641954463378" duration="2348000" />
+      <workItem from="1642060734411" duration="1795000" />
+      <workItem from="1642473565712" duration="5216000" />
     </task>
     <task id="LOCAL-00094" summary="actualizacao do extrato de CreditoController">
       <created>1614069960880</created>
@@ -1734,7 +1744,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641464182584</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="a data de referencai no dia foi retificado para estar de acordo com a data actual">
+      <created>1641862549789</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1641862549804</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1814,7 +1831,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="ainda estou a tentar resolver a questão de numeros por extenso no contrato" />
     <MESSAGE value="testes e arrnajos feitos com sucesso" />
     <MESSAGE value="versão da matola" />
     <MESSAGE value="versão da prospere" />
@@ -1839,19 +1855,16 @@
     <MESSAGE value="acertos de valores no menu caixa e no estrato de credito" />
     <MESSAGE value="não permissão da visualização do editor de credito para clientes em divida quando nas definições não permetido desembolso com dividas" />
     <MESSAGE value="adição de programacao de jobs para actualizar as moras diariamente" />
-    <option name="LAST_COMMIT_MESSAGE" value="adição de programacao de jobs para actualizar as moras diariamente" />
+    <MESSAGE value="a data de referencai no dia foi retificado para estar de acordo com a data actual" />
+    <option name="LAST_COMMIT_MESSAGE" value="a data de referencai no dia foi retificado para estar de acordo com a data actual" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser" timestamp="1639565036355">
+    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser" timestamp="1642475289857">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633232693" />
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1639565036355" />
-    <state x="430" y="234" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1633828172157">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="430" y="234" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1633828172157" />
+    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1642475289857" />
     <state x="92" y="92" width="1182" height="544" maximized="true" key="DiffContextDialog" timestamp="1639494623871">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1860,26 +1873,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1634829442627" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1641861624000">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1642478494051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1641861624000">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
+    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1642478494051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1641861624000">
+    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
+    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1642478494051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1641861624000">
+    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1642478494051">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1641861624000" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
     <state x="477" y="66" key="RollbackChangesDialog" timestamp="1639494625947">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1888,19 +1901,19 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1637526945848" />
-    <state width="498" height="497" key="SwitcherDM" timestamp="1641862105746">
+    <state width="498" height="497" key="SwitcherDM" timestamp="1642478868276">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="497" key="SwitcherDM/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633838996" />
-    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1641862105746" />
+    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1642478868276" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1637531841676">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1637531841676" />
-    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1636628929121">
+    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1642474602968">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1636628929121" />
+    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1642474602968" />
     <state x="492" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1634776430143">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1913,18 +1926,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1639493190231" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1641862140646">
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1642478888339">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638632162398" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1641862140646" />
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1642478888339" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy</url>
-          <line>1121</line>
+          <line>1127</line>
           <option name="temporary" value="true" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>

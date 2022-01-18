@@ -712,6 +712,12 @@ class CreditoViewModel {
     @NotifyChange(["credito","pagamentos"])
     def capitalizar(){
         try {
+            Utilizador user = springSecurityService.currentUser as Utilizador
+            if (!user.authorities.any { it.authority == "PAGAMENTO_CREATE" }) {
+                info.value = "Este utilizador não tem permissão para executar esta acção !"
+                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                return
+            }
             pagamentoService.calcularMoraCaPital(credito)
             info.value = "Capitalização feita com sucesso!"
             getPagamentos()

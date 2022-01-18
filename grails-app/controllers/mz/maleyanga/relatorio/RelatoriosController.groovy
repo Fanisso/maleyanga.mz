@@ -30,6 +30,9 @@ class RelatoriosController extends BasicController {
     def index() {}
 
     @Secured(['ROLE_ADMIN', 'RELATORIOS_INDEX'])
+    def printClientes() {}
+
+    @Secured(['ROLE_ADMIN', 'RELATORIOS_INDEX'])
     def extratosDeCreditos() {
 
     }

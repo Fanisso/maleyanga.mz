@@ -146,6 +146,7 @@
 
                 </tabpanel> <!--clientes-->
                 <tabpanel>
+                    <include src="/relatorios/printTodosClientes.gsp"/>
                     <listbox checkmark="true" style="@bind('style')"
                              selectedItem="@bind(vm.selectedCliente)"
                              model="@load(vm.todosClientes)" width=""

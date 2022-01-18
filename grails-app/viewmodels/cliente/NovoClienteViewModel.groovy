@@ -35,6 +35,13 @@ class NovoClienteViewModel {
     private String red = "color:red"
     private ListModelList<Cliente> clientes
 
+
+    @Command
+    def searchCliente(){
+        def clientes = clienteService.findAllByName(novoCliente.nome)
+          info.value = clientes
+    }
+
     String getFilter() {
         return filter
     }

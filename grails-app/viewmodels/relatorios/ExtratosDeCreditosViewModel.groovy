@@ -74,8 +74,8 @@ SessionStorageService sessionStorageService
              extratosDeCredito.valorDaPrestacao = getValorDaPrestacao(creditoInstance)
              extratosDeCredito.totalJurosDeMora = getTotalJurosDeMora(creditoInstance)
              extratosDeCredito.totalCredito = getTotalCredito(creditoInstance)
-
-             extratosDeCredito.valorEmMora = getValorEmMora(extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia, extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
+            extratosDeCredito.valorEmDivida  = getValorEmDivida(creditoInstance)
+             extratosDeCredito.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia, extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
             // extratosDeCredito.valorEmDivida = creditoInstance?.valorEmDivida
             // ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
             extratosDeCredito.valorCreditado = getValorCredito(creditoInstance)
@@ -83,7 +83,7 @@ SessionStorageService sessionStorageService
              extratosDeCredito.contacto = creditoInstance?.cliente?.telefone
             // valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito
           //  extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia+extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
-            extratosDeCredito.valorEmDivida  = getValorEmDivida(creditoInstance)
+
             total_juros_de_mora +=extratosDeCredito.totalJurosDeMora
             totalPago +=extratosDeCredito.totalCredito
             valor_em_mora += extratosDeCredito.valorEmMora
@@ -98,8 +98,12 @@ SessionStorageService sessionStorageService
         return extratosDeCreditos
     }
 
-    static BigDecimal getValorEmMora(BigDecimal valorDaPrestacao, Integer numeroDePrestacoesEmDia, BigDecimal totalJurosDeMora, BigDecimal totalCredito) {
-       return ((valorDaPrestacao*numeroDePrestacoesEmDia)+totalJurosDeMora)+totalCredito
+    static BigDecimal getValorEmMora(BigDecimal valorEmDivida,BigDecimal valorDaPrestacao, Integer numeroDePrestacoesEmDia, BigDecimal totalJurosDeMora, BigDecimal totalCredito) {
+        def vem=((valorDaPrestacao*numeroDePrestacoesEmDia)+totalJurosDeMora)+totalCredito
+        if(vem<0){
+            vem =valorEmDivida*(-1)
+        }
+       return vem
     }
 
     static BigDecimal getValorEmDivida(Credito creditoInstance){

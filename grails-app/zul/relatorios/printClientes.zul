@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('printClientesViewModel')">
+
+        <listbox style="@bind('style')"
+
+                 model="@load(vm.clienteDetalhados)" width="1050px"
+                 height="">
+            <listhead sizable="true">
+                <listheader sort="auto(gestor)" width="80px" label="GESTOR" align="left"/>
+                <listheader sort="auto(nome)" width="200px" label="Nome" align="left"/>
+                <listheader sort="auto(contacto)" width="90px" label="Contacto" align="left"/>
+                <listheader sort="auto(residencia)" width="200px" label="Endereço"
+                            align="left"/>
+                <listheader sort="auto(ativo)" width="50px"
+                            label="Activo"
+                            align="left"/>
+                <listheader sort="auto(classificacao)" width="90px" label="Classificação"
+                            align="left"/>
+                <listheader sort="auto(qtdDeCreditos)" width="50px" label="QTD Cdts" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="100px" label="Valor em dívida" align="left"/>
+                <listheader width="300px" label="Créditos" align="left"/>
+
+
+            </listhead>
+            <template name="model" status="s">
+
+                <listitem onClick="@command('', index=each.id)"
+                          style="@bind('style')">
+                    <listcell label="@load(each.gestor)"/>
+                    <listcell label="@load(each.nome)"/>
+                    <listcell label="@load(each.contacto)"/>
+                    <listcell label="@load(each.residencia)"/>
+                    <listcell label="@load(each.ativo)"/>
+                    <listcell label="@load(each.classificacao)"/>
+                    <listcell label="@load(each.qtdDeCreditos)"/>
+                    <listcell label="@load(each.valorEmDivida) @converter('formatedNumber', format='###,##0.00')"/>
+                    <listcell label="@load(each.creditos) "/>
+
+
+                </listitem>
+            </template>
+
+        </listbox>
+
+    </window>
+
+</zk>
