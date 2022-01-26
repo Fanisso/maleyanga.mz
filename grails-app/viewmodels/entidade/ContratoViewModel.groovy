@@ -17,37 +17,11 @@ import org.zkoss.zul.ListModelList
 
 
 class ContratoViewModel {
-    EntidadeService entidadeService
-    ClienteService clienteService
-    CreditoService creditoService
-    @Wire  gd_show
-     private Entidade entidade
-    SessionStorageService sessionStorageService
-    PedidoDeCreditoService pedidoDeCreditoService
-    PenhoraService penhoraService
-
-    Credito credito
-    Cliente cliente
-    ListModelList<Penhora> penhoras
-
-    ListModelList<Penhora> getPenhoras() {
-        penhoras = penhoraService.getPenhoras(getCliente())
-        return penhoras
-    }
-
-
-    Credito getCredito() {
-        return  creditoService.credito
-    }
-
 
 
     @Init init() {
-        System.println("dasdasdas")
-        entidade = Entidade.first()
-        System.println(entidade)
-        def cred = sessionStorageService.getCredito() as Credito
-        credito = creditoService.getCredito(cred)
+
+
     }
 
 

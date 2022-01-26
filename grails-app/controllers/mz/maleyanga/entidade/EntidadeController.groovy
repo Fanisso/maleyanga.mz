@@ -41,6 +41,7 @@ class EntidadeController extends BasicController {
         respond Entidade.list(params), model: [entidadeInstanceCount: Entidade.count()]
     }
 
+    @Secured(['ROLE_ADMIN', 'ENTIDADE_SHOW'])
     def contrato() {
 
     }

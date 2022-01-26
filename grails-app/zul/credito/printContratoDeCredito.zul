@@ -34,11 +34,15 @@
                     <cell>
                         <label value=" PRIMEIRO: "/>
                         <label value="@bind(vm.entidade.nome)"/>
-                        <label value=", inscrito no Banco de Moçambique sob o número "/>
-                        <label style="font-weight:bold" value="1086/DRL/20070029/106.16/18"/>
-                        <label value=", datada de três de Dezembro de dois mil e dezoito, titular do NUIT "/>
+                        <label value=", inscrito no Banco de Moçambique, "/>
+                        <label visible="@load(not empty vm.entidade.numeroDeRegisto)" value=", sob o número "/>
+
+                        <label style="font-weight:bold" value="@bind(vm.entidade.numeroDeRegisto)"/>
+                        <label visible="@load(not empty vm.entidade.numeroDeRegisto)"
+                               value=", datada de três de Dezembro de dois mil e dezoito,"/>
+                        <label visible="@load(not empty vm.entidade.nuit)" value=" titular do NUIT "/>
                         <label value="@load(vm.entidade.nuit)"/>
-                        <label value=", neste acto representada pela Senhora "/>
+                        <label value="@load(vm.reresentante)"/>
                         <label value="@load(vm.entidade.proprietario)"/>
                         <label value=", na qualidade de Gerente, com poderes para o acto, doravante denominada MUTUANTE;"/>
                     </cell>
@@ -107,7 +111,7 @@
                 <row>
                     <cell>
                         <label value="2. O montante acima referido, será concedido ao MUTUÁRIO na data de assinatura do presente contrato,
-                     por meio de (Transferência MPesa)"/>
+                     por meio de transferência bancária, mpesa, ou em espécie."/>
                     </cell>
                 </row>
                 <row>

@@ -18,6 +18,8 @@ class PrintContratoDeCreditoViewModel {
     private  Credito credito
     String valorCreditadoPorExtenso
     String prestacao
+    String representante
+    String numeroDeRegisto
     private  PedidoDeCredito pedidoDeCredito
     BigDecimal valorDaPrestacao
     BigDecimal valorAPagar
@@ -26,6 +28,22 @@ class PrintContratoDeCreditoViewModel {
     PenhoraService penhoraService
 
     CurrencyWriter currencyWriter = CurrencyWriter.getInstance()
+
+    String getRepresentante() {
+        if(entidade.genero=="femenino"){
+            representante=", neste acto representada pela Senhora "
+        }else {
+            representante  = ", neste acto representado pela Senhor "
+        }
+        return representante
+    }
+
+    String getNumeroDeRegisto() {
+        if(entidade.numeroDeRegisto.empty){
+            return ""
+        }else
+        return ""
+    }
 
     String getPrestacao() {
         if(credito.numeroDePrestacoes==1){

@@ -45,24 +45,16 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="a data de referencai no dia foi retificado para estar de acordo com a data actual">
-      <change afterPath="$PROJECT_DIR$/grails-app/utils/mz/maleyanga/ClienteDetalhado.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintClientesViewModel.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grails-app/views/relatorios/printClientes.gsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grails-app/views/relatorios/printTodosClientes.gsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printClientes.zul" afterDir="false" />
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/relatorio/RelatoriosController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/relatorio/RelatoriosController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/cliente/novoCliente.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/cliente/novoCliente.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/clientes.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printRelDeClientesDoGestor.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printRelDeClientesDoGestor.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/entidade/EntidadeController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/controllers/mz/maleyanga/entidade/EntidadeController.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/entidade/Entidade.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/entidade/Entidade.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/PrintContratoDeCreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/PrintContratoDeCreditoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/entidade/ContratoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/entidade/ContratoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/printContratoDeCredito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/printContratoDeCredito.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/entidade/contrato.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/entidade/contrato.zul" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1406,14 +1398,14 @@
       <workItem from="1641861428629" duration="7400000" />
       <workItem from="1641954463378" duration="2348000" />
       <workItem from="1642060734411" duration="1795000" />
-      <workItem from="1642473565712" duration="5216000" />
-    </task>
-    <task id="LOCAL-00094" summary="actualizacao do extrato de CreditoController">
-      <created>1614069960880</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1614069960880</updated>
+      <workItem from="1642473565712" duration="5574000" />
+      <workItem from="1642501266842" duration="894000" />
+      <workItem from="1642689430076" duration="1281000" />
+      <workItem from="1642691413385" duration="1763000" />
+      <workItem from="1643027218279" duration="2051000" />
+      <workItem from="1643182767646" duration="2896000" />
+      <workItem from="1643185738150" duration="6000" />
+      <workItem from="1643199552195" duration="1720000" />
     </task>
     <task id="LOCAL-00095" summary="actualização do sistema para a aplicação de taxas manualmente ou automaticamente">
       <created>1614321634227</created>
@@ -1751,7 +1743,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641862549804</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome,">
+      <created>1642479266278</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1642479266278</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1831,7 +1830,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="testes e arrnajos feitos com sucesso" />
     <MESSAGE value="versão da matola" />
     <MESSAGE value="versão da prospere" />
     <MESSAGE value="aranjos no diario, no contrato da Prospere e a fins" />
@@ -1856,15 +1854,16 @@
     <MESSAGE value="não permissão da visualização do editor de credito para clientes em divida quando nas definições não permetido desembolso com dividas" />
     <MESSAGE value="adição de programacao de jobs para actualizar as moras diariamente" />
     <MESSAGE value="a data de referencai no dia foi retificado para estar de acordo com a data actual" />
-    <option name="LAST_COMMIT_MESSAGE" value="a data de referencai no dia foi retificado para estar de acordo com a data actual" />
+    <MESSAGE value="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome," />
+    <option name="LAST_COMMIT_MESSAGE" value="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome," />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser" timestamp="1642475289857">
+    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser" timestamp="1643199800284">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633232693" />
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1642475289857" />
+    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1643199800284" />
     <state x="92" y="92" width="1182" height="544" maximized="true" key="DiffContextDialog" timestamp="1639494623871">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1873,26 +1872,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1634829442627" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1642478494051">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1643199995324">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1642478494051">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1643199995324" />
+    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1643199995324">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1642478494051">
+    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1643199995324" />
+    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1643199995324">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1642478494051">
+    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1643199995324" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1643199995324">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1642478494051" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1643199995324" />
     <state x="477" y="66" key="RollbackChangesDialog" timestamp="1639494625947">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1901,11 +1900,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1637526945848" />
-    <state width="498" height="497" key="SwitcherDM" timestamp="1642478868276">
+    <state width="498" height="497" key="SwitcherDM" timestamp="1643199929999">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="498" height="497" key="SwitcherDM/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633838996" />
-    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1642478868276" />
+    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1643199929999" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1637531841676">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1918,19 +1917,19 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1634776430143" />
-    <state x="267" y="108" width="1021" height="620" key="find.popup" timestamp="1641456949852">
+    <state x="267" y="108" width="1021" height="620" key="find.popup" timestamp="1643028720554">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="267" y="108" width="1021" height="620" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1641456949852" />
+    <state x="267" y="108" width="1021" height="620" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1643028720554" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1639493190231">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1639493190231" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1642478888339">
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1643183611150">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638632162398" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1642478888339" />
+    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1643183611150" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
