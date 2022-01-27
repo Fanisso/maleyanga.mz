@@ -30,7 +30,14 @@
                     <cell colspan="3" style="text-align:center">
                         <label style="font-size:16pt" value="Extrato de crédito"/>
                     </cell>
+                    <cell colspan="1" style="text-align:center">
+                        <label style="font-size:13pt" value="Data:"/>
+                        <label style="font-size:13pt"
+                               value="@load(vm.data)@converter('formatedDate', format='dd/MM/yy|HH:mm')"/>
+                    </cell>
+
                 </row>
+
                 <row>
                     <cell colspan="2" style="text-align:left">
                         <label style="font-size:14pt" value="Dados do Cliente"/>

@@ -31,10 +31,15 @@ class PrintExtratoDeCreditoViewModel {
     BigDecimal totalDivida = 0
     BigDecimal valorDaPrestacao = 0
     BigDecimal saldoEmMora = 0
+    Date data
     Integer numeroDePrestacoes
     Integer numeroDePrestacoesEmDia = 0
     Boolean dividaSemMoras
        // ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
+    Date getData() {
+        return new Date()
+    }
+
     BigDecimal getSaldoEmMora() {
         saldoEmMora = 0
         saldoEmMora = valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito

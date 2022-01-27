@@ -424,14 +424,15 @@
                                              width="100%"/>
                                 </row>
                                 <row>
-                                    <label value="Data de Emissão"/>
+                                    <label value="Data de emissão"/>
                                     <datebox format="dd/MM/yy"
-                                             value="@bind(vm.sAssinante.dataDeExpiracaoDoAssinante)"
+                                             value="@bind(vm.sAssinante.dataDeEmissao)"
                                              width="100%"/>
                                 </row>
                                 <row>
-                                    <label value="Residencia"/>
-                                    <textbox value="@bind(vm.sAssinante.residenciaDoAssinante)"
+                                    <label value="Válidade"/>
+                                    <datebox format="dd/MM/yy"
+                                             value="@bind(vm.sAssinante.dataDeExpiracaoDoAssinante)"
                                              width="100%"/>
                                 </row>
 
@@ -447,16 +448,16 @@
                             </columns>
                             <rows>
                                 <row>
+                                    <label value="Residencia"/>
+                                    <textbox value="@bind(vm.sAssinante.residenciaDoAssinante)"
+                                             width="100%"/>
+                                </row>
+                                <row>
                                     <label value="Local de Trabalho/ Negócio"/>
                                     <textbox value="@bind(vm.sAssinante.localDeTrabalhoDoAssinante)"
                                              width="100%"/>
                                 </row>
-                                <row>
-                                    <label value="E-mail"/>
-                                    <textbox
-                                            constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
-                                            value="@bind(vm.sAssinante.emailDoAssinante)" width="100%"/>
-                                </row>
+
 
                                 <row>
                                     <label value="Nº. de Telefone"/>
@@ -485,6 +486,12 @@
                                         </template>
                                     </combobox>
 
+                                </row>
+                                <row>
+                                    <label value="E-mail"/>
+                                    <textbox
+                                            constraint="/.+@.+\.[a-z]+/: Insira um endereço de email válido!"
+                                            value="@bind(vm.sAssinante.emailDoAssinante)" width="100%"/>
                                 </row>
                                 <row>
                                     <cell colspan="2" style="text-align:center">

@@ -11,6 +11,7 @@ class Assinante implements Serializable{
     String numeroDeIndentificaoDoAssinante
     Date dataDeExpiracaoDoAssinante
     String residenciaDoAssinante
+    Date dataDeEmissao
     String emailDoAssinante
     Utilizador utilizador
     String localDeTrabalhoDoAssinante
@@ -24,7 +25,7 @@ class Assinante implements Serializable{
     }
     static belongsTo = [cliente: Cliente]
     static constraints = {
-
+        dataDeEmissao nullable: true
         utilizador nullable: true
         nomeDoAssinante nullable: false, unique: true
         nuitDoAssinante nullable: true, unique: true
