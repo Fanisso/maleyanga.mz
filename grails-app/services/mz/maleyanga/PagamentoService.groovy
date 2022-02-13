@@ -832,13 +832,52 @@ class PagamentoService {
     }
 
     def udateDatas(Credito creditoInstance) {
-        Calendar c = Calendar.getInstance()
-        DefinicaoDeCredito definicaoDeCredito = DefinicaoDeCredito.findByPeriodicidadeAndAtivoAndFormaDeCalculo(creditoInstance.periodicidade,
-                true, creditoInstance.formaDeCalculo)
+        int x = 0
         def pagamentos = Pagamento.findAllByCredito(creditoInstance)
-        def feriados = Feriado.all
-        for (Pagamento p in pagamentos) {
-            c.setTime(p.dataPrevistoDePagamento)
+        pagamentos.sort { it.id }
+        Calendar c = Calendar.getInstance()
+        c.setTime(creditoInstance.dateConcecao)
+        def definicaoDeCredito = DefinicaoDeCredito.findAllByAtivoAndPeriodicidadeAndFormaDeCalculo(true, creditoInstance.periodicidade, creditoInstance.formaDeCalculo)
+        1.upto(creditoInstance.numeroDePrestacoes) {
+
+
+            if (creditoInstance.periodicidade == "mensal") {
+                c.add(Calendar.MONTH, 1)
+            }
+            if (creditoInstance.periodicidade == "quinzenal") {
+                c.add(Calendar.DATE, 15)
+            }
+            if (creditoInstance.periodicidade == "semanal") {
+                c.add(Calendar.DATE, 7)
+            }
+            if (creditoInstance.periodicidade == "diario") {
+                c.add(Calendar.DATE, 1)
+            }
+            if (creditoInstance.periodicidade == "doisdias") {
+                c.add(Calendar.DATE, 2)
+            }
+            if (creditoInstance.periodicidade == "variavel") {
+                int variavel = definicaoDeCredito.periodoVariavel as int
+                creditoInstance.periodoVariavel = variavel as Integer
+                c.add(Calendar.DATE, variavel)
+            }
+            //   System.println('depois do incremento' + c.getTime())
+
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK)
+            if (dayOfWeek == 7) {
+                if (definicaoDeCredito.excluirSabados) {
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
+            }
+            int dayOfWee = c.get(Calendar.DAY_OF_WEEK)
+            if (dayOfWee == 1) {
+                if (definicaoDeCredito.excluirDomingos) {
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
+
+
+            }
+            def feriados = Feriado.all
             for (Iterator<Feriado> i = feriados.iterator(); i.hasNext();) {
                 Feriado feriado = i.next()
                 if (Objects.equals(c.getTime().format("dd/MM/yyyy"), feriado.data.format("dd/MM/yyyy"))) {
@@ -854,11 +893,26 @@ class PagamentoService {
 
                 }
             }
-            p.setDataPrevistoDePagamento(c.getTime())
-            p.merge(flush: true)
+            int dayOf = c.get(Calendar.DAY_OF_WEEK)
+            if (dayOf == 7) {
+                if (definicaoDeCredito.excluirSabados) {
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
+            }
+            int dayO = c.get(Calendar.DAY_OF_WEEK)
+            if (dayO == 1) {
+                if (definicaoDeCredito.excluirDomingos) {
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                }
+
+
+            }
+
+            pagamentos[x].setDataPrevistoDePagamento(c.getTime())
+            pagamentos[x].merge(flush: true)
+            x++
 
         }
-
 
     }
 }

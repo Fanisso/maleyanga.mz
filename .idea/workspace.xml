@@ -45,14 +45,10 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="inicio de alteração do precesso dos pagamnetos, onde se pretende optimizar as transações em caixa">
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="criaa a função de actualizar datas de pagamento em função dos feriados">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintExtratoDosCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintExtratoDosCreditosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1410,14 +1406,7 @@
       <workItem from="1643790338017" duration="9479000" />
       <workItem from="1644220437572" duration="220000" />
       <workItem from="1644401554641" duration="27000" />
-      <workItem from="1644728104188" duration="6968000" />
-    </task>
-    <task id="LOCAL-00098" summary="actualização do sistema para a aplicação de taxas manualmente ou automaticamente">
-      <created>1617588313617</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1617588313617</updated>
+      <workItem from="1644728104188" duration="11429000" />
     </task>
     <task id="LOCAL-00099" summary="actualização do sistema para permetir a exclusão de sabados e ou domingos na previsão de datas de pagamento">
       <created>1618836486940</created>
@@ -1755,7 +1744,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643792193942</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="criaa a função de actualizar datas de pagamento em função dos feriados">
+      <created>1644735221989</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1644735221993</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1835,7 +1831,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="versão da prospere" />
     <MESSAGE value="aranjos no diario, no contrato da Prospere e a fins" />
     <MESSAGE value="add extrto to fundo de maneio. e fiz corecções de erros" />
     <MESSAGE value="alteracao do diario para não permitir a abertura de mais de um diario. tbm foi actualizado o sistema de forma a não permitir que se lance pagamentos sem nenhum diario aberto" />
@@ -1860,7 +1855,8 @@
     <MESSAGE value="a data de referencai no dia foi retificado para estar de acordo com a data actual" />
     <MESSAGE value="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome," />
     <MESSAGE value="add data no extrato de crédito" />
-    <option name="LAST_COMMIT_MESSAGE" value="add data no extrato de crédito" />
+    <MESSAGE value="criaa a função de actualizar datas de pagamento em função dos feriados" />
+    <option name="LAST_COMMIT_MESSAGE" value="criaa a função de actualizar datas de pagamento em função dos feriados" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1873,26 +1869,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" maximized="true" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1643801557581" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1644731021485">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1644738845730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1644731021485" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1644731021485">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1644738845730" />
+    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1644738845730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1644731021485" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1644731021484">
+    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1644738845730" />
+    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1644738845730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1644731021484" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1644731021485">
+    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1644738845730" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1644738845730">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="150" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1644731021485" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1644738845730" />
     <state x="477" y="66" key="RollbackChangesDialog" timestamp="1643801262247">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
