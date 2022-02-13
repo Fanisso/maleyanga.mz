@@ -729,6 +729,28 @@ class CreditoViewModel {
     }
 
     @Command
+    def updateDatas(){
+        info.value= ""
+        Utilizador user = springSecurityService.currentUser as Utilizador
+        if (!user.authorities.any { it.authority == "PAGAMENTO_EDIT" }) {
+            info.value="Este utilizador não tem permissão para executar esta acção !"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+
+        }else {
+           try {
+
+               pagamentoService.udateDatas(credito)
+               info.value = "Datas actualizadas com sucesso!"
+           }catch(Exception e){
+               info.style= red
+               info.value = "Erro na atualização dos dados, por favor faz o refresh da pagina e inicie de novo o processo!"
+               System.println(e.toString())
+           }
+        }
+
+    }
+
+    @Command
     @NotifyChange(["credito","pagamentos"])
     def removerCapitalizacoes(){
         Utilizador user = springSecurityService.currentUser as Utilizador

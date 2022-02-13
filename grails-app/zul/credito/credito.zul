@@ -283,6 +283,9 @@
             <button visible="@bind(not empty vm.credito.id)"
                     image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('capitalizar')"
                     label="Capitalizar"/>
+            <button visible="@bind(not empty vm.credito.id)"
+                    image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('updateDatas')"
+                    label="Actualizar Datas"/>
 
 
             <!-- <button  image="${z.resource(dir:'images', file:'view.png')}"

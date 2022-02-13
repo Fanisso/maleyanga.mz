@@ -91,7 +91,7 @@
                 </footer>
                 <footer>
                     <label style="font-size:11pt;font-weight:bold"
-                           value="@load(vm.totalDivida-(vm.totalDividaSemMoras))@converter('formatedNumber', format='###,##0.00')"/>
+                           value="@load(vm.totalDeTotalMoras)@converter('formatedNumber', format='###,##0.00')"/>
                 </footer>
                 <footer>
                     <label style="font-size:11pt;font-weight:bold"

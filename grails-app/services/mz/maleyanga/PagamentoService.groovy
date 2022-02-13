@@ -8,7 +8,7 @@ import mz.maleyanga.pagamento.Pagamento
 import mz.maleyanga.pagamento.Parcela
 import mz.maleyanga.pagamento.Remissao
 import mz.maleyanga.settings.DefinicaoDeCredito
-
+import mz.maleyanga.settings.Settings
 import org.springframework.transaction.annotation.Transactional
 import org.zkoss.zul.ListModelList
 
@@ -50,7 +50,7 @@ class PagamentoService {
         c.setTime(creditoInstance.dateConcecao)
 
         1.upto(creditoInstance.numeroDePrestacoes) {
-            System.println('antes do incremento' + c.getTime())
+            //  System.println('antes do incremento' + c.getTime())
             if (creditoInstance.periodicidade == "mensal") {
                 c.add(Calendar.MONTH, 1)
             }
@@ -71,7 +71,7 @@ class PagamentoService {
                 creditoInstance.periodoVariavel = variavel as Integer
                 c.add(Calendar.DATE, variavel)
             }
-            System.println('depois do incremento' + c.getTime())
+            //   System.println('depois do incremento' + c.getTime())
             def pagamento = new Pagamento()
             def num = creditoInstance.numeroDePrestacoes
             pagamento.recorenciaDeMoras = definicaoDeCredito.recorenciaDeMoras
@@ -80,7 +80,7 @@ class PagamentoService {
             if (dayOfWeek == 7) {
                 if (definicaoDeCredito.excluirSabados) {
                     pagamento.descricao += "Sabado!"
-                    System.println('sabado' + c.getTime())
+                    //  System.println('sabado' + c.getTime())
                     c.add(Calendar.DAY_OF_MONTH, 1)
                 }
             }
@@ -89,7 +89,7 @@ class PagamentoService {
                 if (definicaoDeCredito.excluirDomingos) {
                     pagamento.descricao += "Domingo"
                     dias = dias + 1
-                    System.println('domingo' + c.getTime())
+                    //  System.println('domingo' + c.getTime())
                     c.add(Calendar.DAY_OF_MONTH, 1)
                 }
 
@@ -115,7 +115,7 @@ class PagamentoService {
             if (dayOf == 7) {
                 if (definicaoDeCredito.excluirSabados) {
                     pagamento.descricao += "Sabado!"
-                    System.println('sabado' + c.getTime())
+                    //  System.println('sabado' + c.getTime())
                     c.add(Calendar.DAY_OF_MONTH, 1)
                 }
             }
@@ -124,7 +124,7 @@ class PagamentoService {
                 if (definicaoDeCredito.excluirDomingos) {
                     pagamento.descricao += "Domingo"
                     dias = dias + 1
-                    System.println('domingo' + c.getTime())
+                    // System.println('domingo' + c.getTime())
                     c.add(Calendar.DAY_OF_MONTH, 1)
                 }
 
@@ -132,8 +132,6 @@ class PagamentoService {
             }
 
             pagamento.setDataPrevistoDePagamento(c.getTime())
-            System.println(c.getTime())
-            System.println('data previsto de pagamento' + pagamento.dataPrevistoDePagamento)
             pagamento.setValorDaPrestacao(valorDaPrestacao)
 
             pagamento.setDescricao("${it}º- Prestação")
@@ -141,7 +139,7 @@ class PagamentoService {
             pagamento.setNumeroDePagamento(numeroDoCredito[0] + numeroDoCredito[1] + it.toString())
             if (num.equals(it)) {
                 if (creditoInstance.reterCapital) {
-                    System.println("reterCapital")
+                    //   System.println("reterCapital")
                     pagamento.setValorDaPrestacao(valorDaPrestacao + creditoInstance.valorCreditado)
                 }
 
@@ -186,7 +184,7 @@ class PagamentoService {
             BigDecimal v_amortizacao = 0
             for (Pagamento pagamento in pagamentos) {
                 v_amortizacao += amortizacao
-                System.println(base)
+                //  System.println(base)
                 pagamento.valorDeAmortizacao = amortizacao
                 pagamento.valorDeJuros = valorDeJuros
                 pagamento.saldoDevedor = base - v_amortizacao
@@ -390,7 +388,7 @@ class PagamentoService {
                 dias = 28
 
             }
-            System.println("calcularMoraCaPital" + " time==" + agora + " Dias==" + dias)
+            //  System.println("calcularMoraCaPital" + " time==" + agora + " Dias==" + dias)
 
             List<Pagamento> pagamentos = new ArrayList<Pagamento>(Pagamento.findAllByCredito(creditoInstance))
             pagamentos.sort { it.id }
@@ -406,7 +404,7 @@ class PagamentoService {
                 if (dias > 0) {
                     def moras = dias / periodo
 
-                    System.println("moras==" + moras)
+                    //  System.println("moras==" + moras)
                     creditoInstance.setMoras(moras.setScale(0, RoundingMode.HALF_DOWN).toInteger())
                     if (creditoInstance.moras > 0) {
                         for (int m = 1; m < creditoInstance.moras; m++) {
@@ -422,7 +420,7 @@ class PagamentoService {
                                 Calendar call = Calendar.getInstance()
                                 call.setTime(creditoInstance.validade)
                                 call.add(Calendar.MONTH, m)
-                                System.println(call.getTime())
+                                //  System.println(call.getTime())
                                 paga.dataDaCriacao = call.getTime()
                                 BigDecimal divida = getSaldo(pagamentos, creditoInstance, paga.dataDaCriacao)
                                 def pdjdd = creditoInstance.percentualJurosDeDemora
@@ -622,10 +620,10 @@ class PagamentoService {
 
 
         dias += parcelaInstance.dataDePagamento - parcelaInstance.pagamento.dataPrevistoDePagamento
-        System.println("dias de demora =" + dias)
+        //  System.println("dias de demora =" + dias)
         if (dias > 0) {
 
-            System.println(dias + " > 0")
+            //  System.println(dias + " > 0")
             def moras = dias / periodo
             if (moras.setScale(0, RoundingMode.HALF_DOWN).toInteger() >= 1) {
                 moras = 1
@@ -772,7 +770,7 @@ class PagamentoService {
 
             for (Pagamento pagamento in pagamentos) {
                 v_amortizacao += amortizacao
-                System.println(base)
+                //  System.println(base)
                 pagamento.valorDeAmortizacao = amortizacao
                 pagamento.valorDeJuros = valorDeJuros
                 pagamento.saldoDevedor = base - v_amortizacao
@@ -780,7 +778,7 @@ class PagamentoService {
             }
 
         }
-        System.println(pagamentos)
+        // System.println(pagamentos)
         return pagamentos
     }
 
@@ -831,5 +829,36 @@ class PagamentoService {
 
         def pgmts = Pagamento.findAllByDataPrevistoDePagamentoBetween(startDate, endDate)
         return pgmts
+    }
+
+    def udateDatas(Credito creditoInstance) {
+        Calendar c = Calendar.getInstance()
+        DefinicaoDeCredito definicaoDeCredito = DefinicaoDeCredito.findByPeriodicidadeAndAtivoAndFormaDeCalculo(creditoInstance.periodicidade,
+                true, creditoInstance.formaDeCalculo)
+        def pagamentos = Pagamento.findAllByCredito(creditoInstance)
+        def feriados = Feriado.all
+        for (Pagamento p in pagamentos) {
+            c.setTime(p.dataPrevistoDePagamento)
+            for (Iterator<Feriado> i = feriados.iterator(); i.hasNext();) {
+                Feriado feriado = i.next()
+                if (Objects.equals(c.getTime().format("dd/MM/yyyy"), feriado.data.format("dd/MM/yyyy"))) {
+                    c.add(Calendar.DAY_OF_MONTH, 1)
+                    int sabado = c.get(Calendar.DAY_OF_WEEK)
+                    if (definicaoDeCredito.excluirDiaDePagNoSabado && sabado == 7) {
+                        c.add(Calendar.DAY_OF_MONTH, 1)
+                    }
+                    int domingo = c.get(Calendar.DAY_OF_WEEK)
+                    if (definicaoDeCredito.excluirDiaDePagNoSabado && domingo == 1) {
+                        c.add(Calendar.DAY_OF_MONTH, 1)
+                    }
+
+                }
+            }
+            p.setDataPrevistoDePagamento(c.getTime())
+            p.merge(flush: true)
+
+        }
+
+
     }
 }

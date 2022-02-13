@@ -18,8 +18,11 @@ class PrintExtratoDosCreditosViewModel {
     BigDecimal totalDivida
     BigDecimal totalDividaSemMoras
     BigDecimal totalMoras
+    BigDecimal totalDeTotalMoras
 
-
+    BigDecimal getTotalDeTotalMoras() {
+        return totalDeTotalMoras
+    }
 
     BigDecimal getTotalValorDaPrestacao() {
         return totalValorDaPrestacao
@@ -59,32 +62,37 @@ class PrintExtratoDosCreditosViewModel {
         if(sessionStorageService.dataFinal!=null){
             dataFinal = sessionStorageService.getDataFinal()
         }
-
+        calcular()
     }
 
-    ListModelList<Pagamento> getCreditos() {
+    ListModelList<Credito> getCreditos() {
 
         if(creditos==null){
             creditos = new ListModelList<Credito>(Credito.findAllByDateConcecaoBetweenAndInvalido(dataInicial,dataFinal,false))
         }
-        calcular()
         return creditos
     }
     def calcular(){
+
         totalValorCreditado = 0.0
         totalJuros = 0.0
         totalDivida = 0.0
         totalPago = 0.0
         totalDividaSemMoras = 0.0
         totalMoras = 0.0
+        totalDeTotalMoras = 0.0
+        def creditoss = Credito.findAllByDateConcecaoBetweenAndInvalido(dataInicial,dataFinal,false)
+        
+        for(Credito c in creditoss){
 
-        for(Credito p in creditos){
-            p.getTotalMoras()
-            totalValorCreditado += p.valorCreditado
-            totalJuros += p.valorDeJuros
-            totalPago+=p.totalPago
-            totalDivida+=p.valorEmDivida
-            totalDividaSemMoras+=p.totalDaDividaSemMoras
+            totalValorCreditado += c?.valorCreditado
+            totalJuros += c?.valorDeJuros
+            totalPago+=c?.totalPago
+            totalDivida+=c?.valorEmDivida
+
+            totalDividaSemMoras+=c?.totalDaDividaSemMoras
+            totalDeTotalMoras+=c?.totalMoras
+
 
         }
     }
