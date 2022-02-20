@@ -14,7 +14,6 @@
         <grid width="1010px" model="@bind(vm.creditos)">
             <auxhead>
                 <auxheader style="font-size:14pt;text-align:center" label="Relatório dos Créditos" colspan="8"/>
-
             </auxhead>
             <auxhead>
                 <auxheader style="font-size:12pt;text-align:right" label="Total de Créditos"

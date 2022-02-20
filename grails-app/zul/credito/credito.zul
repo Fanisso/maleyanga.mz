@@ -250,18 +250,7 @@
             <!--<button visible="@load(not empty vm.credito.id)" image="${z.resource(dir:'images', file:'print.png')}"
                     onClick="@command('printPlanoDePagamento')" id="bt_print"
                     label="Plano de Pag. " width="120px" height="30px"/>-->
-            <hbox width="135px" visible="@bind(not empty vm.credito.id)">
-                <include src="/credito/printPlano.gsp"/>
-            </hbox>
-            <hbox width="86px" visible="@bind(not empty vm.credito.id)">
-                <include src="/credito/printExtrato.gsp"/>
-            </hbox>
-            <hbox width="95px" visible="@bind(not empty vm.credito.id)">
-                <include src="/credito/printContrato.gsp"/>
-            </hbox>
-            <hbox width="100px" visible="@bind(not empty vm.credito.id)">
-                <include src="/credito/printPenhoras.gsp"/>
-            </hbox>
+
             <!--  <button visible="@load(not empty vm.credito.id)" image="${z.resource(dir:'images', file:'print.png')}"
                       onClick="@command('')" id="bt"
                       label="Extrato d. Crédito. " width="140px" height="30px"/>-->
@@ -274,18 +263,7 @@
             </hbox>-->
 
 
-            <button visible="@bind(not empty vm.credito.id)"
-                    image="${z.resource(dir:'images', file:'remover.png')}" onClick="@command('alertDelete')"
-                    onDoubleClick="@command('delete')" label="Invalidar"/>
-            <button visible="@bind(not empty vm.credito.id)"
-                    image="${z.resource(dir:'images', file:'remover.png')}" onClick="@command('removerCapitalizacoes')"
-                    label="Invalidar Capitalizações"/>
-            <button visible="@bind(not empty vm.credito.id)"
-                    image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('capitalizar')"
-                    label="Capitalizar"/>
-            <button visible="@bind(not empty vm.credito.id)"
-                    image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('updateDatas')"
-                    label="Actualizar Datas"/>
+
 
 
             <!-- <button  image="${z.resource(dir:'images', file:'view.png')}"
@@ -301,14 +279,50 @@
 
         </div>
 
+
         <tabbox height="600px">
+            <toolbar>
+                <label style="font-size:13pt;text-align:center" value="@load(vm.selectedCliente.nome)"/>
+            </toolbar>
             <tabs>
-                <tab id="tb_abertos" label="@load(vm.creditosDe)"/>
+
+                <tab id="tb_abertos" label="Créditos"/>
                 <tab label="Parcelas"/>
                 <tab label="Pedidos De Crédito"/>
+                <tab label="Penhoras"/>
             </tabs>
             <tabpanels height="">
+
                 <tabpanel>
+                    <hbox>
+                        <hbox width="135px" visible="@bind(not empty vm.credito.id)">
+                            <include src="/credito/printPlano.gsp"/>
+                        </hbox>
+                        <hbox width="86px" visible="@bind(not empty vm.credito.id)">
+                            <include src="/credito/printExtrato.gsp"/>
+                        </hbox>
+                        <hbox width="95px" visible="@bind(not empty vm.credito.id)">
+                            <include src="/credito/printContrato.gsp"/>
+                        </hbox>
+                        <hbox width="100px" visible="@bind(not empty vm.credito.id)">
+                            <include src="/credito/printPenhoras.gsp"/>
+                        </hbox>
+                        <button visible="@bind(not empty vm.credito.id)"
+                                image="${z.resource(dir:'images', file:'remover.png')}"
+                                onClick="@command('alertDelete')"
+                                onDoubleClick="@command('delete')" label="Invalidar"/>
+                        <button visible="@bind(not empty vm.credito.id)"
+                                image="${z.resource(dir:'images', file:'remover.png')}"
+                                onClick="@command('removerCapitalizacoes')"
+                                label="Invalidar Capitalizações"/>
+                        <button visible="@bind(not empty vm.credito.id)"
+                                image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('capitalizar')"
+                                label="Capitalizar"/>
+                        <button visible="@bind(not empty vm.credito.id)"
+                                image="${z.resource(dir:'images', file:'update.png')}" onClick="@command('updateDatas')"
+                                label="Actualizar Datas"/>
+                    </hbox>
+
                     <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.credito)"
                              model="@load(vm.creditos)" width=""
                              height="" mold="paging" pageSize="10">
@@ -353,6 +367,9 @@
                     </listbox>
                 </tabpanel>
                 <tabpanel>
+                    <button visible="@bind(not empty vm.sPagamento.id)"
+                            image="${z.resource(dir:'images', file:'remover.png')}" onClick="@command('alertDelete')"
+                            onDoubleClick="@command('deletePagamento')" label="Invalidar"/>
                     <listbox checkmark="true" style="@bind('style')" selectedItem="@bind(vm.sPagamento)"
                              model="@load(vm.pagamentos)" width=""
                              height="" mold="paging" pageSize="10">
@@ -482,6 +499,72 @@
                         </template>
 
                     </listbox>
+                </tabpanel>
+                <tabpanel>
+                    <button visible="@load(not empty vm.credito.id)" image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addPagamento')"
+                            label="Novo Custo"/>
+                    <hbox>
+                        <grid id="gd_pagamento" visible="@load(not empty vm.pagamento)" width="450px">
+                            <columns>
+                                <column label="@load(vm.credito.numeroDoCredito)" value="" width="150px"/>
+                                <column label="@load(vm.pagamento.numeroDePagamento)"/>
+                            </columns>
+                            <rows>
+
+                                <row>
+                                    <label value="Valor (custo)"/>
+                                    <decimalbox placeholder="Valor" constraint="no empty, no negative, no zero"
+                                                style="font-size:15pt;font-weight:bold;border:none"
+                                                onChange="@command('')" format="###,##0.00"
+                                                width="200px" value="@bind(vm.pagamento.valorDaPrestacao)  "/>
+                                </row>
+                                <row>
+                                    <label value="Data Prev. de Pag."/>
+                                    <datebox format="dd/MM/yy" constraint="no empty" width="100%"
+                                             value="@bind(vm.pagamento.dataPrevistoDePagamento)"/>
+                                </row>
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox constraint="no empty" width="100%" value="@bind(vm.pagamento.descricao)"/>
+                                </row>
+                                <row>
+                                    <cell colspan="2">
+                                        <button image="${z.resource(dir:'images', file:'save.png')}"
+                                                onClick="@command('salvarPagamento')"
+                                                label="Salvar " width="100px" height="30px"/>
+                                        <button id="bt_" image="${z.resource(dir:'images', file:'cancelar.png')}"
+                                                label="Fechar Editor" onClick="@command('fecharEditor')"/>
+
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                        <grid width="400px">
+                            <rows>
+                                <row>
+                                    <label value="Crédito Nº."/>
+                                    <label value="@load(vm.credito.numeroDoCredito)"/>
+                                </row>
+                                <row>
+                                    <label value="Valor Créditado"/>
+                                    <label value="@load(vm.credito.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
+                                </row>
+                                <row>
+                                    <label value="Valor Em Mora:"/>
+                                    <label value="@load(vm.credito.totalMoras)@converter('formatedNumber', format='###,##0.00')"/>
+                                </row>
+                                <row>
+                                    <label value="Data De Concenção do crédito"/>
+                                    <label value="@load(vm.credito.dateConcecao) @converter('formatedDate', format='dd/MM/yy')"/>
+                                </row>
+
+                            </rows>
+
+                        </grid>
+                    </hbox>
+
+
                 </tabpanel>
             </tabpanels>
         </tabbox>

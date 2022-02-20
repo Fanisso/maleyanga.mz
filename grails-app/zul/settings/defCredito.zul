@@ -282,7 +282,7 @@
                                 <row>
                                     <button width="100%" image="${z.resource(dir:'images', file:'update.png')}"
                                             onClick="@command('calcularMorasAutomatico')"
-                                            label="Capitalização automatica"/>
+                                            label="Calculo automático de moras"/>
                                     <label value="@bind(vm.calcularAutomatico)"/>
                                 </row>
                                 <row>

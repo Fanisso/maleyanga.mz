@@ -27,11 +27,14 @@ class ExecutarCalculoDePagamentosVencidosJob {
         def creditos = Credito.findAllByEmDivida(true)
         def clientes = Cliente.all
         if (settings.calcularAutomatico) {
+            System.println("inicio de calculo automatico de moras!")
             for (Credito credito in creditos) {
+
                 def result
                 // pagamentoService.calcularMoras(p)
                 pagamentoService.calcularMoraCaPital(credito)
             }
+            System.println("fim de calculo automatico de moras!")
         }
         for (Pagamento p in pagamentos) {
             p.merge()

@@ -84,7 +84,6 @@ class PrintExtratoDosCreditosViewModel {
         def creditoss = Credito.findAllByDateConcecaoBetweenAndInvalido(dataInicial,dataFinal,false)
         
         for(Credito c in creditoss){
-
             totalValorCreditado += c?.valorCreditado
             totalJuros += c?.valorDeJuros
             totalPago+=c?.totalPago

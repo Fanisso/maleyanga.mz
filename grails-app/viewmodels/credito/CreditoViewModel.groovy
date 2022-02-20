@@ -32,6 +32,8 @@ import org.zkoss.zul.Hbox
 import org.zkoss.zul.ListModelList
 import org.zkoss.zul.Tab
 
+import java.sql.SQLException
+
 @Transactional
 @Service
 
@@ -61,6 +63,7 @@ class CreditoViewModel {
     private dataInicial
     private dataFinal
     @Wire Tab tb_abertos
+    @Wire Grid gd_pagamento
     private PedidoDeCredito pedidoDeCredito
     private  Cliente selectedCliente
     ContadorService contadorService
@@ -94,6 +97,65 @@ class CreditoViewModel {
     private boolean taxaManual = true
     private boolean db_data = false
     private  String creditosDe = "Créditos"
+    private Pagamento pagamento
+
+    @Command
+    @NotifyChange(["pagamentos"])
+    def salvarPagamento(){
+        Utilizador user = springSecurityService.currentUser as Utilizador
+        if (!user.authorities.any { it.authority == "PAGAMENTO_CREATE" }) {
+            info.value="Este utilizador não tem permissão para executar esta acção !"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+        }
+        try {
+           pagamento.save(flush: true)
+            info.value="Operação feita com sucesso!"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+        }catch(SQLException e){
+            info.value="Erro na gravação dos dados!"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+            System.println(e.toString())
+        }
+    }
+
+    @Command
+    @NotifyChange(["pagamentos","credito"])
+    def deletePagamento(){
+        try {
+            Utilizador user = springSecurityService.currentUser as Utilizador
+            if (!user.authorities.any { it.authority == "PAGAMENTO_DELETE" }) {
+                info.value="Este utilizador não tem permissão para executar esta acção !"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+            }
+           sPagamento.delete(flush: true)
+            info.value="A Parcela Nº" +sPagamento.numeroDePagamento+" foi eliminada com sucesso!"
+            info.style = "color:blue;font-weight;font-size:16px;background:back"
+        }catch(SQLException e){
+            info.value="Erro na remoção da Parcela! detais:"+e.toString()
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+        }
+    }
+    @Command
+    @NotifyChange(["pagamento"])
+    def addPagamento(){
+        pagamento = new  Pagamento()
+        pagamento.recorenciaDeMoras = credito.recorenciaDeMoras
+        pagamento.setCredito(credito)
+        pagamento.valorDeAmortizacao = 0.0
+        pagamento.valorDeJuros = 0.0
+        pagamento.saldoDevedor = 0.0
+        pagamentos.sort{it.id}
+        def num = pagamentos.last().numeroDePagamento as Integer
+        num++
+        pagamento.numeroDePagamento=num
+    }
+    Pagamento getPagamento() {
+        return  pagamento
+    }
+
+    void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento
+    }
 
     String getCliente_style() {
         cliente_style="background:#69F4AF;font-weight:bold;font-size:11pt"
@@ -223,7 +285,7 @@ class CreditoViewModel {
         }*/
 
         else {
-            info.value="Double Click para eliminar este credito!"
+            info.value="Double Click para eliminar este item!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
         }
     }
@@ -444,6 +506,7 @@ class CreditoViewModel {
     @NotifyChange(["prestacoes","credito"])
     def fecharEditor(){
         info.value = ""
+        gd_pagamento.visible=false
         if(hb_editor.visible){
             hb_editor.visible = false
             bt_fechar.label= "Editor"
