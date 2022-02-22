@@ -45,15 +45,9 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="criaa a função de actualizar datas de pagamento em função dos feriados">
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga/ExecutarCalculoDePagamentosVencidosJob.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga/ExecutarCalculoDePagamentosVencidosJob.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintExtratoDosCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintExtratoDosCreditosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printExtratoDosCreditos.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/settings/defCredito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/settings/defCredito.zul" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1414,14 +1408,9 @@
       <workItem from="1644728104188" duration="11482000" />
       <workItem from="1644848167022" duration="46000" />
       <workItem from="1644981984708" duration="1647000" />
-      <workItem from="1645338120603" duration="9299000" />
-    </task>
-    <task id="LOCAL-00100" summary="actualização do sistema para permetir a exclusão de sabados e ou domingos na previsão de datas de pagamento">
-      <created>1618838608334</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1618838608334</updated>
+      <workItem from="1645338120603" duration="9697000" />
+      <workItem from="1645544669796" duration="924000" />
+      <workItem from="1645546601983" duration="1650000" />
     </task>
     <task id="LOCAL-00101" summary="retificacao do extrato de credito">
       <created>1618951287221</created>
@@ -1759,7 +1748,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644739679089</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras">
+      <created>1645359151199</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1645359151215</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1839,7 +1835,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="aranjos no diario, no contrato da Prospere e a fins" />
     <MESSAGE value="add extrto to fundo de maneio. e fiz corecções de erros" />
     <MESSAGE value="alteracao do diario para não permitir a abertura de mais de um diario. tbm foi actualizado o sistema de forma a não permitir que se lance pagamentos sem nenhum diario aberto" />
     <MESSAGE value="efetivado com sucesso os erros que havia nos relatorios das prestações devido a falha da existencia de clientes sem gestores" />
@@ -1864,73 +1859,31 @@
     <MESSAGE value="NO PROGRAMA novo cliente foi adcionado uma função que permite a pesquisa pelo nome a medida que se for a degitar o nome," />
     <MESSAGE value="add data no extrato de crédito" />
     <MESSAGE value="criaa a função de actualizar datas de pagamento em função dos feriados" />
-    <option name="LAST_COMMIT_MESSAGE" value="criaa a função de actualizar datas de pagamento em função dos feriados" />
+    <MESSAGE value="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras" />
+    <option name="LAST_COMMIT_MESSAGE" value="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser" timestamp="1645341061952">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1645547653596">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633232693" />
-    <state x="684" y="69" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1645341061952" />
-    <state x="92" y="92" width="1182" height="544" maximized="true" key="DiffContextDialog" timestamp="1643801557581">
+    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1645547653596" />
+    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1645547653596">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" maximized="true" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1643801557581" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1645356056097">
+    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1645547653596" />
+    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1645547653596">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1645356056097" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1645356056097">
+    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1645547653596" />
+    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1645547653596">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="150" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1645356056097" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1645356056097">
+    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1645547653596" />
+    <state width="515" height="448" key="SwitcherDM" timestamp="1645547608022">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="150" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1645356056097" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1645356056097">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="150" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638636967837" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1645356056097" />
-    <state x="477" y="66" key="RollbackChangesDialog" timestamp="1643801262247">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="477" y="66" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1643801262247" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1637526945848">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1637526945848" />
-    <state width="498" height="497" key="SwitcherDM" timestamp="1645358453775">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="498" height="497" key="SwitcherDM/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638633838996" />
-    <state width="498" height="497" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1645358453775" />
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1643204480355">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1643204480355" />
-    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1642474602968">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="293" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1642474602968" />
-    <state x="267" y="108" width="1021" height="620" key="find.popup" timestamp="1643028720554">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="267" y="108" width="1021" height="620" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1643028720554" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1644734016982">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1644734016982" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1645341131796">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1638632162398" />
-    <state x="339" y="17" width="672" height="676" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1645341131796" />
+    <state width="515" height="448" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1645547608022" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
