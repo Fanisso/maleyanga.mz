@@ -174,7 +174,7 @@ class PagamentoService {
                 pagamentos[x - 1].saldoDevedor = its[x].saldoDevedor.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
                 pagamentos[x - 1].valorDeJuros = its[x].juros.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
                 pagamentos[x - 1].valorDeAmortizacao = its[x].amortizacao.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
-                pagamentos[x - 1].save flush: true
+                pagamentos[x - 1].save(failOnError: true, flush: true)
 
             }
         } else if (creditoInstance.formaDeCalculo == "taxafixa") {
@@ -188,7 +188,7 @@ class PagamentoService {
                 pagamento.valorDeAmortizacao = amortizacao
                 pagamento.valorDeJuros = valorDeJuros
                 pagamento.saldoDevedor = base - v_amortizacao
-                pagamento.save flush: true
+                pagamento.save(failOnError: true, flush: true)
 
             }
 
@@ -452,7 +452,7 @@ class PagamentoService {
                     creditoInstance.moras = 0
                 }
 
-            creditoInstance.merge(flush: true)
+            creditoInstance.merge(failOnError: true)
 
             //  pagamentoInstance.merge(flush: true)
 

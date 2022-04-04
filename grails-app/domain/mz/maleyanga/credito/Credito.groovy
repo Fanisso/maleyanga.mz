@@ -110,13 +110,13 @@ class Credito implements Serializable {
     boolean getEmDivida() {
         return valorEmDivida < 0
     }
-    static hasMany = [pagamentos: Pagamento, anexos: Anexo]
+    static hasMany = [pagamentos: Pagamento]
 
 
     static mapping = {
-        cliente lazy: false
+        //   cliente lazy: false
         id generator: 'increment'
-
+        batchSize(30)
     }
 
     static constraints = {
@@ -128,7 +128,7 @@ class Credito implements Serializable {
         periodoVariavel nullable: true
         moras nullable: true
         validade nullable: true
-        anexos nullable: true
+        //  anexos nullable: true
         utilizador nullable: true
         lastUpdated nullable: true
         taxas nullable: true

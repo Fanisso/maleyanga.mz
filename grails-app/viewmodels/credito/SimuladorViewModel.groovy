@@ -51,8 +51,8 @@ class SimuladorViewModel {
     private ListModelList<Cliente> clientes
     private ListModelList<Pagamento> prestacoes
     @Wire Label info
-    String red = "color:red"
-    String blue = "color:blue"
+    String red = "color:red;font-size:14pt"
+    String blue = "color:blue;font-size:14pt"
     boolean bt_print
 
     Date getDataPrevista() {

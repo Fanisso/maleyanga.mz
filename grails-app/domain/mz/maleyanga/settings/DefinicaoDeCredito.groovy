@@ -38,6 +38,7 @@ class DefinicaoDeCredito {
 
     static mapping = {
         taxa lazy: false
+        batchSize(5)
     }
 
     static constraints = {

@@ -18,7 +18,7 @@ class Remissao implements Serializable {
     Utilizador utilizador
     Conta contaOrigem
     Diario diario
-    static hasMany = [anexos: Anexo]
+   // static hasMany = [anexos: Anexo]
     static belongsTo = [pagamento: Pagamento]
 
     static mapping = {
@@ -33,7 +33,7 @@ class Remissao implements Serializable {
         percentual nullable: true, min: 0.0, max: 100.0, scale: 2
         diario nullable: true
         contaOrigem nullable: true
-        anexos nullable: true
+        //  anexos nullable: true
     }
 
     /*

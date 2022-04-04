@@ -28,13 +28,10 @@
                 CC.
                 <button onClick="@command('')" style="background:#85c1e9"
                         label="@load(vm.contaCaixa.designacaoDaConta)"/>
-                SCC.
+                <!--SCC.
                 <button style="background:#85c1e9"
-                        label="@load(vm.contaCaixa.saldo)@converter('formatedNumber', format='###,##0.00')"/>
+                        label="@load(vm.contaCaixa.saldo)@converter('formatedNumber', format='###,##0.00')"/>-->
 
-                <!--<button image="${z.resource(dir:'images', file:'print.png')}"
-                        onClick="@command('printPrestacoesDoDia')"
-                        label="Prestações do dia"/>-->
                 <grid width="300px">
                     <columns>
                         <column width="170px"/>
@@ -81,7 +78,7 @@
                                 </hbox>
 
                                 <div id="dv_filtragem">
-                                    <grid width="1045px">
+                                    <grid width="1050px">
                                         <columns>
                                             <column width="200px"/>
                                             <column width="350px"/>
@@ -90,7 +87,7 @@
                                         </columns>
                                         <rows>
                                             <row>
-                                                <textbox width="200px" placeholder="nome do cliente ou Nº do Crédito"
+                                                <textbox width="200px" placeholder="Nome do cliente ou Nº do Crédito"
                                                          style="background:#95B9C7;color:black"
                                                          value="@bind(vm.filterCliente)"
                                                          onChange="@command('doSearchCliente')"
@@ -98,7 +95,7 @@
                                                 <listbox checkmark="true" style="@bind('style')"
                                                          selectedItem="@bind(vm.selectedCliente)"
                                                          model="@load(vm.clientes)" width=""
-                                                         height="" mold="paging" pageSize="2">
+                                                         height="" mold="paging" pageSize="4">
 
 
                                                     <template name="model" status="s">
@@ -159,7 +156,7 @@
                                     </grid>
 
                                     <hbox width="600px">
-                                        <div width="595px">
+                                        <div width="600px">
                                             <listbox id="lb_credito" checkmark="true" style="@bind('style')"
                                                      selectedItem="@bind(vm.selectedCredito)"
                                                      model="@load(vm.creditos)" width=""
@@ -317,14 +314,14 @@
 
                                     </hbox>
                                     <hbox>
-                                        <div visible="@load(not empty vm.pagamentos)" width="595px">
+                                        <div visible="@load(not empty vm.pagamentos)" width="600px">
                                             <listbox checkmark="true" style="@bind('style')"
                                                      selectedItem="@bind(vm.selectedPagamento)"
                                                      model="@load(vm.pagamentos)" width=""
                                                      height="" mold="paging" pageSize="4">
                                                 <listhead sizable="true">
 
-                                                    <listheader sort="auto(descricao)" width="112px" label="Prestação"
+                                                    <listheader sort="auto(descricao)" width="120px" label="Prestação"
                                                                 align="left"/>
                                                     <listheader sort="auto(valorDaPrestacao)" width="90px"
                                                                 label="V. Da Prest."
@@ -369,7 +366,7 @@
                                         <div visible="@load(not empty vm.selectedPagamento.parcelas)">
                                             <listbox id="lb_pagamentos" checkmark="true"
                                                      selectedItem="@bind(vm.sParcela)"
-                                                     model="@load(vm.selectedPagamento.parcelas)" width="450px"
+                                                     model="@load(vm.selectedPagamento.parcelas)" width="445px"
                                                      height="" mold="paging" pageSize="5">
                                                 <auxhead style="background:#ffc300">
                                                     <auxheader style="background:#F4F4F4" align="left"
@@ -377,8 +374,8 @@
                                                 </auxhead>
                                                 <listhead sizable="true">
                                                     <listheader sort="auto(id)" width="100px" label="ID" align="left"/>
-                                                    <listheader sort="auto(id)" width="70px" label="Diário"
-                                                                align="left"/>
+                                                    <!-- <listheader sort="auto(id)" width="70px" label="Diário"
+                                                                 align="left"/>-->
                                                     <listheader sort="auto(numeroDoRecibo)" width="90px"
                                                                 label="Recibo Nº."
                                                                 align="left"/>
@@ -404,7 +401,7 @@
                                                     <listitem
                                                             onClick="@command('showSelectedPagamento', index=each.id)">
                                                         <listcell label="@load(each.id)"/>
-                                                        <listcell label="@load(each.diario.numeroDoDiario)"/>
+                                                        <!-- <listcell label="@load(each.diario.numeroDoDiario)"/>-->
                                                         <listcell label="@load(each.numeroDoRecibo)"/>
                                                         <listcell
                                                                 label="@load(each.dataDePagamento)@converter('formatedDate', format='dd/MM/yy')"/>
@@ -745,15 +742,16 @@
                     <include src="/parcela/recibos.zul"/>
                 </tabpanel>
                 <tabpanel>
+
                     <hbox>
-                        <textbox width="200px" placeholder="nome do cliente ou Nº do Crédito"
+                        <textbox width="200px" placeholder="Nome do cliente ou Nº do Crédito"
                                  style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
                                  onChange="@command('doSearchCliente')"
                                  instant="false"/>
                         <listbox checkmark="true" style="@bind('style')"
                                  selectedItem="@bind(vm.selectedClientee)"
                                  model="@load(vm.clientess)" width="300px"
-                                 height="" mold="paging" pageSize="2">
+                                 height="" mold="paging" pageSize="4">
 
 
                             <template name="model" status="s">
@@ -766,6 +764,11 @@
                             </template>
 
                         </listbox>
+                        <button visible="@bind(not empty vm.selectedCreditoo)"
+                                image="${z.resource(dir:'images', file:'remissao_25.png')}"
+                                onDoubleClick="@command('redemirCredito')"
+                                onClick="@command('alertDelete')"
+                                label="Redemir Toda a dívida"/>
                         <!-- <button image="${z.resource(dir:'images', file:'add.png')}"
                                  style="color:black;background:#20c199" onClick="@command('addRemissao')"
                                  label="Nova Remissão"/>-->
@@ -786,19 +789,16 @@
                         <listbox id="lb_creditos" checkmark="true" style="@bind('style')"
                                  selectedItem="@bind(vm.selectedCreditoo)"
                                  model="@load(vm.creditoss)" width="400px"
-                                 height="" mold="paging" pageSize="10">
+                                 height="" mold="paging" pageSize="5">
                             <listhead sizable="true">
                                 <listheader sort="auto(id)" width="90px" label="CRÉDITO Nº" align="left"/>
-                                <listheader sort="auto(id)" width="90px" label="Cliente" align="left"/>
                                 <listheader sort="auto(valorCreditado)" width="100px"
                                             label="Valor Creditado" align="left"/>
-                                <listheader sort="auto(numeroDePrestacoes)" width="50px" label="Nº. das P."
-                                            align="left"/>
 
                                 <listheader sort="auto(dateConcecao)" width="" label="D. conceção"
                                             align="left"/>
-                                <listheader sort="auto(periodicidade)" width="80px"
-                                            label="Periodicidade" align="left"/>
+                                <listheader sort="auto(valorEmDivida)" width="80px"
+                                            label="V. Em dívida" align="left"/>
                             </listhead>
                             <template name="model" status="s">
 
@@ -807,12 +807,12 @@
 
                                     <listcell
                                             label="@load(each.valorCreditado)@converter('formatedNumber', format='###,##0.00')"/>
-                                    <listcell label="@load(each.numeroDePrestacoes)"/>
 
                                     <listcell
                                             label="@load(each.dateConcecao)@converter('formatedDate', format='dd/MM/yy')"/>
 
-                                    <listcell label="@load(each.periodicidade)"/>
+                                    <listcell
+                                            label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
 
 
                                 </listitem>
@@ -867,8 +867,10 @@
                         </listbox>
                     </hbox>
                     <hbox>
+
                         <div visible="@load(!not empty vm.selectedRemissao)">
-                            <grid visible="@load(not empty vm.selectedPagamentoo.id)" width="450px">
+
+                        <grid visible="@load(not empty vm.selectedPagamentoo.id)" width="450px">
                                 <columns>
                                     <column width="100px"/>
                                     <column/>
@@ -959,6 +961,7 @@
                                                         onClick="@command('printRemissão')"
                                                         label="Imprimir " width="100px" height="30px"/>-->
                                             </cell>
+
                                         </row>
 
                                     </rows>

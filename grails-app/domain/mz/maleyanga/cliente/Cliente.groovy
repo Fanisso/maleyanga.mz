@@ -40,7 +40,7 @@ class Cliente implements Serializable {
     Date dateCreated
     BigDecimal totalEmDivida = 0.0
 
-    Boolean getEmDivida() {
+    /*Boolean getEmDivida() {
         if (creditos == null) {
             return false
         }
@@ -51,9 +51,9 @@ class Cliente implements Serializable {
             return true
         }
         return false
-    }
+    }*/
 
-    BigDecimal getTotalEmDivida() {
+    /*BigDecimal getTotalEmDivida() {
         totalEmDivida = 0.0
         if (this.creditos != null) {
             if (!creditos.empty) {
@@ -64,16 +64,16 @@ class Cliente implements Serializable {
         }
 
         return totalEmDivida
-    }
+    }*/
 
 
-    static hasMany = [pedidosDeCredito: PedidoDeCredito, creditos: Credito, anexos: Anexo, contas: Conta, assinantes: Assinante, penhoras: Penhora]
+    //  static hasMany = [pedidosDeCredito: PedidoDeCredito, creditos: Credito, anexos: Anexo, contas: Conta, assinantes: Assinante, penhoras: Penhora]
 
 
     static mapping = {
         id generator: 'increment'
-        assinantes lazy: false
-        pedidosDeCredito lazy: false
+        // assinantes lazy: false
+        // pedidosDeCredito lazy: false
         nome unique: true
         nuit unique: true
     }
@@ -96,9 +96,9 @@ class Cliente implements Serializable {
         estadoCivil inList: ["Solteiro", "Solteira", "Casado", "Casada", "Separado Judicialmente", "Separado Judicialmente", "Outro"]
         classificacao inList: ["excelente", "bom", "medio", "mau", "pessimo"], nullable: true
         entidade nullable: false
-        anexos nullable: true
+        //  anexos nullable: true
         ativo nullable: false
-        assinantes nullable: true
+        // assinantes nullable: true
         utilizador nullable: true
         localDeTrabalho nullable: true
         anexo nullable: true
@@ -108,7 +108,7 @@ class Cliente implements Serializable {
         emDivida nullable: true
         totalEmDivida nullable: true
         profissao nullable: true
-        penhoras nullable: true
+        // penhoras nullable: true
         dataDeEmissao nullable: true
         genero nullable: true
 

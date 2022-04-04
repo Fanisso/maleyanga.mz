@@ -10,7 +10,6 @@ import mz.maleyanga.ParcelaService
 import mz.maleyanga.security.Utilizador
 import mz.maleyanga.transacao.Transacao
 import mz.maleyanga.transferencia.Transferencia
-import org.springframework.security.access.method.P
 import org.springframework.stereotype.Service
 import org.zkoss.bind.annotation.Command
 import org.zkoss.bind.annotation.NotifyChange
@@ -85,7 +84,7 @@ class RecibosViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "PARCELA_DELETE" }) {
                 info.value="Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             def parcelas = Parcela.findAllByNumeroDoRecibo(selectedParcela.numeroDoRecibo)
@@ -145,7 +144,7 @@ class RecibosViewModel {
             getParcelas()
 
             info.value = "Operações feitas com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             parcelas.remove(selectedParcela)
         }catch(Exception e){
             System.println(e.toString())
@@ -157,17 +156,17 @@ class RecibosViewModel {
         Utilizador user = springSecurityService.currentUser as Utilizador
         if (!user.authorities.any { it.authority == "PARCELA_DELETE" }) {
             info.value="Este utilizador não tem permissão para executar esta acção !"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
         }
         if(selectedParcela.invalido){
             info.value="Este recibo já foi invalidado!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
 
         }
 
         else {
             info.value="Double Click para eliminar este credito!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
         }
     }
 
@@ -204,16 +203,17 @@ class RecibosViewModel {
     def printRecibo(){
         if(selectedParcela.invalido){
             info.value = "Recibo inválido!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             return
         }
         if(selectedParcela==null){
             info.value = "Recibo inválido!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             return
         }else {
             parcelaService.parcelaInstance=selectedParcela
-            parcelaService.creditoInstance=selectedParcela?.pagamento?.credito
+            Pagamento pagamento = Pagamento.findById(selectedParcela.pagamento.id)
+            sessionStorageService.credito=pagamento.credito
           //  Executions.sendRedirect("/parcela/printParcela/")
         }
 

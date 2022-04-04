@@ -7,6 +7,7 @@ import mz.maleyanga.cliente.Cliente
 import mz.maleyanga.credito.Credito
 import mz.maleyanga.pagamento.Parcela
 import mz.maleyanga.ParcelaService
+import mz.maleyanga.security.Utilizador
 import org.springframework.stereotype.Service
 import org.zkoss.zk.grails.*
 
@@ -18,11 +19,24 @@ import org.zkoss.zk.ui.select.annotation.Wire
 class PrintParcelaViewModel {
     SessionStorageService sessionStorageService
     Parcela parcelaInstance
+    String username
     Credito creditoInstance
     List<Parcela> parcelas
     BigDecimal total =0.0
     String valorPorExtenso
+    Cliente cliente
+
     CurrencyWriter currencyWriter = CurrencyWriter.getInstance()
+
+    String getCliente() {
+
+        return cliente
+    }
+
+    String getUsername() {
+
+        return username
+    }
 
     String getValorPorExtenso() {
         return currencyWriter.write(total)
@@ -50,9 +64,14 @@ class PrintParcelaViewModel {
         // initialzation code here
       //  parcelaInstance = Parcela.findById(parcelaService.parcelaInstance.id)
         parcelaInstance = sessionStorageService.parcela as Parcela
+        Utilizador utilizador = Utilizador.findById(parcelaInstance.utilizador.id)
+        username = utilizador.username
         if(parcelaInstance.pagamento!=null){
           //  creditoInstance = Credito.findById(parcelaService.parcelaInstance.pagamento.credito.id)
             creditoInstance = sessionStorageService.credito as Credito
+            creditoInstance = Credito.findById(creditoInstance.id)
+            cliente = Cliente.findByNome(creditoInstance.cliente.nome)
+
         }
               total = parcelaInstance.valorPago
 

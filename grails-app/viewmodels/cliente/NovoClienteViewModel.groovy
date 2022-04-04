@@ -31,8 +31,8 @@ class NovoClienteViewModel {
     private Cliente novoCliente = new Cliente()
     private  @Wire Label info
     private  @Wire Window win_novo_cliente
-    private String blue = "color:blues;font-size:12pt"
-    private String red = "color:red"
+    private String blue = "color:blues;font-size:14pt"
+    private String red = "color:red;font-size:14pt"
     private ListModelList<Cliente> clientes
 
 
@@ -160,28 +160,28 @@ class NovoClienteViewModel {
                 novoCliente.utilizador = Utilizador.findById(selectedGestor.id)
               if(getsContaIntegradora()==null){
                   info.value = "Por favar de criar uma conta integradora com a descrição 'CLIENTES'!"
-                  info.style = "color:red"
+                  info.style = "color:red;font-size:14pt"
                   return
               }
             if(novoCliente.nome.equals(null)){
                 info.value = "Preencha o campo 'Nome Completo'!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
 
             if(Cliente.findByNome(novoCliente.nome)){
                 info.value = "Já existe um cliente com este nome!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(Cliente.findById(novoCliente.id)){
                 info.value = "Este Cliente já existe na base de dados!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.estadoCivil.equals(null)){
                 info.value = "Selecione  o estado civil !"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.dataDeExpiracao.equals(null)){
@@ -191,32 +191,32 @@ class NovoClienteViewModel {
             }
             if(Cliente.findByNuit(novoCliente.nuit)){
                 info.value = "Já existe um cliente com este NUIT!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.tipoDeIndentificacao.equals(null)){
                 info.value = "Selecione  o tipo de documento de indentificação!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.dataDeExpiracao.equals(null)){
                 info.value = "Selecione  a data de expiração !"
-                info.style ="color:red"
+                info.style ="color:red;font-size:14pt"
                 return
             }
             if(novoCliente.numeroDeIndentificao.equals(null)){
                 info.value = "Digite o número de indentificação !"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.residencia.equals(null)){
                 info.value = "Preencha o campo residência!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(novoCliente.utilizador==null){
                 info.value = "Selecione um gestor!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
 
@@ -227,17 +227,17 @@ class NovoClienteViewModel {
             def result = clienteService.saveCliente(novoCliente)
              if(result){
                  info.value = "Dados gravados com sucesso!"
-                 info.style  ="color:blue"
+                 info.style  ="color:blue;font-size:14pt"
                  clientes.add(novoCliente)
                  novoCliente = new Cliente()
              }else {
                  info.value = "Erro na gravação dos dados"
-                 info.style  ="color:red"
+                 info.style  ="color:red;font-size:14pt"
              }
 
         } catch (Exception e) {
             info.value = "Erro na gravação dos dados"
-            info.style  ="color:red"
+            info.style  ="color:red;font-size:14pt"
           //  System.println(e.toString())
 
 

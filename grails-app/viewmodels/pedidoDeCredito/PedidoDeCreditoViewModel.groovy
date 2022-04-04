@@ -160,7 +160,7 @@ private PedidoDeCredito sPDC
       Executions.sendRedirect("/credito/")
     }else {
       info.value="Este Pedido não foi aprovado!"
-      info.style = "color:red;font-weight;font-size:11pt;background:back"
+      info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 
   }
@@ -187,7 +187,7 @@ private PedidoDeCredito sPDC
     Utilizador user = springSecurityService.currentUser as Utilizador
     if (!user.authorities.any { it.authority == "PEDIDO_DE_CREDITO_UPDATE" }) {
       info.value="Este utilizador não tem permissão para executar esta acção !"
-      info.style = "color:red;font-weight;font-size:11pt;background:back"
+      info.style = "color:red;font-weight;font-size:14ptpt;background:back"
       return
     }
     if(sPDC.creditado){
@@ -195,7 +195,7 @@ private PedidoDeCredito sPDC
       }
     sPDC.merge(flush: true)
     info.value = "Pedido de crédito actualizado com sucesso!"
-    info.style = "color:blue;font-weight;font-size:11pt;background:back"
+    info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
   }
   @Command
   @NotifyChange(['penhoras','sPDC','pedidos','penhoras'])
@@ -204,18 +204,18 @@ private PedidoDeCredito sPDC
     try {
       if(sPDC.id!=null){
         info.value = "Este Pedido de crédito já foi gravado na base de dados!"
-        info.style = "color:blue;font-weight;font-size:11pt;background:back"
+        info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
         return
       }
       if(penhoras.empty){
         info.value = "O pedido deve ter pelo menos uma penhora!"
-        info.style = "color:blue;font-weight;font-size:11pt;background:back"
+        info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
         return
       }
       if(somar()<sPDC.valorDeCredito){
 
         info.value = "A soma dos valores das penhoras deve ser superior ao valor pedido!"
-        info.style = "color:blue;font-weight;font-size:11pt;background:back"
+        info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
         return
       }
       utilizador = Utilizador.findById(springSecurityService.principal?.id)
@@ -239,7 +239,7 @@ private PedidoDeCredito sPDC
       if(penhoraDB!=null){
         pedidos.add(penhoraDB)
         info.value = "O Pedido de crédito foi criado com sucesso!"
-        info.style = "color:blue;font-weight;font-size:11pt;background:back"
+        info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
         Cliente clienteDB = Cliente.findById(sPDC.cliente.id)
         if(clienteDB.pedidosDeCredito==null){
           clienteDB.pedidosDeCredito = new HashSet<PedidoDeCredito>()

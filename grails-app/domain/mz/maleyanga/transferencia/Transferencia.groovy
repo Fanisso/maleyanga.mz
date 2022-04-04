@@ -35,6 +35,7 @@ class Transferencia {
     static mapping = {
         origem lazy: false
         destino lazy: false
+        batchSize(5)
     }
 
     static constraints = {

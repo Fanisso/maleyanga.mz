@@ -25,13 +25,14 @@ class PedidoDeCredito implements Serializable{
     Integer nDePrestacoes
     Date dateCreated
     Date lastUpdated
-    static hasMany = [penhoras: Penhora, notas: Nota]
+   // static hasMany = [penhoras: Penhora, notas: Nota]
 
     static mapping = {
         penhoras lazy: false
         cliente lazy: true
         utilizador lazy: false
         id generator: 'increment'
+        batchSize(10)
 
     }
 
@@ -47,7 +48,7 @@ class PedidoDeCredito implements Serializable{
         motivo nullable: false
         valorDaPenhora nullable: true
         estado inList: ["aberto", "pendente", "aprovado", "reprovado", "executado"]
-        notas nullable: true
+        // notas nullable: true
         definicaoDeCredito nullable: true
         nDePrestacoes nullable: true
     }

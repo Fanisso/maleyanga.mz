@@ -15,6 +15,10 @@ class Diario {
     Date lastUpdated
     Date dateClosed
 
+    String getNumeroDoDiario() {
+        return numeroDoDiario
+    }
+
     Date getDataDeReferencia() {
         if (dataDeReferencia == null) {
             return dateCreated
@@ -29,9 +33,10 @@ class Diario {
 
     static mapping = {
 
-        parcelas lazy: false
-        saidas lazy: false
+        //  parcelas lazy: true
+        //  saidas lazy: false
         numeroDoDiario unique: true
+        batchSize(30)
     }
 
     static constraints = {

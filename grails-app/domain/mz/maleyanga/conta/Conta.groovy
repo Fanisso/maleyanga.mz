@@ -129,10 +129,11 @@ class Conta implements Serializable {
 
     static mapping = {
         id generator: 'increment'
-        contas lazy: false
+      //  contas lazy: false
         transacoes lazy: false
         iban unique: true
         numeroDaConta unique: true
+        batchSize(5)
     }
 
     static constraints = {

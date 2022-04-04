@@ -10,7 +10,7 @@
 
         <listbox style="@bind('style')"
 
-                 model="@load(vm.clienteDetalhados)" width="1050px"
+                 model="@load(vm.clientes)" width="1050px"
                  height="">
             <listhead sizable="true">
                 <listheader sort="auto(gestor)" width="80px" label="GESTOR" align="left"/>
@@ -23,9 +23,6 @@
                             align="left"/>
                 <listheader sort="auto(classificacao)" width="90px" label="Classificação"
                             align="left"/>
-                <listheader sort="auto(qtdDeCreditos)" width="50px" label="QTD Cdts" align="left"/>
-                <listheader sort="auto(valorEmDivida)" width="100px" label="Valor em dívida" align="left"/>
-                <listheader width="300px" label="Créditos" align="left"/>
 
 
             </listhead>
@@ -39,9 +36,6 @@
                     <listcell label="@load(each.residencia)"/>
                     <listcell label="@load(each.ativo)"/>
                     <listcell label="@load(each.classificacao)"/>
-                    <listcell label="@load(each.qtdDeCreditos)"/>
-                    <listcell label="@load(each.valorEmDivida) @converter('formatedNumber', format='###,##0.00')"/>
-                    <listcell label="@load(each.creditos) "/>
 
 
                 </listitem>

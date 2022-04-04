@@ -1,6 +1,7 @@
 package credito
 
 import mz.maleyanga.ClienteService
+import mz.maleyanga.pagamento.Remissao
 import org.springframework.stereotype.Service
 import org.zkoss.zul.Label
 import grails.plugin.springsecurity.SpringSecurityService
@@ -44,9 +45,10 @@ class CreditoViewModel {
     @Wire Hbox hb_editor
     @Wire Button bt_fechar
     @Wire Grid gd_new_credito
+    @Wire Grid gd_new_credito2
     private  boolean  allCreditos
-    String red = "color:red"
-    String blue = "color:blue"
+    String red = "color:red;font-size:14pt"
+    String blue = "color:blue;font-size:14pt"
     ClienteService clienteService
     Utilizador utilizador
     private  boolean  allPagamentos
@@ -64,6 +66,8 @@ class CreditoViewModel {
     private dataFinal
     @Wire Tab tb_abertos
     @Wire Grid gd_pagamento
+    @Wire Button bt_salvar
+    @Wire Hbox hb_novo_credito
     private PedidoDeCredito pedidoDeCredito
     private  Cliente selectedCliente
     ContadorService contadorService
@@ -76,6 +80,7 @@ class CreditoViewModel {
     CreditoService creditoService
     SessionStorageService sessionStorageService
     SpringSecurityService springSecurityService
+    boolean mostrarCreditos = false
     private  Credito credito = new Credito()
     SettingsService settingsService
     private  Settings settings
@@ -93,11 +98,15 @@ class CreditoViewModel {
     private Double totalPrestacoes = 0
     private Double totalamortizacao=0
     private Double totaljuros = 0
-    private boolean taxa
     private boolean taxaManual = true
     private boolean db_data = false
     private  String creditosDe = "Créditos"
     private Pagamento pagamento
+
+
+    boolean getEditor() {
+        return editor
+    }
 
     @Command
     @NotifyChange(["pagamentos"])
@@ -119,7 +128,7 @@ class CreditoViewModel {
     }
 
     @Command
-    @NotifyChange(["pagamentos","credito"])
+    @NotifyChange(["pagamentos","credito","sPagamento"])
     def deletePagamento(){
         try {
             Utilizador user = springSecurityService.currentUser as Utilizador
@@ -130,6 +139,7 @@ class CreditoViewModel {
            sPagamento.delete(flush: true)
             info.value="A Parcela Nº" +sPagamento.numeroDePagamento+" foi eliminada com sucesso!"
             info.style = "color:blue;font-weight;font-size:16px;background:back"
+            getPagamentos()
         }catch(SQLException e){
             info.value="Erro na remoção da Parcela! detais:"+e.toString()
             info.style = "color:red;font-weight;font-size:16px;background:back"
@@ -158,10 +168,10 @@ class CreditoViewModel {
     }
 
     String getCliente_style() {
-        cliente_style="background:#69F4AF;font-weight:bold;font-size:11pt"
+        cliente_style="background:#69F4AF;font-weight:bold;font-size:14ptpt"
         if(selectedCliente){
             if(selectedCliente.emDivida){
-                cliente_style="background:red;font-weight:bold;font-size:11pt"
+                cliente_style="background:red;font-weight:bold;font-size:14ptpt"
             }
 
         }
@@ -198,6 +208,7 @@ class CreditoViewModel {
         }
 
     }
+
 
     @NotifyChange(["taxa"])
     boolean getTaxa() {
@@ -260,11 +271,16 @@ class CreditoViewModel {
         return filterCliente
     }
 
-    @NotifyChange(["creditos"])
+    @NotifyChange(["creditos","mostrarCreditos"])
     @Command
     def showCreditos(){
-        tb_abertos.value = "Creditos do "+selectedCliente.nome
-
+        if(selectedCliente==null){
+            info.value = "Selecione um cliente!"
+            return
+        }
+        tb_abertos.value = "Creditos do(a) "+selectedCliente.nome
+        mostrarCreditos=true
+        hb_editor.visible=false
     }
     @Command
     def alertDelete(){
@@ -444,16 +460,17 @@ class CreditoViewModel {
         //  credito?.pagamentos?.each {pagamentoService.calcularJurosDeDemora(it)}
         soma()
         hb_editor.visible = false
-        bt_fechar.label = "Editor"
         creditoService.credito = credito
         sessionStorageService.credito = credito
 
 
     }
 
+
     @Command
     @NotifyChange(["credito","pagamentos","v_amo","v_juro","v_pago","v_divida","v_mora","v_prestacao","hb_editor"])
     void doSearchCliente() {
+        info.value = ""
         clientes.clear()
         List<Cliente> allItems = clienteService.findAllByName(filterCliente)
         if (filterCliente != null &&! "".equals(filterCliente))
@@ -503,20 +520,10 @@ class CreditoViewModel {
         hb_editor.visible = false
     }
     @Command
-    @NotifyChange(["prestacoes","credito"])
+    @NotifyChange(["prestacoes","credito","editor"])
     def fecharEditor(){
-        info.value = ""
-        gd_pagamento.visible=false
-        if(hb_editor.visible){
-            hb_editor.visible = false
-            bt_fechar.label= "Editor"
+        hb_novo_credito.visible=!hb_novo_credito.visible
 
-        }else {
-            hb_editor.visible = true
-            bt_fechar.label= "Editor"
-            credito = new Credito()
-            credito.dateConcecao = new Date()
-        }
         if(!settings.permitirDesembolsoComDivida){
             if(selectedCliente){
                 if(selectedCliente.emDivida){
@@ -617,14 +624,15 @@ class CreditoViewModel {
             creditos = new ListModelList<Credito>()
         }
         creditos.clear()
-        if(selectedCliente?.id!=null){
-            if(allCreditos){
-                creditos = creditoService.findAllByCliente(selectedCliente)
-            }else{
-                creditos = creditoService.findAllByClienteAndEmDivida(selectedCliente)
-            }
-        }
-
+       if(mostrarCreditos){
+           if(selectedCliente?.id!=null){
+               if(allCreditos){
+                   creditos = creditoService.findAllByCliente(selectedCliente)
+               }else{
+                   creditos = creditoService.findAllByClienteAndEmDivida(selectedCliente)
+               }
+           }
+       }
 
         return creditos
     }
@@ -714,22 +722,21 @@ class CreditoViewModel {
     }
 
     Cliente getSelectedCliente() {
-        def cliente = sessionStorageService.getCliente() as Cliente
+        /*def cliente = sessionStorageService.getCliente() as Cliente
         if(cliente){
             selectedCliente = cliente
         }
-        if(sessionStorageService)
+        if(sessionStorageService)*/
         return selectedCliente
     }
 
-    @NotifyChange(["creditosDe","pedidos","selectedCliente","contaCliente","clientes","creditos","cliente_style"])
+    @NotifyChange(["creditosDe","pedidos","selectedCliente","contaCliente","clientes","cliente_style","credito"])
     void setSelectedCliente(Cliente selectedCliente) {
         info.value = ""
         this.selectedCliente = selectedCliente
         sessionStorageService.cliente = selectedCliente
         clientes.clear()
         clientes.add(selectedCliente)
-        fecharEditor()
     }
     @NotifyChange(['creditos',"credito"])
     @Init init() {
@@ -738,18 +745,8 @@ class CreditoViewModel {
         settings = settingsService.getSettings()
         creditoService.pagamentos = null
         creditoService.credito = null
-
         geTContaCapital()
 
-        /*     if(creditoService?.credito?.id){
-                 credito = creditoService.credito
-                 pagamentos = creditoService.pagamentos
-                 creditoService.credito = null
-             }
-             if(contaService?.credito?.id){
-                 credito = contaService.credito
-                creditoService.credito = null
-             }*/
         if(creditoService?.pedidoDeCredito?.id){
             credito = new Credito()
             credito.valorCreditado = creditoService.pedidoDeCredito.valorDeCredito
@@ -767,7 +764,6 @@ class CreditoViewModel {
         return clientes
     }
     Credito getCredito() {
-
         return credito
     }
 
@@ -778,7 +774,7 @@ class CreditoViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "PAGAMENTO_CREATE" }) {
                 info.value = "Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             pagamentoService.calcularMoraCaPital(credito)
@@ -852,17 +848,29 @@ class CreditoViewModel {
     }
 
     @Command
+    def verificarData(){
+        info.value = ""
+           Credito lastCredito = Credito.last()
+           if(lastCredito.cliente==selectedCliente&&!lastCredito.invalido){
+               info.value = "Este CLiente ja foi desembolsado!"
+               hb_novo_credito.visible = false
+           }
+    }
+
+    @Command
     @NotifyChange(["juros","jurosDeMora","formaDeCalculo","info","prestacoes","totalPrestacoes","totaljuros","totalamortizacao","credito","contaCapital","contaCliente","taxa"])
     def showDetails(){
+        info.value= ""
+
         geTContaCapital()
-        getClientes()
+       // getClientes()
         if(definicoes?.empty){
             Executions.sendRedirect("/settings/defCredito/")
         }
-        gd_parcelas.visible=true
+
+       // gd_parcelas.visible=true
         credito.numeroDePrestacoes = numeroDePrestacoes
         if(selectedDefinicaoDeCredito!=null){
-
             credito.periodicidade = selectedDefinicaoDeCredito.periodicidade
             credito.recorenciaDeMoras = selectedDefinicaoDeCredito.recorenciaDeMoras
             credito.formaDeCalculo = selectedDefinicaoDeCredito.formaDeCalculo
@@ -878,13 +886,10 @@ class CreditoViewModel {
                 info.style = red
                 credito.numeroDePrestacoes = selectedDefinicaoDeCredito.numeroDePrestacoes
             }
-            getPrestacoes()
-
-
+         //   getPrestacoes()
         }
-
-
-
+        bt_salvar.visible=true
+        bt_salvar.focus()
     }
     boolean taxar(){
         if(settings.taxaManual){
@@ -921,6 +926,17 @@ class CreditoViewModel {
     @Command
     @NotifyChange(['credito',"creditos",'contaCapital','contaCliente'])
     def salvarCredito(){
+        if(selectedCliente==null){
+            info.value = "Selecione um cliente!"
+            info.style = red
+            return
+        }
+
+        if(selectedCliente.id==Credito.last().cliente.id){
+            info.value = "ESTE CLIENTE JÁ FOI DESEMBOLSADO!"
+            hb_editor.visible = false
+            return
+        }
         info.value=""
         if(contaCliente==null){
             info.value = "Seleccione um CLIENTE!"
@@ -967,15 +983,6 @@ class CreditoViewModel {
 
         }
         try {
-           /* if(!Credito.all.empty){
-                Credito credit = Credito?.all?.last()
-                if(credit.cliente.id==selectedCliente.id){
-                    info.value = "Este cliente já foi desembolsado!"
-                    info.style = "color:red"
-                    return
-                }
-            }*/
-
 
 
             credito.cliente=selectedCliente
@@ -1052,8 +1059,9 @@ class CreditoViewModel {
             credito.periodoVariavel = selectedDefinicaoDeCredito.periodoVariavel
             credito.estado ="Aberto"
             credito.ignorarValorPagoNoPrazo = settings.ignorarValorPagoNoPrazo
-            credito.save flush: true
+            credito.save(failOnError: true,flush: true)
             pagamentoService.criarPagamentos(credito,selectedDefinicaoDeCredito)
+/*
 
             Transacao tCredito = new Transacao()
             Transacao tDebito = new Transacao()
@@ -1065,8 +1073,8 @@ class CreditoViewModel {
             System.println("tDebito"+tDebito.valor)
             tCredito.credito = true
             tDebito.credito = false
-            tCredito.save(flush: true)
-            tDebito.save(flush: true)
+            tCredito.save(flush: true,failOnError: true)
+            tDebito.save(flush: true,failOnError: true)
 
             contaCapital = Conta.findById(contaCapital.id)
             if (contaCapital.transacoes == null) {
@@ -1079,34 +1087,47 @@ class CreditoViewModel {
             contaCliente.transacoes.add(tDebito)
             contaCapital.merge(flush: true)
             contaCliente.merge(flush: true)
+*/
 
             info.value = "O Credito No."+credito.numeroDoCredito+" da "+selectedCliente.nome+" foi criado com sucesso!"
             info.style = blue
-            geTContaCapital()
+            bt_salvar.visible = false
+
+          /*  geTContaCapital()
             getClientes()
             if(pedidoDeCredito?.id){
                 PedidoDeCredito pdcDB = PedidoDeCredito.findById(pedidoDeCredito?.id)
                 pdcDB.creditado = credito
                 pdcDB.merge(flush: true)
-            }
+            }*/
 
             sessionStorageService.credito = credito
-            creditos.add(credito)
+
 
         }catch (Exception e){
             info.value = e.toString()
             info.style= red
 
         }
-
+        bt_salvar.visible = false
     }
     @Command
-    @NotifyChange(["credito","prestacoes"])
+    @NotifyChange(["credito","prestacoes","editor","creditos","numeroDePrestacoes"])
     def addCredito(){
         info.value = ""
+        if(selectedCliente==null){
+            info.value = "Selecione Um Cliente"
+        }
+        hb_novo_credito.visible = true
         hb_editor.visible = true
         credito = new Credito()
-        prestacoes.clear()
+        credito.dateConcecao = new Date()
+        numeroDePrestacoes = 0
+        creditos.clear()
+
+
+       // prestacoes.clear()
+
     }
     /*@Command
     def printExtrato(){

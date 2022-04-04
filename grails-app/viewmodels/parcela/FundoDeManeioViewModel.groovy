@@ -280,7 +280,7 @@ class FundoDeManeioViewModel {
         }
 
         else {
-            info.value="Double Click para eliminar esta operação!"
+            info.value="Double Click para executar esta operação!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
         }
     }

@@ -116,7 +116,7 @@
                 </row>
             </rows>
         </grid>
-        <listbox model="@load(vm.pagamentos)" width="740px"
+        <listbox model="@load(vm.pagamentos)" width="750px"
         >
             <listhead>
                 <listheader width="80px" label="Nº:" align="left"/>

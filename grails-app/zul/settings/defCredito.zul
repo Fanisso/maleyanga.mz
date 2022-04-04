@@ -18,10 +18,11 @@
             <tabs>
                 <tab label="Editor De Def. de crédito"/>
                 <tab label="Outras def. de crédito"/>
+                <tab label="Grupos de Def. De Créditos"/>
                 <tab/>
             </tabs>
             <tabpanels>
-                <tabpanel>
+                <tabpanel height="800px">
                     <hbox>
                         <div>
                             <button image="${z.resource(dir:'images', file:'add.png')}" onClick="@command('addDef')"
@@ -197,7 +198,7 @@
                         </template>
                     </listbox>
                 </tabpanel><!--editor de def. de crédito-->
-                <tabpanel>
+                <tabpanel height="800px">
 
                     <hbox>
                         <grid width="500px">
@@ -330,6 +331,9 @@
 
 
                 </tabpanel><!--outras def. de crédito-->
+                <tabpanel height="800px">
+                    Grupo de Deg. de Pagmaneto
+                </tabpanel><!--grupos de def. de Créditos-->
             </tabpanels>
         </tabbox>
 

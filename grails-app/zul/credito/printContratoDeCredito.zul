@@ -40,9 +40,9 @@
                         <label style="font-weight:bold" value="@bind(vm.entidade.numeroDeRegisto)"/>
                         <label visible="@load(not empty vm.entidade.numeroDeRegisto)"
                                value=", datada de três de Dezembro de dois mil e dezoito,"/>
-                        <label visible="@load(not empty vm.entidade.nuit)" value=" titular do NUIT "/>
-                        <label value="@load(vm.entidade.nuit)"/>
-                        <label value="@load(vm.reresentante)"/>
+                        <!--  <label visible="@load(not empty vm.entidade.nuit)" value=" titular do NUIT "/>
+                          <label value="@load(vm.entidade.nuit)"/>-->
+                        <label value="@load(vm.representante)"/>
                         <label value="@load(vm.entidade.proprietario)"/>
                         <label value=", na qualidade de Gerente, com poderes para o acto, doravante denominada MUTUANTE;"/>
                     </cell>
@@ -332,7 +332,9 @@
                 <row>
                     <cell>
                         <label value="1. Em caso de mora no pagamento, será aplicada juros de
-                         mora de 5.00% (CINCO POR CENTO ), por dia/mês de atraso. "/>
+                         mora de  "/>
+                        <label value="@load(vm.credito.percentualJurosDeDemora)"/>
+                        <label value="% (POR CENTO), por dia/mês de atraso. "/>
                     </cell>
                 </row>
                 <row>

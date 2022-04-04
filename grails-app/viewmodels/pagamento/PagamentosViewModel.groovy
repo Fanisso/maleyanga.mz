@@ -173,7 +173,7 @@ class PagamentosViewModel {
         return selectedCreditoo
     }
 
-    @NotifyChange(["pagamentoss","selectedPagamentoo","remissao","selectedRemissao"])
+    @NotifyChange(["pagamentoss","selectedPagamentoo","remissao","selectedRemissao","selectedCreditoo"])
     void setSelectedCreditoo(Credito selectedCreditoo) {
         selectedRemissao = null
         remissao = new Remissao()
@@ -184,10 +184,12 @@ class PagamentosViewModel {
         return selectedClientee
     }
 
-    @NotifyChange(["selectedCredito","pagamentos","selectedPagamento","selectedPagamentoo","selectedCreditoo"])
+    @NotifyChange(["selectedCredito","pagamentos","selectedPagamento","selectedPagamentoo","selectedCreditoo","selectedClientee","creditoss"])
     void setSelectedClientee(Cliente selectedClientee) {
-        sessionStorageService.cliente = selectedCliente
+        sessionStorageService.cliente = selectedClientee
         this.selectedClientee = selectedClientee
+       clientess.clear()
+        clientess.add(selectedClientee)
     }
 
     boolean getAllPagamentos() {
@@ -349,7 +351,7 @@ class PagamentosViewModel {
         this.entrada = entrada
         sessionStorageService.entrada = entrada
         if(selectedPagamento!=null&&entrada.pagamento==null){
-            bt_update_entrada.label="Alocar a "+selectedPagamento.descricao+" do(a) "+selectedPagamento.credito.cliente.nome
+            bt_update_entrada.label="Alocar a "+selectedPagamento.descricao+" do(a) "+selectedCredito.cliente.nome
         }
 
     }
@@ -369,7 +371,7 @@ class PagamentosViewModel {
             }
         }
 
-        if(entrada.nomeDoCliente!=selectedPagamento.credito.cliente.nome){
+        if(entrada.nomeDoCliente!=selectedCredito.cliente.nome){
             info.value="O nome do cliente não confere! "
             info.style = "color:red;font-weight;font-size:16px;background:back"
             if (!user.authorities.any { it.authority == "PARCELA_UPDATE" }) {
@@ -397,20 +399,20 @@ class PagamentosViewModel {
                 selectedPagamento.parcelas = new LinkedHashSet<Parcela>()
             }
             selectedPagamento.parcelas.add(entrada)
-            entrada.merge(flush: true)
-            selectedPagamento.merge(flush: true)
+            entrada.merge(failOnError: true)
+            selectedPagamento.merge(failOnError: true)
             Transferencia t = new Transferencia()
             t.utilizador = utilizador
             String descricao = entrada.descricao+"-"+entrada.id
             Transferencia tr = Transferencia.findByDescricaoAndDiario(descricao,diario)
-            System.println(tr.origem)
-            System.println(tr.destino)
+          //  System.println(tr.origem)
+           // System.println(tr.destino)
             t.origem = Conta.findByNumeroDaConta(selectedCliente.id.toString())
             t.destino = Conta.findById(tr.origem.id)
             t.descricao = "Alocação de receb. em caixa"+"-"+entrada.id
             t.valor = entrada.valorParcial
             t.diario = diario
-            t.save(flush: true)
+            t.save(failOnError: true)
             Transacao tCredito = new Transacao()
             Transacao tDebito = new Transacao()
             tCredito.valor = entrada.valorParcial
@@ -427,12 +429,12 @@ class PagamentosViewModel {
             if (devedora?.transacoes == null) {
                 devedora.transacoes = new LinkedHashSet<Transacao>()
             }
-            tCredito.save(flush: true)
-            tDebito.save(flush: true)
+            tCredito.save(failOnError: true)
+            tDebito.save(failOnError: true)
             credora.transacoes.add(tCredito)
             devedora.transacoes.add(tDebito)
-            credora.merge(flush: true)
-            devedora.merge(flush: true)
+            credora.merge(failOnError: true)
+            devedora.merge(failOnError: true)
 
             info.value = "O valor foi alocado com sucesso!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
@@ -576,15 +578,15 @@ class PagamentosViewModel {
             def credora = Conta.findById(selectedSaida.destino.id)
             def devedora = Conta.findById(selectedSaida.origem.id)
 
-            tCredito.save(flush: true)
-            tDebito.save(flush: true)
+            tCredito.save(failOnError: true)
+            tDebito.save(failOnError: true)
             credora.transacoes.add(tCredito)
             devedora.transacoes.add(tDebito)
-            credora.merge(flush: true)
-            devedora.merge(flush: true)
+            credora.merge(failOnError: true)
+            devedora.merge(failOnError: true)
 
 
-            selectedSaida.delete(flush: true)
+            selectedSaida.delete(failOnError: true)
         }catch(Exception e){
             System.println(e.toString())
         }
@@ -667,7 +669,7 @@ class PagamentosViewModel {
     void setsParcela(Parcela sParcela) {
         this.sParcela = sParcela
         sessionStorageService.parcela=sParcela
-        sessionStorageService.credito=selectedPagamento.credito
+        sessionStorageService.credito=selectedCredito
     }
 
     ListModelList<Parcela> getParcelas() {
@@ -784,7 +786,7 @@ class PagamentosViewModel {
         saida.origem = contaCaixa
         saida.destino = selectedConta
         saida.diario = diario
-        saida.save(flush: true)
+        saida.save(failOnError: true)
         info.value = "gravação feita com sucesso!"
         info.style = "color:red;font-weight;font-size:16px;background:back"
 
@@ -804,12 +806,12 @@ class PagamentosViewModel {
         if (devedora.transacoes == null) {
             devedora.transacoes = new LinkedHashSet<Transacao>()
         }
-        tCredito.save(flush: true)
-        tDebito.save(flush: true)
+        tCredito.save(failOnError: true)
+        tDebito.save(failOnError: true)
         credora.transacoes.add(tCredito)
         devedora.transacoes.add(tDebito)
-        credora.merge(flush: true)
-        devedora.merge(flush: true)
+        credora.merge(failOnError: true)
+        devedora.merge(failOnError: true)
 
 
         info.value = "Operações feitas com sucesso!"
@@ -878,8 +880,8 @@ class PagamentosViewModel {
            parcelaEntrada.diario = diario
            Utilizador util = Utilizador.findById(utilizador.id)
            parcelaEntrada.utilizador = util
-           parcelaEntrada.save(flush: true)
-           lancamentoEntrada(parcelaEntrada)
+           parcelaEntrada.save(failOnError: true)
+         //  lancamentoEntrada(parcelaEntrada)
            getEntradas()
        }catch(Exception e){
           info.value = e.toString()
@@ -906,6 +908,7 @@ class PagamentosViewModel {
 
 
         parcelaEntrada = new Parcela()
+        parcelaEntrada.diario = diario
         parcelaEntrada.dataDePagamento = new Date()
         parcelaEntrada.formaDePagamento = "numerário"
         parcelaEntrada.descricao = "Recebimento em caixa"
@@ -919,9 +922,109 @@ class PagamentosViewModel {
 
     }
 
+    @Command
+    @NotifyChange(["selectedCreditoo","creditoss"])
+    def redemirCredito(){
+        remissao = new Remissao()
+
+
+        try {
+            remissao.valorDaRemissao = selectedCreditoo.valorEmDivida*(-1)
+            Utilizador user = springSecurityService.currentUser as Utilizador
+            if (!user.authorities.any { it.authority == "REMISSAO_CREATE" }) {
+                info.value="Este utilizador não tem permissão para executar esta acção !"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                return
+            }
+            System.println("feita a validacao do user")
+            def contaDb = Conta.findByFinalidadeAndDesignacaoDaConta("conta_movimento", "PERDAO_DA_DIVIDA")
+            if(contaDb==null&&!(contaDb?.ativo)){
+                info.value="Criar uma conta de movimento, associado a uma conta intregradora do passivo ,  com a designão 'PERDAO_DA_DIVIDA'!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                return
+            }
+
+            if(Remissao.findById(remissao.id)){
+                info.value="Esta remissoão já existe na base de dados!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                return
+            }
+            if(remissao.valorDaRemissao>selectedCreditoo.valorEmDivida*(-1)){
+                info.value="O valor da remissão não pode ser superior ao valor em dívida!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                remissao.valorDaRemissao = selectedCreditoo.valorEmDivida*(-1)
+
+                return
+            }
+            if(remissao.valorDaRemissao<0){
+                info.value="O valor da remissão não pode ser negativo!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                remissao.valorDaRemissao = remissao.valorDaRemissao*(-1)
+                return
+            }
+            remissao.diario = diario
+            remissao.utilizador =user
+            remissao.contaOrigem = Conta.findById(contaDb.id)
+            Pagamento pagamento = Pagamento.findById(selectedPagamentoo.id)
+            remissao.pagamento = pagamento
+            if(pagamento.remissoes==null){
+                pagamento.remissoes = new ArrayList<Remissao>()
+            }
+            remissao.createdDate = new Date()
+            pagamento.remissoes.add(remissao)
+            remissao.save()
+            Remissao remissaoDb = Remissao.findById(remissao.id)
+            System.println("remissaoDb=="+remissaoDb)
+
+            if(remissaoDb!=null){
+                System.println("Remissão gravado com sucesso!")
+                info.value="Remissão gravado co sucesso!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                Transacao tCredito = new Transacao()
+                Transacao tDebito = new Transacao()
+                tCredito.valor = remissaoDb.valorDaRemissao
+                tCredito.descricao=remissaoDb.descricao+"-"+remissao.id
+                tDebito.descricao = remissaoDb.descricao+"-"+remissao
+                tDebito.valor = remissaoDb.valorDaRemissao
+                tCredito.credito = true
+                tDebito.credito = false
+                def credora = Conta.findById(contaDb.id)
+                def devedora = Conta.findByNumeroDaConta(selectedPagamentoo.credito.cliente.id.toString())
+                if (credora?.transacoes == null) {
+                    credora.transacoes = new LinkedHashSet<Transacao>()
+                }
+                if (devedora?.transacoes == null) {
+                    devedora.transacoes = new LinkedHashSet<Transacao>()
+                }
+                tCredito.save(failOnError: true)
+                tDebito.save(failOnError: true)
+                credora.transacoes.add(tCredito)
+                devedora.transacoes.add(tDebito)
+                credora.merge(failOnError: true)
+                devedora.merge(failOnError: true)
+                info.value = "Operações feitas com sucesso!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+
+                //addRemissao()
+                selectedRemissao = Remissao.findById(remissao.id)
+                // remissao =null
+                // fecharEditor()
+
+            }else {
+                info.value="Erro na na gravação da remissão!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+            }
+
+
+        }catch(Exception e){
+            System.println(e.toString())
+        }
+    }
+
     @NotifyChange(["remissoes","remissao","selectedPagamentoo","selectedRemissao"])
     @Command
     def salvarRemissao(){
+
         try {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "REMISSAO_CREATE" }) {
@@ -989,12 +1092,12 @@ class PagamentosViewModel {
                 if (devedora?.transacoes == null) {
                     devedora.transacoes = new LinkedHashSet<Transacao>()
                 }
-                tCredito.save(flush: true)
-                tDebito.save(flush: true)
+                tCredito.save(failOnError: true)
+                tDebito.save(failOnError: true)
                 credora.transacoes.add(tCredito)
                 devedora.transacoes.add(tDebito)
-                credora.merge(flush: true)
-                devedora.merge(flush: true)
+                credora.merge(failOnError: true)
+                devedora.merge(failOnError: true)
                 info.value = "Operações feitas com sucesso!"
                 info.style = "color:red;font-weight;font-size:16px;background:back"
                 
@@ -1016,7 +1119,7 @@ class PagamentosViewModel {
     @Command
     def printRecibo(){
         parcelaService.parcelaInstance=parcela
-        parcelaService.creditoInstance=selectedPagamento.credito
+        parcelaService.creditoInstance=selectedCredito
       //  Executions.sendRedirect("/parcela/printParcela/")
     }
 
@@ -1030,7 +1133,7 @@ class PagamentosViewModel {
     @NotifyChange(['parcelas','selectedCredito','parcela','selectedPagamento','pagamentos','pagamento','contaCaixa','contaCliente','tEntradas'])
     def salvarParcela(){
         if(settingsService.getSettings().pagamentosEmOrdem){
-            def pagamentos = Pagamento.findAllByCredito(selectedPagamento.credito).sort{it.id}
+             def pagamentos = Pagamento.findAllByCredito(selectedCredito).sort{it.id}
             for(Pagamento pagamento in pagamentos){
                 if(!pagamento.pago){
                     if(selectedPagamento.id>pagamento.id){
@@ -1075,27 +1178,27 @@ class PagamentosViewModel {
             }
             if(parcela.formaDePagamento==null){
                 info.value = "Forma de Pagamento não foi selecionado!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14pt;background:back"
                 return
             }
             if(contaCliente==null){
                 info.value = "ESte cliente não tem conta!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14pt;background:back"
                 return
             }
             info.value = ""
             if(selectedPagamento.pago){
                 info.value = "Esta Parcela já foi paga na Totalidade!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14pt;background:back"
                 return
             }
             if(contaCaixa==null){
                 info.value="O Utilizador "+utilizador.username+" não tem nehuma conta associada de forma poder lançar pagamentos!"
-                info.style ="color:red;font-weight;font-size:11pt;background:back"
+                info.style ="color:red;font-weight;font-size:14pt;background:back"
                 selectedPagamento=null
                 return
             }
-            List<Pagamento> pagamentoss= new LinkedList<Pagamento>(selectedPagamento.credito.pagamentos.sort{it.id})
+            List<Pagamento> pagamentoss= new LinkedList<Pagamento>(Pagamento.findAllByCredito(selectedCredito))
             parcela.setNumeroDoRecibo(contadorService.gerarNumeroDaParcela())
             Pagamento pagamento = Pagamento.findById(selectedPagamento.id)
             parcela.pagamento = pagamento
@@ -1113,7 +1216,7 @@ class PagamentosViewModel {
                 pagamentoss.each {totalCreditoDivida+=it.totalEmDivida}
                 if(valor> totalCreditoDivida*(-1)){
                     info.value = "O valor remanescente (" +valor+ ")não deve ser maior que o total em dívida ("+ totalCreditoDivida+") das prestações!"
-                    info.style = "color:red;font-weight;font-size:11pt;background:back"
+                    info.style = "color:red;font-weight;font-size:14pt;background:back"
 
                     return
                 }
@@ -1124,12 +1227,12 @@ class PagamentosViewModel {
                 }
 
                 pagamento.parcelas.add(parcela)
-                parcela.save(flush: true)
-                pagamento.merge(flush: true)
-                lancamentos(parcela)
+                parcela.save(failOnError: true)
+                pagamento.merge(failOnError: true)
+              //  lancamentos(parcela)
 
 
-                System.println(pagamentoss)
+               // System.println(pagamentoss)
                 for(int x=0;x<pagamentoss.size(); x++){
                     if(valor>0){
                         Pagamento pagamento1 = Pagamento.findById(pagamentoss[x].id)
@@ -1137,6 +1240,7 @@ class PagamentosViewModel {
                         if(!pagamento1.getPago()){
                             if(pagamento1.totalEmDivida*(-1)>=valor){
                                 Parcela parcela1 = new Parcela()
+                                parcela1.diario = diario
                                 parcela1.pagamento = pagamento1
                                 parcela1.valorParcial = valor
                                 parcela1.dataDePagamento = parcela.dataDePagamento
@@ -1150,14 +1254,15 @@ class PagamentosViewModel {
                                 }
 
                                 pagamento1.parcelas.add(parcela1)
-                                parcela1.save(flush: true)
-                                pagamento1.merge(flush: true)
-                                lancamentos(parcela1)
+                                parcela1.save(failOnError: true)
+                                pagamento1.merge(failOnError: true)
+                               // lancamentos(parcela1)
 
 
                             }else {
 
                                 Parcela parcela2 = new Parcela()
+                                parcela2.diario = diario
                                 parcela2.pagamento = pagamento1
                                 valor-=pagamento1.totalEmDivida*(-1)
                                 parcela2.valorParcial = pagamento1.totalEmDivida*(-1)
@@ -1171,9 +1276,9 @@ class PagamentosViewModel {
                                 }
 
                                 pagamento1.parcelas.add(parcela2)
-                                parcela2.save(flush: true)
-                                pagamento1.merge(flush: true)
-                                lancamentos(parcela2)
+                                parcela2.save(failOnError: true)
+                                pagamento1.merge(failOnError: true)
+                               // lancamentos(parcela2)
 
 
 
@@ -1191,9 +1296,9 @@ class PagamentosViewModel {
 
                 pagamento.parcelas.add(parcela)
                 parcela.valorParcial = parcela.valorPago
-                parcela.save(flush: true)
-                pagamento.merge(flush: true)
-                lancamentos(parcela)
+                parcela.save(failOnError: true)
+                pagamento.merge(failOnError: true)
+              //  lancamentos(parcela)
 
             }
 
@@ -1207,16 +1312,16 @@ class PagamentosViewModel {
             }
 
             sessionStorageService.parcela = parcela
-            sessionStorageService.credito = selectedPagamento.credito
+            sessionStorageService.credito = selectedCredito
             info.value = "Pagamento efetivado com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
             bt_salvar.label = "Pago!"
 
           //  selectedPagamento = Pagamento.findById(selectedPagamento.id)
            // Executions.sendRedirect("/parcela/printParcela/")
         }catch(Exception e){
             info.value = "Erro na gravação dos dados!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
             System.println(e.toString())
         }
 
@@ -1225,12 +1330,12 @@ class PagamentosViewModel {
 
         Transferencia t = new Transferencia()
         t.utilizador = utilizador
-        t.origem = Conta.findByNumeroDaConta(selectedPagamento.credito.cliente.id.toString())
+        t.origem = Conta.findByNumeroDaConta(selectedCredito.cliente.id.toString())
         t.destino = Conta.findById(contaCaixa.id)
         t.descricao = parcel.descricao+"-"+parcela.formaDePagamento
         t.valor = parcel.valorParcial
         t.diario = diario
-        t.save(flush: true)
+        t.save(failOnError: true)
         Transacao tCredito = new Transacao()
         Transacao tDebito = new Transacao()
         tCredito.valor = parcel.valorParcial
@@ -1247,14 +1352,14 @@ class PagamentosViewModel {
         if (devedora?.transacoes == null) {
             devedora.transacoes = new LinkedHashSet<Transacao>()
         }
-        tCredito.save(flush: true)
-        tDebito.save(flush: true)
+        tCredito.save(failOnError: true)
+        tDebito.save(failOnError: true)
         credora.transacoes.add(tCredito)
         devedora.transacoes.add(tDebito)
-        credora.merge(flush: true)
-        devedora.merge(flush: true)
+        credora.merge(failOnError: true)
+        devedora.merge(failOnError: true)
         info.value = "Operações feitas com sucesso!"
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14pt;background:back"
     }
     def lancamentoEntrada(Parcela parcel){
 
@@ -1266,7 +1371,7 @@ class PagamentosViewModel {
         t.descricao = parcel.descricao+"-"+parcel.id
         t.valor = parcel.valorPago
         t.diario = diario
-        t.save(flush: true)
+        t.save(failOnError: true)
         Transacao tCredito = new Transacao()
         Transacao tDebito = new Transacao()
         tCredito.valor = parcel.valorPago
@@ -1283,25 +1388,25 @@ class PagamentosViewModel {
         if (devedora?.transacoes == null) {
             devedora.transacoes = new LinkedHashSet<Transacao>()
         }
-        tCredito.save(flush: true)
-        tDebito.save(flush: true)
+        tCredito.save(failOnError: true)
+        tDebito.save(failOnError: true)
         credora.transacoes.add(tCredito)
         devedora.transacoes.add(tDebito)
-        credora.merge(flush: true)
-        devedora.merge(flush: true)
+        credora.merge(failOnError: true)
+        devedora.merge(failOnError: true)
         info.value = "Operações feitas com sucesso!"
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14pt;background:back"
     }
     def lancarRemissao(Remissao remis){
 
         Transferencia t = new Transferencia()
         t.utilizador = utilizador
-        t.destino = Conta.findByNumeroDaConta(selectedPagamento.credito.cliente.id.toString())
+        t.destino = Conta.findByNumeroDaConta(selectedCredito.cliente.id.toString())
         t.origem = Conta.findById(selectedConta.id)
         t.descricao = remis.descricao+"-"+remissao.id
         t.valor = remis.valorDaRemissao
         t.diario = diario
-        t.save(flush: true)
+        t.save(failOnError: true)
         Transacao tCredito = new Transacao()
         Transacao tDebito = new Transacao()
         tCredito.valor = remis.valorDaRemissao
@@ -1311,21 +1416,21 @@ class PagamentosViewModel {
         tCredito.credito = true
         tDebito.credito = false
         def credora = Conta.findById(selectedConta.id)
-        def devedora = Conta.findByNumeroDaConta(selectedPagamento.credito.cliente.id.toString())
+        def devedora = Conta.findByNumeroDaConta(selectedCredito.cliente.id.toString())
         if (credora?.transacoes == null) {
             credora.transacoes = new LinkedHashSet<Transacao>()
         }
         if (devedora?.transacoes == null) {
             devedora.transacoes = new LinkedHashSet<Transacao>()
         }
-        tCredito.save(flush: true)
-        tDebito.save(flush: true)
+        tCredito.save(failOnError: true)
+        tDebito.save(failOnError: true)
         credora.transacoes.add(tCredito)
         devedora.transacoes.add(tDebito)
-        credora.merge(flush: true)
-        devedora.merge(flush: true)
+        credora.merge(failOnError: true)
+        devedora.merge(failOnError: true)
         info.value = "Operações feitas com sucesso!"
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14pt;background:back"
     }
     Utilizador getUtilizador() {
         utilizador = springSecurityService.currentUser as Utilizador
@@ -1341,23 +1446,23 @@ class PagamentosViewModel {
 
     def verificarCondicoes(){
         info.value= ""
-        def pagamentos = selectedPagamento.credito.pagamentos
-        def totalCreditoEmDivida = 0.0
-        pagamentos.each {totalCreditoEmDivida+=it.totalEmDivida}
-        if(parcela.valorPago>totalCreditoEmDivida*(-1)){
-            info.value = "O valor alocado (" +parcela.valorPago +") não deve ser maior que o total em dívida ("+ totalCreditoEmDivida+") das prestações!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
-            parcela.valorPago = totalCreditoEmDivida*(-1)
+       // def pagamentos = Pagamento.findAllByCredito(selectedCredito)
+       // def totalCreditoEmDivida = 0.0
+      //  pagamentos.each {totalCreditoEmDivida+=it.totalEmDivida}
+        if(parcela.valorPago>selectedCredito.valorEmDivida*(-1)){
+            info.value = "O valor alocado (" +parcela.valorPago +") não deve ser maior que o total em dívida ("+ selectedCredito.valorEmDivida +") das prestações!"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
+            parcela.valorPago = selectedCredito.valorEmDivida*(-1)
             return
         }
         if(selectedPagamento.pago){
             info.value = "Esta Parcela já foi paga na Totalidade!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
             return
         }
         if(selectedPagamento.totalEmDivida.setScale(2, RoundingMode.HALF_EVEN)*(-1)>parcela.valorPago.setScale(2, RoundingMode.HALF_EVEN)){
             info.value = "O valor não cobre o total em dívida"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
         if(selectedPagamento.totalEmDivida.setScale(2, RoundingMode.HALF_EVEN)*(-1)==parcela.valorPago.setScale(2, RoundingMode.HALF_EVEN)){
             info.value = ""
@@ -1366,7 +1471,7 @@ class PagamentosViewModel {
         if(selectedPagamento.totalEmDivida.setScale(2, RoundingMode.HALF_EVEN)*(-1)<parcela.valorPago.setScale(2,RoundingMode.HALF_EVEN)){
             System.println(selectedPagamento.totalEmDivida*(-1)-parcela.valorPago)
             info.value = "O valor é superior ao valor em dívida desta prestação"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
     }
 
@@ -1480,7 +1585,7 @@ class PagamentosViewModel {
         diario = diarioService.getDiario()
         if(utilizador?.contas==null){
             info.value="O Utilizador "+utilizador.username+" não tem nehuma conta associada de forma poder lançar pagamentos!"
-            info.style ="color:red;font-weight;font-size:11pt;background:back"
+            info.style ="color:red;font-weight;font-size:14pt;background:back"
             selectedPagamento=null
             return
         }
@@ -1521,7 +1626,7 @@ class PagamentosViewModel {
         info.value=""
            if(utilizador?.contas==null){
             info.value="O Utilizador "+utilizador.username+" não tem nehuma conta associada de forma poder lançar pagamentos!"
-            info.style ="color:red;font-weight;font-size:11pt;background:back"
+            info.style ="color:red;font-weight;font-size:14pt;background:back"
             selectedPagamento=null
             return
         }
@@ -1529,11 +1634,12 @@ class PagamentosViewModel {
 
         if(contaCaixa==null){
             info.value="O Utilizador "+utilizador.username+" não tem nehuma conta associada de forma poder lançar pagamentos!"
-            info.style ="color:red;font-weight;font-size:11pt;background:back"
+            info.style ="color:red;font-weight;font-size:14pt;background:back"
             selectedPagamento=null
             return
         }
         parcela = new Parcela()
+        parcela.diario = diario
         parcela.dataDePagamento = new Date()
         parcela.formaDePagamento = "numerário"
         parcela.descricao = "Amortização da dívida"
@@ -1545,9 +1651,9 @@ class PagamentosViewModel {
         if(selectedPagamento?.id!=null){
             //    Executions.sendRedirect("/pagamento/show/"+selectedPagamento.id)
             pagamentoService.calcularMoras(selectedPagamento)
-            contaCliente = Conta.findByNumeroDaConta(selectedPagamento.credito.cliente.id.toString())
+            contaCliente = Conta.findByNumeroDaConta(selectedCredito.cliente.id.toString())
             pagamento_id=selectedPagamento.numeroDePagamento
-            def pagamentos = Pagamento.findAllByCredito(selectedPagamento.credito)
+            def pagamentos = Pagamento.findAllByCredito(selectedCredito)
             for(Pagamento pagamento in pagamentos){
                 if(!pagamento.pago){
                     if(selectedPagamento.id>pagamento.id){
@@ -1588,26 +1694,26 @@ class PagamentosViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "PARCELA_DELETE" }) {
                 info.value="Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14pt;background:back"
                 return
             }
             selectedPagamento.parcelas.remove(sParcela)
-            selectedPagamento.merge(flush: true)
-          sParcela.delete(flush: true)
+            selectedPagamento.merge(failOnError: true)
+          sParcela.delete(failOnError: true)
             info.value="O Pagamento selecionada foi eliminado com sucesso!"
-            info.style ="color:red;font-weight;font-size:11pt;background:back"
+            info.style ="color:red;font-weight;font-size:14pt;background:back"
 
         }catch(Exception e){
             System.println(e.toString())
             info.value="Erro na eliminação do recibo!"
-            info.style ="color:red;font-weight;font-size:11pt;background:back"
+            info.style ="color:red;font-weight;font-size:14pt;background:back"
         }
     }
 
     @Command
     def showDelMessage(){
         info.value="Faça double click para eliminar o item "+sParcela.descricao
-        info.style ="color:red;font-weight;font-size:11pt;background:back"
+        info.style ="color:red;font-weight;font-size:14pt;background:back"
     }
 
     @NotifyChange(["pagamentos","info","selectedRemissao","remissao"])
@@ -1664,17 +1770,17 @@ class PagamentosViewModel {
         Utilizador user = springSecurityService.currentUser as Utilizador
         if (!user.authorities.any { it.authority == "REMISSAO_DELETE" }) {
             info.value="Este utilizador não tem permissão para executar esta acção !"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
         else if(selectedRemissao?.pagamento?.credito?.invalido){
             info.value="Este credito já foi invalidado!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptp;background:back"
 
         }
 
         else {
-            info.value="Double Click para eliminar esta operação!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.value="Double Click para executar esta operação!"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
     }
     @Command
@@ -1683,12 +1789,12 @@ class PagamentosViewModel {
         Utilizador user = springSecurityService.currentUser as Utilizador
         if (!user.authorities.any { it.authority == "REMISSAO_DELETE" }) {
             info.value="Este utilizador não tem permissão para executar esta acção !"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
             return
         }
         if (selectedRemissao.id == null) {
             info.value="Seleccione uma remissão!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
             return
         }
         try {
@@ -1715,21 +1821,21 @@ class PagamentosViewModel {
             }
             contaCapital.transacoes.add(tDebito)
             contaCliente.transacoes.add(tCredito)
-            contaCapital.merge(flush: true)
-            contaCliente.merge(flush: true)
+            contaCapital.merge(failOnError: true)
+            contaCliente.merge(failOnError: true)
             def pagamentoDb = Pagamento.findById(selectedRemissao.pagamento.id)
             System.println(pagamentoDb)
             pagamentoDb.remissoes.remove(selectedRemissao)
             selectedRemissao.delete()
-            pagamentoDb.merge flush: true
+            pagamentoDb.merge failOnError: true
 
             info.value="REMISSÃO DA DÍVIDA invalidado com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
 
         }catch(Exception e){
             System.println(e.toString())
             info.value = "Erro na eliminação da remissão!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
 
     }

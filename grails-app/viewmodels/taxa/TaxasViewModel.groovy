@@ -52,14 +52,14 @@ class TaxasViewModel {
     def salvarTaxa(){
       if(Taxa.findById(taxa.id)){
          info.value="Esta taxa já existe na base de dados!"
-         info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+         info.style = "color:red;font-weight;font-size:14pt;background:#EAEAEA"
       }else {
          try {
             Utilizador user = springSecurityService.currentUser as Utilizador
             Entidade entidade = Entidade.findAll().first()
             if (!user.authorities.any { it.authority == "TAXA_CREATE" }) {
                info.value="Este utilizador não tem permissão para executar esta acção !"
-               info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+               info.style = "color:red;font-weight;font-size:14ptpt;background:#EAEAEA"
              return
             }
             taxa.utilizador = user
@@ -76,11 +76,11 @@ class TaxasViewModel {
             taxa.save(flush: true)
              taxas.add(taxa)
             info.value = "A taxa "+ taxa.nome+" foi criado com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+            info.style = "color:red;font-weight;font-size:14pt;background:#EAEAEA"
          }catch(Exception e){
             System.println(e.toString())
             info.value = e.toString()
-            info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+            info.style = "color:red;font-weight;font-size:14pt;background:#EAEAEA"
 
          }
       }
@@ -97,7 +97,7 @@ class TaxasViewModel {
    def checkName(){
       if(Taxa.findByNome(taxa.nome)){
          info.value = "Já existe uma taxa com esta descrição!"
-         info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+         info.style = "color:red;font-weight;font-size:14pt;background:#EAEAEA"
       }
    }
     @Command
@@ -109,18 +109,18 @@ class TaxasViewModel {
              Entidade entidade = Entidade.findAll().first()
              if (!user.authorities.any { it.authority == "TAXA_UPDATE" }) {
                 info.value="Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14pt;background:back"
                 return
              }
              taxa.utilizador = user
              taxa.entidade = entidade
              taxa.merge(flush: true)
              info.value = "A taxa "+ taxa.nome+" foi actualizada com sucesso!"
-             info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+             info.style = "color:red;font-weight;;font-size:14pt;background:#EAEAEA"
           }catch(Exception e){
              System.println(e.toString())
              info.value = e.toString()
-             info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+             info.style = "color:red;font-weight;;font-size:14pt;background:#EAEAEA"
 
           }
 
@@ -144,7 +144,7 @@ class TaxasViewModel {
    def checkNumber(){
       if(taxa.percentagem>100){
          info.value="valor inválido, coloque o valor correspondente de 1 a 100!"
-         info.style = "color:red;font-weight;font-size:11pt;background:back"
+         info.style = "color:red;font-weight;font-size:14ptpt;background:back"
 
       }
    }
@@ -173,23 +173,23 @@ class TaxasViewModel {
           def de_de_creditos = DefinicaoDeCredito.all.contains(taxa)
           if (!user.authorities.any { it.authority == "TAXA_DELETE" }) {
              info.value="Este utilizador não tem permissão para executar esta acção !"
-             info.style = "color:red;font-weight;font-size:11pt;background:back"
+             info.style = "color:red;font-weight;font-size:14ptpt;background:back"
              return
           }
 
           if(de_de_creditos){
              info.value="Esta taxa não pode ser eliminada, mas pode ser inválidado!"
-             info.style = "color:red;font-weight;font-size:11pt;background:back"
+             info.style = "color:red;font-weight;font-size:14ptpt;background:back"
              return
           }
           taxa.delete(flush: true)
           info.value = "A taxa "+ taxa.nome+" foi eliminada com sucesso!"
-          info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+          info.style = "color:red;font-weight;font-size:14ptpt;background:#EAEAEA"
            taxas.remove(taxa)
        }catch(Exception e){
           System.println(e.toString())
           info.value = e.toString()
-          info.style = "color:red;font-weight;font-size:11pt;background:#EAEAEA"
+          info.style = "color:red;font-weight;font-size:14ptpt;background:#EAEAEA"
 
        }
     }

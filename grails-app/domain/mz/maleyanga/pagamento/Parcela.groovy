@@ -33,8 +33,9 @@ class Parcela implements Serializable {
     Boolean invalido
 
     static mapping = {
-        utilizador lazy: false
-        diario lazy: false
+        //  utilizador lazy: false
+        // diario lazy: false
+        batchSize(10)
     }
 
     String getNomeDoCliente() {

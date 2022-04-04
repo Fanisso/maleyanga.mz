@@ -8,8 +8,6 @@ class ClienteDetalhado {
     String residencia
     String ativo
     String classificacao
-    int qtdDeCreditos
-    Set<Credito> creditos
     BigDecimal valorEmDivida
     String gestor
 

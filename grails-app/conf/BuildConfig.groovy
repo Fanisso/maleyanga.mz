@@ -56,6 +56,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.27'
          runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+      //   runtime 'org.postgresql:postgresql:42.2.25'
         test "org.grails:grails-datastore-test-support:1.0-grails-2.3"
     }
 
@@ -68,7 +69,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.7'
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate:3.6.10.16" // or ":hibernate4:4.3.5.4"
+        runtime ":hibernate4:4.3.5.4" // or ":hibernate4:4.3.5.4"//":hibernate:3.6.10.16"
         //runtime ":database-migration:1.4.0"
        // runtime ":jquery:1.11.1"
         runtime ":resources:1.2.8"

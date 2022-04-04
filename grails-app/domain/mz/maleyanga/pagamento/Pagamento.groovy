@@ -38,13 +38,11 @@ class Pagamento implements Serializable {
     Date dataDePagamento
     Date dataPrevistoDePagamento
     Date dataDaCriacao
-    LinkedList<Mora> moras = new LinkedList<Mora>()
 
     static mapping = {
         id generator: 'increment'
-        credito lazy: false
-        parcelas lazy: true
-        moras lazy: false
+        //  credito lazy: false
+        batchSize(20)
     }
 
 
@@ -121,12 +119,10 @@ class Pagamento implements Serializable {
     }
 
     boolean getPago() {
-        if (getTotalEmDivida() * (-1) <= 0.0) {
-            return true
-        } else return false
+        return getTotalEmDivida() * (-1) <= 0.0
     }
     static hasOne = [credito: Credito]
-    static hasMany = [parcelas: Parcela, remissoes: Remissao, notas: Nota]
+    static hasMany = [parcelas: Parcela, remissoes: Remissao]
 
     static constraints = {
         totalPagoNoPrazo nullable: true
@@ -148,9 +144,9 @@ class Pagamento implements Serializable {
         valorPagoAmortizacao nullable: true
         valorPagoDemora nullable: true
         valoresAlocados nullable: true
-        notas nullable: true
+        // notas nullable: true
         dataDaCriacao nullable: true
-        moras nullable: true
+        //  moras nullable: true
         totalPago nullable: true
 
 

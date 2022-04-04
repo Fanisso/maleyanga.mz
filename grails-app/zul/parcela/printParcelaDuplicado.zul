@@ -44,26 +44,26 @@
                         <row>
                             <cell align="right" colspan="4">
                                 <label style="font-size:12pt" value="Operador: "/>
-                                <label style="font-size:12pt" value="@load(vm.parcelaInstance.utilizador.username)"/>
+                                <label style="font-size:12pt" value="@load(vm.parcelaInstance.username)"/>
 
                             </cell>
                         </row>
                         <row>
                             <label style="font-size:12pt" value="Recebemos de: "/>
                             <cell colspan="3">
-                                <label style="font-size:12pt" value="@load(vm.creditoInstance.cliente)"/>
+                                <!-- <label style="font-size:12pt" value="@load(vm.creditoInstance.cliente)"/>-->
                             </cell>
                         </row>
                         <row>
                             <cell>
                                 <label style="font-size:12pt" value="Portador de "/>
-                                <label style="font-size:12pt"
-                                       value="@load(vm.creditoInstance.cliente.tipoDeIndentificacao)"/>
+                                <!-- <label style="font-size:12pt"
+                                        value="@load(vm.creditoInstance.cliente.tipoDeIndentificacao)"/>-->
                                 <label style="font-size:12pt" value=" Nº: "/>
                             </cell>
                             <cell colspan="1">
-                                <label style="font-size:12pt"
-                                       value="@load(vm.creditoInstance.cliente.numeroDeIndentificao)"/>
+                                <!-- <label style="font-size:12pt"
+                                        value="@load(vm.creditoInstance.cliente.numeroDeIndentificao)"/>-->
                             </cell>
                             <cell align="right" colspan="2">
                                 <label value="Forma de Pag.:"/>

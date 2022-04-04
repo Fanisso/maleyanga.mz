@@ -38,6 +38,7 @@ class Utilizador implements Serializable {
     static mapping = {
         password column: '`password`'
         contas lazy: false
+        batchSize(10)
 
     }
     static hasMany = [clientes: Cliente, contas: Conta]

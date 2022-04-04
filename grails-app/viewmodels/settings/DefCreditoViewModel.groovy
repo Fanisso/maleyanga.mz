@@ -1,8 +1,10 @@
 package settings
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import mz.maleyanga.SettingsService
 import mz.maleyanga.Taxa.Taxa
+import mz.maleyanga.security.Utilizador
 import mz.maleyanga.settings.DefinicaoDeCredito
 import mz.maleyanga.settings.Settings
 
@@ -41,6 +43,7 @@ class DefCreditoViewModel {
     boolean variavel = false
     String pdjda
     String taxaManua
+    SpringSecurityService springSecurityService
 
     @Command
     @NotifyChange(["settings"])
@@ -50,7 +53,7 @@ class DefCreditoViewModel {
         settings.ignorarValorPagoNoPrazo= !settings.ignorarValorPagoNoPrazo
         settings.merge(flush: true)
         info.value ="Dados atualizados com sucesso!"+settings.ignorarValorPagoNoPrazo
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
      boolean getVariavel() {
         return variavel
@@ -168,11 +171,11 @@ class DefCreditoViewModel {
             if(DefinicaoDeCredito.findById(definicaoDeCredito.id)){
                 getDefinicoes()
                 info.value= "A definição de crédito foi criado com sucesso"
-                info.style= "color:blue"
+                info.style= "color:blue;font-size:14pt"
                 definicaoDeCredito = new DefinicaoDeCredito()
             }else {
                 info.value= "Erro na gravação dos dados"
-                info.style= "color:red"
+                info.style= "color:red;font-size:14pt"
             }
 
 
@@ -186,13 +189,13 @@ class DefCreditoViewModel {
     def deleteDefCredito(){
         if (selectedDefinicaoDeCredito==null){
             info.value = "Selecione o item que deseja eliminar!"
-            info.style= "color:red"
+            info.style= "color:red;font-size:14pt"
         }
         try {
 
                 selectedDefinicaoDeCredito.delete(flush: true)
             info.value = "A Definição de crédito "+selectedDefinicaoDeCredito.descricao+" foi eliminado com sucesso!"
-            info.style= "color:blue"
+            info.style= "color:blue;font-size:14pt"
 
             getDefinicoes()
 
@@ -329,23 +332,34 @@ class DefCreditoViewModel {
         settings.calcularAutomatico= !settings.calcularAutomatico
         settings.merge(flush: true)
         info.value ="Dados atualizados com sucesso!"+settings.calcularAutomatico
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 
 
     @NotifyChange(["settings","permitirDesembolsoComDivida"])
     @Command
     def desembolsarComDividas(){
-        settings = Settings.findByNome("settings")
-        if(settings.permitirDesembolsoComDivida){
-            settings.permitirDesembolsoComDivida=false
-        }else {
-            settings.permitirDesembolsoComDivida=true
+        try{
+            Utilizador user = springSecurityService.currentUser as Utilizador
+            if (!user.authorities.any { it.authority == "SETTINGS_UPDATE" }) {
+                info.value = "Este utilizador não tem permissão para executar esta acção !"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
+                return
+            }
+            settings = Settings.findByNome("settings")
+            if(settings.permitirDesembolsoComDivida){
+                settings.permitirDesembolsoComDivida=false
+            }else {
+                settings.permitirDesembolsoComDivida=true
+            }
+
+            settings.merge(flush: true)
+            info.value ="Dados atualizados com sucesso! "+settings.permitirDesembolsoComDivida
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
+        }catch(Exception e){
+            info.value = e.toString()
         }
 
-        settings.merge(flush: true)
-        info.value ="Dados atualizados com sucesso! "+settings.permitirDesembolsoComDivida
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
     }
 
     Settings getSetting() {
@@ -362,7 +376,7 @@ class DefCreditoViewModel {
 
         definicaoDeCredito.excluirSabados = !definicaoDeCredito.excluirSabados
         info.value ="Excluir sábados ! == "+definicaoDeCredito.excluirSabados
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 
     @NotifyChange(["setting","definicaoDeCredito"])
@@ -371,7 +385,7 @@ class DefCreditoViewModel {
 
         definicaoDeCredito.excluirDiaDePagNoSabado = !definicaoDeCredito.excluirDiaDePagNoSabado
         info.value ="Excluir Pagamentos nos sábados == "+definicaoDeCredito.excluirDiaDePagNoSabado
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 
     @NotifyChange(["setting","definicaoDeCredito"])
@@ -379,14 +393,14 @@ class DefCreditoViewModel {
     def excluirDomingos(){
         definicaoDeCredito.excluirDomingos = !definicaoDeCredito.excluirDomingos
         info.value ="Excluir Domingos == "+definicaoDeCredito.excluirDomingos
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
     @NotifyChange(["setting","definicaoDeCredito"])
     @Command
     def excluirPagNosDomingos(){
         definicaoDeCredito.excluirDiaDePagNoDomingo = !definicaoDeCredito.excluirDiaDePagNoDomingo
         info.value ="Excluir pagamentos nos domingos =="+definicaoDeCredito.excluirDiaDePagNoDomingo
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 
          @NotifyChange(["definicaoDeCredito","definicoes"])
@@ -398,7 +412,7 @@ class DefCreditoViewModel {
              settings.pagamentosEmOrdem = settings.pagamentosEmOrdem
             settings.merge(flush: true)
         info.value ="Dados actualizados com sucesso! "
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
         }
 
     @Command
@@ -408,7 +422,7 @@ class DefCreditoViewModel {
         settings.pagamentosEmOrdem =!settings.pagamentosEmOrdem
         settings.merge(flush: true)
         info.value ="Dados actualizados com sucesso!"+settings.pagamentosEmOrdem
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
 
 
     }
@@ -421,6 +435,6 @@ class DefCreditoViewModel {
         settings.taxaManual =!settings.taxaManual
         settings.merge(flush: true)
         info.value ="Dados atualizados com sucesso!"+settings.taxaManual
-        info.style = "color:red;font-weight;font-size:11pt;background:back"
+        info.style = "color:red;font-weight;font-size:14ptpt;background:back"
     }
 }

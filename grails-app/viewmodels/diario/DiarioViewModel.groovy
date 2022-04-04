@@ -46,8 +46,8 @@ class DiarioViewModel {
     @Wire Label info
     @Wire Button bt_fechar
     @Wire Button bt_abrir
-    String blue="color:blue"
-    String red = "color:red"
+    String blue="color:blue;font-size:14pt"
+    String red = "color:red;font-size:14pt"
     ContadorService contadorService
     Utilizador utilizador
     private ListModelList<Diario> items
@@ -147,17 +147,17 @@ class DiarioViewModel {
         Utilizador user = springSecurityService.currentUser as Utilizador
         if (!user.authorities.any { it.authority == "PARCELA_DELETE" }) {
             info.value="Este utilizador não tem permissão para executar esta acção !"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
         if(selectedSaida.invalido){
             info.value="Este recibo já foi invalidado!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
 
         }
 
         else {
             info.value="Double Click para eliminar este credito!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
     }
 
@@ -168,7 +168,7 @@ class DiarioViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "SAIDA_DELETE" }) {
                 info.value = "Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
 
@@ -202,10 +202,10 @@ class DiarioViewModel {
             selectedSaida.valor = 0.0
             selectedSaida.merge(flush: true)
             info.value = "gravação feita com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
 
             info.value = "Operações feitas com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             parcelaService.saidaInstance = saida
             saidas.remove(saida)
         }catch(Exception e){
@@ -367,7 +367,7 @@ class DiarioViewModel {
         composerService.diario = selectedDiario
         if(selectedUtilizador==null){
             info.value = "Selecione um Utilizador!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             return
 
         }
@@ -445,7 +445,7 @@ class DiarioViewModel {
                 Utilizador user = springSecurityService.currentUser as Utilizador
                 if (!user.authorities.any { it.authority == "DIARIO_CREATE" }) {
                     info.value="Este utilizador não tem permissão para executar esta acção !"
-                    info.style = "color:red;font-weight;font-size:11pt;background:back"
+                    info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                     return
                 }
 
@@ -480,14 +480,14 @@ class DiarioViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "DIARIO_FECHAR" }) {
                 info.value = "Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
 
             saldo =getSaldo().setScale(2,RoundingMode.DOWN)
             if(saldo!=0.0) {
                 info.value = "Regularize o saldo do Diário antes de fechar!"+" Saldo = "+saldo
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 if(selectedUtilizador==null){
                     info.value+=". Selecione um utilizador com saldo em caixa!"
 
@@ -566,7 +566,7 @@ class DiarioViewModel {
         Utilizador user = springSecurityService.currentUser as Utilizador
         if (!user.authorities.any { it.authority == "DIARIO_ABRIR" }) {
             info.value = "Este utilizador não tem permissão para executar esta acção !"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             return
         }
 
@@ -603,7 +603,7 @@ class DiarioViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "SAIDA_SAVE" }) {
                 info.value = "Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             if(selectedUtilizador==null){
@@ -615,22 +615,22 @@ class DiarioViewModel {
             System.println(utilizador.username)
             if(Saida.findById(saida.id)){
                 info.value = "Este Pagamento já foi lançado!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             if(0>=saida.valor){
                 info.value = "Valor inválido!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             if(saida.dataDePagamento==null){
                 info.value = "Data inválido!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
             if(saida.formaDePagamento==null){
                 info.value = "Forma de Pagamento não foi selecionado!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
 
@@ -638,7 +638,7 @@ class DiarioViewModel {
 
             if(contaCaixa==null){
                 info.value="O Utilizador "+selectedUtilizador+" não tem nehuma conta associada de forma poder lançar pagamentos!"
-                info.style ="color:red;font-weight;font-size:11pt;background:back"
+                info.style ="color:red;font-weight;font-size:14ptpt;background:back"
 
                 return
             }
@@ -654,7 +654,7 @@ class DiarioViewModel {
             saida.diario = selectedDiario
             saida.save(flush: true)
             info.value = "gravação feita com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
 
             Transacao tCredito = new Transacao()
             Transacao tDebito = new Transacao()
@@ -681,7 +681,7 @@ class DiarioViewModel {
 
 
             info.value = "Operações feitas com sucesso!"
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             parcelaService.saidaInstance = saida
         }catch(Exception e){
             System.println(e.toString())

@@ -49,8 +49,8 @@ class GestorDeClientesViewModel {
     @Wire Hbox hb_new_cliente
     private String  filterCliente
     private String  filter
-    private String blue = "color:blues;font-size:12pt"
-    private String red = "color:red"
+    private String blue = "color:blues;font-size:14pt"
+    private String red = "color:red;font-size:14pt"
     private String error_ = "Erro na gravação dos dados"
     private String alerta = "Se realemente deseja eliminar este Objecto faça double click!"
     private ListModelList gestores
@@ -506,7 +506,7 @@ class GestorDeClientesViewModel {
       showAlerta(){
      //   System.println(editCliente)
         info.value ="Se realmente pretende eliminar o item seleccionado, Faça Double Click!"
-        info.style="color:red"
+        info.style="color:red;font-size:14pt"
     }
 
 
@@ -518,7 +518,7 @@ class GestorDeClientesViewModel {
             Utilizador user = springSecurityService.currentUser as Utilizador
             if (!user.authorities.any { it.authority == "CLIENTE_DELETE" }) {
                 info.value="Este utilizador não tem permissão para executar esta acção !"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 return
             }
        //     System.println(editCliente)
@@ -535,27 +535,27 @@ class GestorDeClientesViewModel {
                 def result =  contaService.update(contaDb)
                 if(result){
                     info.value = "a Conta do "+editCliente.nome+ " foi eliminado com sucesso!"
-                    info.style = "color:blue;font-weight;font-size:11pt;background:back"
+                    info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
                 }else {
                     info.value = "Erro na Eliminação da conta do  "+editCliente.nome
-                    info.style = "color:blue;font-weight;font-size:11pt;background:back"
+                    info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
                 }
             }
            def result = clienteService.deleteliente(editCliente)
            // editCliente.delete(flush: true)
             if(result){
                 info.value="O Cliente foi eliminado com sucesso!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
                 editCliente = null
             }else {
                 info.value="Não foi possivel eliminar este cliente!"
-                info.style = "color:red;font-weight;font-size:11pt;background:back"
+                info.style = "color:red;font-weight;font-size:14ptpt;background:back"
             }
 
         }catch(Exception e){
       //      System.println(e.toString())
             info.value=e.toString()
-            info.style = "color:red;font-weight;font-size:11pt;background:back"
+            info.style = "color:red;font-weight;font-size:14ptpt;background:back"
         }
         Utilizador user = springSecurityService.currentUser as Utilizador
 

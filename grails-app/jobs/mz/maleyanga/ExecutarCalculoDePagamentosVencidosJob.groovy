@@ -4,10 +4,11 @@ import mz.maleyanga.cliente.Cliente
 import mz.maleyanga.credito.Credito
 import mz.maleyanga.pagamento.Pagamento
 import mz.maleyanga.settings.Settings
+import org.hibernate.SessionFactory
 
 
 class ExecutarCalculoDePagamentosVencidosJob {
-
+    SessionFactory sessionFactory
     PagamentoService pagamentoService
     def contaService
     static triggers = {
@@ -16,6 +17,7 @@ class ExecutarCalculoDePagamentosVencidosJob {
     }
 
     def execute() {
+
         def data = new Date()
         Calendar cal = Calendar.getInstance()
 
@@ -32,22 +34,28 @@ class ExecutarCalculoDePagamentosVencidosJob {
 
                 def result
                 // pagamentoService.calcularMoras(p)
-                pagamentoService.calcularMoraCaPital(credito)
+                //  pagamentoService.calcularMoraCaPital(credito)
             }
-            System.println("fim de calculo automatico de moras!")
+            //  System.println("fim de calculo automatico de moras!")
         }
         for (Pagamento p in pagamentos) {
-            p.merge()
+            p.merge(failOnError: true)
         }
 
 
-        for (Cliente c in clientes) {
+        /*for (Cliente c in clientes) {
             c.getClassificacao()
-            c.merge()
-        }
+            c.merge(failOnError: true)
+        }*/
 
 
         // execute job
-        //  pagamentoService.calcularPagamentosVencidos()
+        //  pagamentoService.calcularPagamentosVencidos()4
+        /*if (sessionFactory != null) {
+            if (!sessionFactory.isClosed()) {
+                sessionFactory.close()
+            }
+        }*/
+        System.println(new Date().toString() + " : fim de calculo")
     }
 }

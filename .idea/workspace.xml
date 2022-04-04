@@ -19,6 +19,8 @@
     </select>
   </component>
   <component name="BuildServerSettings">
+    <option name="LOGIN" value="admin" />
+    <option name="SERVER_URL" value="http://localhost:8090/MALEYANGA" />
     <treeState key="changes">
       <selectedPath>
         <pathElement>
@@ -46,7 +48,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras">
+      <change afterPath="$PROJECT_DIR$/.slcache/org_hibernate_mapping_Collection_18766.bytes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/settings/GrupoDeDefDeCredito.groovy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postgres_alter_timeout.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/images/logo_laulane_m_xx.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_09_2021_12_29__Default_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_09_2021_12_29__Default_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Assinante.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Assinante.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/conta/Conta.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/conta/Conta.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/credito/Credito.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/diario/Diario.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/diario/Diario.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Pagamento.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Pagamento.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Parcela.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Parcela.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Remissao.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pagamento/Remissao.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pedidoDeCredito/PedidoDeCredito.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/pedidoDeCredito/PedidoDeCredito.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/saidas/Saida.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/saidas/Saida.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/security/Utilizador.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/security/Utilizador.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/settings/DefinicaoDeCredito.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/settings/DefinicaoDeCredito.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/transferencia/Transferencia.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/transferencia/Transferencia.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga/ExecutarCalculoDePagamentosVencidosJob.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/jobs/mz/maleyanga/ExecutarCalculoDePagamentosVencidosJob.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/services/mz/maleyanga/PagamentoService.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/utils/mz/maleyanga/ClienteDetalhado.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/utils/mz/maleyanga/ClienteDetalhado.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/cliente/GestorDeClientesViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/cliente/GestorDeClientesViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/cliente/NovoClienteViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/SimuladorViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/SimuladorViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/diario/DiarioViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/parcela/FundoDeManeioViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/parcela/FundoDeManeioViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/parcela/PrintParcelaDuplicadoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/parcela/PrintParcelaDuplicadoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/parcela/PrintParcelaViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/parcela/PrintParcelaViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/parcela/RecibosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/parcela/RecibosViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/pedidoDeCredito/PedidoDeCreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/pedidoDeCredito/PedidoDeCreditoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintClientesViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/PrintClientesViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/settings/DefCreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/settings/DefCreditoViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/taxa/TaxasViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/taxa/TaxasViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/utilizador/UtilizadorViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/utilizador/UtilizadorViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/planoDePagamento.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/planoDePagamento.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/printContratoDeCredito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/printContratoDeCredito.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/pagamento/pagamentos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/pagamento/pagamentos.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/parcela/printParcela.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/parcela/printParcela.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/parcela/printParcelaDuplicado.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/parcela/printParcelaDuplicado.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/relatorios/printClientes.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/relatorios/printClientes.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/zul/settings/defCredito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/settings/defCredito.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mz.maleyanga-grailsPlugins.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mz.maleyanga-grailsPlugins.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mz.maleyanga.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mz.maleyanga.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/images/logo_laulane_m.png" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/images/logo_laulane_m.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/images/maleyanga_long.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +168,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="grails.last.selected.app.url" value="file://$PROJECT_DIR$" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/grails-app/views/relatorios" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -126,17 +179,17 @@
     <property name="settings.editor.selected.configurable" value="vcs.Mercurial" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\mz.maleyanga\grails-app\zul\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\viewmodels\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\conf\maleyanga" />
+      <recent name="D:\workspace\mz.maleyanga\grails-app\views\feriado" />
+      <recent name="D:\workspace\mz.maleyanga\grails-app\conf" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="mz.maleyanga" />
       <recent name="mz.maleyanga.pagamento" />
       <recent name="mz.maleyanga.pagamento.mz.maleyanga" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="Z:\mz.maleyanga\grails-app\views\relatorios" />
-      <recent name="Z:\mz.maleyanga\grails-app\jobs\mz\maleyanga" />
-      <recent name="Z:\mz.maleyanga\lib" />
-      <recent name="Z:\mz.maleyanga\grails-app\views\_menu" />
-      <recent name="Z:\mz.maleyanga\grails-app\views\credito" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mz.maleyanga" />
@@ -145,12 +198,12 @@
       <recent name="mz.maleyanga.cliente" />
       <recent name="mz.maleyanga.pagamento" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="Z:\mz.maleyanga\grails-app\zul\relatorios" />
-      <recent name="Z:\mz.maleyanga\grails-app\viewmodels\relatorios" />
-      <recent name="Z:\mz.maleyanga\grails-app\conf\maleyanga" />
-      <recent name="D:\workspace\mz.maleyanga\grails-app\views\feriado" />
-      <recent name="D:\workspace\mz.maleyanga\grails-app\conf" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\mz.maleyanga\lib" />
+      <recent name="Z:\mz.maleyanga\grails-app\views\relatorios" />
+      <recent name="Z:\mz.maleyanga\grails-app\jobs\mz\maleyanga" />
+      <recent name="Z:\mz.maleyanga\grails-app\views\_menu" />
+      <recent name="Z:\mz.maleyanga\grails-app\views\credito" />
     </key>
   </component>
   <component name="RunManager" selected="Grails.Grails:mz.maleyanga">
@@ -1414,6 +1467,45 @@
       <workItem from="1645605386833" duration="627000" />
       <workItem from="1645613029602" duration="41000" />
       <workItem from="1645613773556" duration="667000" />
+      <workItem from="1645796390705" duration="766000" />
+      <workItem from="1645859682456" duration="1476000" />
+      <workItem from="1646037298043" duration="17778000" />
+      <workItem from="1646120547148" duration="16919000" />
+      <workItem from="1646208000811" duration="3161000" />
+      <workItem from="1646224928380" duration="15000" />
+      <workItem from="1646294173386" duration="12189000" />
+      <workItem from="1646371924507" duration="1940000" />
+      <workItem from="1646382980327" duration="1459000" />
+      <workItem from="1646390599874" duration="1434000" />
+      <workItem from="1646393324989" duration="2297000" />
+      <workItem from="1646398367622" duration="2642000" />
+      <workItem from="1646549152936" duration="8064000" />
+      <workItem from="1646647572885" duration="3178000" />
+      <workItem from="1646651843278" duration="1139000" />
+      <workItem from="1646653554025" duration="1469000" />
+      <workItem from="1646655430455" duration="315000" />
+      <workItem from="1646655941221" duration="1175000" />
+      <workItem from="1646657157679" duration="914000" />
+      <workItem from="1646658790447" duration="1346000" />
+      <workItem from="1646660521238" duration="2279000" />
+      <workItem from="1646728785805" duration="5111000" />
+      <workItem from="1646742451527" duration="3358000" />
+      <workItem from="1646747430588" duration="614000" />
+      <workItem from="1646748514919" duration="449000" />
+      <workItem from="1646809546383" duration="467000" />
+      <workItem from="1646831219833" duration="2240000" />
+      <workItem from="1646909707869" duration="160000" />
+      <workItem from="1646916541325" duration="430000" />
+      <workItem from="1647001329263" duration="1219000" />
+      <workItem from="1647006286552" duration="643000" />
+      <workItem from="1647269615489" duration="1095000" />
+      <workItem from="1647431742034" duration="2988000" />
+      <workItem from="1647521406737" duration="2294000" />
+      <workItem from="1647860477706" duration="1835000" />
+      <workItem from="1647873943449" duration="5383000" />
+      <workItem from="1648408050791" duration="168000" />
+      <workItem from="1648417395668" duration="878000" />
+      <workItem from="1649060472187" duration="1787000" />
     </task>
     <task id="LOCAL-00102" summary="me parece que a implementação de N dias em mora correu sem sobresaldos, agora é a hora de ver um filme">
       <created>1620845336724</created>
@@ -1867,37 +1959,53 @@
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom" timestamp="1645555604246">
+    <state x="488" y="64" key="#com.intellij.ide.util.MemberChooser" timestamp="1646733072332">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1645555604246" />
-    <state width="1323" height="169" key="GridCell.Tab.0.center" timestamp="1645555604246">
+    <state x="488" y="64" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1646733072332" />
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1649062598904">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1645555604246" />
-    <state width="1323" height="169" key="GridCell.Tab.0.left" timestamp="1645555604246">
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1649062598904" />
+    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1649062598904">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1645555604246" />
-    <state width="1323" height="169" key="GridCell.Tab.0.right" timestamp="1645555604246">
+    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1649062598904" />
+    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1649062598904">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="169" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1645555604246" />
-    <state width="515" height="448" key="SwitcherDM" timestamp="1645547608022">
+    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1649062598904" />
+    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1649062598904">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="515" height="448" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1645547608022" />
+    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1649062598904" />
+    <state width="515" height="477" key="SwitcherDM" timestamp="1649062578735">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="515" height="477" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1649062578735" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1645555424441">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1645555424441" />
+    <state x="481" y="52" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1646661821337">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="481" y="52" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1646661821337" />
+    <state x="390" y="99" width="585" height="588" key="find.popup" timestamp="1647879219508">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="390" y="99" width="585" height="588" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1647879219508" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1647874682489">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1647874682489" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy</url>
-          <line>1212</line>
+          <line>1233</line>
           <option name="temporary" value="true" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -1910,7 +2018,7 @@
         <entry key="mz.maleyanga">
           <value>
             <GrailsSettings>
-              <option name="buildConfigCrc" value="298069913" />
+              <option name="buildConfigCrc" value="-521059758" />
               <option name="pluginDependenciesCrc" value="-1620851198" />
               <option name="properties">
                 <map>

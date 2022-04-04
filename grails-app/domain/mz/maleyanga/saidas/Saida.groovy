@@ -34,6 +34,7 @@ class Saida implements Serializable {
 
     static mapping = {
         utilizador lazy: false
+        batchSize(10)
     }
 
     static constraints = {

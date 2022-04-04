@@ -18,12 +18,13 @@ class Assinante implements Serializable{
     String telefone
     String telefone1
     String telefone2
+    Cliente cliente
 
 
     static mapping = {
         id generator: 'increment'
     }
-    static belongsTo = [cliente: Cliente]
+    // static belongsTo = [cliente: Cliente]
     static constraints = {
         dataDeEmissao nullable: true
         utilizador nullable: true
@@ -33,6 +34,7 @@ class Assinante implements Serializable{
         numeroDeIndentificaoDoAssinante nullable: true
         residenciaDoAssinante nullable: true
         emailDoAssinante nullable: true
+        cliente nullable: true
 
         tipoDeIndentificacaoDoAssinante inList: ["BI", "Passaporte", "Carta de conducao", "Outro"], nullable: true
         estadoCivilDoAssinante inList: ["Solteiro", "Solteira", "Casada", "Casado", "Separado Judicialmente", "Separada Judicialmente", "Outro"]

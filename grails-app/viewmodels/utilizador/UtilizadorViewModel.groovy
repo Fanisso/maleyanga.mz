@@ -20,7 +20,7 @@ class UtilizadorViewModel {
     private  String filter = ""
     private  @Wire Label info
     private String blue = "color:blues;font-size:12pt"
-    private String red = "color:red"
+    private String red = "color:red;font-size:14pt"
     private ListModelList<Utilizador> utilizadores
 
 
@@ -33,11 +33,11 @@ class UtilizadorViewModel {
       def result =  utilizadorService.updateUtilizador(novoUtilizador)
         if(result){
             info.value = "Dados actualizados com sucesso!"
-            info.style  ="color:blue;font-weight:bold"
+            info.style  ="color:blue;font-weight:bold;font-size:14pt"
 
         }else {
             info.value = "Erro na gravação dos dados"
-            info.style  ="color:blue;font-weight:bold"
+            info.style  ="color:blue;font-weight:bold;font-size:14pt"
         }
     }
 
@@ -136,17 +136,17 @@ def setEnabled()
             }
             if(novoUtilizador.username.equals(null)){
                 info.value = "Preencha o campo 'Username'!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(Cliente.findByNome(novoUtilizador.username)){
                 info.value = "Já existe um utilizador com este nome!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
             if(Cliente.findById(novoUtilizador.id)){
                 info.value = "Este Cliente já existe na base de dados!"
-                info.style = "color:red"
+                info.style = "color:red;font-size:14pt"
                 return
             }
 
@@ -157,17 +157,17 @@ def setEnabled()
             def result = utilizadorService.saveUtilizador(novoUtilizador)
             if(result){
                 info.value = "Dados gravados com sucesso!"
-                info.style  ="color:blue"
+                info.style  ="color:blue;font-size:14pt"
                 utilizadores.add(novoUtilizador)
                 novoUtilizador = new Utilizador()
             }else {
                 info.value = "Erro na gravação dos dados"
-                info.style  ="color:red"
+                info.style  ="color:red;font-size:14pt"
             }
 
         } catch (Exception e) {
             info.value = "Erro na gravação dos dados"
-            info.style  ="color:red"
+            info.style  ="color:red;font-size:14pt"
             System.println(e.toString())
 
 
