@@ -40,7 +40,10 @@ class Cliente implements Serializable {
     Date dateCreated
     BigDecimal totalEmDivida = 0.0
 
-    /*Boolean getEmDivida() {
+    Boolean getEmDivida() {
+        return emDivida
+    }
+/*Boolean getEmDivida() {
         if (creditos == null) {
             return false
         }

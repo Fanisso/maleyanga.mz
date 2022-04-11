@@ -877,9 +877,7 @@
                                 </columns>
                                 <rows visible="@load(not empty vm.remissao)">
                                     <row>
-                                        <label value="Beneficiário(a):"/>
-                                        <label style="color:blue;font-size:13pt;font-weight:bold;border:none"
-                                               value="@load(vm.selectedPagamentoo.credito.cliente.nome)"/>
+
                                     </row>
                                     <row>
                                         <label value="Credito"/>

@@ -66,31 +66,31 @@ SessionStorageService sessionStorageService
         {
 
             ExtratosDeCredito extratosDeCredito = new ExtratosDeCredito()
-             extratosDeCredito.numeroDoCredito = creditoInstance?.numeroDoCredito
-             extratosDeCredito.dateConcecao = creditoInstance?.dateConcecao
-             extratosDeCredito.nome = creditoInstance?.cliente?.nome
-             extratosDeCredito.gestor = Cliente.findByNome(creditoInstance.cliente.nome).getUtilizador()
-             extratosDeCredito.numeroDePrestacoesEmDia = getNumeroDePrestacoesEmDia(creditoInstance)
-             extratosDeCredito.valorDaPrestacao = getValorDaPrestacao(creditoInstance)
-             extratosDeCredito.totalJurosDeMora = getTotalJurosDeMora(creditoInstance)
-             extratosDeCredito.totalCredito = getTotalCredito(creditoInstance)
-            extratosDeCredito.valorEmDivida  = getValorEmDivida(creditoInstance)
-             extratosDeCredito.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia, extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
+             extratosDeCredito?.numeroDoCredito = creditoInstance?.numeroDoCredito
+             extratosDeCredito?.dateConcecao = creditoInstance?.dateConcecao
+             extratosDeCredito?.nome = Cliente.findById(creditoInstance.cliente.id).nome
+             extratosDeCredito?.gestor = Cliente?.findByNome(creditoInstance?.cliente?.nome)?.getUtilizador()
+             extratosDeCredito?.numeroDePrestacoesEmDia = getNumeroDePrestacoesEmDia(creditoInstance)
+             extratosDeCredito?.valorDaPrestacao = getValorDaPrestacao(creditoInstance)
+             extratosDeCredito?.totalJurosDeMora = getTotalJurosDeMora(creditoInstance)
+             extratosDeCredito?.totalCredito = getTotalCredito(creditoInstance)
+            extratosDeCredito?.valorEmDivida  = getValorEmDivida(creditoInstance)
+             extratosDeCredito?.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia, extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
             // extratosDeCredito.valorEmDivida = creditoInstance?.valorEmDivida
             // ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
-            extratosDeCredito.valorCreditado = getValorCredito(creditoInstance)
-             extratosDeCredito.periodicidade = creditoInstance?.periodicidade
-             extratosDeCredito.contacto = creditoInstance?.cliente?.telefone
+            extratosDeCredito?.valorCreditado = getValorCredito(creditoInstance)
+             extratosDeCredito?.periodicidade = creditoInstance?.periodicidade
+             extratosDeCredito?.contacto = creditoInstance?.cliente?.telefone
             // valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito
           //  extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia+extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
 
-            total_juros_de_mora +=extratosDeCredito.totalJurosDeMora
-            totalPago +=extratosDeCredito.totalCredito
-            valor_em_mora += extratosDeCredito.valorEmMora
-            valor_em_ivida +=extratosDeCredito.valorEmDivida
-            totalDesembolsado+=creditoInstance.valorCreditado
-            if(extratosDeCredito.valorEmDivida<0){
-                extratosDeCreditos.add(extratosDeCredito)
+            total_juros_de_mora +=extratosDeCredito?.totalJurosDeMora
+            totalPago +=extratosDeCredito?.totalCredito
+            valor_em_mora += extratosDeCredito?.valorEmMora
+            valor_em_ivida +=extratosDeCredito?.valorEmDivida
+            totalDesembolsado+=creditoInstance?.valorCreditado
+            if(extratosDeCredito?.valorEmDivida<0){
+                extratosDeCreditos?.add(extratosDeCredito)
             }
 
         }

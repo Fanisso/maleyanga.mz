@@ -170,7 +170,7 @@ class CreditoViewModel {
     String getCliente_style() {
         cliente_style="background:#69F4AF;font-weight:bold;font-size:14ptpt"
         if(selectedCliente){
-            if(selectedCliente.emDivida){
+            if(Credito.findAllByClienteAndEmDivida(selectedCliente,true)){
                 cliente_style="background:red;font-weight:bold;font-size:14ptpt"
             }
 
@@ -467,6 +467,7 @@ class CreditoViewModel {
     }
 
 
+
     @Command
     @NotifyChange(["credito","pagamentos","v_amo","v_juro","v_pago","v_divida","v_mora","v_prestacao","hb_editor"])
     void doSearchCliente() {
@@ -523,10 +524,10 @@ class CreditoViewModel {
     @NotifyChange(["prestacoes","credito","editor"])
     def fecharEditor(){
         hb_novo_credito.visible=!hb_novo_credito.visible
-
+        def creditos = Credito.findAllByClienteAndEmDivida(selectedCliente,true)
         if(!settings.permitirDesembolsoComDivida){
             if(selectedCliente){
-                if(selectedCliente.emDivida){
+                if(!creditos.empty){
                     hb_editor.visible=false
                     bt_fechar.label="Não é permitido desembolso de clientes com dívidas!"
                 }

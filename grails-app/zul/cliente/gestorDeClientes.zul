@@ -40,7 +40,7 @@
                                  label="Clientes"/>
 
 
-                            <tab id="tab_assinantes_do_cliente" visible="@load(not empty vm.editCliente.assinantes)"
+                            <tab id="tab_assinantes_do_cliente" visible="@load(not empty vm.assinantes)"
                                  image="${z.resource(dir:'images', file:'clientes_25.png')}"
                                  label=""/>
 
@@ -319,7 +319,7 @@
 
                                 <listbox checkmark="true"
                                          selectedItem="@bind(vm.sAssinante)"
-                                         model="@load(vm.editCliente.assinantes)" width=""
+                                         model="@load(vm.assinantes)" width=""
                                          height="" mold="paging" pageSize="15">
                                     <listhead sizable="true">
                                         <listheader sort="auto(id)" width="80px" label="ID" align="left"/>

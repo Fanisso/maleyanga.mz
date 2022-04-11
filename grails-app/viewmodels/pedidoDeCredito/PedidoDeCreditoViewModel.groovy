@@ -33,6 +33,16 @@ private PedidoDeCredito sPDC
   ClienteService clienteService
   private ListModelList<DefinicaoDeCredito> definicoes
   BigDecimal valor
+  Cliente selectedCliente
+
+  Cliente getSelectedCliente() {
+    return selectedCliente
+  }
+
+  @NotifyChange(["penhoras"])
+  void setSelectedCliente(Cliente selectedCliente) {
+    this.selectedCliente = selectedCliente
+  }
 
   @Command
   void doSearchCliente() {
@@ -116,6 +126,7 @@ private PedidoDeCredito sPDC
     return sPDC
   }
 
+  @NotifyChange(["penhoras"])
   void setsPDC(PedidoDeCredito sPDC) {
     this.sPDC = sPDC
   }
@@ -150,6 +161,7 @@ private PedidoDeCredito sPDC
   def addPDC(){
     info.value = ""
     sPDC = new PedidoDeCredito()
+
     penhoras.add(new Penhora())
   }
   @Command
@@ -222,30 +234,28 @@ private PedidoDeCredito sPDC
       sPDC.utilizador = utilizador
 
       sPDC.estado = "aberto"
-    sPDC.penhoras = penhoras
       System.println(penhoras)
       sPDC.creditado = false
-      System.println(somar())
       sPDC.valorDaPenhora = somar()
-
-      for(Penhora penhora in sPDC.penhoras){
-        penhora.pedidoDeCredito = sPDC
-        penhora.cliente = sPDC.cliente
-      }
-
+      sPDC.cliente = selectedCliente
       sPDC.save(flush: true)
       def penhoraDB = PedidoDeCredito.findById(sPDC.id)
+      System.println(penhoraDB.id)
+      for(Penhora penhora in penhoras){
+        penhora.pedidoDeCredito = penhoraDB
+        penhora.cliente = selectedCliente
+        penhora.save(flush: true)
+
+      }
+
+
+
 
       if(penhoraDB!=null){
         pedidos.add(penhoraDB)
         info.value = "O Pedido de crédito foi criado com sucesso!"
         info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
-        Cliente clienteDB = Cliente.findById(sPDC.cliente.id)
-        if(clienteDB.pedidosDeCredito==null){
-          clienteDB.pedidosDeCredito = new HashSet<PedidoDeCredito>()
-        }
-        clienteDB.pedidosDeCredito.add(sPDC)
-        clienteDB.merge(flush: true)
+
       }
 
     }catch(Exception e){

@@ -162,9 +162,7 @@ class PagamentosViewModel {
 
     @NotifyChange(["pagamentoss","selectedPagamentoo","remissao","selectedRemissao"])
     void setSelectedPagamentoo(Pagamento selectedPagamentoo) {
-        selectedPagamentoo.getTotalEmDivida()
         this.selectedPagamentoo = selectedPagamentoo
-
         selectedRemissao = null
         remissao = new Remissao()
     }
