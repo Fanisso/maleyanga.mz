@@ -172,6 +172,9 @@ class CreditoViewModel {
         if(selectedCliente){
             if(Credito.findAllByClienteAndEmDivida(selectedCliente,true)){
                 cliente_style="background:red;font-weight:bold;font-size:14ptpt"
+            }else {
+                selectedCliente.emDivida = false
+                selectedCliente.merge()
             }
 
         }
@@ -734,10 +737,13 @@ class CreditoViewModel {
     @NotifyChange(["creditosDe","pedidos","selectedCliente","contaCliente","clientes","cliente_style","credito"])
     void setSelectedCliente(Cliente selectedCliente) {
         info.value = ""
+        sessionStorageService.credito = null
+        credito =null
         this.selectedCliente = selectedCliente
         sessionStorageService.cliente = selectedCliente
         clientes.clear()
         clientes.add(selectedCliente)
+
     }
     @NotifyChange(['creditos',"credito"])
     @Init init() {
@@ -927,7 +933,9 @@ class CreditoViewModel {
     @Command
     @NotifyChange(['credito',"creditos",'contaCapital','contaCliente'])
     def salvarCredito(){
-        if(selectedCliente==null){
+        info.value = ""
+        if(selectedCliente.id==null){
+            System.println("selectedCliente.id")
             info.value = "Selecione um cliente!"
             info.style = red
             return
@@ -940,7 +948,10 @@ class CreditoViewModel {
         }
         info.value=""
         if(contaCliente==null){
-            info.value = "Seleccione um CLIENTE!"
+            getContaCliente()
+        }
+        if(contaCliente==null){
+            info.value = "A conta CLIENTE não foi detectado!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
             return
         }
@@ -971,6 +982,7 @@ class CreditoViewModel {
         }
         if(!settings.permitirDesembolsoComDivida){
               if(selectedCliente.emDivida){
+                  System.println(selectedCliente.emDivida)
                     info.value = "Este cliente tem dívida!"
                     info.style = "color:red"
                   return

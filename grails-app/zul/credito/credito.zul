@@ -32,13 +32,44 @@
                 <include src="/credito/printPenhoras.gsp"/>
             </hbox>
         </hbox>
+        <grid style="@load(vm.cliente_style)" width="695px">
+            <columns>
+                <column width="200px"/>
+                <column width="355px"/>
+            </columns>
+            <rows>
+                <row>
+                    <textbox width="300px" placeholder="nome do cliente"
+                             style="font-size:18px;background:#95B9C7;color:black"
+                             value="@bind(vm.filterCliente)"
+                             onChange="@command('doSearchCliente')"
+                             instant="false"/>
+
+                    <listbox onSelect="@command('showCreditos')" checkmark="true" style="@bind('style')"
+                             selectedItem="@bind(vm.selectedCliente)"
+                             model="@load(vm.clientes)" width=""
+                             height="" mold="paging" pageSize="4">
+
+
+                        <template name="model" status="s">
+
+                            <listitem onClick="@command('showCreditos')">
+
+                                <listcell label="@load(each.nome)"/>
+
+                            </listitem>
+                        </template>
+
+                    </listbox>
+
+
+                </row>
+
+            </rows>
+        </grid>
 
         <tabbox>
-            <toolbar>
-                <tabbox>
 
-                </tabbox>
-            </toolbar>
             <tabs>
                 <tab label="Novos Créditos"/>
                 <tab id="tb_abertos" label="Créditos" onClick="@command('showCreditos')"/>
@@ -51,10 +82,12 @@
                             <button image="${z.resource(dir:'images', file:'add.png')}"
                                     style="font-size:14px" onClick="@command('addCredito')"
                                     label="Novo Crédito"/>
+
+
                         </div>
 
 
-                        <label visible="@load(not empty vm.contaCapital.id)" value="Capital:"/>
+                        <label visible="@load(not empty vm.contaCapital.id)" value="Conta:"/>
                         <button visible="@load(not empty vm.contaCapital.id)" id="" style="background:#20c1e9"
                                 label="@load(vm.contaCapital.designacaoDaConta)"/>
                         <!-- <label visible="@load(not empty vm.contaCapital.id)" value="Saldo:"/>
@@ -66,41 +99,6 @@
 
 
                     </hbox>
-                    <grid style="@load(vm.cliente_style)" width="695px">
-                        <columns>
-                            <column width="200px"/>
-                            <column width="355px"/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <textbox width="300px" placeholder="nome do cliente"
-                                         style="font-size:18px;background:#95B9C7;color:black"
-                                         value="@bind(vm.filterCliente)"
-                                         onChange="@command('doSearchCliente')"
-                                         instant="false"/>
-
-                                <listbox checkmark="true" style="@bind('style')"
-                                         selectedItem="@bind(vm.selectedCliente)"
-                                         model="@load(vm.clientes)" width=""
-                                         height="" mold="paging" pageSize="4">
-
-
-                                    <template name="model" status="s">
-
-                                        <listitem onClick="@command('showCreditos')">
-
-                                            <listcell label="@load(each.nome)"/>
-
-                                        </listitem>
-                                    </template>
-
-                                </listbox>
-
-
-                            </row>
-
-                        </rows>
-                    </grid>
 
                     <div>
 
@@ -108,8 +106,9 @@
                             <hbox id="hb_novo_credito" visible="false">
                                 <grid id="gd_new_credito" width="450px">
                                     <columns>
-                                        <column label="Saldo da Conta Cliente:" width=""/>
-                                        <column label="@load(vm.contaCliente.saldo)@converter('formatedNumber', format='###,##0.00')"
+
+                                        <column label="Nome do cliente:" width="110px"/>
+                                        <column label="@load(vm.selectedCliente.nome)"
                                                 width=""/>
 
                                     </columns>

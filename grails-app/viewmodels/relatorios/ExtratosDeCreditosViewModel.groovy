@@ -66,39 +66,43 @@ SessionStorageService sessionStorageService
         {
 
             ExtratosDeCredito extratosDeCredito = new ExtratosDeCredito()
+            Cliente cliente = Cliente.findById(creditoInstance?.clienteId)
              extratosDeCredito?.numeroDoCredito = creditoInstance?.numeroDoCredito
              extratosDeCredito?.dateConcecao = creditoInstance?.dateConcecao
-             extratosDeCredito?.nome = Cliente.findById(creditoInstance.cliente.id).nome
-             extratosDeCredito?.gestor = Cliente?.findByNome(creditoInstance?.cliente?.nome)?.getUtilizador()
-             extratosDeCredito?.numeroDePrestacoesEmDia = getNumeroDePrestacoesEmDia(creditoInstance)
+             extratosDeCredito?.nome = cliente.nome
+             extratosDeCredito?.gestor = cliente.getUtilizador()
+             extratosDeCredito?.numeroDePrestacoesEmDia =  getNumeroDePrestacoesEmDia(creditoInstance)
              extratosDeCredito?.valorDaPrestacao = getValorDaPrestacao(creditoInstance)
              extratosDeCredito?.totalJurosDeMora = getTotalJurosDeMora(creditoInstance)
              extratosDeCredito?.totalCredito = getTotalCredito(creditoInstance)
-            extratosDeCredito?.valorEmDivida  = getValorEmDivida(creditoInstance)
-             extratosDeCredito?.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia, extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
-            // extratosDeCredito.valorEmDivida = creditoInstance?.valorEmDivida
-            // ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
-            extratosDeCredito?.valorCreditado = getValorCredito(creditoInstance)
-             extratosDeCredito?.periodicidade = creditoInstance?.periodicidade
-             extratosDeCredito?.contacto = creditoInstance?.cliente?.telefone
-            // valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito
-          //  extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia+extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
+            // extratosDeCredito?.valorEmDivida  = getValorEmDivida(creditoInstance)
+            extratosDeCredito?.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,
+                    extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia,
+                    extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
+           /* extratosDeCredito.valorEmDivida = creditoInstance?.valorEmDivida
+            ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
+            System.println(creditoInstance)*/
+           extratosDeCredito?.valorCreditado = getValorCredito(creditoInstance)
+            extratosDeCredito?.periodicidade = creditoInstance?.periodicidade
+            extratosDeCredito?.contacto =cliente.telefone
+            valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito
+           extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia+extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
 
-            total_juros_de_mora +=extratosDeCredito?.totalJurosDeMora
-            totalPago +=extratosDeCredito?.totalCredito
-            valor_em_mora += extratosDeCredito?.valorEmMora
-            valor_em_ivida +=extratosDeCredito?.valorEmDivida
-            totalDesembolsado+=creditoInstance?.valorCreditado
-            if(extratosDeCredito?.valorEmDivida<0){
-                extratosDeCreditos?.add(extratosDeCredito)
-            }
-
+           total_juros_de_mora +=extratosDeCredito?.totalJurosDeMora
+           totalPago +=extratosDeCredito?.totalCredito
+           valor_em_mora += extratosDeCredito?.valorEmMora
+           valor_em_ivida +=extratosDeCredito?.valorEmDivida
+           totalDesembolsado+=creditoInstance?.valorCreditado
+           if(extratosDeCredito?.valorEmDivida<0){
+               extratosDeCreditos?.add(extratosDeCredito)
+           }
+            extratosDeCreditos?.add(extratosDeCredito)
         }
 
         return extratosDeCreditos
     }
 
-    static BigDecimal getValorEmMora(BigDecimal valorEmDivida,BigDecimal valorDaPrestacao, Integer numeroDePrestacoesEmDia, BigDecimal totalJurosDeMora, BigDecimal totalCredito) {
+     BigDecimal getValorEmMora(BigDecimal valorEmDivida,BigDecimal valorDaPrestacao, Integer numeroDePrestacoesEmDia, BigDecimal totalJurosDeMora, BigDecimal totalCredito) {
         def vem=((valorDaPrestacao*numeroDePrestacoesEmDia)+totalJurosDeMora)+totalCredito
         if(vem<0){
             vem =valorEmDivida*(-1)
@@ -128,12 +132,13 @@ SessionStorageService sessionStorageService
         }
         return totalCredito
     }
-    BigDecimal getValorCredito(Credito creditoInstance) {
-        def valorCreditado = 0.0
+
+     BigDecimal getValorCredito(Credito creditoInstance) {
+        BigDecimal valorCreditado = 0.0
         for(Pagamento p in creditoInstance.pagamentos){
             valorCreditado+=p.valorDaPrestacao
         }
-        return valorCreditado
+        return valorCreditado*(-1)
     }
 
     BigDecimal getTotalJurosDeMora(Credito creditoInstance) {
@@ -149,16 +154,17 @@ SessionStorageService sessionStorageService
         return totalJurosDeMora
     }
 
-    BigDecimal getValorDaPrestacao(Credito creditoInstance) {
+     BigDecimal getValorDaPrestacao(Credito creditoInstance) {
         def pag = creditoInstance.pagamentos.find {it.descricao=="1º- Prestação"}
         BigDecimal  valor=pag.valorDaPrestacao
         return   valor*(-1)
     }
 
-    Integer getNumeroDePrestacoesEmDia(Credito creditoInstance) {
+     Integer getNumeroDePrestacoesEmDia(Credito creditoInstance) {
         Integer num = 0
         Date hoje = new Date()
         for(Pagamento p in creditoInstance.pagamentos){
+
             if(p.descricao!="CAPITALIZACAO"){
                 if(p.dataPrevistoDePagamento.before(hoje)){
                     num++

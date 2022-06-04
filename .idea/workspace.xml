@@ -47,18 +47,12 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras">
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="O SISTEMA JA PERMITE REDEMIR TODA A DÍVIDA DO Cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/domain/mz/maleyanga/cliente/Cliente.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/pedidoDeCredito/PedidoDeCreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/pedidoDeCredito/PedidoDeCreditoViewModel.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/cliente/gestorDeClientes.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/cliente/gestorDeClientes.zul" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/pagamento/pagamentos.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/pagamento/pagamentos.zul" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/pedidoDeCredito/pedidoDeCredito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/pedidoDeCredito/pedidoDeCredito.zul" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1469,14 +1463,10 @@
       <workItem from="1649207498383" duration="1217000" />
       <workItem from="1649404254693" duration="6487000" />
       <workItem from="1649422355773" duration="2712000" />
-      <workItem from="1649685261734" duration="2871000" />
-    </task>
-    <task id="LOCAL-00103" summary="actualizacao da view de creditos, menos recursos para ganhara perfomance">
-      <created>1621250901682</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1621250901683</updated>
+      <workItem from="1649685261734" duration="3278000" />
+      <workItem from="1652755644726" duration="32000" />
+      <workItem from="1654071733388" duration="1433000" />
+      <workItem from="1654344561854" duration="10820000" />
     </task>
     <task id="LOCAL-00104" summary="actualizacao da view de creditos, menos recursos para ganhara perfomance">
       <created>1621251029580</created>
@@ -1814,7 +1804,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649063042577</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="O SISTEMA JA PERMITE REDEMIR TODA A DÍVIDA DO Cliente">
+      <created>1649688592673</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1649688592688</updated>
+    </task>
+    <option name="localTasksCounter" value="153" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1894,7 +1891,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add extrto to fundo de maneio. e fiz corecções de erros" />
     <MESSAGE value="alteracao do diario para não permitir a abertura de mais de um diario. tbm foi actualizado o sistema de forma a não permitir que se lance pagamentos sem nenhum diario aberto" />
     <MESSAGE value="efetivado com sucesso os erros que havia nos relatorios das prestações devido a falha da existencia de clientes sem gestores" />
     <MESSAGE value="actualizacao do printExtratoDePrestacoes" />
@@ -1919,7 +1915,8 @@
     <MESSAGE value="add data no extrato de crédito" />
     <MESSAGE value="criaa a função de actualizar datas de pagamento em função dos feriados" />
     <MESSAGE value="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras" />
-    <option name="LAST_COMMIT_MESSAGE" value="o sistema já permite a eliminição de parcelas e tbm pode se criar parcelas relativos a custos de penhoras" />
+    <MESSAGE value="O SISTEMA JA PERMITE REDEMIR TODA A DÍVIDA DO Cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value="O SISTEMA JA PERMITE REDEMIR TODA A DÍVIDA DO Cliente" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1927,30 +1924,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="488" y="64" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1649423844313" />
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1649686662539">
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1649688945497">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1649686662539" />
-    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1649686662539">
+    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
+    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1649688945497">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1649686662539" />
-    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1649686662539">
+    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
+    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1649688945497">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1649686662539" />
-    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1649686662539">
+    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
+    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1649688945497">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1649686662539" />
-    <state width="515" height="477" key="SwitcherDM" timestamp="1649686918014">
+    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
+    <state width="515" height="477" key="SwitcherDM" timestamp="1654350577408">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="515" height="477" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1649686918014" />
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1649063052027">
+    <state width="515" height="477" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1654350577408" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1649688620375">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1649063052027" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1649688620375" />
     <state x="481" y="52" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1646661821337">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1959,17 +1956,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="99" width="585" height="588" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1647879219508" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1649687095706">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1654349270200">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1649687095706" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1654349270200" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy</url>
-          <line>1234</line>
+          <line>1246</line>
           <option name="temporary" value="true" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
