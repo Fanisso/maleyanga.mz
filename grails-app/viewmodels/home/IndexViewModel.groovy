@@ -50,8 +50,7 @@ class IndexViewModel {
 
     @NotifyChange(["blank"])
     void setBlank(boolean blank) {
-        this.blank = blank
-
+        this.blank != blank
     }
 
     List getClientesEmDivida() {

@@ -934,7 +934,7 @@ class CreditoViewModel {
     @NotifyChange(['credito',"creditos",'contaCapital','contaCliente'])
     def salvarCredito(){
         info.value = ""
-        if(selectedCliente.id==null){
+        if(selectedCliente==null){
             System.println("selectedCliente.id")
             info.value = "Selecione um cliente!"
             info.style = red

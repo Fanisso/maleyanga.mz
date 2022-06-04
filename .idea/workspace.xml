@@ -51,8 +51,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/credito/CreditoViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/relatorios/ExtratosDeCreditosViewModel.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/zul/credito/credito.zul" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/home/IndexViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/home/IndexViewModel.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/grails-app/viewmodels/pagamento/PagamentosViewModel.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1466,14 +1466,8 @@
       <workItem from="1649685261734" duration="3278000" />
       <workItem from="1652755644726" duration="32000" />
       <workItem from="1654071733388" duration="1433000" />
-      <workItem from="1654344561854" duration="10820000" />
-    </task>
-    <task id="LOCAL-00104" summary="actualizacao da view de creditos, menos recursos para ganhara perfomance">
-      <created>1621251029580</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1621251029581</updated>
+      <workItem from="1654344561854" duration="11264000" />
+      <workItem from="1654368806256" duration="5193000" />
     </task>
     <task id="LOCAL-00105" summary="actualizacao da view de creditos, menos recursos para ganhara perfomance">
       <created>1623091499501</created>
@@ -1811,7 +1805,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649688592688</updated>
     </task>
-    <option name="localTasksCounter" value="153" />
+    <task id="LOCAL-00153" summary="O SISTEMA JA PERMITE REDEMIR TODA A DÍVIDA DO Cliente">
+      <created>1654356191660</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1654356191661</updated>
+    </task>
+    <option name="localTasksCounter" value="154" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1924,26 +1925,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="488" y="64" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1649423844313" />
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom" timestamp="1649688945497">
+    <state width="1323" height="95" key="GridCell.Tab.0.bottom" timestamp="1654370614941">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
-    <state width="1323" height="188" key="GridCell.Tab.0.center" timestamp="1649688945497">
+    <state width="1323" height="95" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1654370614941" />
+    <state width="1323" height="95" key="GridCell.Tab.0.center" timestamp="1654370614941">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
-    <state width="1323" height="188" key="GridCell.Tab.0.left" timestamp="1649688945497">
+    <state width="1323" height="95" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1654370614941" />
+    <state width="1323" height="95" key="GridCell.Tab.0.left" timestamp="1654370614941">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
-    <state width="1323" height="188" key="GridCell.Tab.0.right" timestamp="1649688945497">
+    <state width="1323" height="95" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1654370614941" />
+    <state width="1323" height="95" key="GridCell.Tab.0.right" timestamp="1654370614941">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="188" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1649688945497" />
-    <state width="515" height="477" key="SwitcherDM" timestamp="1654350577408">
+    <state width="1323" height="95" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1654370614941" />
+    <state width="515" height="477" key="SwitcherDM" timestamp="1654373793523">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="515" height="477" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1654350577408" />
+    <state width="515" height="477" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1654373793523" />
     <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1649688620375">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -1956,10 +1957,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="99" width="585" height="588" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1647879219508" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1654349270200">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1654370481766">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1654349270200" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1654370481766" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

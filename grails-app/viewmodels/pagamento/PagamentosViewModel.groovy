@@ -33,6 +33,7 @@ import org.zkoss.zul.ListModelList
 import org.zkoss.zul.Listbox
 import org.zkoss.zul.Row
 import java.math.RoundingMode
+import java.sql.SQLException
 
 @Transactional
 @Service
@@ -502,8 +503,9 @@ class PagamentosViewModel {
 
     ListModelList<Remissao> getRemissoes() {
         if(remissoes ==null){
-           remissoes = new ListModelList<Remissao>(Remissao.findAllByUtilizador(utilizador))
+           remissoes = new ListModelList<Remissao>()
         }
+
         return remissoes
     }
 
@@ -921,10 +923,9 @@ class PagamentosViewModel {
     }
 
     @Command
-    @NotifyChange(["selectedCreditoo","creditoss"])
+    @NotifyChange(["selectedCreditoo","creditoss","remissoes","pagamentoss","selectedPagamentoo"])
     def redemirCredito(){
         remissao = new Remissao()
-
 
         try {
             remissao.valorDaRemissao = selectedCreditoo.valorEmDivida*(-1)
@@ -951,7 +952,6 @@ class PagamentosViewModel {
                 info.value="O valor da remissão não pode ser superior ao valor em dívida!"
                 info.style = "color:red;font-weight;font-size:16px;background:back"
                 remissao.valorDaRemissao = selectedCreditoo.valorEmDivida*(-1)
-
                 return
             }
             if(remissao.valorDaRemissao<0){
@@ -963,7 +963,12 @@ class PagamentosViewModel {
             remissao.diario = diario
             remissao.utilizador =user
             remissao.contaOrigem = Conta.findById(contaDb.id)
-            Pagamento pagamento = Pagamento.findById(selectedPagamentoo.id)
+            /*if(selectedPagamentoo==null){
+                info.value="Selecione pelo menos uma prestação!"
+                info.style = "color:red;font-weight;font-size:16px;background:back"
+                return
+            }*/
+            Pagamento pagamento = Pagamento.findById(pagamentoss.first().id)
             remissao.pagamento = pagamento
             if(pagamento.remissoes==null){
                 pagamento.remissoes = new ArrayList<Remissao>()
@@ -987,7 +992,7 @@ class PagamentosViewModel {
                 tCredito.credito = true
                 tDebito.credito = false
                 def credora = Conta.findById(contaDb.id)
-                def devedora = Conta.findByNumeroDaConta(selectedPagamentoo.credito.cliente.id.toString())
+                def devedora = Conta.findByNumeroDaConta(pagamento.credito.cliente.id.toString())
                 if (credora?.transacoes == null) {
                     credora.transacoes = new LinkedHashSet<Transacao>()
                 }
@@ -1005,6 +1010,10 @@ class PagamentosViewModel {
 
                 //addRemissao()
                 selectedRemissao = Remissao.findById(remissao.id)
+                remissoes.add(selectedRemissao)
+                pagamentoss.clear()
+                selectedCreditoo=null
+
                 // remissao =null
                 // fecharEditor()
 
@@ -1014,7 +1023,7 @@ class PagamentosViewModel {
             }
 
 
-        }catch(Exception e){
+        }catch(SQLException e){
             System.println(e.toString())
         }
     }
@@ -1709,6 +1718,7 @@ class PagamentosViewModel {
     }
 
     @Command
+    @NotifyChange(["selectedRemissao"])
     def showDelMessage(){
         info.value="Faça double click para eliminar o item "+sParcela.descricao
         info.style ="color:red;font-weight;font-size:14pt;background:back"
