@@ -72,9 +72,12 @@ class PrintExtratoDeCreditoViewModel {
     }
 
     BigDecimal getValorDaPrestacao() {
+        BigDecimal  valor = 0.0
         def pag = creditoInstance?.pagamentos?.find {it?.descricao=="1º- Prestação"}
-        BigDecimal  valor=pag?.valorDaPrestacao
-        System.println(valor)
+        if(pag){
+            valor=pag?.valorDaPrestacao
+        }
+
         return   valor*(-1)
     }
 
@@ -129,7 +132,7 @@ class PrintExtratoDeCreditoViewModel {
     }
     def somarPagamentos(){
         extratoDePagamentos.each {
-            totalPrestacao += it.valorDaPrestacao
+            totalPrestacao += it?.valorDaPrestacao
             totalValorPagoNoPrazo += it.totalPagoNoPrazo
             totalIncidencia += it.totalIncidencia
             totalMoras += it.jurosDeMora
@@ -148,7 +151,7 @@ class PrintExtratoDeCreditoViewModel {
         BigDecimal juros=0.00
         for(Pagamento pagamento1 in creditoInstance.pagamentos.sort{it.id}){
             if(pagamento1.descricao!="CAPITALIZACAO"){
-                juros += pagamento1.valorDaPrestacao*(-1)
+                juros += pagamento1?.valorDaPrestacao*(-1)
             }
 
         }
@@ -200,10 +203,10 @@ class PrintExtratoDeCreditoViewModel {
                 extratoDeCredito.credito = 0.0
                 extratoDeCredito.diasDeMora = pagamento.diasDeMora+""
                 if(creditoInstance.ignorarValorPagoNoPrazo){
-                    extratoDeCredito.valorEmMora = (pagamento.valorDaPrestacao) *(-1)
+                    extratoDeCredito.valorEmMora = (pagamento?.valorDaPrestacao) *(-1)
                     System.println("ignorarValorPagoNoPrazo"+creditoInstance.ignorarValorPagoNoPrazo)
                 }else {
-                    extratoDeCredito.valorEmMora = (pagamento.valorDaPrestacao+pagamento.totalPagoNoPrazo) *(-1)
+                    extratoDeCredito.valorEmMora = (pagamento?.valorDaPrestacao+pagamento.totalPagoNoPrazo) *(-1)
                     System.println("ignorarValorPagoNoPrazo=!"+creditoInstance.ignorarValorPagoNoPrazo)
                 }
                 extratoDeCredito.jurosDeMora = pagamento.valorDeJurosDeDemora * (-1)
@@ -216,7 +219,7 @@ class PrintExtratoDeCreditoViewModel {
                 extratoDeCredito.descricao =pagamento.descricao
                 extratoDeCredito.debito = 0.0
                 extratoDeCredito.credito = 0.0
-                extratoDeCredito.jurosDeMora = pagamento.valorDaPrestacao * (-1)
+                extratoDeCredito.jurosDeMora = pagamento?.valorDaPrestacao * (-1)
                 extratoDeCredito.valorEmMora = 0.0
                 extratoDeCredito.saldo = 0.0
                 extratoDeCreditos.add(extratoDeCredito)

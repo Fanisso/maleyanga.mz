@@ -88,7 +88,10 @@ class DiariosViewModel {
         caixas.clear()
         def contas = contaService.findAllContaCaixa()
         for(Conta c in contas){
-           caixas.add(utilizadorService.findById(c.utilizador.id))
+            if(c.utilizador){
+                caixas.add(utilizadorService.findById(c?.utilizador?.id))
+            }
+
         }
         return caixas
     }

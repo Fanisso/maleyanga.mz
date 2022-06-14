@@ -505,7 +505,6 @@ class PagamentosViewModel {
         if(remissoes ==null){
            remissoes = new ListModelList<Remissao>()
         }
-
         return remissoes
     }
 
@@ -1107,6 +1106,7 @@ class PagamentosViewModel {
                 devedora.merge(failOnError: true)
                 info.value = "Operações feitas com sucesso!"
                 info.style = "color:red;font-weight;font-size:16px;background:back"
+                remissoes.add(remissao)
                 
                //addRemissao()
                 selectedRemissao = Remissao.findById(remissao.id)

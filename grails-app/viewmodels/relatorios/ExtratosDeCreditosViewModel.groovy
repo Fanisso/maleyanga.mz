@@ -64,7 +64,6 @@ SessionStorageService sessionStorageService
 
         for(Credito creditoInstance in creditos)
         {
-
             ExtratosDeCredito extratosDeCredito = new ExtratosDeCredito()
             Cliente cliente = Cliente.findById(creditoInstance?.clienteId)
              extratosDeCredito?.numeroDoCredito = creditoInstance?.numeroDoCredito
@@ -75,7 +74,7 @@ SessionStorageService sessionStorageService
              extratosDeCredito?.valorDaPrestacao = getValorDaPrestacao(creditoInstance)
              extratosDeCredito?.totalJurosDeMora = getTotalJurosDeMora(creditoInstance)
              extratosDeCredito?.totalCredito = getTotalCredito(creditoInstance)
-            // extratosDeCredito?.valorEmDivida  = getValorEmDivida(creditoInstance)
+             extratosDeCredito?.valorEmDivida  = getValorEmDivida(creditoInstance)
             extratosDeCredito?.valorEmMora = getValorEmMora(extratosDeCredito.valorEmDivida as BigDecimal,
                     extratosDeCredito.valorDaPrestacao as BigDecimal,extratosDeCredito.numeroDePrestacoesEmDia,
                     extratosDeCredito.totalJurosDeMora as BigDecimal, extratosDeCredito.totalCredito as BigDecimal)
@@ -86,7 +85,8 @@ SessionStorageService sessionStorageService
             extratosDeCredito?.periodicidade = creditoInstance?.periodicidade
             extratosDeCredito?.contacto =cliente.telefone
             valorDaPrestacao*numeroDePrestacoesEmDia+totalJurosDeMora+totalCredito
-           extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia+extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
+          // extratosDeCredito.valorEmDivida = extratosDeCredito.valorDaPrestacao*extratosDeCredito.numeroDePrestacoesEmDia
+            +extratosDeCredito.totalJurosDeMora+extratosDeCredito.totalCredito
 
            total_juros_de_mora +=extratosDeCredito?.totalJurosDeMora
            totalPago +=extratosDeCredito?.totalCredito
@@ -96,7 +96,7 @@ SessionStorageService sessionStorageService
            if(extratosDeCredito?.valorEmDivida<0){
                extratosDeCreditos?.add(extratosDeCredito)
            }
-            extratosDeCreditos?.add(extratosDeCredito)
+
         }
 
         return extratosDeCreditos
@@ -136,7 +136,10 @@ SessionStorageService sessionStorageService
      BigDecimal getValorCredito(Credito creditoInstance) {
         BigDecimal valorCreditado = 0.0
         for(Pagamento p in creditoInstance.pagamentos){
-            valorCreditado+=p.valorDaPrestacao
+            if(p.descricao!="CAPITALIZACAO"){
+                valorCreditado+=p.valorDaPrestacao
+            }
+
         }
         return valorCreditado*(-1)
     }
@@ -155,9 +158,12 @@ SessionStorageService sessionStorageService
     }
 
      BigDecimal getValorDaPrestacao(Credito creditoInstance) {
-        def pag = creditoInstance.pagamentos.find {it.descricao=="1º- Prestação"}
-        BigDecimal  valor=pag.valorDaPrestacao
-        return   valor*(-1)
+         BigDecimal  valor=0.0
+        def pag = creditoInstance?.pagamentos?.find {it?.descricao=="1º- Prestação"}
+         if(pag){
+             valor=pag?.valorDaPrestacao
+         }
+       return   valor*(-1)
     }
 
      Integer getNumeroDePrestacoesEmDia(Credito creditoInstance) {
