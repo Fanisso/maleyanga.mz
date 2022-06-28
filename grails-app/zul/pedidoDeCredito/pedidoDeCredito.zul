@@ -32,8 +32,11 @@
         <label style="font-size:14pt" id="info"/>
         <tabbox>
             <tabs>
-                <tab id="tab_gestor" image="${z.resource(dir:'images', file:'pedido_25.png')}"
-                     label="Pedidos de Credito"/>
+                <tab id="tab_pdc" image="${z.resource(dir:'images', file:'pedido_25.png')}"
+                     label="Pedidos de Credito(PDC)"/>
+                <tab id="tab_lpdc" image="${z.resource(dir:'images', file:'open_diario_25.png')}"
+                     label="Listagem dos PDC"/>
+
             </tabs>
             <tabpanels height="800px">
                 <tabpanel>
@@ -232,6 +235,87 @@
                                 <listcell
                                         label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
 
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                </tabpanel>
+                <tabpanel>
+                    <button image="${z.resource(dir:'images', file:'add.png')}"
+                            style="color:black;background:#20c199" onClick="@command('addLPDC')"
+                            label="Add  Lista de PDC)"/>
+                    <hbox width="400px">
+                        <vbox>
+                            <textbox width="300px" placeholder="nome do cliente"
+                                     style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
+                                     onChange="@command('doSearchCliente')"
+                                     instant="true"/>
+                            <listbox checkmark="true" style="@bind('style')"
+                                     selectedItem="@bind(vm.selectedCliente)"
+                                     model="@load(vm.clientes)" width=""
+                                     height="" mold="paging" pageSize="4">
+                                <template name="model" status="s">
+                                    <listitem onClick="@command('')">
+                                        <listcell label="@load(each.nome)"/>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </vbox>
+                        <hbox>
+                            <listbox checkmark="true" style="@bind('style')"
+                                     selectedItem="@bind(vm.sPDC)"
+                                     model="@load(vm.pedidosDoCliente)"
+                                     height="" mold="paging" pageSize="20">
+                                <listhead sizable="true">
+                                    <listheader sort="auto(gestor)" width="200px" label="Gestor" align="left"/>
+                                    <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido"
+                                                align="left"/>
+                                    <listheader sort="auto(valorDaPenhora)" width="150px" label="V. Dos Bens Ps."
+                                                align="left"/>
+                                    <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
+                                    <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
+
+                                </listhead>
+                                <template name="model" status="s">
+
+                                    <listitem onDoubleClick="@command('addPDC', index=each.id)" style="@bind('style')">
+                                        <listcell label="@load(each.cliente.utilizador)"/>
+                                        <listcell
+                                                label="@load(each.valorDeCredito)@converter('formatedNumber', format='###,##0.00')"/>
+                                        <listcell
+                                                label="@load(each.valorDaPenhora)@converter('formatedNumber', format='###,##0.00')"/>
+                                        <listcell label="@load(each.estado)"/>
+                                        <listcell
+                                                label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                    </listitem>
+                                </template>
+
+                            </listbox>
+                        </hbox>
+                    </hbox>
+                    <listbox checkmark="true" style="@bind('style')"
+
+                             model="@load(vm.listaDePedidos)"
+                             height="" mold="paging" pageSize="20">
+                        <listhead sizable="true">
+                            <listheader sort="auto(nome)" width="200px" label="Nome" align="left"/>
+                            <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido" align="left"/>
+                            <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
+                            <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
+                            <listheader sort="auto(gestor)" width="200px" label="Gestor" align="left"/>
+
+                        </listhead>
+                        <template name="model" status="s">
+
+                            <listitem onDoubleClick="@command('addPDC', index=each.id)" style="@bind('style')">
+                                <listcell label="@load(each.cliente.nome)"/>
+                                <listcell
+                                        label="@load(each.valorDeCredito)@converter('formatedNumber', format='###,##0.00')"/>
+
+                                <listcell label="@load(each.estado)"/>
+                                <listcell
+                                        label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.cliente.utilizador)"/>
                             </listitem>
                         </template>
 

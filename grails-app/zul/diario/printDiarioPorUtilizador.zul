@@ -111,7 +111,8 @@
                     <label value="Total:"/>
                 </footer>
                 <footer>
-                    <label style="font-size:12pt" value="@load(vm.totalSaidasAtivas)"/>
+                    <label style="font-size:12pt"
+                           value="@load(vm.totalSaidasAtivas)@converter('formatedNumber', format='###,##0.00')"/>
                 </footer>
                 <footer/>
             </foot>

@@ -78,7 +78,7 @@ class PrintExtratoDeCreditoViewModel {
             valor=pag?.valorDaPrestacao
         }
 
-        return   valor*(-1)
+        return   valor+0.01*(-1)
     }
 
     BigDecimal getTotalPrestacao() {

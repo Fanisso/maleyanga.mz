@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.select.annotation.Wire
 import org.zkoss.zul.Label
 import org.zkoss.zul.ListModelList
+import org.zkoss.zul.Messagebox
 
 @Transactional
 @Service
@@ -24,6 +25,8 @@ class PedidoDeCreditoViewModel {
   SpringSecurityService springSecurityService
   private ListModelList<Cliente> clientes
   private ListModelList<PedidoDeCredito> pedidos
+  private ListModelList<PedidoDeCredito> pedidosDoCliente
+  private ListModelList<PedidoDeCredito> listaDePedidos
   private ListModelList<Penhora> penhoras
 private PedidoDeCredito sPDC
   private String filter
@@ -35,14 +38,27 @@ private PedidoDeCredito sPDC
   BigDecimal valor
   Cliente selectedCliente
 
+  ListModelList<PedidoDeCredito> getListaDePedidos() {
+    if(listaDePedidos==null){
+      listaDePedidos = new  ListModelList<PedidoDeCredito>()
+    }
+    return listaDePedidos
+  }
+
+  @Command
+  def addLPDC(){
+
+  }
   Cliente getSelectedCliente() {
     return selectedCliente
   }
 
-  @NotifyChange(["penhoras"])
+  @NotifyChange(["penhoras","pedidosDoCliente"])
   void setSelectedCliente(Cliente selectedCliente) {
     this.selectedCliente = selectedCliente
-  }
+   }
+
+
 
   @Command
   void doSearchCliente() {
@@ -115,6 +131,20 @@ private PedidoDeCredito sPDC
     return pedidos
   }
 
+  @Command
+  @NotifyChange
+  ListModelList<PedidoDeCredito> getPedidosDoCliente() {
+    if(pedidosDoCliente==null){
+      pedidosDoCliente = new ListModelList<PedidoDeCredito>()
+    }
+    pedidosDoCliente.clear()
+    if(selectedCliente!=null){
+      pedidosDoCliente = PedidoDeCredito.findAllByCliente(selectedCliente)
+    }
+    return pedidosDoCliente
+  }
+
+
   ListModelList<Penhora> getPenhoras() {
     if(penhoras==null){
       penhoras = new ListModelList<Penhora>()
@@ -161,9 +191,13 @@ private PedidoDeCredito sPDC
   def addPDC(){
     info.value = ""
     sPDC = new PedidoDeCredito()
-
+    penhoras.clear()
     penhoras.add(new Penhora())
   }
+
+
+
+
   @Command
   @NotifyChange(['penhoras','sPDC'])
   def addCredito(){

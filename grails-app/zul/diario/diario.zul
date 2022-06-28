@@ -297,6 +297,7 @@
                 </auxhead>
                 <listhead sizable="true">
 
+                    <listheader width="80px" label="Utilizador" align="left"/>
                     <listheader width="80px" label="Data de C." align="left"/>
 
                     <listheader width="80px" label="Data de Pag." align="left"/>
@@ -311,6 +312,7 @@
 
                     <listitem style="@bind('style')" onDoubleClick="@command('showIt',index=item.id)">
 
+                        <listcell label="@load(item.utilizador)"/>
                         <listcell label="@load(item.dateCreated)@converter('formatedDate', format='dd/MM/yy') "/>
                         <listcell label="@load(item.dataDePagamento)@converter('formatedDate', format='dd/MM/yy') "/>
 

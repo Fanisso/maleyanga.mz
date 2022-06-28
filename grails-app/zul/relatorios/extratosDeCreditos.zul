@@ -13,7 +13,7 @@
         </hbox>
         <label style="font-weight:bold;font-size:14pt" value="Extrato de créditos em mora"/>
         <listbox style="@bind('style')"
-                 model="@load(vm.extratosDeCreditos)" width="1025px"
+                 model="@load(vm.extratosDeCreditos)" width="1050px"
                  height="">
 
             <listhead sizable="true">
@@ -24,11 +24,11 @@
                 <listheader sort="auto(periodicidade)" width="60px" label="Periodic." align="left"/>
                 <listheader sort="auto(numeroDoCredito)" width="50px" label="Nº. do C." align="left"/>
                 <listheader sort="auto(numeroDePrestacoesEmDia)" width="50px" label="Nº Prest." align="left"/>
-                <listheader sort="auto(valorCreditado)" width="90px" label="V. Alocado" align="left"/>
-                <listheader sort="auto(totalCredito)" width="90px" label="T. Pago" align="left"/>
-                <listheader sort="auto(totalJurosDeMora)" width="90px" label="Juros de M." align="left"/>
-                <listheader sort="auto(valorEmMora)" width="85px" label="V. Em Mora" align="left"/>
-                <listheader sort="auto(valorEmDivida)" width="90px" label="V. Em Dívida" align="left"/>
+                <listheader sort="auto(valorCreditado)" width="94px" label="V. Alocado" align="left"/>
+                <listheader sort="auto(totalCredito)" width="94px" label="T. Pago" align="left"/>
+                <listheader sort="auto(totalJurosDeMora)" width="93px" label="Juros de M." align="left"/>
+                <listheader sort="auto(valorEmMora)" width="93px" label="V. Em Mora" align="left"/>
+                <listheader sort="auto(valorEmDivida)" width="95px" label="V. Em Dívida" align="left"/>
             </listhead>
             <template name="model" status="s">
 
