@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+            viewModel="@id('vm') @init('pedidosDeCreditoViewModel')">
+
+        <style>
+            .z-textbox{ border-style : normal; background: #95B9C7}
+        </style>
+        <hbox align="center">
+            <image src="${z.resource(dir:'images', file:'logo_laulane_m.png')}"/>
+        </hbox>
+        <grid style="margin-top:20px" width="1050px">
+            <columns>
+                <column width="200px"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:16pt" value="Lista de Candidatos a Crédito"/>
+                    </cell>
+
+                </row>
+                <row>
+                    <cell colspan="3" style="text-align:center">
+                        <label style="font-size:14pt" value="@load(vm.listaDeDesembolso.descricao)"/>
+                    </cell>
+                </row>
+                <row>
+
+                    <cell colspan="1" style="text-align:left">
+                        <label value="Gerente:  "/>
+                        <label value="@load(vm.listaDeDesembolso.gerente)"/>
+                    </cell>
+                </row>
+
+                <row>
+                    <label value="Balcão:"/>
+                    <label style="font-size:12pt;text-align:right" value="@load(vm.listaDeDesembolso.balcao)"/>
+                </row>
+
+
+                <row>
+
+                    <label value="Data de Desembolso"/>
+                    <label style="font-size:12pt;text-align:right"
+                           value="@load(vm.listaDeDesembolso.dataDeDesembolso)@converter('formatedDate', format='dd/MM/yyyy') "/>
+
+                </row>
+
+                <!-- <row>
+
+                    &lt;!&ndash; <label style="font-size:12pt;text-align:right" value="Total Creditado:"/>
+                     <label style="font-size:12pt;text-align:right"
+                            value="@load(vm.totalCreditado)@converter('formatedNumber', format='MZN###,##0.00') "/>&ndash;&gt;
+
+
+                 </row>-->
+            </rows>
+        </grid>
+        <listbox model="@load(vm.pedidos)" width="1050px"
+        >
+            <listhead>
+                <listheader width="80px" label="Nº:" align="left"/>
+                <listheader sort="auto(nome)" width="" label="Nome do Cliente" align="left"/>
+                <listheader width="90px" label="V. de Desembolso" align="left"/>
+                <listheader width="80px" label="V. da Comissão" align="left"/>
+
+
+                <listheader width="90px" label="Renova/Novo" align="left"/>
+
+                <listheader width="90px" label="Def. De Crédito" align="left"/>
+                <listheader width="90px" label="Taxa. De Juros" align="left"/>
+
+                <listheader width="100px" label="Gestor" align="left"/>
+                <listheader width="90px" label="Credito ID" align="left"/>
+            </listhead>
+            <template name="model" status="s" var="item">
+
+                <listitem style="@bind('style')">
+                    <listcell label="@bind(s.index)"/>
+                    <listcell label="@load(item.cliente.nome)"/>
+
+                    <listcell label="@load(item.valorDeCredito)  @converter('formatedNumber', format='###,##0.00') "/>
+                    <listcell label="@load(item.valorDaComissao)  @converter('formatedNumber', format='###,##0.00') "/>
+                    <listcell label="@load(item.frequencia) "/>
+                    <listcell label="@load(item.definicaoDeCredito) "/>
+                    <listcell label="@load(item.utilizador) "/>
+                    <listcell label="@load(item.definicaoDeCredito.percentualDejuros) "/>
+                    <listcell>
+                        <textbox width="100%"/>
+                    </listcell>
+
+
+                </listitem>
+            </template>
+            <listfoot>
+
+                <listfooter/>
+                <listfooter style="text-align:right">
+                    <label style="font-weight:bold" value="Total"/>
+                </listfooter>
+                <listfooter style="text-align:left">
+                    <label style="font-weight:bold"
+                           value="@load(vm.totalCreditado)  @converter('formatedNumber', format='###,##0.00')"/>
+                </listfooter>
+
+            </listfoot>
+        </listbox>
+    </window>
+
+</zk>

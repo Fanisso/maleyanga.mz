@@ -92,9 +92,6 @@ class DiarioViewModel {
     }
 
     void setDataDeReferencia(Date dataDeReferencia) {
-        if(dataDeReferencia.after(new Date())){
-            return
-        }
         this.dataDeReferencia = dataDeReferencia
     }
 
@@ -433,9 +430,20 @@ class DiarioViewModel {
     def addItem(){
 
         try {
-
+            for(Diario d in items){
+                if(d.dataDeReferencia.format("dd/MM/yyyy")==dataDeReferencia.format("dd/MM/yyyy")){
+                    info.value = "Já existe um diário com esta data de referencia!"
+                    info.style =red
+                    return
+                }
+            }
+            Date hoje = new Date()
+            if(dataDeReferencia.after(hoje)){
+                info.value = "Não se pode referenciar uma data futura!"
+                info.style =red
+                return
+            }
             def diarios = Diario.findAllByEstado("aberto")
-
             if(diarios.size()>=1){
                 info.value = "Por favor Feiche todos os diários antes de criar um novo!"
                 info.style =red
@@ -451,8 +459,6 @@ class DiarioViewModel {
 
             }
             def numero =contadorService.gerarNumeroDoDiario()
-            System.println(numero)
-
             Diario diario = new Diario(estado: "aberto",numeroDoDiario:numero,dataDeReferencia: dataDeReferencia).save(flush: true)
             selectedDiario = Diario?.findById(diario?.id)
             if(selectedDiario!=null){

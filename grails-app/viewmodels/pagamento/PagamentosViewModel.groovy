@@ -1787,7 +1787,7 @@ class PagamentosViewModel {
         }
 
         else {
-            info.value="Double Click para executar esta operação!"
+            info.value=" Faça Double Click para executar esta operação!"
             info.style = "color:red;font-weight;font-size:14pt;background:back"
         }
     }

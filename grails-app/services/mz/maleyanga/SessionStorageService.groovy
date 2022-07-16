@@ -6,6 +6,7 @@ import mz.maleyanga.credito.Credito
 import mz.maleyanga.diario.Diario
 import mz.maleyanga.pagamento.Pagamento
 import mz.maleyanga.pagamento.Parcela
+import mz.maleyanga.pedidoDeCredito.ListaDeDesembolso
 import mz.maleyanga.pedidoDeCredito.PedidoDeCredito
 import mz.maleyanga.saidas.Saida
 import mz.maleyanga.security.Utilizador
@@ -21,6 +22,13 @@ class SessionStorageService {
     static transactional = false
     static scope = "singleton"
 
+    ListaDeDesembolso getListaDeDesembolo() {
+        getSession().listaDeDesembolso
+    }
+
+    void setListaDeDesembolso(ListaDeDesembolso listaDeDesembolso) {
+        getSession().listaDeDesembolso = listaDeDesembolso
+    }
 
     private HttpSession getSession() {
         return RequestContextHolder.currentRequestAttributes().getSession()
@@ -31,6 +39,8 @@ class SessionStorageService {
     def setEstado(String estado) { getSession().estado = estado }
 
     def getCreditos() { getSession().creditos }
+
+    def getPedidosDeCredito() { getSession().pedidos }
 
     def setDiarioId(Diario diarioId) { getSession().diarioId = diarioId }
 

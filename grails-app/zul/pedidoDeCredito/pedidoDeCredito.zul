@@ -32,10 +32,15 @@
         <label style="font-size:14pt" id="info"/>
         <tabbox>
             <tabs>
-                <tab id="tab_pdc" image="${z.resource(dir:'images', file:'pedido_25.png')}"
+                <tab onClick="@command('cleanInfo')" id="tab_pdc"
+                     image="${z.resource(dir:'images', file:'pedido_25.png')}"
                      label="Pedidos de Credito(PDC)"/>
-                <tab id="tab_lpdc" image="${z.resource(dir:'images', file:'open_diario_25.png')}"
-                     label="Listagem dos PDC"/>
+                <tab onClick="@command('cleanInfo')" id="tab_lpdc"
+                     image="${z.resource(dir:'images', file:'open_diario_25.png')}"
+                     label="Listagem dos PDCs"/>
+                <tab onClick="@command('cleanInfo')" id="tab_editor"
+                     image="${z.resource(dir:'images', file:'editor_25.png')}"
+                     label="Editor das Listas dos PDCs"/>
 
             </tabs>
             <tabpanels height="800px">
@@ -212,19 +217,20 @@
                              model="@load(vm.pedidos)"
                              height="" mold="paging" pageSize="20">
                         <listhead sizable="true">
-                            <listheader sort="auto(gestor)" width="150px" label="Gestor" align="left"/>
-                            <listheader sort="auto(cliente)" width="150px" label="Cliente" align="left"/>
+
+                            <listheader sort="auto(cliente)" width="200px" label="Cliente" align="left"/>
                             <listheader sort="auto(motivo)" width="" label="Motivos" align="left"/>
                             <listheader sort="auto(valorDeCredito)" width="100px" label="Valor Pedido" align="left"/>
-                            <listheader sort="auto(valorDaPenhora)" width="100px" label="V. Dos Bens Ps." align="left"/>
+                            <listheader sort="auto(valorDaPenhora)" width="100px" label="Valor dos Bens" align="left"/>
                             <listheader sort="auto(estado)" width="70px" label="Estado" align="left"/>
                             <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
+                            <listheader sort="auto(gestor)" width="150px" label="Gestor" align="left"/>
 
                         </listhead>
                         <template name="model" status="s">
 
                             <listitem onClick="@command('', index=each.id)" style="@bind('style')">
-                                <listcell label="@load(each.cliente.utilizador)"/>
+
                                 <listcell label="@load(each.cliente)"/>
                                 <listcell label="@load(each.motivo)"/>
                                 <listcell
@@ -232,18 +238,22 @@
                                 <listcell
                                         label="@load(each.valorDaPenhora)@converter('formatedNumber', format='###,##0.00')"/>
                                 <listcell label="@load(each.estado)"/>
-                                <listcell
-                                        label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                <listcell label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yy')"/>
+                                <listcell label="@load(each.cliente.utilizador)"/>
 
                             </listitem>
                         </template>
 
                     </listbox>
-                </tabpanel>
+                </tabpanel><!--Criação dos Pedidos de Credito-->
                 <tabpanel>
-                    <button image="${z.resource(dir:'images', file:'add.png')}"
-                            style="color:black;background:#20c199" onClick="@command('addLPDC')"
-                            label="Add  Lista de PDC)"/>
+                    <hbox>
+
+                        <!-- <button  visible="@load(not empty vm.dataDeDesembolso)" image="${z.resource(dir:'images', file:'add.png')}"
+                                 style="color:black;background:#20c199" onClick="@command('addLPDC')"
+                                 label="Add  Lista de Pedidos"/>-->
+
+                    </hbox>
                     <hbox width="400px">
                         <vbox>
                             <textbox width="300px" placeholder="nome do cliente"
@@ -270,7 +280,7 @@
                                     <listheader sort="auto(gestor)" width="200px" label="Gestor" align="left"/>
                                     <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido"
                                                 align="left"/>
-                                    <listheader sort="auto(valorDaPenhora)" width="150px" label="V. Dos Bens Ps."
+                                    <listheader sort="auto(valorDaPenhora)" width="150px" label="Valor dos Bens"
                                                 align="left"/>
                                     <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
                                     <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
@@ -278,7 +288,8 @@
                                 </listhead>
                                 <template name="model" status="s">
 
-                                    <listitem onDoubleClick="@command('addPDC', index=each.id)" style="@bind('style')">
+                                    <listitem onDoubleClick="@command('addPedido', index=each.id)"
+                                              style="@bind('style')">
                                         <listcell label="@load(each.cliente.utilizador)"/>
                                         <listcell
                                                 label="@load(each.valorDeCredito)@converter('formatedNumber', format='###,##0.00')"/>
@@ -286,42 +297,191 @@
                                                 label="@load(each.valorDaPenhora)@converter('formatedNumber', format='###,##0.00')"/>
                                         <listcell label="@load(each.estado)"/>
                                         <listcell
-                                                label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
+                                                label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yy')"/>
                                     </listitem>
                                 </template>
 
                             </listbox>
                         </hbox>
                     </hbox>
-                    <listbox checkmark="true" style="@bind('style')"
+                    <grid width="962px">
+                        <auxhead>
+                            <auxheader style="font-size:14pt;text-align:center" label="Listagem dos PDCs" colspan="2"/>
+                        </auxhead>
 
-                             model="@load(vm.listaDePedidos)"
-                             height="" mold="paging" pageSize="20">
-                        <listhead sizable="true">
-                            <listheader sort="auto(nome)" width="200px" label="Nome" align="left"/>
-                            <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido" align="left"/>
-                            <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
-                            <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:" align="left"/>
-                            <listheader sort="auto(gestor)" width="200px" label="Gestor" align="left"/>
+                        <rows>
 
-                        </listhead>
-                        <template name="model" status="s">
+                            <row>
+                                <grid>
+                                    <columns>
+                                        <column width="150px"/>
+                                        <column width=""/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="Data de Desemb."/>
+                                            <datebox constraint="no empty" format="dd/MM/yy"
+                                                     value="@bind(vm.dataDeDesembolso)"/>
+                                        </row>
+                                        <row>
 
-                            <listitem onDoubleClick="@command('addPDC', index=each.id)" style="@bind('style')">
-                                <listcell label="@load(each.cliente.nome)"/>
-                                <listcell
-                                        label="@load(each.valorDeCredito)@converter('formatedNumber', format='###,##0.00')"/>
+                                            <label value="Descrição"/>
+                                            <textbox constraint="no empty" width="400px" value="@bind(vm.descricao)"/>
 
-                                <listcell label="@load(each.estado)"/>
-                                <listcell
-                                        label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yyyy')"/>
-                                <listcell label="@load(each.cliente.utilizador)"/>
-                            </listitem>
-                        </template>
+                                        </row>
+                                        <row>
 
-                    </listbox>
-                </tabpanel>
-            </tabpanels><!--CRUD Pedido de credito-->
+                                            <label value="Balção"/>
+                                            <textbox width="400px" value="@bind(vm.balcao)"/>
+
+                                        </row>
+                                        <row>
+
+                                            <button visible="@load(not empty vm.listaDePedidos)"
+                                                    image="${z.resource(dir:'images', file:'save.png')}"
+                                                    label="Salvar" onClick="@command('salvarLista')"/>
+                                            <hbox width="135px">
+                                                <include src="/pedidoDeCredito/printPDCs.gsp"/>
+                                            </hbox>
+                                        </row>
+
+                                    </rows>
+                                </grid>
+                            </row>
+                            <row>
+                                <listbox checkmark="true" style="@bind('style')"
+                                         selectedItem="@bind(vm.sPDC)"
+                                         model="@load(vm.listaDePedidos)"
+                                         height="" mold="paging" pageSize="10">
+                                    <listhead sizable="true">
+                                        <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                        <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido"
+                                                    align="left"/>
+                                        <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
+                                        <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:"
+                                                    align="left"/>
+                                        <listheader sort="auto(gestor)" width="200px" label="Gestor" align="left"/>
+
+                                    </listhead>
+                                    <template name="model" status="s">
+
+                                        <listitem onDoubleClick="@command('removePedido', index=each.id)"
+                                                  style="@bind('style')">
+                                            <listcell label="@load(each.cliente.nome)"/>
+                                            <listcell>
+                                                <decimalbox onChange="@command('updateTotal')"
+                                                            value="@bind(each.valorDeCredito)" format="###,##0.00"/>
+                                            </listcell>
+
+                                            <listcell label="@load(each.estado)"/>
+                                            <listcell
+                                                    label="@load(each.dateCreated)@converter('formatedDate', format='dd/MM/yy')"/>
+                                            <listcell label="@load(each.cliente.utilizador)"/>
+                                        </listitem>
+                                    </template>
+                                    <listfoot>
+
+                                        <listfooter style="text-align:right">
+                                            <label style="font-weight:bold;font-size:11pt" value="Total"/>
+                                        </listfooter>
+                                        <listfooter
+                                                style="background:#caf0f8;color:black;font-weight:bold;text-align:left">
+                                            <label style="font-weight:bold;font-size:11pt"
+                                                   value="@load(vm.totalDesembolsado)  @converter('formatedNumber', format='###,##0.00') "/>
+                                        </listfooter>
+
+
+                                    </listfoot>
+                                </listbox>
+                            </row>
+
+                        </rows>
+                    </grid>
+
+                </tabpanel><!--Listagem de PDCs-->
+                <tabpanel>
+                    <hbox width="">
+                        <textbox width="200px" placeholder="Pesquisar com data, descriação ou balção"
+                                 style="background:#95B9C7;color:black" value="@bind(vm.filterLista)"
+                                 onChange="@command('doSearchListas')"
+                                 instant="true"/>
+
+                        <include visible="@load(not empty vm.selectedLista)" src="/pedidoDeCredito/printPDCs.gsp"/>
+                    </hbox>
+                    <hbox>
+                        <listbox width="460px" checkmark="true" style="@bind('style')"
+                                 selectedItem="@bind(vm.selectedLista)"
+                                 model="@load(vm.listasDosDesembolsos)"
+                                 height="" mold="paging" pageSize="10">
+                            <listhead sizable="true">
+                                <listheader sort="auto(descricao)" width="" label="Descrição" align="left"/>
+                                <listheader sort="auto(balcao)" width="150px" label="Balção" align="left"/>
+                                <listheader sort="auto(dataDeDesembolso)" width="90px" label="Data De Desemb."
+                                            align="left"/>
+                            </listhead>
+                            <template name="model" status="s">
+
+                                <listitem onDoubleClick="@command('removePedido', index=each.id)"
+                                          style="@bind('style')">
+                                    <listcell label="@load(each.descricao)">
+                                    </listcell>
+                                    <listcell label="@load(each.balcao)">
+                                    </listcell>
+
+
+                                    <listcell
+                                            label="@load(each.dataDeDesembolso)@converter('formatedDate', format='dd/MM/yy')">
+                                    </listcell>
+
+                                </listitem>
+                            </template>
+                        </listbox>
+                        <grid>
+                            <columns>
+                                <column width="100px"/>
+                                <column width=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="Descrição"/>
+                                    <textbox width="100%" value="@bind(vm.selectedLista.descricao)"/>
+                                </row>
+                                <row>
+                                    <label value="Balção"/>
+                                    <textbox width="100%" value="@bind(vm.selectedLista.balcao)"/>
+                                </row>
+                                <row>
+                                    <label value="Data De Desemb."/>
+                                    <datebox width="100%" value="@bind(vm.selectedLista.dataDeDesembolso)"/>
+                                </row>
+                                <row>
+                                    <label value="PDCs"/>
+                                    <listbox checkmark="true" style="@bind('style')"
+                                             selectedItem="@bind(vm.sPDC)"
+                                             model="@load(vm.pedidos)" width=""
+                                             height="" mold="paging" pageSize="10">
+                                        <listhead sizable="true">
+                                            <listheader width="" label="Cliente" align="left"/>
+                                            <listheader width="100px" label="V. Aprovado" align="left"/>
+                                            <listheader width="100px" label="V. das Penhoras" align="left"/>
+                                            <listheader width="160px" label="Def. De Cred." align="left"/>
+                                        </listhead>
+                                        <template name="model" status="s">
+                                            <listitem onClick="@command('')">
+                                                <listcell label="@load(each.cliente)"/>
+                                                <listcell label="@load(each.valorDeCredito)"/>
+                                                <listcell label="@load(each.valorDaPenhora)"/>
+                                                <listcell label="@load(each.definicaoDeCredito.descricao)"/>
+                                            </listitem>
+                                        </template>
+                                    </listbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </hbox>
+
+                </tabpanel><!--Editor dos PDCs-->
+            </tabpanels>
         </tabbox>
 
     </window>

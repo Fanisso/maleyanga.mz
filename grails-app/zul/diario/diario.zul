@@ -22,7 +22,7 @@
             <label value="Data de Referência."/>
             <datebox format="dd/MM/yy"
                      value="@bind(vm.dataDeReferencia)"/>
-            <button image="${z.resource(dir:'images', file:'add.png')}"
+            <button visible="@bind(not empty vm.dataDeReferencia)" image="${z.resource(dir:'images', file:'add.png')}"
                     style="color:white;background:green" onClick="@command('addItem')" label="Add"/>
             <button visible="@load(not empty vm.selectedDiario.id)"
                     image="${z.resource(dir:'images', file:'update.png')}"

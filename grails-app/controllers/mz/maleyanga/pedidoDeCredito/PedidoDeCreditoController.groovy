@@ -2,6 +2,7 @@ package mz.maleyanga.pedidoDeCredito
 
 import grails.transaction.Transactional
 import mz.maleyanga.BasicController
+import mz.maleyanga.credito.Credito
 import mz.maleyanga.security.Utilizador
 import org.mirzsoft.grails.actionlogging.annotation.ActionLogging
 import org.mirzsoft.grails.actionlogging.annotation.SpringUserIdentification
@@ -18,12 +19,20 @@ import static org.springframework.http.HttpStatus.*
 @SpringUserIdentification
 class PedidoDeCreditoController extends BasicController {
     def pedidoDeCreditoService
+    def sessionStorageService
     def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured(['ROLE_ADMIN', 'PEDIDO_DE_CREDITO_LIST_APROVADOS'])
     def pedidoDeCredito() {
 
+    }
+
+    @Secured(['ROLE_ADMIN', 'PEDIDO_DE_CREDITO_LIST_APROVADOS'])
+    def pedidosDeCredito() {
+        def pedidos = sessionStorageService.pedidosDeCredito
+        def data = new Date()
+        [data: data]
     }
 
     @Secured(['ROLE_ADMIN', 'PEDIDO_DE_CREDITO_LIST_APROVADOS'])

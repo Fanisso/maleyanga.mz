@@ -1,7 +1,6 @@
 package credito
 
 import mz.maleyanga.ClienteService
-import mz.maleyanga.pagamento.Remissao
 import org.springframework.stereotype.Service
 import org.zkoss.zul.Label
 import grails.plugin.springsecurity.SpringSecurityService
@@ -982,12 +981,10 @@ class CreditoViewModel {
         }
         if(!settings.permitirDesembolsoComDivida){
               if(selectedCliente.emDivida){
-                  System.println(selectedCliente.emDivida)
                     info.value = "Este cliente tem dívida!"
                     info.style = "color:red"
                   return
-                }
-
+              }
         }
         if(credito.valorCreditado<=0){
             info.value = "O valor do crédito é inválido"

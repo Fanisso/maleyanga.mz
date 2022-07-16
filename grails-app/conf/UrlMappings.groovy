@@ -25,7 +25,12 @@ class UrlMappings {
 			action		= { 'index' }
             view		= { 'index' }
         }
-		"/pedidoDeCredito/$action?"(controller: "pedidoDeCredito",action: "pedidoDeCredito")
+		"/pedidoDeCredito/index"	{
+
+			controller	= 'pedidoDeCredito'
+			action		= { 'pedidoDeCredito' }
+			view		= { 'pedidoDeCredito' }
+		}
 		"/diario/index?"(controller: "diario",action: "diario")
 		"/cliente/*.*"	{
 

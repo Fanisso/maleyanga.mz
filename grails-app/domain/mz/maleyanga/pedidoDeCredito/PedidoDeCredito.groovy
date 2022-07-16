@@ -2,7 +2,6 @@ package mz.maleyanga.pedidoDeCredito
 
 import mz.maleyanga.cliente.Cliente
 import mz.maleyanga.credito.Credito
-import mz.maleyanga.documento.Nota
 import mz.maleyanga.security.Utilizador
 import mz.maleyanga.settings.DefinicaoDeCredito
 
@@ -17,15 +16,19 @@ class PedidoDeCredito implements Serializable{
     BigDecimal valorDeCredito
     String estado
     Date dataDeAprovacao
+    Date dataDeDesembolso
     boolean creditado = false
     Utilizador utilizador
     Credito credito
     BigDecimal valorDaPenhora
+    BigDecimal valorDaComissao
     DefinicaoDeCredito definicaoDeCredito
     Integer nDePrestacoes
     Date dateCreated
     Date lastUpdated
-   // static hasMany = [penhoras: Penhora, notas: Nota]
+    ListaDeDesembolso listaDeDesembolso
+    String frequencia
+    // static hasMany = [penhoras: Penhora, notas: Nota]
 
     static mapping = {
         penhoras lazy: false
@@ -48,9 +51,12 @@ class PedidoDeCredito implements Serializable{
         motivo nullable: false
         valorDaPenhora nullable: true
         estado inList: ["aberto", "pendente", "aprovado", "reprovado", "executado"]
-        // notas nullable: true
+        valorDaComissao nullable: true
         definicaoDeCredito nullable: true
         nDePrestacoes nullable: true
+        dataDeDesembolso nullable: true
+        listaDeDesembolso nullable: true
+        frequencia nullable: true, inList: ['Novo', 'Renovação']
     }
 
     String getEstado() {

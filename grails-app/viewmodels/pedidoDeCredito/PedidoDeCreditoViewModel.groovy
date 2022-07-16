@@ -3,12 +3,17 @@ package pedidoDeCredito
 import grails.plugin.springsecurity.SpringSecurityService
 import mz.maleyanga.ClienteService
 import mz.maleyanga.CreditoService
+import mz.maleyanga.SessionStorageService
+import mz.maleyanga.SettingsService
 import mz.maleyanga.cliente.Cliente
+import mz.maleyanga.credito.Credito
+import mz.maleyanga.pedidoDeCredito.ListaDeDesembolso
 import mz.maleyanga.pedidoDeCredito.PedidoDeCredito
 import mz.maleyanga.pedidoDeCredito.Penhora
 import mz.maleyanga.security.Utilizador
 import mz.maleyanga.settings.DefinicaoDeCredito
 import grails.transaction.Transactional
+import mz.maleyanga.settings.Settings
 import org.springframework.stereotype.Service
 import org.zkoss.bind.annotation.Command
 import org.zkoss.bind.annotation.NotifyChange
@@ -17,7 +22,7 @@ import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.select.annotation.Wire
 import org.zkoss.zul.Label
 import org.zkoss.zul.ListModelList
-import org.zkoss.zul.Messagebox
+import java.sql.SQLException
 
 @Transactional
 @Service
@@ -28,6 +33,10 @@ class PedidoDeCreditoViewModel {
   private ListModelList<PedidoDeCredito> pedidosDoCliente
   private ListModelList<PedidoDeCredito> listaDePedidos
   private ListModelList<Penhora> penhoras
+  private ListaDeDesembolso selectedLista
+  private  Settings settings
+  SessionStorageService sessionStorageService
+  SettingsService settingsService
 private PedidoDeCredito sPDC
   private String filter
   private String filterCliente
@@ -35,19 +44,91 @@ private PedidoDeCredito sPDC
   CreditoService creditoService
   ClienteService clienteService
   private ListModelList<DefinicaoDeCredito> definicoes
-  BigDecimal valor
+  private BigDecimal totalDesembolsado
   Cliente selectedCliente
+  private  Date dataDeDesembolso
+  private  String balcao
+  private  String descricao
+  private ListModelList<ListaDeDesembolso> listasDosDesembolsos
+  private String filterLista
+
+
+
+  String getFilterLista() {
+    return filterLista
+  }
+
+  void setFilterLista(String filterLista) {
+    this.filterLista = filterLista
+  }
+
+  ListModelList<ListaDeDesembolso> getListasDosDesembolsos() {
+    if(listasDosDesembolsos ==null){
+      listasDosDesembolsos = new ListModelList<ListaDeDesembolso>()
+    }
+    return listasDosDesembolsos
+  }
+
+  ListaDeDesembolso getSelectedLista() {
+    return selectedLista
+  }
+
+  @NotifyChange(["pedidos","selectedLista"])
+  void setSelectedLista(ListaDeDesembolso selectedLista) {
+    this.selectedLista = selectedLista
+    sessionStorageService.listaDeDesembolso = selectedLista
+  }
+
+  String getBalcao() {
+    return balcao
+  }
+
+  void setBalcao(String balcao) {
+    this.balcao = balcao
+  }
+
+  String getDescricao() {
+    return descricao
+  }
+
+  void setDescricao(String descricao) {
+    this.descricao = descricao
+  }
+
+  BigDecimal getTotalDesembolsado() {
+    return totalDesembolsado
+  }
+
+  @Command
+  @NotifyChange(["totalDesembolsado"])
+  def updateTotal(){
+    totalDesembolsado = 0
+    for(PedidoDeCredito pdc in listaDePedidos){
+      totalDesembolsado+=pdc.valorDeCredito
+    }
+  }
+
+  Date getDataDeDesembolso() {
+    return dataDeDesembolso
+  }
+
+  void setDataDeDesembolso(Date dataDeDesembolso) {
+    this.dataDeDesembolso = dataDeDesembolso
+  }
 
   ListModelList<PedidoDeCredito> getListaDePedidos() {
     if(listaDePedidos==null){
       listaDePedidos = new  ListModelList<PedidoDeCredito>()
     }
+
     return listaDePedidos
   }
 
   @Command
+  @NotifyChange(["listaDePedidos"])
   def addLPDC(){
-
+  listaDePedidos.clear()
+    getListaDePedidos()
   }
   Cliente getSelectedCliente() {
     return selectedCliente
@@ -56,6 +137,7 @@ private PedidoDeCredito sPDC
   @NotifyChange(["penhoras","pedidosDoCliente"])
   void setSelectedCliente(Cliente selectedCliente) {
     this.selectedCliente = selectedCliente
+    info.value = ""
    }
 
 
@@ -72,6 +154,23 @@ private PedidoDeCredito sPDC
 
                 item.numeroDeIndentificao.indexOf(filterCliente) >= 0) {
           clientes.add(item)
+
+        }
+      }
+    }
+  }
+
+  @Command
+  void doSearchListas() {
+    listasDosDesembolsos.clear()
+    List<ListaDeDesembolso> allItems = ListaDeDesembolso.all
+    if (filterLista != null &&! "".equals(filterLista))
+    {
+      for (ListaDeDesembolso item : allItems) {
+        if (item.descricao?.toLowerCase()?.indexOf(filterLista?.toLowerCase()) >= 0 ||
+        item?.balcao?.toLowerCase()?.indexOf(filterLista?.toLowerCase()) >= 0 ||
+         item?.dataDeDesembolso?.format("dd/MM/yy")?.toString()?.indexOf(filterLista) >= 0) {
+          listasDosDesembolsos.add(item)
 
         }
       }
@@ -126,7 +225,10 @@ private PedidoDeCredito sPDC
 
   ListModelList<PedidoDeCredito> getPedidos() {
     if(pedidos==null){
-      pedidos = new ListModelList<PedidoDeCredito>(PedidoDeCredito.findAllByEstadoOrEstado("aberto","aprovado"))
+      pedidos = new ListModelList<PedidoDeCredito>()
+    }
+    if(selectedLista){
+      pedidos = PedidoDeCredito.findAllByListaDeDesembolso(selectedLista)
     }
     return pedidos
   }
@@ -170,7 +272,7 @@ private PedidoDeCredito sPDC
   @Wire Label info
 
     @Init init() {
-        // initialzation code here
+      settings = settingsService.getSettings()
     }
 
   @Command
@@ -195,8 +297,62 @@ private PedidoDeCredito sPDC
     penhoras.add(new Penhora())
   }
 
+  @Command
+  @NotifyChange(["listaDePedidos","totalDesembolsado"])
+  def addPedido(){
+    info.value = ""
+    if(!settings.permitirDesembolsoComDivida){
+      if(Credito.findAllByClienteAndEmDivida(selectedCliente,true)){
+        info.value = "Este cliente tem dívida por regularizar!"
+        info.style = "color:red;font-size:14pt"
+        return
+      }
+    }
+    if(!listaDePedidos.contains(sPDC)){
+      listaDePedidos.add(sPDC)
+    }
+    updateTotal()
+  }
 
+  @Command
+  @NotifyChange(["listaDePedidos","totalDesembolsado"])
+  def salvarLista(){
+    ListaDeDesembolso listaDeDesembolso = new ListaDeDesembolso()
+    for(PedidoDeCredito pdc in listaDePedidos){
+      pdc.dataDeDesembolso = dataDeDesembolso
+      pdc.listaDeDesembolso = listaDeDesembolso
+      listaDeDesembolso.addToPedidosDeCredito(pdc)
+     }
+    listaDeDesembolso.descricao = descricao
+    listaDeDesembolso.balcao = balcao
+    listaDeDesembolso.dataDeDesembolso = dataDeDesembolso
+    try {
+      Utilizador user = springSecurityService.currentUser as Utilizador
+      listaDeDesembolso.gerente = user
+      listaDeDesembolso.save(failOnError: true,flush: true)
+      sessionStorageService.setListaDeDesembolso(listaDeDesembolso)
+      info.value = "A lista dos candidatos a crédito foi criado com sucesso!"
+      info.style= "color:blue;font-weight;font-size:14ptpt;background:back"
+      listaDePedidos.clear()
+    }catch(SQLException e){
+      info.value = e.toString()
+    }
 
+  }
+
+  @Command
+  @NotifyChange(["listaDePedidos"])
+  def removePedido(){
+    if(listaDePedidos.contains(sPDC)){
+      listaDePedidos.remove(sPDC)
+    }
+  }
+
+    @Command
+    @NotifyChange(["info"])
+    def cleanInfo(){
+        info.value = ""
+    }
 
   @Command
   @NotifyChange(['penhoras','sPDC'])
