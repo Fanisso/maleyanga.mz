@@ -24,10 +24,9 @@ class PedidosDeCreditoViewModel {
         }
         return totalCreditado
     }
-
     @Init init() {
         listaDeDesembolso = sessionStorageService.getListaDeDesembolo()
-        getTotalCreditado()
+       // getTotalCreditado()
     }
 
     ListModelList<PedidoDeCredito> getPedidos() {

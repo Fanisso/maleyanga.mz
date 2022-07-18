@@ -47,8 +47,8 @@
                 <tabpanel>
 
                 <button image="${z.resource(dir:'images', file:'add.png')}"
-                            style="color:black;background:#20c199" onClick="@command('addPDC')"
-                            label="Add  Pedido de Crédito"/>
+                        style="color:black;background:#20c199" onClick="@command('addPDC')"
+                        label="Novo  Pedido de Crédito"/>
                     <button visible="@load(not empty vm.sPDC.id)" image="${z.resource(dir:'images', file:'add.png')}"
                             style="color:black;background:#20c1e9" onClick="@command('addCredito')"
                             label="Add Credito"/>

@@ -108,6 +108,7 @@ private PedidoDeCredito sPDC
     }
   }
 
+
   Date getDataDeDesembolso() {
     return dataDeDesembolso
   }
@@ -138,7 +139,8 @@ private PedidoDeCredito sPDC
   void setSelectedCliente(Cliente selectedCliente) {
     this.selectedCliente = selectedCliente
     info.value = ""
-   }
+    addPDC()
+    }
 
 
 
@@ -308,25 +310,39 @@ private PedidoDeCredito sPDC
         return
       }
     }
+    for(PedidoDeCredito pdc in listaDePedidos){
+      if(pdc.cliente.id==selectedCliente.id){
+      info.value = "este cliente já tem um PDC incluido na lista!"
+        info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
+      return
+      }
+    }
     if(!listaDePedidos.contains(sPDC)){
       listaDePedidos.add(sPDC)
     }
+
     updateTotal()
   }
 
   @Command
   @NotifyChange(["listaDePedidos","totalDesembolsado"])
   def salvarLista(){
-    ListaDeDesembolso listaDeDesembolso = new ListaDeDesembolso()
-    for(PedidoDeCredito pdc in listaDePedidos){
-      pdc.dataDeDesembolso = dataDeDesembolso
-      pdc.listaDeDesembolso = listaDeDesembolso
-      listaDeDesembolso.addToPedidosDeCredito(pdc)
-     }
-    listaDeDesembolso.descricao = descricao
-    listaDeDesembolso.balcao = balcao
-    listaDeDesembolso.dataDeDesembolso = dataDeDesembolso
+
     try {
+      ListaDeDesembolso listaDeDesembolso = new ListaDeDesembolso()
+      for(PedidoDeCredito pdc in listaDePedidos){
+        if(Credito.findAllByClienteAndInvalido(selectedCliente,false)){
+          pdc.frequencia = "renovação"
+        }else {
+          pdc.frequencia = "novo"
+        }
+        pdc.dataDeDesembolso = dataDeDesembolso
+        pdc.listaDeDesembolso = listaDeDesembolso
+        listaDeDesembolso.addToPedidosDeCredito(pdc)
+      }
+      listaDeDesembolso.descricao = descricao
+      listaDeDesembolso.balcao = balcao
+      listaDeDesembolso.dataDeDesembolso = dataDeDesembolso
       Utilizador user = springSecurityService.currentUser as Utilizador
       listaDeDesembolso.gerente = user
       listaDeDesembolso.save(failOnError: true,flush: true)
@@ -422,7 +438,11 @@ private PedidoDeCredito sPDC
       }
       utilizador = Utilizador.findById(springSecurityService.principal?.id)
       sPDC.utilizador = utilizador
-
+      if(Credito.findAllByClienteAndInvalido(selectedCliente,false)){
+        sPDC.frequencia = "renovação"
+      }else {
+        sPDC.frequencia = "novo"
+      }
       sPDC.estado = "aberto"
       System.println(penhoras)
       sPDC.creditado = false

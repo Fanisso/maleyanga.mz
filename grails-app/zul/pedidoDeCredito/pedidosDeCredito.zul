@@ -68,11 +68,12 @@
             <listhead>
                 <listheader width="80px" label="Nº:" align="left"/>
                 <listheader sort="auto(nome)" width="" label="Nome do Cliente" align="left"/>
-                <listheader width="90px" label="V. de Desembolso" align="left"/>
-                <listheader width="80px" label="V. da Comissão" align="left"/>
+                <listheader width="100px" label="V. de Desemb." align="left"/>
+                <listheader width="90px" label="V.  Comissão" align="left"/>
 
 
                 <listheader width="90px" label="Renova/Novo" align="left"/>
+                <listheader width="60px" label="Nº.Prest." align="left"/>
 
                 <listheader width="90px" label="Def. De Crédito" align="left"/>
                 <listheader width="90px" label="Taxa. De Juros" align="left"/>
@@ -89,9 +90,11 @@
                     <listcell label="@load(item.valorDeCredito)  @converter('formatedNumber', format='###,##0.00') "/>
                     <listcell label="@load(item.valorDaComissao)  @converter('formatedNumber', format='###,##0.00') "/>
                     <listcell label="@load(item.frequencia) "/>
-                    <listcell label="@load(item.definicaoDeCredito) "/>
-                    <listcell label="@load(item.utilizador) "/>
+                    <listcell label="@load(item.definicaoDeCredito.numeroDePrestacoes) "/>
+                    <listcell label="@load(item.definicaoDeCredito.periodicidade) "/>
                     <listcell label="@load(item.definicaoDeCredito.percentualDejuros) "/>
+                    <listcell label="@load(item.utilizador) "/>
+
                     <listcell>
                         <textbox width="100%"/>
                     </listcell>

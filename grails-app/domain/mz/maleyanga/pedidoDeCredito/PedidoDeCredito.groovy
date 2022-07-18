@@ -56,7 +56,7 @@ class PedidoDeCredito implements Serializable{
         nDePrestacoes nullable: true
         dataDeDesembolso nullable: true
         listaDeDesembolso nullable: true
-        frequencia nullable: true, inList: ['Novo', 'Renovação']
+        frequencia nullable: true, inList: ['novo', 'renovação']
     }
 
     String getEstado() {
