@@ -57,13 +57,13 @@
                         <columns>
                             <column image="${z.resource(dir:'images', file:'pedido_25.png')}" label="Cliente"
                                     width="200px"/>
-                            <column label="Cliente" width="300px"/>
+                            <column label="Nome do Cliente" width="300px"/>
                             <column label="Valor Pedido" width="200px"/>
                             <column label="Motivos" width=""/>
                         </columns>
                         <rows>
                             <row>
-                                <textbox width="200px" placeholder="nome do cliente"
+                                <textbox width="200px" placeholder="Digite o nome do cliente"
                                          style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
                                          onChange="@command('doSearchCliente')"
                                          instant="true"/>
@@ -116,7 +116,7 @@
                     <listbox multiple="true" style="@bind('style')"
                              model="@load(vm.penhoras)"
                              width="100%"
-                             height="" mold="paging" pageSize="10">
+                             height="" mold="paging" pageSize="5">
                         <listhead>
                             <listheader width="" sort="auto" label="Descrição da Penhora"/>
                             <listheader width="30%" sort="auto" label="Valor"/>
@@ -187,20 +187,25 @@
                             <row visible="@load(!not empty vm.sPDC.id)">
                                 <cell colspan="2">
                                     <hbox>
-                                        <button id="bt_salvar" image="${z.resource(dir:'images', file:'save.png')}"
+                                        <button visible="false" id="bt_salvar"
+                                                image="${z.resource(dir:'images', file:'save.png')}"
                                                 label="Salvar" onClick="@command('salvarPDC')"/>
-                                        <button image="${z.resource(dir:'images', file:'remover.png')}"
+                                        <button id="bt_limpar" visible="false"
+                                                image="${z.resource(dir:'images', file:'remover.png')}"
                                                 onClick="@command('limpar')" onDoubleClick="@command('')"
                                                 label="Limpar"/>
                                     </hbox>
                                 </cell>
                             </row>
-                            <row visible="@load(not empty vm.sPDC.id)">
+                            <row>
                                 <cell colspan="2">
-                                    <button image="${z.resource(dir:'images', file:'update.png')}"
+                                    Aprovar Pedido
+                                    <button id="bt_aprovar_pedido" visible="false"
+                                            image="${z.resource(dir:'images', file:'update.png')}"
                                             onClick="@command('aprovarPedido')"
                                             label="@bind(vm.sPDC.creditado)"/>
-                                    <button image="${z.resource(dir:'images', file:'update.png')}"
+                                    <button id="bt_update" visible="false"
+                                            image="${z.resource(dir:'images', file:'update.png')}"
                                             onClick="@command('updatePedido')"
                                             label="Actualizar"/>
                                 </cell>
@@ -218,7 +223,7 @@
                              height="" mold="paging" pageSize="20">
                         <listhead sizable="true">
 
-                            <listheader sort="auto(cliente)" width="200px" label="Cliente" align="left"/>
+                            <listheader sort="auto(cliente)" width="200px" label="Nome Do Cliente" align="left"/>
                             <listheader sort="auto(motivo)" width="" label="Motivos" align="left"/>
                             <listheader sort="auto(valorDeCredito)" width="100px" label="Valor Pedido" align="left"/>
                             <listheader sort="auto(valorDaPenhora)" width="100px" label="Valor dos Bens" align="left"/>
@@ -229,7 +234,7 @@
                         </listhead>
                         <template name="model" status="s">
 
-                            <listitem onClick="@command('', index=each.id)" style="@bind('style')">
+                            <listitem onDoubleClick="@command('addPedido', index=each.id)" style="@bind('style')">
 
                                 <listcell label="@load(each.cliente)"/>
                                 <listcell label="@load(each.motivo)"/>
@@ -256,7 +261,7 @@
                     </hbox>
                     <hbox width="400px">
                         <vbox>
-                            <textbox width="300px" placeholder="nome do cliente"
+                            <textbox width="300px" placeholder="Digite o nome do cliente"
                                      style="background:#95B9C7;color:black" value="@bind(vm.filterCliente)"
                                      onChange="@command('doSearchCliente')"
                                      instant="true"/>
@@ -314,7 +319,9 @@
                             <row>
                                 <grid>
                                     <columns>
-                                        <column width="150px"/>
+                                        <column width="100px"/>
+                                        <column width=""/>
+                                        <column width="100px"/>
                                         <column width=""/>
                                     </columns>
                                     <rows>
@@ -322,19 +329,22 @@
                                             <label value="Data de Desemb."/>
                                             <datebox constraint="no empty" format="dd/MM/yy"
                                                      value="@bind(vm.dataDeDesembolso)"/>
+
+                                            <label value="Aplicar Taxa"/>
+                                            <checkbox checked="true" label="@load(vm.taxaManual)"
+                                                      value="@bind(vm.taxaManual)"
+                                                      onClick="@command('aplicarTaxaManual')"/>
+
                                         </row>
                                         <row>
 
                                             <label value="Descrição"/>
                                             <textbox constraint="no empty" width="400px" value="@bind(vm.descricao)"/>
-
-                                        </row>
-                                        <row>
-
                                             <label value="Balção"/>
                                             <textbox width="400px" value="@bind(vm.balcao)"/>
 
                                         </row>
+
                                         <row>
 
                                             <button visible="@load(not empty vm.listaDePedidos)"
@@ -354,8 +364,10 @@
                                          model="@load(vm.listaDePedidos)"
                                          height="" mold="paging" pageSize="10">
                                     <listhead sizable="true">
-                                        <listheader sort="auto(nome)" width="" label="Nome" align="left"/>
+                                        <listheader sort="auto(nome)" width="" label="Nome do Cliente" align="left"/>
                                         <listheader sort="auto(valorDeCredito)" width="150px" label="Valor Pedido"
+                                                    align="left"/>
+                                        <listheader sort="auto(valorDeCredito)" width="150px" label="Valor da Comissão"
                                                     align="left"/>
                                         <listheader sort="auto(estado)" width="90px" label="Estado" align="left"/>
                                         <listheader sort="auto(dateCreated)" width="70px" label="Gerado em:"
@@ -371,6 +383,10 @@
                                             <listcell>
                                                 <decimalbox onChange="@command('updateTotal')"
                                                             value="@bind(each.valorDeCredito)" format="###,##0.00"/>
+                                            </listcell>
+                                            <listcell>
+                                                <decimalbox onChange="@command('updateTotal')"
+                                                            value="@bind(each.valorDaComissao)" format="###,##0.00"/>
                                             </listcell>
 
                                             <listcell label="@load(each.estado)"/>

@@ -20,6 +20,7 @@ import org.zkoss.bind.annotation.NotifyChange
 import org.zkoss.bind.annotation.Init
 import org.zkoss.zk.ui.Executions
 import org.zkoss.zk.ui.select.annotation.Wire
+import org.zkoss.zul.Button
 import org.zkoss.zul.Label
 import org.zkoss.zul.ListModelList
 import java.sql.SQLException
@@ -27,6 +28,11 @@ import java.sql.SQLException
 @Transactional
 @Service
 class PedidoDeCreditoViewModel {
+  @Wire Button bt_salvar
+  @Wire Button bt_update
+  @Wire Button bt_aprovar_pedido
+  @Wire Button bt_limpar
+  private boolean taxaManual = true
   SpringSecurityService springSecurityService
   private ListModelList<Cliente> clientes
   private ListModelList<PedidoDeCredito> pedidos
@@ -54,6 +60,7 @@ private PedidoDeCredito sPDC
 
 
 
+
   String getFilterLista() {
     return filterLista
   }
@@ -73,7 +80,7 @@ private PedidoDeCredito sPDC
     return selectedLista
   }
 
-  @NotifyChange(["pedidos","selectedLista"])
+  @NotifyChange(["pedidos","selectedLista","penhoras"])
   void setSelectedLista(ListaDeDesembolso selectedLista) {
     this.selectedLista = selectedLista
     sessionStorageService.listaDeDesembolso = selectedLista
@@ -99,6 +106,10 @@ private PedidoDeCredito sPDC
     return totalDesembolsado
   }
 
+  boolean getTaxaManual() {
+    return taxaManual
+  }
+
   @Command
   @NotifyChange(["totalDesembolsado"])
   def updateTotal(){
@@ -108,6 +119,19 @@ private PedidoDeCredito sPDC
     }
   }
 
+  @Command
+  @NotifyChange(["taxaManual","taxa"])
+  def aplicarTaxaManual() {
+    info.value = ""
+    if(settings.taxaManual){
+      taxaManual = !taxaManual
+    }else if(!settings.taxaManual)
+
+    {
+      info.value="Altere as definições de credito de forma a poder usar a taxa manual!"
+      info.style = "color:red;font-weight;font-size:16px;background:back"
+    }
+  }
 
   Date getDataDeDesembolso() {
     return dataDeDesembolso
@@ -135,19 +159,20 @@ private PedidoDeCredito sPDC
     return selectedCliente
   }
 
-  @NotifyChange(["penhoras","pedidosDoCliente"])
+  @NotifyChange(["penhoras","pedidosDoCliente","pedidos"])
   void setSelectedCliente(Cliente selectedCliente) {
+    penhoras.clear()
     this.selectedCliente = selectedCliente
     info.value = ""
-    addPDC()
     }
 
 
 
   @Command
+  @NotifyChange(["penhoras","clientes"])
   void doSearchCliente() {
     clientes.clear()
-    clientes.clear()
+    penhoras.clear()
     List<Cliente> allItems = clienteService.findAllByName(filterCliente)
     if (filterCliente != null &&! "".equals(filterCliente))
     {
@@ -225,12 +250,19 @@ private PedidoDeCredito sPDC
     }
   }
 
+  @NotifyChange(["pedidos"])
   ListModelList<PedidoDeCredito> getPedidos() {
     if(pedidos==null){
       pedidos = new ListModelList<PedidoDeCredito>()
     }
     if(selectedLista){
       pedidos = PedidoDeCredito.findAllByListaDeDesembolso(selectedLista)
+    }else
+    if(selectedCliente){
+      def pedidoss = PedidoDeCredito.findAllByCliente(selectedCliente)
+      if(pedidoss){
+        return pedidoss
+      }
     }
     return pedidos
   }
@@ -253,6 +285,10 @@ private PedidoDeCredito sPDC
     if(penhoras==null){
       penhoras = new ListModelList<Penhora>()
     }
+    if(sPDC?.id){
+      penhoras = Penhora.findAllByPedidoDeCredito(sPDC)
+      penhoras.add(new Penhora())
+    }
     return penhoras
   }
 
@@ -263,6 +299,14 @@ private PedidoDeCredito sPDC
   @NotifyChange(["penhoras"])
   void setsPDC(PedidoDeCredito sPDC) {
     this.sPDC = sPDC
+    bt_salvar.visible = false
+    bt_update.visible = true
+    bt_aprovar_pedido.visible = true
+    bt_limpar.visible = false
+    getPenhoras()
+
+
+
   }
 
   ListModelList<Cliente> getClientes() {
@@ -281,8 +325,7 @@ private PedidoDeCredito sPDC
   @NotifyChange(['penhoras','sPDC'])
   def addPenhora(){
     info.value = ""
-    penhoras.add(new Penhora())
-
+     penhoras.add(new Penhora(pedidoDeCredito: sPDC))
   }
   @Command
   @NotifyChange(["pedidos","sPDC"])
@@ -297,6 +340,10 @@ private PedidoDeCredito sPDC
     sPDC = new PedidoDeCredito()
     penhoras.clear()
     penhoras.add(new Penhora())
+    bt_salvar.visible = true
+    bt_update.visible = false
+    bt_aprovar_pedido.visible = false
+
   }
 
   @Command
@@ -320,7 +367,12 @@ private PedidoDeCredito sPDC
     if(!listaDePedidos.contains(sPDC)){
       listaDePedidos.add(sPDC)
     }
-
+    if(taxar()){
+      sPDC.valorDaComissao = sPDC.valorDeCredito*sPDC.definicaoDeCredito.taxa.percentagem/100
+     // sPDC.merge(flush: true)
+    }
+    info.value = "O pedido de crédito foi adicionado com sucesso!"
+    info.style = "color:blue;font-size:14pt"
     updateTotal()
   }
 
@@ -411,12 +463,17 @@ private PedidoDeCredito sPDC
     if(sPDC.creditado){
       sPDC.dataDeAprovacao= new Date()
       }
+
     sPDC.merge(flush: true)
+    for(Penhora p in penhoras){
+      p.pedidoDeCredito = sPDC
+      p.merge(flush: true)
+    }
     info.value = "Pedido de crédito actualizado com sucesso!"
     info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
   }
   @Command
-  @NotifyChange(['penhoras','sPDC','pedidos','penhoras'])
+  @NotifyChange(['penhoras','sPDC','pedidos'])
   def salvarPDC(){
     info.value = ""
     try {
@@ -449,10 +506,10 @@ private PedidoDeCredito sPDC
       sPDC.valorDaPenhora = somar()
       sPDC.cliente = selectedCliente
       sPDC.save(flush: true)
-      def penhoraDB = PedidoDeCredito.findById(sPDC.id)
-      System.println(penhoraDB.id)
+      def pedidoDB = PedidoDeCredito.findById(sPDC.id)
+      System.println(pedidoDB.id)
       for(Penhora penhora in penhoras){
-        penhora.pedidoDeCredito = penhoraDB
+        penhora.pedidoDeCredito = pedidoDB
         penhora.cliente = selectedCliente
         penhora.save(flush: true)
 
@@ -461,18 +518,17 @@ private PedidoDeCredito sPDC
 
 
 
-      if(penhoraDB!=null){
-        pedidos.add(penhoraDB)
+      if(pedidoDB!=null){
+        pedidos.add(pedidoDB)
         info.value = "O Pedido de crédito foi criado com sucesso!"
         info.style = "color:blue;font-weight;font-size:14ptpt;background:back"
+        pedidos.add(pedidoDB)
 
       }
 
     }catch(Exception e){
       System.println(e.toString())
     }
-
-  sPDC= new PedidoDeCredito()
 
   }
 
@@ -484,5 +540,29 @@ private PedidoDeCredito sPDC
       valor+=it.valor
     }
     return valor
+  }
+
+  boolean taxar(){
+    if(settings.taxaManual){
+      return taxaManual
+    }else
+    if (sPDC.definicaoDeCredito&&selectedCliente){
+      //taxaService.calcularTaxas(selectedCliente,selectedDefinicaoDeCredito)
+      def creditos = Credito.findAllByClienteAndPeriodicidadeAndInvalido(selectedCliente,sPDC.definicaoDeCredito.periodicidade,false) as List
+      def reco_taxa = DefinicaoDeCredito.findById(sPDC.definicaoDeCredito.id).taxa.recorencia.toCharArray() as List
+      def recorencia_taxa = new ArrayList<>()
+      System.println(reco_taxa)
+      if(creditos?.empty){
+        return reco_taxa[0] != "0"
+
+      }else {
+        for(int x=0; x<creditos.size(); x++){
+          recorencia_taxa.addAll(reco_taxa)
+        }
+
+        return recorencia_taxa[creditos.size()] != "0"
+
+      }
+    }
   }
 }

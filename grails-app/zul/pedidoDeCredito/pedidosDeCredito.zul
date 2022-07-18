@@ -66,7 +66,7 @@
         <listbox model="@load(vm.pedidos)" width="1050px"
         >
             <listhead>
-                <listheader width="80px" label="Nº:" align="left"/>
+                <listheader width="45px" label="Item Nº:" align="left"/>
                 <listheader sort="auto(nome)" width="" label="Nome do Cliente" align="left"/>
                 <listheader width="100px" label="V. de Desemb." align="left"/>
                 <listheader width="90px" label="V.  Comissão" align="left"/>
@@ -84,7 +84,7 @@
             <template name="model" status="s" var="item">
 
                 <listitem style="@bind('style')">
-                    <listcell label="@bind(s.index)"/>
+                    <listcell label="@bind(s.index+1)"/>
                     <listcell label="@load(item.cliente.nome)"/>
 
                     <listcell label="@load(item.valorDeCredito)  @converter('formatedNumber', format='###,##0.00') "/>

@@ -383,8 +383,8 @@
                                                     align="left"/>
 
                                         <listheader sort="auto(utilizador)" width="80px" label="Emissor" align="left"/>
-                                        <listheader sort="auto(taxa)" width="80px" label="Taxa" align="left"/>
-                                        <listheader sort="" width="80px" label="E. Dívida" align="left"/>
+                                        <listheader sort="auto(taxa)" width="60px" label="Taxa" align="left"/>
+                                        <listheader sort="" width="90px" label="V. Dívida" align="left"/>
                                     </listhead>
                                     <template name="model" status="s">
 
@@ -404,7 +404,8 @@
                                             <listcell label="@load(each.periodicidade)"/>
                                             <listcell label="@load(each.utilizador.username)"/>
                                             <listcell label="@load(each.taxas)"/>
-                                            <listcell label="@load(each.emDivida)"/>
+                                            <listcell
+                                                    label="@load(each.valorEmDivida)@converter('formatedNumber', format='###,##0.00')"/>
 
 
                                         </listitem>

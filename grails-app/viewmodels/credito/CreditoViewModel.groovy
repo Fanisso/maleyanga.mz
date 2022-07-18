@@ -914,9 +914,7 @@ class CreditoViewModel {
                 for(int x=0; x<creditos.size(); x++){
                     recorencia_taxa.addAll(reco_taxa)
                 }
-                System.println(creditos)
-                System.println(recorencia_taxa)
-                System.println(recorencia_taxa[creditos.size()])
+
                 return recorencia_taxa[creditos.size()] != "0"
 
             }

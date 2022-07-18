@@ -20,6 +20,7 @@ class PrintExtratoDeCreditoViewModel {
     Credito creditoInstance
     String message
     BigDecimal totalDebito= 0
+    BigDecimal totalEmMora= 0
     BigDecimal totalCredito = 0
     BigDecimal totalJurosDeMora = 0
     BigDecimal totalJuros = 0
@@ -35,7 +36,17 @@ class PrintExtratoDeCreditoViewModel {
     Integer numeroDePrestacoes
     Integer numeroDePrestacoesEmDia = 0
     Boolean dividaSemMoras
-       // ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
+
+    BigDecimal getTotalEmMora() {
+        totalEmMora = 0
+        totalEmMora = extratoDeCreditos?.last()?.saldo
+        Integer diferenca = getNumeroDePrestacoes()-getNumeroDePrestacoesEmDia()
+        System.println(diferenca)
+        def var = diferenca*getValorDaPrestacao()
+        System.println(var)
+        return totalEmMora+var
+    }
+// ((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito
     Date getData() {
         return new Date()
     }
@@ -204,10 +215,10 @@ class PrintExtratoDeCreditoViewModel {
                 extratoDeCredito.diasDeMora = pagamento.diasDeMora+""
                 if(creditoInstance.ignorarValorPagoNoPrazo){
                     extratoDeCredito.valorEmMora = (pagamento?.valorDaPrestacao) *(-1)
-                    System.println("ignorarValorPagoNoPrazo"+creditoInstance.ignorarValorPagoNoPrazo)
+                   // System.println("ignorarValorPagoNoPrazo"+creditoInstance.ignorarValorPagoNoPrazo)
                 }else {
                     extratoDeCredito.valorEmMora = (pagamento?.valorDaPrestacao+pagamento.totalPagoNoPrazo) *(-1)
-                    System.println("ignorarValorPagoNoPrazo=!"+creditoInstance.ignorarValorPagoNoPrazo)
+                  //  System.println("ignorarValorPagoNoPrazo=!"+creditoInstance.ignorarValorPagoNoPrazo)
                 }
                 extratoDeCredito.jurosDeMora = pagamento.valorDeJurosDeDemora * (-1)
                 extratoDeCredito.saldo = 0.0
@@ -267,7 +278,7 @@ class PrintExtratoDeCreditoViewModel {
         Calendar c = Calendar.getInstance()
         c.setTime(date)
         c.add(Calendar.DAY_OF_MONTH,-1)
-        System.println(creditoInstance.pagamentos.last().dataPrevistoDePagamento)
+      //  System.println(creditoInstance.pagamentos.last().dataPrevistoDePagamento)
         /*  if(c.getTime().after(creditoInstance.pagamentos.last().dataPrevistoDePagamento)){
               if(saldoEmMora>extratoDeCreditos.last().saldo){
                   saldoEmMora=extratoDeCreditos.last().saldo

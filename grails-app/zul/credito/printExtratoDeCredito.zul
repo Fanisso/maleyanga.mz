@@ -213,9 +213,12 @@
                         <label value="V. Em Mora"/>
                     </listfooter>
                     <listfooter style="background:#d2dac0;color:black;font-weight:bold;text-align:left">
-                        <label visible="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito>0)"
-                               style="font-weight:bold;font-size:11pt"
-                               value="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito)  @converter('formatedNumber', format='###,##0.00') "/>
+                        <label
+                                style="font-weight:bold;font-size:11pt"
+                                value="@load(vm.totalEmMora) @converter('formatedNumber', format='###,##0.00') "
+                        />
+                        <!--value="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito)  @converter('formatedNumber', format='###,##0.00') "-->
+                        <!--visible="@load(((vm.valorDaPrestacao*vm.numeroDePrestacoesEmDia)+vm.totalJurosDeMora)+vm.totalCredito>0)"-->
                     </listfooter>
                 </listfoot>
             </listbox>
