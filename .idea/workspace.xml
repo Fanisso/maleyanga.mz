@@ -47,12 +47,8 @@
     </treeState>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="concuida a 1º versao da listagem de pedidos de credito">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_09_2021_12_29__Default_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_09_2021_12_29__Default_.xml" afterDir="false" />
+    <list default="true" id="d7d2c64e-beaf-4306-ace8-bcc22d40706c" name="Default" comment="este é o ultimo commit que queremos fazer antes de mudar de IDE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.slcache/.index" beforeDir="false" afterPath="$PROJECT_DIR$/.slcache/.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mz.maleyanga-grailsPlugins.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mz.maleyanga-grailsPlugins.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mz.maleyanga.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mz.maleyanga.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1485,14 +1481,7 @@
       <workItem from="1662289038126" duration="334000" />
       <workItem from="1662289771621" duration="124000" />
       <workItem from="1753342220383" duration="3243000" />
-      <workItem from="1753350747796" duration="1929000" />
-    </task>
-    <task id="LOCAL-00110" summary="versão da matola">
-      <created>1629730489112</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1629730489113</updated>
+      <workItem from="1753350747796" duration="2758000" />
     </task>
     <task id="LOCAL-00111" summary="versão da prospere">
       <created>1629856321335</created>
@@ -1830,7 +1819,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658130634251</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="este é o ultimo commit que queremos fazer antes de mudar de IDE">
+      <created>1753355156008</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1753355156008</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1910,7 +1906,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="versao cmc" />
     <MESSAGE value="personalização dos dados do plano de pag.&#10;correcções de CreditoViewModel e pagamentos . inicio de criação de relatorios dos diarios por caixa" />
     <MESSAGE value="estou a tentar novamente resolver a questão das moras" />
     <MESSAGE value="parei a questão de moras sem sucesso. nessa versão foi incluido relatóriso que permitem analizar o desempenho de cada gestor num dado periodo." />
@@ -1935,14 +1930,15 @@
     <MESSAGE value="incio de adição de listagem de pedidos de creditos" />
     <MESSAGE value="estou" />
     <MESSAGE value="concuida a 1º versao da listagem de pedidos de credito" />
-    <option name="LAST_COMMIT_MESSAGE" value="concuida a 1º versao da listagem de pedidos de credito" />
+    <MESSAGE value="este é o ultimo commit que queremos fazer antes de mudar de IDE" />
+    <option name="LAST_COMMIT_MESSAGE" value="este é o ultimo commit que queremos fazer antes de mudar de IDE" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="845" y="382" key="#Notifications" timestamp="1753355061459">
+    <state x="845" y="382" key="#Notifications" timestamp="1753355905270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="845" y="382" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1753355061459" />
+    <state x="845" y="382" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1753355905270" />
     <state width="1877" height="306" key="GridCell.Tab.0.bottom" timestamp="1753346511812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -1959,10 +1955,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1753346511812" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1753351744891">
+    <state x="461" y="164" key="SettingsEditor" timestamp="1753355380788">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1753351744891" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1753355380788" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1753355873870">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1753355873870" />
   </component>
   <component name="grailsSettings">
     <option name="map">
