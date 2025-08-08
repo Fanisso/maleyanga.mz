@@ -72,6 +72,7 @@ class CreditoViewModel {
     ContadorService contadorService
     int numeroDePrestacoes
     private    String selecedPeriodicidade
+    private boolean variavel = false
     private String filterCliente
     private String filterCredito
     ContaService contaService
@@ -99,7 +100,7 @@ class CreditoViewModel {
     private Double totaljuros = 0
     private boolean taxaManual = true
     private boolean db_data = false
-    private  String creditosDe = "Créditos"
+    private  boolean variavel = false
     private Pagamento pagamento
 
 
@@ -647,13 +648,10 @@ class CreditoViewModel {
         return selecedPeriodicidade
     }
 
-    @NotifyChange(["selectedDefinicaoDeCredito"])
+    @NotifyChange(["selecedPeriodicidade","selectedDefinicaoDeCredito","variavel"])
     void setSelecedPeriodicidade(String selecedPeriodicidade) {
-        cb_def.children.clear()
-
-        selectedDefinicaoDeCredito = null
-
         this.selecedPeriodicidade = selecedPeriodicidade
+        this.variavel = selecedPeriodicidade == "variavel"
     }
 
     ListModelList<DefinicaoDeCredito> getDefinicoes() {
@@ -681,10 +679,11 @@ class CreditoViewModel {
         return selectedDefinicaoDeCredito
     }
 
-    @NotifyChange(["selecedPeriodicidade","selectedDefinicaoDeCredito"])
+    @NotifyChange(["selecedPeriodicidade","selectedDefinicaoDeCredito","variavel"])
     void setSelectedDefinicaoDeCredito(DefinicaoDeCredito selectedDefinicaoDeCredito) {
         this.selectedDefinicaoDeCredito = selectedDefinicaoDeCredito
-
+        this.selecedPeriodicidade = selectedDefinicaoDeCredito?.periodicidade
+        this.variavel = this.selecedPeriodicidade == "variavel"
     }
 
     Double getTotalPrestacoes() {
@@ -749,6 +748,11 @@ class CreditoViewModel {
         sessionStorageService.credito = null
         utilizador = Utilizador.findById(springSecurityService.principal?.id)
         settings = settingsService.getSettings()
+        if(creditoService?.pedidoDeCredito?.definicaoDeCredito){
+            selectedDefinicaoDeCredito = creditoService?.pedidoDeCredito?.definicaoDeCredito
+            selecedPeriodicidade = selectedDefinicaoDeCredito.periodicidade
+            variavel = selecedPeriodicidade == "variavel"
+        }
         creditoService.pagamentos = null
         creditoService.credito = null
         geTContaCapital()

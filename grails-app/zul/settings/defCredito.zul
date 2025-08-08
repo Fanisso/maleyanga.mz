@@ -54,6 +54,9 @@
                                                         <comboitem label="doisdias"/>
                                                         <comboitem label="diario"/>
                                                         <comboitem label="variavel"/>
+                                                        <comboitem label="trimestral"/>
+                                                        <comboitem label="semestral"/>
+                                                        <comboitem label="anual"/>
 
                                                     </combobox>
                                                     <intbox placeholder="Nº de dias" visible="@bind(vm.variavel)"

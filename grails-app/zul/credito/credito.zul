@@ -217,7 +217,7 @@
                                             <label value="Aplicar Taxa"/>
                                             <label value="@bind(vm.taxa)"/>
                                         </row>
-                                        <row visible="@load(not empty vm.selectedDefinicaoDeCredito.periodoVariavel)">
+                                        <row visible="@load(vm.variavel)">
                                             <label value="Periodicidade"/>
                                             <label value="@bind(vm.selectedDefinicaoDeCredito.periodoVariavel)"/>
                                         </row>

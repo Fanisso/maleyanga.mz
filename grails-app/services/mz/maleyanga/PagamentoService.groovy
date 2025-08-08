@@ -43,7 +43,7 @@ class PagamentoService {
 
         def r = creditoInstance.percentualDejuros / 100
         if (creditoInstance.formaDeCalculo == "pmt") {
-            valorDaPrestacao = pmt(r, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0)
+            valorDaPrestacao = pmt(r, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0, creditoInstance.periodicidade)
         } else if (creditoInstance.formaDeCalculo == "taxafixa") {
             valorDaPrestacao = taxafixa(r, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0)
         }
@@ -700,10 +700,44 @@ class PagamentoService {
 
 
 
-    BigDecimal pmt(double r, int nper, BigDecimal pv, BigDecimal fv, int type) {
-        BigDecimal pmt = r / (Math.pow(1 + r, nper) - 1) * -(pv * Math.pow(1 + r, nper) + fv)
+    BigDecimal pmt(double r, int nper, BigDecimal pv, BigDecimal fv, int type, String periodicidade) {
+        // Adjust rate and number of periods based on periodicity
+        double adjustedR = r
+        int adjustedNper = nper
 
-        return pmt
+        switch (periodicidade) {
+            case "mensal":
+                // r is already monthly if the annual rate was divided by 12 before being passed in
+                // nper is already number of months
+                break
+            case "trimestral":
+                adjustedR = r / 3 // Assuming r is monthly rate, convert to quarterly
+                adjustedNper = nper / 3 // Assuming nper is total months, convert to total quarters
+                break
+            case "semestral":
+                adjustedR = r / 6 // Assuming r is monthly rate, convert to semi-annual
+                adjustedNper = nper / 6 // Assuming nper is total months, convert to total semi-annual periods
+                break
+            case "anual":
+                adjustedR = r * 12 // Assuming r is monthly rate, convert to annual
+                adjustedNper = nper / 12 // Assuming nper is total months, convert to total years
+                break
+            default:
+                // No adjustment for other periodicities like quinzenal, semanal, diario, doisdias, variavel
+                break
+        }
+
+        if (adjustedR == 0) {
+            return pv / adjustedNper
+        }
+
+        BigDecimal pmt = (adjustedR * pv) / (1 - Math.pow(1 + adjustedR, -adjustedNper))
+
+        if (type == 1) { // Payment at the beginning of the period
+            pmt = pmt / (1 + adjustedR)
+        }
+
+        return pmt.setScale(2, RoundingMode.HALF_UP)
     }
 
     double taxafixa(double r, int nper, BigDecimal pv, BigDecimal fv, int type) {

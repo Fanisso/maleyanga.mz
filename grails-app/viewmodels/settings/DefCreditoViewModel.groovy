@@ -40,9 +40,9 @@ class DefCreditoViewModel {
     private ListModelList<Taxa> taxas
     private  Taxa taxa
     boolean taxaManual
+
     boolean variavel = false
-    String pdjda
-    String taxaManua
+
     SpringSecurityService springSecurityService
 
     @Command
@@ -112,8 +112,8 @@ class DefCreditoViewModel {
 
     @NotifyChange(["variavel"])
     void setSelecedPeriodicidade(String selecedPeriodicidade) {
-        variavel = selecedPeriodicidade == "variavel"
         this.selecedPeriodicidade = selecedPeriodicidade
+        this.variavel = selecedPeriodicidade == "variavel"
     }
 
     DefinicaoDeCredito getDefinicaoDeCredito() {

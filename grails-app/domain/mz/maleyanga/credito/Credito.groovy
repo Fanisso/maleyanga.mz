@@ -135,7 +135,7 @@ class Credito implements Serializable {
         valorCreditado nullable: false
         percentualDejuros nullable: false, min: 0.0, max: 100.0, scale: 2
         estado nullable: false, inList: ['Aberto', 'Pendente', 'Fechado', 'EmProgresso']
-        periodicidade nullable: false, inList: ['mensal', 'quinzenal', 'semanal', 'diario', 'doisdias', 'variavel']
+        periodicidade nullable: false, inList: ["mensal", "quinzenal", "semanal", "diario", "doisdias", "variavel", "trimestral", "semestral", "anual"]
         formaDeCalculo nullable: false, inList: ['pmt', 'taxafixa']
         cliente nullable: false
         totalPago nullable: true
