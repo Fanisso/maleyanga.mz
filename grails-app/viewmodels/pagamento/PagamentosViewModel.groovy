@@ -381,11 +381,13 @@ class PagamentosViewModel {
         }
 
 
+        /*
         if (entrada.valorPago>selectedPagamento.totalEmDivida*(-1)){
             info.value="O Valor a alocar não deve ser superior ao valor em dívida!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
             return
         }
+        */
         if (entrada.pagamento!=null){
             info.value="Este valor já foi alocado!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
@@ -1206,7 +1208,10 @@ class PagamentosViewModel {
                 return
             }
             List<Pagamento> pagamentoss= new LinkedList<Pagamento>(Pagamento.findAllByCredito(selectedCredito))
-            parcela.setNumeroDoRecibo(contadorService.gerarNumeroDaParcela())
+            // parcela.setNumeroDoRecibo(contadorService.gerarNumeroDaParcela()) // Removed to allow duplicate receipt numbers
+            if (parcela.numeroDoRecibo == null || parcela.numeroDoRecibo.isEmpty()) {
+                parcela.setNumeroDoRecibo(contadorService.gerarNumeroDaParcela())
+            }
             Pagamento pagamento = Pagamento.findById(selectedPagamento.id)
             parcela.pagamento = pagamento
             parcela.diario = diario
@@ -1214,21 +1219,10 @@ class PagamentosViewModel {
             parcela.utilizador = util
             BigDecimal totalEmDivida = parcela.pagamento.totalEmDivida*(-1)
             BigDecimal valorParcial = parcela.valorPago
-            if(parcela.valorPago>totalEmDivida){
-
-                BigDecimal valor = parcela.valorPago - totalEmDivida
+            if(parcela.valorPago > totalEmDivida){
+                BigDecimal valorRemanescente = parcela.valorPago - totalEmDivida
                 parcela.valorParcial = totalEmDivida
-                System.println("valor remanescente"+valor)
-                BigDecimal totalCreditoDivida = 0.0
-                pagamentoss.each {totalCreditoDivida+=it.totalEmDivida}
-                if(valor> totalCreditoDivida*(-1)){
-                    info.value = "O valor remanescente (" +valor+ ")não deve ser maior que o total em dívida ("+ totalCreditoDivida+") das prestações!"
-                    info.style = "color:red;font-weight;font-size:14pt;background:back"
 
-                    return
-                }
-                parcela.descricao+="*"
-                System.println(valor)
                 if(pagamento.parcelas==null){
                     pagamento.parcelas = new LinkedHashSet<Parcela>()
                 }
@@ -1236,63 +1230,51 @@ class PagamentosViewModel {
                 pagamento.parcelas.add(parcela)
                 parcela.save(failOnError: true)
                 pagamento.merge(failOnError: true)
-              //  lancamentos(parcela)
 
-
-               // System.println(pagamentoss)
+                // Distribute the remaining value to subsequent installments
                 for(int x=0;x<pagamentoss.size(); x++){
-                    if(valor>0){
-                        Pagamento pagamento1 = Pagamento.findById(pagamentoss[x].id)
+                    if(valorRemanescente > 0){
+                        Pagamento proximoPagamento = Pagamento.findById(pagamentoss[x].id)
 
-                        if(!pagamento1.getPago()){
-                            if(pagamento1.totalEmDivida*(-1)>=valor){
-                                Parcela parcela1 = new Parcela()
-                                parcela1.diario = diario
-                                parcela1.pagamento = pagamento1
-                                parcela1.valorParcial = valor
-                                parcela1.dataDePagamento = parcela.dataDePagamento
-                                parcela1.formaDePagamento = parcela.formaDePagamento
-                                valor = 0
-                                parcela1.descricao="*Amortização da dívida*"+selectedPagamento.id
-                                parcela1.numeroDoRecibo=parcela.numeroDoRecibo
-                                parcela1.utilizador = util
-                                if(pagamento1.parcelas==null){
-                                    pagamento1.parcelas = new LinkedHashSet<Parcela>()
+                        if(!proximoPagamento.getPago()){
+                            BigDecimal dividaProximoPagamento = proximoPagamento.totalEmDivida*(-1)
+                            if(dividaProximoPagamento >= valorRemanescente){
+                                Parcela novaParcela = new Parcela()
+                                novaParcela.diario = diario
+                                novaParcela.pagamento = proximoPagamento
+                                novaParcela.valorParcial = valorRemanescente
+                                novaParcela.dataDePagamento = parcela.dataDePagamento
+                                novaParcela.formaDePagamento = parcela.formaDePagamento
+                                novaParcela.descricao="*Amortização da dívida*"+selectedPagamento.id
+                                novaParcela.numeroDoRecibo=parcela.numeroDoRecibo
+                                novaParcela.utilizador = util
+                                if(proximoPagamento.parcelas==null){
+                                    proximoPagamento.parcelas = new LinkedHashSet<Parcela>()
                                 }
-
-                                pagamento1.parcelas.add(parcela1)
-                                parcela1.save(failOnError: true)
-                                pagamento1.merge(failOnError: true)
-                               // lancamentos(parcela1)
-
-
+                                proximoPagamento.parcelas.add(novaParcela)
+                                novaParcela.save(failOnError: true)
+                                proximoPagamento.merge(failOnError: true)
+                                valorRemanescente = 0 // All remaining value distributed
                             }else {
-
-                                Parcela parcela2 = new Parcela()
-                                parcela2.diario = diario
-                                parcela2.pagamento = pagamento1
-                                valor-=pagamento1.totalEmDivida*(-1)
-                                parcela2.valorParcial = pagamento1.totalEmDivida*(-1)
-                                parcela2.dataDePagamento = parcela.dataDePagamento
-                                parcela2.formaDePagamento = parcela.formaDePagamento
-                                parcela2.descricao="*Amortização da dívida*"+selectedPagamento.id
-                                parcela2.numeroDoRecibo = parcela.numeroDoRecibo
-                                parcela2.utilizador = util
-                                if(pagamento1.parcelas==null){
-                                    pagamento1.parcelas = new LinkedHashSet<Parcela>()
+                                Parcela novaParcela = new Parcela()
+                                novaParcela.diario = diario
+                                novaParcela.pagamento = proximoPagamento
+                                novaParcela.valorParcial = dividaProximoPagamento
+                                novaParcela.dataDePagamento = parcela.dataDePagamento
+                                novaParcela.formaDePagamento = parcela.formaDePagamento
+                                novaParcela.descricao="*Amortização da dívida*"+selectedPagamento.id
+                                novaParcela.numeroDoRecibo = parcela.numeroDoRecibo
+                                novaParcela.utilizador = util
+                                if(proximoPagamento.parcelas==null){
+                                    proximoPagamento.parcelas = new LinkedHashSet<Parcela>()
                                 }
-
-                                pagamento1.parcelas.add(parcela2)
-                                parcela2.save(failOnError: true)
-                                pagamento1.merge(failOnError: true)
-                               // lancamentos(parcela2)
-
-
-
+                                proximoPagamento.parcelas.add(novaParcela)
+                                novaParcela.save(failOnError: true)
+                                proximoPagamento.merge(failOnError: true)
+                                valorRemanescente -= dividaProximoPagamento // Update remaining value
                             }
                         }
                     }else break
-
                 }
 
 
