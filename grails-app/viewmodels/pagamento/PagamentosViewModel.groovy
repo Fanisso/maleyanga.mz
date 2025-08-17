@@ -348,18 +348,31 @@ class PagamentosViewModel {
     void setEntrada(Parcela entrada) {
         info.value= ""
         this.entrada = entrada
-        sessionStorageService.entrada = entrada
-        if(selectedPagamento!=null&&entrada.pagamento==null){
-            bt_update_entrada.label="Alocar a "+selectedPagamento.descricao+" do(a) "+selectedCredito.cliente.nome
+        if(entrada != null) {
+            sessionStorageService.entrada = entrada
+            if(selectedPagamento!=null&&entrada.pagamento==null){
+                bt_update_entrada.label="Alocar a "+selectedPagamento.descricao+" do(a) "+selectedCredito.cliente.nome
+            }
         }
-
     }
 
     @Command
     @NotifyChange(["selectedPagamento","entrada"])
     def updateEntrada(){
+        if(entrada == null) {
+            info.value="Nenhuma entrada selecionada!"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+            return
+        }
+
         info.value=""
-       entrada = Parcela.findById(entrada.id)
+        entrada = Parcela.findById(entrada.id)
+        if(entrada == null) {
+            info.value="Entrada não encontrada!"
+            info.style = "color:red;font-weight;font-size:16px;background:back"
+            return
+        }
+
         System.println(entrada.id)
         Utilizador user = springSecurityService.currentUser as Utilizador
         if(entrada.utilizador!=user){
@@ -370,7 +383,7 @@ class PagamentosViewModel {
             }
         }
 
-        if(entrada.nomeDoCliente!=selectedCredito.cliente.nome){
+        if(selectedCredito?.cliente?.nome && entrada.nomeDoCliente!=selectedCredito.cliente.nome){
             info.value="O nome do cliente não confere! "
             info.style = "color:red;font-weight;font-size:16px;background:back"
             if (!user.authorities.any { it.authority == "PARCELA_UPDATE" }) {
@@ -380,8 +393,7 @@ class PagamentosViewModel {
             }
         }
 
-
-        if (entrada.valorPago>selectedPagamento.totalEmDivida*(-1)){
+        if (selectedPagamento != null && entrada.valorPago>selectedPagamento.totalEmDivida*(-1)){
             info.value="O Valor a alocar não deve ser superior ao valor em dívida!"
             info.style = "color:red;font-weight;font-size:16px;background:back"
             return
@@ -1456,12 +1468,12 @@ class PagamentosViewModel {
        // def pagamentos = Pagamento.findAllByCredito(selectedCredito)
        // def totalCreditoEmDivida = 0.0
       //  pagamentos.each {totalCreditoEmDivida+=it.totalEmDivida}
-        if(parcela.valorPago>selectedCredito.valorEmDivida*(-1)){
+        /*if(parcela.valorPago>selectedCredito.valorEmDivida*(-1)){
             info.value = "O valor alocado (" +parcela.valorPago +") não deve ser maior que o total em dívida ("+ selectedCredito.valorEmDivida +") das prestações!"
             info.style = "color:red;font-weight;font-size:14pt;background:back"
             parcela.valorPago = selectedCredito.valorEmDivida*(-1)
             return
-        }
+        }*/
         if(selectedPagamento.pago){
             info.value = "Esta Parcela já foi paga na Totalidade!"
             info.style = "color:red;font-weight;font-size:14pt;background:back"

@@ -41,10 +41,33 @@ class PagamentoService {
         def feriados = Feriado.all
 
 
-        def r = creditoInstance.percentualDejuros / 100
         if (creditoInstance.formaDeCalculo == "pmt") {
-            valorDaPrestacao = pmt(r, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0)
+            def annualRate = creditoInstance.percentualDejuros / 100.0
+            def periodicRate = 0.0
+            def divisor = 1.0
+
+            if (creditoInstance.periodicidade == "mensal") {
+                divisor = 12.0
+            } else if (creditoInstance.periodicidade == "quinzenal") {
+                divisor = 24.0
+            } else if (creditoInstance.periodicidade == "semanal") {
+                divisor = 52.0
+            } else if (creditoInstance.periodicidade == "diario") {
+                divisor = 365.0
+            } else if (creditoInstance.periodicidade == "doisdias") {
+                divisor = 365.0 / 2.0
+            } else if (creditoInstance.periodicidade == "variavel") {
+                if (creditoInstance.periodoVariavel > 0) {
+                    divisor = 365.0 / creditoInstance.periodoVariavel
+                }
+            }
+
+            if (divisor > 0) {
+                periodicRate = annualRate / divisor
+            }
+            valorDaPrestacao = pmt(periodicRate, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0)
         } else if (creditoInstance.formaDeCalculo == "taxafixa") {
+            def r = creditoInstance.percentualDejuros / 100
             valorDaPrestacao = taxafixa(r, creditoInstance.numeroDePrestacoes, creditoInstance.valorCreditado, 0, 0)
         }
         c.setTime(creditoInstance.dateConcecao)
@@ -174,9 +197,19 @@ class PagamentoService {
                 pagamentos[x - 1].saldoDevedor = its[x].saldoDevedor.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
                 pagamentos[x - 1].valorDeJuros = its[x].juros.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
                 pagamentos[x - 1].valorDeAmortizacao = its[x].amortizacao.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
-                pagamentos[x - 1].save(failOnError: true, flush: true)
-
             }
+            // Adjust last payment for rounding errors
+            if (pagamentos.size() > 1 && its.size() > 1) {
+                def ultimoPagamento = pagamentos.last()
+                def ultimoItemDoExtrato = its.last()
+
+                if (ultimoItemDoExtrato.saldoDevedor.abs() > 0.00) {
+                    ultimoPagamento.valorDeAmortizacao += ultimoItemDoExtrato.saldoDevedor.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+                    ultimoPagamento.valorDaPrestacao += ultimoItemDoExtrato.saldoDevedor.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+                    ultimoPagamento.saldoDevedor = 0.0
+                }
+            }
+
         } else if (creditoInstance.formaDeCalculo == "taxafixa") {
             BigDecimal amortizacao = creditoInstance.valorCreditado / creditoInstance.numeroDePrestacoes
             BigDecimal valorDeJuros = (creditoInstance.valorCreditado * creditoInstance.percentualDejuros / 100) / creditoInstance.numeroDePrestacoes
@@ -188,14 +221,20 @@ class PagamentoService {
                 pagamento.valorDeAmortizacao = amortizacao
                 pagamento.valorDeJuros = valorDeJuros
                 pagamento.saldoDevedor = base - v_amortizacao
-                pagamento.save(failOnError: true, flush: true)
-
             }
-
+            // Adjust last payment for rounding errors
+            if(!pagamentos.empty()){
+                def ultimoPagamento = pagamentos.last()
+                if(ultimoPagamento.saldoDevedor.abs() > 0.00){
+                    ultimoPagamento.valorDeAmortizacao += ultimoPagamento.saldoDevedor
+                    ultimoPagamento.saldoDevedor = 0.0
+                }
+            }
         }
 
-
-
+        for(Pagamento p : pagamentos){
+            p.save(failOnError: true, flush: true)
+        }
 
 
     }
@@ -700,8 +739,24 @@ class PagamentoService {
 
 
 
-    BigDecimal pmt(double r, int nper, BigDecimal pv, BigDecimal fv, int type) {
-        BigDecimal pmt = r / (Math.pow(1 + r, nper) - 1) * -(pv * Math.pow(1 + r, nper) + fv)
+    BigDecimal pmt(double r_double, int nper, BigDecimal pv, BigDecimal fv, int type) {
+        def i = new BigDecimal(r_double.toString())
+        def one = BigDecimal.ONE
+        def mc = new java.math.MathContext(16, java.math.RoundingMode.HALF_UP)
+
+        if (i.compareTo(BigDecimal.ZERO) == 0) {
+            return nper > 0 ? -(pv + fv) / nper : 0.0
+        }
+
+        def one_plus_i = one + i
+        def one_plus_i_to_n = one_plus_i.pow(nper)
+
+        // Formula: P * i * (1+i)^n / ((1+i)^n - 1)
+        def numerator = pv.multiply(i).multiply(one_plus_i_to_n)
+        def denominator = one_plus_i_to_n - one
+
+        // Return negative value to align with existing logic expecting negative installments
+        def pmt = numerator.divide(denominator, mc).negate()
 
         return pmt
     }

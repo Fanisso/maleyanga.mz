@@ -48,7 +48,7 @@
                     </row>
 
                     <row>
-                        <label value="% De juros"/>
+                        <label value="Taxa Anual (%)"/>
                         <decimalbox constraint="no negative" onChange="@command('showDetails')"
                                     value="@bind(vm.selectedDefinicaoDeCredito.percentualDejuros)"/>
                     </row>
@@ -77,7 +77,7 @@
                 </columns>
                 <rows>
                     <row>
-                        <label value="Juros(%)"/>
+                        <label value="Taxa Anual (Def.)(%)"/>
                         <label value="@bind(vm.juros)"/>
                     </row>
                     <row>
@@ -103,16 +103,16 @@
         <grid model="@bind(vm.prestacoes)">
             <columns>
                 <column width="55px">
-                    <label value="Parcelas"/>
+                    <label value="Parcela"/>
                 </column>
                 <column width="80px">
-                    <label value="DPDP"/>
+                    <label value="Data"/>
                 </column>
                 <column>
                     <label value="Saldo Devedor"/>
                 </column>
                 <column>
-                    <label value="Prestações"/>
+                    <label value="Valor da Prestação"/>
                 </column>
                 <column>
                     <label value="Amortização"/>
@@ -126,8 +126,8 @@
                     <label value="@load(forEachStatus.index+1)"/>
                     <label value="@load(each.dataPrevistoDePagamento) @converter('formatedDate', format='dd/MM/yyyy') "/>
                     <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
-                    <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
-                    <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDaPrestacao * -1) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@bind(each.valorDeAmortizacao * -1) @converter('formatedNumber', format='###,##0.00')"/>
                     <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
 
                 </row>
@@ -136,11 +136,12 @@
             <foot>
                 <footer></footer>
                 <footer>Totais</footer>
+                <footer></footer>
                 <footer>
-                    <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@load(vm.totalPrestacoes * -1)@converter('formatedNumber', format='###,##0.00')"/>
                 </footer>
                 <footer>
-                    <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@load(vm.totalamortizacao * -1)@converter('formatedNumber', format='###,##0.00')"/>
                 </footer>
                 <footer>
                     <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>

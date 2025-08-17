@@ -6,12 +6,8 @@ package mz.maleyanga.simulador
 class Item {
 
     String meses
-    String saldoDevedor
-    String prestacoes
-    String amortizacao
-    String juros
-
-
-
-
+    BigDecimal saldoDevedor
+    BigDecimal prestacoes
+    BigDecimal amortizacao
+    BigDecimal juros
 }

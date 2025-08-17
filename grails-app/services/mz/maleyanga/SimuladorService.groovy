@@ -31,38 +31,61 @@ class SimuladorService {
 
         int nper = creditoInstance.numeroDePrestacoes as int
         BigDecimal pv = creditoInstance.valorCreditado as BigDecimal
-        BigDecimal rateR = creditoInstance.percentualDejuros as BigDecimal
-        def rate = rateR / 100
-        Simulador simulador = new Simulador(nper: nper, pv: pv, rate: rate)
 
-        //def rate = simulador.rate/100
-        // BigDecimal  prestacoes = -pagamentoService.pmt(rate,simulador.nper,simulador.pv,0,0)
-        prestacoes = prestacoes.setScale(2, BigDecimal.ROUND_HALF_EVEN)
+        // --- Start of new logic ---
+        def annualRateDecimal = creditoInstance.percentualDejuros / 100.0
+        def periodicRate = 0.0
+        def divisor = 1.0
+
+        if (creditoInstance.periodicidade == "mensal") {
+            divisor = 12.0
+        } else if (creditoInstance.periodicidade == "quinzenal") {
+            divisor = 24.0
+        } else if (creditoInstance.periodicidade == "semanal") {
+            divisor = 52.0
+        } else if (creditoInstance.periodicidade == "diario") {
+            divisor = 365.0
+        } else if (creditoInstance.periodicidade == "doisdias") {
+            divisor = 365.0 / 2.0
+        } else if (creditoInstance.periodicidade == "variavel") {
+            if (creditoInstance.periodoVariavel > 0) {
+                divisor = 365.0 / creditoInstance.periodoVariavel
+            }
+        }
+
+        if (divisor > 0) {
+            periodicRate = annualRateDecimal / divisor
+        }
+        def rate = new BigDecimal(periodicRate.toString())
+        // --- End of new logic ---
+
+        prestacoes = prestacoes.setScale(2, BigDecimal.ROUND_HALF_UP)
 
         Item itm0 = new Item()
-
-        itm0.saldoDevedor = simulador.pv.setScale(2, BigDecimal.ROUND_HALF_EVEN)
-
+        itm0.saldoDevedor = pv.setScale(2, BigDecimal.ROUND_HALF_UP)
         itm0.meses = "0"
         its.add(itm0)
 
-
-        for (int x = 1; x <= simulador.nper; x++) {
+        for (int x = 1; x <= nper; x++) {
             def saldoDevedorLast = its.last().saldoDevedor as BigDecimal
-            saldoDevedorLast = saldoDevedorLast.setScale(2, BigDecimal.ROUND_HALF_EVEN)
-            System.println("saldoDevedor" + saldoDevedorLast + "*" + rate)
-            BigDecimal juros = saldoDevedorLast * rate
 
-            juros = juros.setScale(2, BigDecimal.ROUND_HALF_EVEN)
-            def amortizacao = -prestacoes - juros
-            System.println("amortizacao alculado(prestacoes-juros)" + amortizacao + "prestacoes" + prestacoes + "-" + juros)
-            def saldoDevedor = saldoDevedorLast - amortizacao
-            System.println("saldo Devedor calculado" + saldoDevedor)
+            BigDecimal juros = (saldoDevedorLast * rate).setScale(2, BigDecimal.ROUND_HALF_UP)
+            BigDecimal amortizacao = -prestacoes - juros
+            BigDecimal saldoDevedor = (saldoDevedorLast - amortizacao).setScale(2, BigDecimal.ROUND_HALF_UP)
 
             def d = new Item(meses: x.toString(), saldoDevedor: saldoDevedor, prestacoes: prestacoes, amortizacao: amortizacao, juros: juros)
             its.add(d)
-
         }
+
+        // Adjust the last payment to ensure zero balance
+        if (its.size() > 1) {
+            def lastItem = its.last()
+            if (lastItem.saldoDevedor != 0.0) {
+                lastItem.amortizacao = lastItem.amortizacao + lastItem.saldoDevedor
+                lastItem.saldoDevedor = 0.0
+            }
+        }
+
         return its
     }
 }

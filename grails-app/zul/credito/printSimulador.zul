@@ -53,15 +53,15 @@
                 </columns>
                 <rows>
                     <row>
-                        <label value="Juros(%)"/>
+                        <label value="Taxa Anual (%)"/>
                         <label value="@bind(vm.juros)"/>
                     </row>
                     <row>
-                        <label value="Juros de Mora(%)"/>
+                        <label value="Juros de Mora (%)"/>
                         <label value="@bind(vm.jurosDeMora)"/>
                     </row>
                     <row>
-                        <label value="Forma de cálculo"/>
+                        <label value="Forma de Cálculo"/>
                         <label value="@bind(vm.taxaFixa)"/>
                     </row>
 
@@ -70,46 +70,53 @@
             </grid>
         </hbox>
 
-        <grid width="684px" model="@bind(vm.prestacoes)">
+        <grid width="684px" model="@bind(vm.prestacoes)" style="overflow:hidden;">
             <columns>
-                <column width="55px">
-                    <label value="Parcelas"/>
+                <column width="40px">
+                    <label value="Nº"/>
                 </column>
-                <column width="150px">
+                <column width="70px">
+                    <label value="Data"/>
+                </column>
+                <column width="120px">
                     <label value="Saldo Devedor"/>
                 </column>
-                <column width="150px">
-                    <label value="Prestações"/>
+                <column width="130px">
+                    <label value="Valor da Prestação"/>
                 </column>
-                <column width="150px">
+                <column width="130px">
                     <label value="Amortização"/>
                 </column>
-                <column width="150px">
+                <column width="94px">
                     <label value="Juros"/>
                 </column>
             </columns>
             <template name="model">
                 <row>
-                    <label value="@load(forEachStatus.index+1)"/>
-                    <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')"/>
-                    <label value="@bind(each.valorDaPrestacao) @converter('formatedNumber', format='###,##0.00')"/>
-                    <label value="@bind(each.valorDeAmortizacao) @converter('formatedNumber', format='###,##0.00')"/>
-                    <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@load(forEachStatus.index+1)" style="font-size:11px"/>
+                    <label value="@load(each.dataPrevistoDePagamento) @converter('formatedDate', format='dd/MM')" style="font-size:11px"/>
+                    <label value="@bind(each.saldoDevedor) @converter('formatedNumber', format='###,##0.00')" style="font-size:11px"/>
+                    <label value="@bind(each.valorDaPrestacao * -1) @converter('formatedNumber', format='###,##0.00')" style="font-size:11px"/>
+                    <label value="@bind(each.valorDeAmortizacao * -1) @converter('formatedNumber', format='###,##0.00')" style="font-size:11px"/>
+                    <label value="@bind(each.valorDeJuros) @converter('formatedNumber', format='###,##0.00')" style="font-size:11px"/>
 
                 </row>
 
             </template>
             <foot>
                 <footer></footer>
-                <footer>Totais</footer>
                 <footer>
-                    <label value="@load(vm.totalPrestacoes)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="TOTAIS" style="font-weight:bold"/>
+                </footer>
+                <footer></footer>
+                <footer>
+                    <label value="@load(vm.totalPrestacoes * -1)@converter('formatedNumber', format='###,##0.00')" style="font-weight:bold"/>
                 </footer>
                 <footer>
-                    <label value="@load(vm.totalamortizacao)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@load(vm.totalamortizacao * -1)@converter('formatedNumber', format='###,##0.00')" style="font-weight:bold"/>
                 </footer>
                 <footer>
-                    <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')"/>
+                    <label value="@load(vm.totaljuros)@converter('formatedNumber', format='###,##0.00')" style="font-weight:bold"/>
                 </footer>
             </foot>
         </grid>
